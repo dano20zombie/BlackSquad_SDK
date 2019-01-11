@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReClass>
+    <!--ReClassEx-->
+    <TypeDef tdHex="char" tdInt64="__int64" tdInt32="__int32" tdInt16="__int16" tdInt8="__int8" tdQWORD="DWORD64" tdDWORD="DWORD" tdWORD="WORD" tdBYTE="unsigned char" tdFloat="float" tdDouble="double" tdVec2="Vector2" tdVec3="Vector3" tdQuat="Vector4" tdMatrix="matrix3x4_t" tdPChar="char*" tdPWChar="wchar_t*"/>
+    <Header Text=""/>
+    <Footer Text=""/>
+    <Notes Text=""/>
+    <Class Name="GObjects" Type="28" Comment="" Offset="1103821648" strOffset="141CAFB50" Code="">
+        <Node Name="Data" Type="8" Size="8" bHidden="false" Comment="" Pointer="Objects"/>
+        <Node Name="Num" Type="10" Size="4" bHidden="false" Comment=""/>
+        <Node Name="Max" Type="10" Size="4" bHidden="false" Comment=""/>
+    </Class>
+    <Class Name="Objects" Type="28" Comment="" Offset="1073741824" strOffset="140000000" Code="">
+        <Node Name="Object #0" Type="8" Size="8" bHidden="false" Comment="" Pointer="UObject"/>
+        <Node Name="Object #1" Type="8" Size="8" bHidden="false" Comment="" Pointer="UObject"/>
+    </Class>
+    <Class Name="UObject" Type="28" Comment="" Offset="1073741824" strOffset="140000000" Code="">
+        <Node Name="VfTableObject" Type="26" Size="8" bHidden="false" Comment="">
+            <Function Name="" Comment="" bHidden="false">
+                <Code Assembly="ERROR: Could not read memory"/>
+            </Function>
+            <Function Name="" Comment="" bHidden="false">
+                <Code Assembly="ERROR: Could not read memory"/>
+            </Function>
+            <Function Name="" Comment="" bHidden="false">
+                <Code Assembly="ERROR: Could not read memory"/>
+            </Function>
+            <Function Name="" Comment="" bHidden="false">
+                <Code Assembly="ERROR: Could not read memory"/>
+            </Function>
+            <Function Name="" Comment="" bHidden="false">
+                <Code Assembly="ERROR: Could not read memory"/>
+            </Function>
+            <Function Name="" Comment="" bHidden="false">
+                <Code Assembly="ERROR: Could not read memory"/>
+            </Function>
+            <Function Name="" Comment="" bHidden="false">
+                <Code Assembly="ERROR: Could not read memory"/>
+            </Function>
+            <Function Name="" Comment="" bHidden="false">
+                <Code Assembly="ERROR: Could not read memory"/>
+            </Function>
+            <Function Name="" Comment="" bHidden="false">
+                <Code Assembly="ERROR: Could not read memory"/>
+            </Function>
+            <Function Name="" Comment="" bHidden="false">
+                <Code Assembly="ERROR: Could not read memory"/>
+            </Function>
+        </Node>
+        <Node Name="HashNext" Type="8" Size="8" bHidden="false" Comment="" Pointer="FPointer"/>
+        <Node Name="ObjectFlags_A" Type="10" Size="4" bHidden="false" Comment=""/>
+        <Node Name="ObjectFlags_B" Type="10" Size="4" bHidden="false" Comment=""/>
+        <Node Name="HashOuterNext" Type="8" Size="8" bHidden="false" Comment="" Pointer="FPointer"/>
+        <Node Name="StateFrame" Type="8" Size="8" bHidden="false" Comment="" Pointer="FPointer"/>
+        <Node Name="Linker" Type="8" Size="8" bHidden="false" Comment="" Pointer="UObject"/>
+        <Node Name="LinkerIndex" Type="8" Size="8" bHidden="false" Comment="" Pointer="FPointer"/>
+        <Node Name="ObjectInternalInteger" Type="10" Size="4" bHidden="false" Comment=""/>
+        <Node Name="NetIndex" Type="10" Size="4" bHidden="false" Comment=""/>
+        <Node Name="Outer" Type="8" Size="8" bHidden="false" Comment="" Pointer="UObject"/>
+        <Node Name="FName_Index" Type="10" Size="4" bHidden="false" Comment=""/>
+        <Node Name="FName_unknown" Type="21" Size="4" bHidden="false" Comment=""/>
+        <Node Name="Class" Type="8" Size="8" bHidden="false" Comment="" Pointer="UObject"/>
+        <Node Name="ObjectArchetype" Type="8" Size="8" bHidden="false" Comment="" Pointer="UObject"/>
+    </Class>
+    <Class Name="FPointer" Type="28" Comment="" Offset="1073741824" strOffset="140000000" Code="">
+        <Node Name="N00000059" Type="5" Size="8" bHidden="false" Comment=""/>
+    </Class>
+    <Class Name="GNames" Type="28" Comment="" Offset="1103819224" strOffset="141CAF1D8" Code="">
+        <Node Name="Data" Type="8" Size="8" bHidden="false" Comment="" Pointer="Names"/>
+        <Node Name="Num" Type="10" Size="4" bHidden="false" Comment=""/>
+        <Node Name="Max" Type="10" Size="4" bHidden="false" Comment=""/>
+    </Class>
+    <Class Name="Names" Type="28" Comment="" Offset="1073741824" strOffset="140000000" Code="">
+        <Node Name="Core" Type="8" Size="8" bHidden="false" Comment="" Pointer="FNameEntry"/>
+    </Class>
+    <Class Name="FNameEntry" Type="28" Comment="" Offset="1073741824" strOffset="140000000" Code="">
+        <Node Name="UnknownData00" Type="21" Size="20" bHidden="false" Comment=""/>
+        <Node Name="Name" Type="19" Size="8" bHidden="false" Comment=""/>
+    </Class>
+    <Class Name="UField" Type="28" Comment="" Offset="-35182208" strOffset="0x7FF4FDE72980" Code="">
+        <Node Name="N00000089" Type="1" Size="96" bHidden="false" Comment="" Instance="UObject"/>
+        <Node Name="Next" Type="8" Size="8" bHidden="false" Comment="" Pointer="UField"/>
+    </Class>
+    <Class Name="UStruct" Type="28" Comment="" Offset="-35182848" strOffset="0x7FF4FDE72700" Code="">
+        <Node Name="N00000098" Type="1" Size="104" bHidden="false" Comment="" Instance="UField"/>
+        <Node Name="unknowndata_00" Type="21" Size="16" bHidden="false" Comment=""/>
+        <Node Name="SuperField" Type="8" Size="8" bHidden="false" Comment="" Pointer="UField"/>
+        <Node Name="Children" Type="8" Size="8" bHidden="false" Comment="" Pointer="UField"/>
+        <Node Name="PropertySize" Type="10" Size="4" bHidden="false" Comment=""/>
+        <Node Name="unknowndata_01" Type="21" Size="68" bHidden="false" Comment=""/>
+    </Class>
+    <Class Name="UScriptStruct" Type="28" Comment="" Offset="-44163840" strOffset="0x7FF4FD5E1D00" Code="">
+        <Node Name="N000000C5" Type="1" Size="208" bHidden="false" Comment="" Instance="UStruct"/>
+        <Node Name="unknowndata" Type="21" Size="36" bHidden="false" Comment=""/>
+    </Class>
+    <Class Name="UFunction" Type="28" Comment="" Offset="-51420928" strOffset="0x7FF4FCEF6100" Code="">
+        <Node Name="N000000D8" Type="1" Size="208" bHidden="false" Comment="" Instance="UStruct"/>
+        <Node Name="FunctionFlag" Type="10" Size="4" bHidden="false" Comment=""/>
+        <Node Name="iNative" Type="11" Size="2" bHidden="false" Comment=""/>
+        <Node Name="RepOffset" Type="11" Size="2" bHidden="false" Comment=""/>
+        <Node Name="FriendlyName_Index" Type="10" Size="4" bHidden="false" Comment=""/>
+        <Node Name="FriendlyName_unknown" Type="21" Size="4" bHidden="false" Comment=""/>
+        <Node Name="NumParms" Type="11" Size="2" bHidden="false" Comment=""/>
+        <Node Name="ParmsSize" Type="11" Size="2" bHidden="false" Comment=""/>
+        <Node Name="ReturnValueOffset" Type="10" Size="4" bHidden="false" Comment=""/>
+        <Node Name="unknowndata_00" Type="21" Size="8" bHidden="false" Comment=""/>
+        <Node Name="Func" Type="8" Size="8" bHidden="false" Comment="" Pointer="N000000E7"/>
+    </Class>
+    <Class Name="N000000E7" Type="28" Comment="" Offset="1073741824" strOffset="140000000" Code="">
+        <Node Name="N000000E8" Type="5" Size="8" bHidden="false" Comment=""/>
+    </Class>
+    <Class Name="UState" Type="28" Comment="" Offset="-35183488" strOffset="0x7FF4FDE72480" Code="">
+        <Node Name="N00000100" Type="1" Size="208" bHidden="false" Comment="" Instance="UStruct"/>
+        <Node Name="unknowndata" Type="21" Size="84" bHidden="false" Comment=""/>
+    </Class>
+    <Class Name="UClass" Type="28" Comment="" Offset="-35180288" strOffset="0x7FF4FDE73100" Code="">
+        <Node Name="N0000011D" Type="1" Size="292" bHidden="false" Comment="" Instance="UState"/>
+        <Node Name="N0000011E" Type="21" Size="332" bHidden="false" Comment=""/>
+    </Class>
+    <Class Name="UProperty" Type="28" Comment="" Offset="-35189888" strOffset="0x7FF4FDE70B80" Code="">
+        <Node Name="N000001D4" Type="1" Size="104" bHidden="false" Comment="" Instance="UField"/>
+        <Node Name="ArrayDim" Type="10" Size="4" bHidden="false" Comment=""/>
+        <Node Name="ElementSize" Type="10" Size="4" bHidden="false" Comment=""/>
+        <Node Name="unknowndata_00" Type="21" Size="8" bHidden="false" Comment=""/>
+        <Node Name="PropertyFlags_A" Type="10" Size="4" bHidden="false" Comment=""/>
+        <Node Name="PropertyFlags_B" Type="10" Size="4" bHidden="false" Comment=""/>
+        <Node Name="unknowndata_01" Type="21" Size="8" bHidden="false" Comment=""/>
+        <Node Name="PropertySize" Type="10" Size="4" bHidden="false" Comment=""/>
+        <Node Name="Offset" Type="10" Size="4" bHidden="false" Comment=""/>
+        <Node Name="unknowndata_02" Type="21" Size="24" bHidden="false" Comment=""/>
+    </Class>
+</ReClass>
