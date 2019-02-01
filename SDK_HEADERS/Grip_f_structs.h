@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Black Squad (11.01.2019) SDK
+# Black Squad (01.02.2019) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: Grip_f_structs.h
@@ -25,16 +25,16 @@
 // [0x00020400] ( FUNC_Native )
 struct UGripActionFramework_execGetStatus_Parms
 {
-	// class UGripAFActionHandle*                      Handle;                                           		// 0x0000 (0x0008) [0x0000000000000000]              
-	// unsigned char                                   ReturnValue;                                      		// 0x0008 (0x0001) [0x0000000000000000]              
+	class UGripAFActionHandle*                         Handle;                                           		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
+	unsigned char                                      ReturnValue;                                      		// 0x0008 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripActionFramework.Execute
 // [0x00020400] ( FUNC_Native )
 struct UGripActionFramework_execExecute_Parms
 {
-	// class UGripAFActionHandle*                      Action;                                           		// 0x0000 (0x0008) [0x0000000000000000]              
-	// unsigned long                                   ReturnValue : 1;                                  		// 0x0008 (0x0004) [0x0000000000000000] [0x00000001] 
+	class UGripAFActionHandle*                         Action;                                           		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0008 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBlackboard.FlagStatesAsUsed
@@ -47,166 +47,166 @@ struct UGripBlackboard_execFlagStatesAsUsed_Parms
 // [0x00020400] ( FUNC_Native )
 struct UGripBlackboard_execContainState_Parms
 {
-	// struct FString                                  StateName;                                        		// 0x0000 (0x0010) [0x0000000000000000]              
-	// unsigned long                                   ReturnValue : 1;                                  		// 0x0010 (0x0004) [0x0000000000000000] [0x00000001] 
+	struct FString                                     StateName;                                        		// 0x0000 (0x0010) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0010 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTNode.GetFamily
 // [0x00020002] 
 struct UGripBTNode_execGetFamily_Parms
 {
-	// unsigned char                                   ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTAnd.GetFamily
 // [0x00020002] 
 struct UGripBTAnd_execGetFamily_Parms
 {
-	// unsigned char                                   ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTBooleanCondition.GetFamily
 // [0x00020002] 
 struct UGripBTBooleanCondition_execGetFamily_Parms
 {
-	// unsigned char                                   ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTComment.GetFamily
 // [0x00020002] 
 struct UGripBTComment_execGetFamily_Parms
 {
-	// unsigned char                                   ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTCooldown.GetFamily
 // [0x00020002] 
 struct UGripBTCooldown_execGetFamily_Parms
 {
-	// unsigned char                                   ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTDynamicPriority.GetFamily
 // [0x00020002] 
 struct UGripBTDynamicPriority_execGetFamily_Parms
 {
-	// unsigned char                                   ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTFloatCondition.GetFamily
 // [0x00020002] 
 struct UGripBTFloatCondition_execGetFamily_Parms
 {
-	// unsigned char                                   ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTLoop.GetFamily
 // [0x00020002] 
 struct UGripBTLoop_execGetFamily_Parms
 {
-	// unsigned char                                   ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTLoop.SetIteration
 // [0x00020002] 
 struct UGripBTLoop_execSetIteration_Parms
 {
-	// int                                             iter;                                             		// 0x0000 (0x0004) [0x0000000000000000]              
+	int                                                iter;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 };
 
 // Function Grip.GripBTNonInterruptibleSequence.GetFamily
 // [0x00020002] 
 struct UGripBTNonInterruptibleSequence_execGetFamily_Parms
 {
-	// unsigned char                                   ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTNumericCondition.GetFamily
 // [0x00020002] 
 struct UGripBTNumericCondition_execGetFamily_Parms
 {
-	// unsigned char                                   ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTCutoff.GetFamily
 // [0x00020002] 
 struct UGripBTCutoff_execGetFamily_Parms
 {
-	// unsigned char                                   ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTCutoff.SetCutoff
 // [0x00020002] 
 struct UGripBTCutoff_execSetCutoff_Parms
 {
-	// int                                             newCutoff;                                        		// 0x0000 (0x0004) [0x0000000000000000]              
+	int                                                newCutoff;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 };
 
 // Function Grip.GripBTOr.GetFamily
 // [0x00020002] 
 struct UGripBTOr_execGetFamily_Parms
 {
-	// unsigned char                                   ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTParallel.GetFamily
 // [0x00020002] 
 struct UGripBTParallel_execGetFamily_Parms
 {
-	// unsigned char                                   ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTPriority.GetFamily
 // [0x00020002] 
 struct UGripBTPriority_execGetFamily_Parms
 {
-	// unsigned char                                   ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTPushForFinishOverride.GetFamily
 // [0x00020002] 
 struct UGripBTPushForFinishOverride_execGetFamily_Parms
 {
-	// unsigned char                                   ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTRandom.GetFamily
 // [0x00020002] 
 struct UGripBTRandom_execGetFamily_Parms
 {
-	// unsigned char                                   ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTScriptNode.ExecutePass
 // [0x00020800] ( FUNC_Event )
 struct UGripBTScriptNode_eventExecutePass_Parms
 {
-	// class UGripBTInterface*                         BTInterface;                                      		// 0x0000 (0x0008) [0x0000000000000000]              
-	// unsigned long                                   FirstExecution : 1;                               		// 0x0008 (0x0004) [0x0000000000000000] [0x00000001] 
-	// unsigned long                                   PushToFinish : 1;                                 		// 0x000C (0x0004) [0x0000000000000000] [0x00000001] 
-	// unsigned char                                   ReturnValue;                                      		// 0x0010 (0x0001) [0x0000000000000000]              
+	class UGripBTInterface*                            BTInterface;                                      		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      FirstExecution : 1;                               		// 0x0008 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	unsigned long                                      PushToFinish : 1;                                 		// 0x000C (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	unsigned char                                      ReturnValue;                                      		// 0x0010 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTScriptNode.GetNodeTitle
 // [0x00020800] ( FUNC_Event )
 struct UGripBTScriptNode_eventGetNodeTitle_Parms
 {
-	// struct FString                                  ReturnValue;                                      		// 0x0000 (0x0010) [0x0000000000000000]              
+	struct FString                                     ReturnValue;                                      		// 0x0000 (0x0010) [0x0000000000400580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
 };
 
 // Function Grip.GripBTScriptNode.ComputeCondition
 // [0x00020002] 
 struct UGripBTScriptNode_execComputeCondition_Parms
 {
-	// class UGripBTInterface*                         BTInterface;                                      		// 0x0000 (0x0008) [0x0000000000000000]              
-	// unsigned long                                   ReturnValue : 1;                                  		// 0x0008 (0x0004) [0x0000000000000000] [0x00000001] 
+	class UGripBTInterface*                            BTInterface;                                      		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0008 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTScriptNode.FlagUsedBBMembers
 // [0x00020000] 
 struct UGripBTScriptNode_execFlagUsedBBMembers_Parms
 {
-	// class UGripBlackboard*                          Blackboard;                                       		// 0x0000 (0x0008) [0x0000000000000000]              
+	class UGripBlackboard*                             Blackboard;                                       		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
 };
 
 // Function Grip.GripBTScriptNode.Initialize
@@ -219,10 +219,10 @@ struct UGripBTScriptNode_execInitialize_Parms
 // [0x00020802] ( FUNC_Event )
 struct UGripBTScriptBehavior_eventExecutePass_Parms
 {
-	// class UGripBTInterface*                         BTInterface;                                      		// 0x0000 (0x0008) [0x0000000000000000]              
-	// unsigned long                                   FirstExecution : 1;                               		// 0x0008 (0x0004) [0x0000000000000000] [0x00000001] 
-	// unsigned long                                   PushToFinish : 1;                                 		// 0x000C (0x0004) [0x0000000000000000] [0x00000001] 
-	// unsigned char                                   ReturnValue;                                      		// 0x0010 (0x0001) [0x0000000000000000]              
+	class UGripBTInterface*                            BTInterface;                                      		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      FirstExecution : 1;                               		// 0x0008 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	unsigned long                                      PushToFinish : 1;                                 		// 0x000C (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	unsigned char                                      ReturnValue;                                      		// 0x0010 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 	// unsigned char                                   ExecRes;                                          		// 0x0011 (0x0001) [0x0000000000000000]              
 	// unsigned long                                   PreSuccess : 1;                                   		// 0x0014 (0x0004) [0x0000000000000000] [0x00000001] 
 };
@@ -231,75 +231,75 @@ struct UGripBTScriptBehavior_eventExecutePass_Parms
 // [0x00020000] 
 struct UGripBTScriptBehavior_execExecutePost_Parms
 {
-	// class UGripBTInterface*                         BTInterface;                                      		// 0x0000 (0x0008) [0x0000000000000000]              
+	class UGripBTInterface*                            BTInterface;                                      		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
 };
 
 // Function Grip.GripBTScriptBehavior.Execute
 // [0x00020000] 
 struct UGripBTScriptBehavior_execExecute_Parms
 {
-	// class UGripBTInterface*                         BTInterface;                                      		// 0x0000 (0x0008) [0x0000000000000000]              
-	// unsigned long                                   PushToFinish : 1;                                 		// 0x0008 (0x0004) [0x0000000000000000] [0x00000001] 
-	// unsigned char                                   ReturnValue;                                      		// 0x000C (0x0001) [0x0000000000000000]              
+	class UGripBTInterface*                            BTInterface;                                      		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      PushToFinish : 1;                                 		// 0x0008 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	unsigned char                                      ReturnValue;                                      		// 0x000C (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTScriptBehavior.ExecutePre
 // [0x00020002] 
 struct UGripBTScriptBehavior_execExecutePre_Parms
 {
-	// class UGripBTInterface*                         BTInterface;                                      		// 0x0000 (0x0008) [0x0000000000000000]              
-	// unsigned long                                   ReturnValue : 1;                                  		// 0x0008 (0x0004) [0x0000000000000000] [0x00000001] 
+	class UGripBTInterface*                            BTInterface;                                      		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0008 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTScriptBehavior.ComputeCondition
 // [0x00020002] 
 struct UGripBTScriptBehavior_execComputeCondition_Parms
 {
-	// class UGripBTInterface*                         BTInterface;                                      		// 0x0000 (0x0008) [0x0000000000000000]              
-	// unsigned long                                   ReturnValue : 1;                                  		// 0x0008 (0x0004) [0x0000000000000000] [0x00000001] 
+	class UGripBTInterface*                            BTInterface;                                      		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0008 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTScriptCondition.GetFamily
 // [0x00020002] 
 struct UGripBTScriptCondition_execGetFamily_Parms
 {
-	// unsigned char                                   ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTScriptCondition.ComputeCondition
 // [0x00020002] 
 struct UGripBTScriptCondition_execComputeCondition_Parms
 {
-	// class UGripBTInterface*                         BTInterface;                                      		// 0x0000 (0x0008) [0x0000000000000000]              
-	// unsigned long                                   ReturnValue : 1;                                  		// 0x0008 (0x0004) [0x0000000000000000] [0x00000001] 
+	class UGripBTInterface*                            BTInterface;                                      		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0008 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTSequence.GetFamily
 // [0x00020002] 
 struct UGripBTSequence_execGetFamily_Parms
 {
-	// unsigned char                                   ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTSequenceOr.GetFamily
 // [0x00020002] 
 struct UGripBTSequenceOr_execGetFamily_Parms
 {
-	// unsigned char                                   ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTTimer.GetFamily
 // [0x00020002] 
 struct UGripBTTimer_execGetFamily_Parms
 {
-	// unsigned char                                   ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripBTScriptNodeCache.CacheAllConditions
 // [0x00020802] ( FUNC_Event )
 struct UGripBTScriptNodeCache_eventCacheAllConditions_Parms
 {
-	// class UGripBTInterface*                         BTInterface;                                      		// 0x0000 (0x0008) [0x0000000000000000]              
+	class UGripBTInterface*                            BTInterface;                                      		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
 	// class UGripBTScriptNode*                        Node;                                             		// 0x0008 (0x0008) [0x0000000000000000]              
 };
 
@@ -307,7 +307,7 @@ struct UGripBTScriptNodeCache_eventCacheAllConditions_Parms
 // [0x00020802] ( FUNC_Event )
 struct UGripBTScriptNodeCache_eventSurveyUsedBBMembers_Parms
 {
-	// class UGripBlackboard*                          Blackboard;                                       		// 0x0000 (0x0008) [0x0000000000000000]              
+	class UGripBlackboard*                             Blackboard;                                       		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
 	// class UGripBTScriptNode*                        Node;                                             		// 0x0008 (0x0008) [0x0000000000000000]              
 };
 
@@ -322,7 +322,7 @@ struct UGripBTScriptNodeCache_eventInitializeAllNodes_Parms
 // [0x00020202] ( FUNC_Exec )
 struct AGripCheatManager_execGripDebugViewNPCFromBrainID_Parms
 {
-	// int                                             BrainID;                                          		// 0x0000 (0x0004) [0x0000000000000000]              
+	int                                                BrainID;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 };
 
 // Function Grip.GripCheatManager.StopGripLogging
@@ -353,28 +353,28 @@ struct AGripCheatManager_execStartGripDebug_Parms
 // [0x00024202] ( FUNC_Exec )
 struct AGripCheatManager_execCCSDebugOptions_Parms
 {
-	// struct FString                                  infoType;                                         		// 0x0000 (0x0010) [0x0000000000000000]              
+	struct FString                                     infoType;                                         		// 0x0000 (0x0010) [0x0000000000400090]              ( CPF_OptionalParm | CPF_Parm | CPF_NeedCtorLink )
 };
 
 // Function Grip.GripCheatManager.DESDebugOptions
 // [0x00024202] ( FUNC_Exec )
 struct AGripCheatManager_execDESDebugOptions_Parms
 {
-	// struct FString                                  infoType;                                         		// 0x0000 (0x0010) [0x0000000000000000]              
+	struct FString                                     infoType;                                         		// 0x0000 (0x0010) [0x0000000000400090]              ( CPF_OptionalParm | CPF_Parm | CPF_NeedCtorLink )
 };
 
 // Function Grip.GripCheatManager.ShowDESInfo
 // [0x00024202] ( FUNC_Exec )
 struct AGripCheatManager_execShowDESInfo_Parms
 {
-	// struct FString                                  infoType;                                         		// 0x0000 (0x0010) [0x0000000000000000]              
+	struct FString                                     infoType;                                         		// 0x0000 (0x0010) [0x0000000000400090]              ( CPF_OptionalParm | CPF_Parm | CPF_NeedCtorLink )
 };
 
 // Function Grip.GripDebug.GripDebugViewNPCFromBrainID
 // [0x00822002] 
 struct UGripDebug_execGripDebugViewNPCFromBrainID_Parms
 {
-	// int                                             BrainID;                                          		// 0x0000 (0x0004) [0x0000000000000000]              
+	int                                                BrainID;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	// class AWorldInfo*                               WI;                                               		// 0x0004 (0x0008) [0x0000000000000000]              
 	// class APlayerController*                        PC;                                               		// 0x000C (0x0008) [0x0000000000000000]              
 	// class ADebugCameraController*                   DCC;                                              		// 0x0014 (0x0008) [0x0000000000000000]              
@@ -391,10 +391,10 @@ struct UGripDebug_execGripDebugViewNPCFromBrainID_Parms
 // [0x00422400] ( FUNC_Native )
 struct UGripDebug_execGetLocationAndRotationFromBrainID_Parms
 {
-	// int                                             BrainID;                                          		// 0x0000 (0x0004) [0x0000000000000000]              
-	// struct FVector                                  ActorLocation;                                    		// 0x0004 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  ActorRotation;                                    		// 0x0010 (0x000C) [0x0000000000000000]              
-	// unsigned long                                   ReturnValue : 1;                                  		// 0x001C (0x0004) [0x0000000000000000] [0x00000001] 
+	int                                                BrainID;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector                                     ActorLocation;                                    		// 0x0004 (0x000C) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
+	struct FVector                                     ActorRotation;                                    		// 0x0010 (0x000C) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x001C (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripDebug.NextBrainDebugRenderType
@@ -455,42 +455,42 @@ struct UGripDebug_execStartGripDebug_Parms
 // [0x00022400] ( FUNC_Native )
 struct UGripDebug_execIsDebugEnabled_Parms
 {
-	// unsigned long                                   ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000000] [0x00000001] 
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripDebug.CCSDebugOptions
 // [0x00026400] ( FUNC_Native )
 struct UGripDebug_execCCSDebugOptions_Parms
 {
-	// struct FString                                  Options;                                          		// 0x0000 (0x0010) [0x0000000000000000]              
+	struct FString                                     Options;                                          		// 0x0000 (0x0010) [0x0000000000400090]              ( CPF_OptionalParm | CPF_Parm | CPF_NeedCtorLink )
 };
 
 // Function Grip.GripDebug.DESDebugOptions
 // [0x00026400] ( FUNC_Native )
 struct UGripDebug_execDESDebugOptions_Parms
 {
-	// struct FString                                  Options;                                          		// 0x0000 (0x0010) [0x0000000000000000]              
+	struct FString                                     Options;                                          		// 0x0000 (0x0010) [0x0000000000400090]              ( CPF_OptionalParm | CPF_Parm | CPF_NeedCtorLink )
 };
 
 // Function Grip.GripDebug.ShowDESInfo
 // [0x00026400] ( FUNC_Native )
 struct UGripDebug_execShowDESInfo_Parms
 {
-	// struct FString                                  infoType;                                         		// 0x0000 (0x0010) [0x0000000000000000]              
+	struct FString                                     infoType;                                         		// 0x0000 (0x0010) [0x0000000000400090]              ( CPF_OptionalParm | CPF_Parm | CPF_NeedCtorLink )
 };
 
 // Function Grip.GripDrawHUD.DrawHUD
 // [0x00022400] ( FUNC_Native )
 struct UGripDrawHUD_execDrawHUD_Parms
 {
-	// class UCanvas*                                  CanvasObject;                                     		// 0x0000 (0x0008) [0x0000000000000000]              
+	class UCanvas*                                     CanvasObject;                                     		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
 };
 
 // Function Grip.GripDebugCameraController.GripDebugViewNPCFromBrainID
 // [0x00020202] ( FUNC_Exec )
 struct AGripDebugCameraController_execGripDebugViewNPCFromBrainID_Parms
 {
-	// int                                             BrainID;                                          		// 0x0000 (0x0004) [0x0000000000000000]              
+	int                                                BrainID;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 };
 
 // Function Grip.GripDebugCameraController.PostBeginPlay
@@ -510,34 +510,34 @@ struct AGripDebugCameraHUD_eventPostRender_Parms
 // [0x00024002] 
 struct UGripDebugCameraInput_execInputKey_Parms
 {
-	// int                                             ControllerId;                                     		// 0x0000 (0x0004) [0x0000000000000000]              
-	// struct FName                                    Key;                                              		// 0x0004 (0x0008) [0x0000000000000000]              
-	// unsigned char                                   Event;                                            		// 0x000C (0x0001) [0x0000000000000000]              
-	// float                                           AmountDepressed;                                  		// 0x0010 (0x0004) [0x0000000000000000]              
-	// unsigned long                                   bGamepad : 1;                                     		// 0x0014 (0x0004) [0x0000000000000000] [0x00000001] 
-	// unsigned long                                   ReturnValue : 1;                                  		// 0x0018 (0x0004) [0x0000000000000000] [0x00000001] 
+	int                                                ControllerId;                                     		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FName                                       Key;                                              		// 0x0004 (0x0008) [0x0000000000000080]              ( CPF_Parm )
+	unsigned char                                      Event;                                            		// 0x000C (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	float                                              AmountDepressed;                                  		// 0x0010 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	unsigned long                                      bGamepad : 1;                                     		// 0x0014 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0018 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripPlayerInput.ProcessKey
 // [0x00022002] 
 struct UGripPlayerInput_execProcessKey_Parms
 {
-	// class APlayerController*                        OwnerCtrl;                                        		// 0x0000 (0x0008) [0x0000000000000000]              
-	// struct FName                                    Key;                                              		// 0x0008 (0x0008) [0x0000000000000000]              
-	// unsigned char                                   Event;                                            		// 0x0010 (0x0001) [0x0000000000000000]              
-	// unsigned long                                   ReturnValue : 1;                                  		// 0x0014 (0x0004) [0x0000000000000000] [0x00000001] 
+	class APlayerController*                           OwnerCtrl;                                        		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
+	struct FName                                       Key;                                              		// 0x0008 (0x0008) [0x0000000000000080]              ( CPF_Parm )
+	unsigned char                                      Event;                                            		// 0x0010 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0014 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function Grip.GripPlayerInput.InputKey
 // [0x00024002] 
 struct UGripPlayerInput_execInputKey_Parms
 {
-	// int                                             ControllerId;                                     		// 0x0000 (0x0004) [0x0000000000000000]              
-	// struct FName                                    Key;                                              		// 0x0004 (0x0008) [0x0000000000000000]              
-	// unsigned char                                   Event;                                            		// 0x000C (0x0001) [0x0000000000000000]              
-	// float                                           AmountDepressed;                                  		// 0x0010 (0x0004) [0x0000000000000000]              
-	// unsigned long                                   bGamepad : 1;                                     		// 0x0014 (0x0004) [0x0000000000000000] [0x00000001] 
-	// unsigned long                                   ReturnValue : 1;                                  		// 0x0018 (0x0004) [0x0000000000000000] [0x00000001] 
+	int                                                ControllerId;                                     		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FName                                       Key;                                              		// 0x0004 (0x0008) [0x0000000000000080]              ( CPF_Parm )
+	unsigned char                                      Event;                                            		// 0x000C (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	float                                              AmountDepressed;                                  		// 0x0010 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	unsigned long                                      bGamepad : 1;                                     		// 0x0014 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0018 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 

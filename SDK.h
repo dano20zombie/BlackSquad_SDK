@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Black Squad (11.01.2019) SDK
+# Black Squad (01.02.2019) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: SDK.h
@@ -25,10 +25,12 @@
 # ========================================================================================= #
 */
 
-#define GObjects			0x141CAFB50
-#define GNames				0x141CAF1D8
+#define GObjects			0x141CB4DF0
+#define GNames				0x141CB4478
 
-#define ProcessEvent_Index	68
+DWORD64 g_dwProcessEvent = 0x14012B530;
+typedef void(__fastcall *tProcessEvent)(class UObject *, class UFunction *, void *, void *);
+tProcessEvent ProcessEvent = (tProcessEvent)g_dwProcessEvent;
 
 /*
 # ========================================================================================= #
@@ -80,11 +82,11 @@ public:
 	}; 
 }; 
 
-struct FNameEntry
-{
-	unsigned char	UnknownData00[0x14];
-	wchar_t			Name[ 0x1 ];
-};
+struct FNameEntry 
+{ 
+	unsigned char	UnknownData00[ 0x14 ]; 
+	wchar_t			Name[ 1 ]; 
+}; 
 
 struct FName 
 { 
@@ -97,46 +99,46 @@ struct FName
 
 	~FName() {}; 
 
-	FName(wchar_t* FindName)
-	{
-		static TArray< int > NameCache;
+	FName ( wchar_t* FindName ) 
+	{ 
+		static TArray< int > NameCache; 
 
-		for (int i = 0; i < NameCache.Count; ++i)
-		{
-			if (!wcscmp(this->Names()->Data[NameCache(i)]->Name, FindName))
-			{
-				Index = NameCache(i);
-				return;
-			}
-		}
+		for ( int i = 0; i < NameCache.Count; ++i ) 
+		{ 
+		if ( ! wcscmp(this->Names()->Data[NameCache(i)]->Name, FindName ) ) 
+			{ 
+				Index = NameCache ( i ); 
+				return; 
+			} 
+		} 
 
-		for (int i = 0; i < this->Names()->Count; ++i)
-		{
-			if (this->Names()->Data[i])
-			{
-				if (!wcscmp(this->Names()->Data[i]->Name, FindName))
-				{
-					NameCache.Add(i);
-					Index = i;
-				}
-			}
-		}
-	};
+		for ( int i = 0; i < this->Names()->Count; ++i ) 
+		{ 
+			if ( this->Names()->Data[ i ] ) 
+			{ 
+				if ( ! wcscmp(this->Names()->Data[i]->Name, FindName ) ) 
+				{ 
+					NameCache.Add ( i ); 
+					Index = i; 
+				} 
+			} 
+		} 
+	}; 
 
-	static TArray< FNameEntry* >* Names()
-	{
-		return (TArray< FNameEntry* >*) GNames;
-	};
+	static TArray< FNameEntry* >* Names() 
+	{ 
+		return (TArray< FNameEntry* >*) GNames; 
+	}; 
 
-	wchar_t* GetName()
-	{
-		return this->Names()->Data[Index]->Name;
-	};
+	wchar_t* GetName() 
+	{ 
+		return this->Names()->Data[ Index ]->Name; 
+	}; 
 
-	bool operator == (const FName& A) const
-	{
-		return (Index == A.Index);
-	};
+	bool operator == ( const FName& A ) const 
+	{ 
+		return ( Index == A.Index ); 
+	}; 
 }; 
 
 struct FString : public TArray< wchar_t > 

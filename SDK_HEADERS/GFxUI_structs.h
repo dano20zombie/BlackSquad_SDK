@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Black Squad (11.01.2019) SDK
+# Black Squad (01.02.2019) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: GFxUI_structs.h
@@ -25,72 +25,72 @@
 // 0x0020
 struct FSoundThemeBinding
 {
-	struct FName                                       ThemeName;                                        		// 0x0000 (0x0008) [0x0000000000000000]              
-	class UUISoundTheme*                               Theme;                                            		// 0x0008 (0x0008) [0x0000000000000000]              
-	struct FString                                     ThemeClassName;                                   		// 0x0010 (0x0010) [0x0000000000000000]              
+	struct FName                                       ThemeName;                                        		// 0x0000 (0x0008) [0x0000000000000001]              ( CPF_Edit )
+	class UUISoundTheme*                               Theme;                                            		// 0x0008 (0x0008) [0x0000000000000001]              ( CPF_Edit )
+	struct FString                                     ThemeClassName;                                   		// 0x0010 (0x0010) [0x0000000000400001]              ( CPF_Edit | CPF_NeedCtorLink )
 };
 
 // ScriptStruct GFxUI.GFxMoviePlayer.ASValue
 // 0x0020
 struct FASValue
 {
-	unsigned char                                      Type;                                             		// 0x0000 (0x0001) [0x0000000000000000]              
-	unsigned long                                      B : 1;                                            		// 0x0004 (0x0004) [0x0000000000000000] [0x00000001] 
-	float                                              N;                                                		// 0x0008 (0x0004) [0x0000000000000000]              
-	int                                                I;                                                		// 0x000C (0x0004) [0x0000000000000000]              
-	struct FString                                     S;                                                		// 0x0010 (0x0010) [0x0000000000000000]              
+	unsigned char                                      Type;                                             		// 0x0000 (0x0001) [0x0000000000000001]              ( CPF_Edit )
+	unsigned long                                      B : 1;                                            		// 0x0004 (0x0004) [0x0000000000000001] [0x00000001] ( CPF_Edit )
+	float                                              N;                                                		// 0x0008 (0x0004) [0x0000000000000001]              ( CPF_Edit )
+	int                                                I;                                                		// 0x000C (0x0004) [0x0000000000000001]              ( CPF_Edit )
+	struct FString                                     S;                                                		// 0x0010 (0x0010) [0x0000000000500001]              ( CPF_Edit | CPF_NeedCtorLink )
 };
 
 // ScriptStruct GFxUI.GFxMoviePlayer.GFxWidgetBinding
 // 0x0010
 struct FGFxWidgetBinding
 {
-	struct FName                                       WidgetName;                                       		// 0x0000 (0x0008) [0x0000000000000000]              
-	class UClass*                                      WidgetClass;                                      		// 0x0008 (0x0008) [0x0000000000000000]              
+	struct FName                                       WidgetName;                                       		// 0x0000 (0x0008) [0x0000000000000001]              ( CPF_Edit )
+	class UClass*                                      WidgetClass;                                      		// 0x0008 (0x0008) [0x0000000000000001]              ( CPF_Edit )
 };
 
 // ScriptStruct GFxUI.GFxMoviePlayer.ExternalTexture
 // 0x0018
 struct FExternalTexture
 {
-	struct FString                                     Resource;                                         		// 0x0000 (0x0010) [0x0000000000000000]              
-	class UTexture*                                    Texture;                                          		// 0x0010 (0x0008) [0x0000000000000000]              
+	struct FString                                     Resource;                                         		// 0x0000 (0x0010) [0x0000000000400001]              ( CPF_Edit | CPF_NeedCtorLink )
+	class UTexture*                                    Texture;                                          		// 0x0010 (0x0008) [0x0000000000000001]              ( CPF_Edit )
 };
 
 // ScriptStruct GFxUI.GFxObject.ASDisplayInfo
 // 0x002C
 struct FASDisplayInfo
 {
-	float                                              X;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
-	float                                              Y;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
-	float                                              Z;                                                		// 0x0008 (0x0004) [0x0000000000000000]              
-	float                                              Rotation;                                         		// 0x000C (0x0004) [0x0000000000000000]              
-	float                                              XRotation;                                        		// 0x0010 (0x0004) [0x0000000000000000]              
-	float                                              YRotation;                                        		// 0x0014 (0x0004) [0x0000000000000000]              
-	float                                              XScale;                                           		// 0x0018 (0x0004) [0x0000000000000000]              
-	float                                              YScale;                                           		// 0x001C (0x0004) [0x0000000000000000]              
-	float                                              ZScale;                                           		// 0x0020 (0x0004) [0x0000000000000000]              
-	float                                              Alpha;                                            		// 0x0024 (0x0004) [0x0000000000000000]              
-	unsigned long                                      Visible : 1;                                      		// 0x0028 (0x0004) [0x0000000000000000] [0x00000001] 
-	unsigned long                                      hasX : 1;                                         		// 0x0028 (0x0004) [0x0000000000000000] [0x00000002] 
-	unsigned long                                      hasY : 1;                                         		// 0x0028 (0x0004) [0x0000000000000000] [0x00000004] 
-	unsigned long                                      hasZ : 1;                                         		// 0x0028 (0x0004) [0x0000000000000000] [0x00000008] 
-	unsigned long                                      hasRotation : 1;                                  		// 0x0028 (0x0004) [0x0000000000000000] [0x00000010] 
-	unsigned long                                      hasXRotation : 1;                                 		// 0x0028 (0x0004) [0x0000000000000000] [0x00000020] 
-	unsigned long                                      hasYRotation : 1;                                 		// 0x0028 (0x0004) [0x0000000000000000] [0x00000040] 
-	unsigned long                                      hasXScale : 1;                                    		// 0x0028 (0x0004) [0x0000000000000000] [0x00000080] 
-	unsigned long                                      hasYScale : 1;                                    		// 0x0028 (0x0004) [0x0000000000000000] [0x00000100] 
-	unsigned long                                      hasZScale : 1;                                    		// 0x0028 (0x0004) [0x0000000000000000] [0x00000200] 
-	unsigned long                                      hasAlpha : 1;                                     		// 0x0028 (0x0004) [0x0000000000000000] [0x00000400] 
-	unsigned long                                      hasVisible : 1;                                   		// 0x0028 (0x0004) [0x0000000000000000] [0x00000800] 
+	float                                              X;                                                		// 0x0000 (0x0004) [0x0000000000000001]              ( CPF_Edit )
+	float                                              Y;                                                		// 0x0004 (0x0004) [0x0000000000000001]              ( CPF_Edit )
+	float                                              Z;                                                		// 0x0008 (0x0004) [0x0000000000000001]              ( CPF_Edit )
+	float                                              Rotation;                                         		// 0x000C (0x0004) [0x0000000000000001]              ( CPF_Edit )
+	float                                              XRotation;                                        		// 0x0010 (0x0004) [0x0000000000000001]              ( CPF_Edit )
+	float                                              YRotation;                                        		// 0x0014 (0x0004) [0x0000000000000001]              ( CPF_Edit )
+	float                                              XScale;                                           		// 0x0018 (0x0004) [0x0000000000000001]              ( CPF_Edit )
+	float                                              YScale;                                           		// 0x001C (0x0004) [0x0000000000000001]              ( CPF_Edit )
+	float                                              ZScale;                                           		// 0x0020 (0x0004) [0x0000000000000001]              ( CPF_Edit )
+	float                                              Alpha;                                            		// 0x0024 (0x0004) [0x0000000000000001]              ( CPF_Edit )
+	unsigned long                                      Visible : 1;                                      		// 0x0028 (0x0004) [0x0000000000000001] [0x00000001] ( CPF_Edit )
+	unsigned long                                      hasX : 1;                                         		// 0x0028 (0x0004) [0x0000000000000001] [0x00000002] ( CPF_Edit )
+	unsigned long                                      hasY : 1;                                         		// 0x0028 (0x0004) [0x0000000000000001] [0x00000004] ( CPF_Edit )
+	unsigned long                                      hasZ : 1;                                         		// 0x0028 (0x0004) [0x0000000000000001] [0x00000008] ( CPF_Edit )
+	unsigned long                                      hasRotation : 1;                                  		// 0x0028 (0x0004) [0x0000000000000001] [0x00000010] ( CPF_Edit )
+	unsigned long                                      hasXRotation : 1;                                 		// 0x0028 (0x0004) [0x0000000000000001] [0x00000020] ( CPF_Edit )
+	unsigned long                                      hasYRotation : 1;                                 		// 0x0028 (0x0004) [0x0000000000000001] [0x00000040] ( CPF_Edit )
+	unsigned long                                      hasXScale : 1;                                    		// 0x0028 (0x0004) [0x0000000000000001] [0x00000080] ( CPF_Edit )
+	unsigned long                                      hasYScale : 1;                                    		// 0x0028 (0x0004) [0x0000000000000001] [0x00000100] ( CPF_Edit )
+	unsigned long                                      hasZScale : 1;                                    		// 0x0028 (0x0004) [0x0000000000000001] [0x00000200] ( CPF_Edit )
+	unsigned long                                      hasAlpha : 1;                                     		// 0x0028 (0x0004) [0x0000000000000001] [0x00000400] ( CPF_Edit )
+	unsigned long                                      hasVisible : 1;                                   		// 0x0028 (0x0004) [0x0000000000000001] [0x00000800] ( CPF_Edit )
 };
 
 // ScriptStruct GFxUI.GFxObject.ASColorTransform
 // 0x0020
 struct FASColorTransform
 {
-	struct FLinearColor                                Multiply;                                         		// 0x0000 (0x0010) [0x0000000000000000]              
-	struct FLinearColor                                Add;                                              		// 0x0010 (0x0010) [0x0000000000000000]              
+	struct FLinearColor                                Multiply;                                         		// 0x0000 (0x0010) [0x0000000000000001]              ( CPF_Edit )
+	struct FLinearColor                                Add;                                              		// 0x0010 (0x0010) [0x0000000000000001]              ( CPF_Edit )
 };
 
 // ScriptStruct GFxUI.GFxClikWidget.EventData
@@ -99,7 +99,7 @@ struct FEventData
 {
 	class UGFxObject*                                  _this;                                            		// 0x0000 (0x0008) [0x0000000000000000]              
 	class UGFxObject*                                  Target;                                           		// 0x0008 (0x0008) [0x0000000000000000]              
-	struct FString                                     Type;                                             		// 0x0010 (0x0010) [0x0000000000000000]              
+	struct FString                                     Type;                                             		// 0x0010 (0x0010) [0x0000000000400000]              ( CPF_NeedCtorLink )
 	int                                                Data;                                             		// 0x0020 (0x0004) [0x0000000000000000]              
 	int                                                mouseIndex;                                       		// 0x0024 (0x0004) [0x0000000000000000]              
 	int                                                Button;                                           		// 0x0028 (0x0004) [0x0000000000000000]              
@@ -112,7 +112,7 @@ struct FEventData
 // 0x0010
 struct FGCReference
 {
-	class UObject*                                     m_object;                                         		// 0x0000 (0x0008) [0x0000000000000000]              
+	class UObject*                                     m_object;                                         		// 0x0000 (0x0008) [0x0000000000000002]              ( CPF_Const )
 	int                                                m_count;                                          		// 0x0008 (0x0004) [0x0000000000000000]              
 	int                                                m_statid;                                         		// 0x000C (0x0004) [0x0000000000000000]              
 };

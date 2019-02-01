@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Black Squad (11.01.2019) SDK
+# Black Squad (01.02.2019) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: GameFramework_functions.h
@@ -30,27 +30,40 @@ void ADebugCameraHUD::eventPostRender ( )
 	static UFunction* pFnPostRender = NULL;
 
 	if ( ! pFnPostRender )
-		pFnPostRender = (UFunction*) UObject::GObjObjects()->Data[ 36838 ];
+		pFnPostRender = (UFunction*) UObject::GObjObjects()->Data[ 36845 ];
 
 	ADebugCameraHUD_eventPostRender_Parms PostRender_Parms;
 
-	this->ProcessEvent ( pFnPostRender, &PostRender_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostRender, &PostRender_Parms, NULL );
 };
 
 // Function GameFramework.DebugCameraHUD.DisplayMaterials
 // [0x00420002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// float                          X                              ( CPF_Parm )
+// float                          DY                             ( CPF_Parm )
+// class UMeshComponent*          MeshComp                       ( CPF_Parm | CPF_EditInline )
+// float                          Y                              ( CPF_Parm | CPF_OutParm )
 
-void ADebugCameraHUD::DisplayMaterials ( )
+bool ADebugCameraHUD::DisplayMaterials ( float X, float DY, class UMeshComponent* MeshComp, float* Y )
 {
 	static UFunction* pFnDisplayMaterials = NULL;
 
 	if ( ! pFnDisplayMaterials )
-		pFnDisplayMaterials = (UFunction*) UObject::GObjObjects()->Data[ 36829 ];
+		pFnDisplayMaterials = (UFunction*) UObject::GObjObjects()->Data[ 36836 ];
 
 	ADebugCameraHUD_execDisplayMaterials_Parms DisplayMaterials_Parms;
+	DisplayMaterials_Parms.X = X;
+	DisplayMaterials_Parms.DY = DY;
+	DisplayMaterials_Parms.MeshComp = MeshComp;
 
-	this->ProcessEvent ( pFnDisplayMaterials, &DisplayMaterials_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDisplayMaterials, &DisplayMaterials_Parms, NULL );
+
+	if ( Y )
+		*Y = DisplayMaterials_Parms.Y;
+
+	return DisplayMaterials_Parms.ReturnValue;
 };
 
 // Function GameFramework.DebugCameraHUD.PostBeginPlay
@@ -62,75 +75,94 @@ void ADebugCameraHUD::eventPostBeginPlay ( )
 	static UFunction* pFnPostBeginPlay = NULL;
 
 	if ( ! pFnPostBeginPlay )
-		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 36828 ];
+		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 36835 ];
 
 	ADebugCameraHUD_eventPostBeginPlay_Parms PostBeginPlay_Parms;
 
-	this->ProcessEvent ( pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
 };
 
 // Function GameFramework.GameAIController.GetActionString
 // [0x00020903] ( FUNC_Final | FUNC_Event )
 // Parameters infos:
+// struct FString                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
 
-void AGameAIController::eventGetActionString ( )
+struct FString AGameAIController::eventGetActionString ( )
 {
 	static UFunction* pFnGetActionString = NULL;
 
 	if ( ! pFnGetActionString )
-		pFnGetActionString = (UFunction*) UObject::GObjObjects()->Data[ 37526 ];
+		pFnGetActionString = (UFunction*) UObject::GObjObjects()->Data[ 37533 ];
 
 	AGameAIController_eventGetActionString_Parms GetActionString_Parms;
 
-	this->ProcessEvent ( pFnGetActionString, &GetActionString_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetActionString, &GetActionString_Parms, NULL );
+
+	return GetActionString_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAIController.SetDesiredRotation
 // [0x00024002] 
 // Parameters infos:
+// struct FRotator                TargetDesiredRotation          ( CPF_Parm )
+// unsigned long                  InLockDesiredRotation          ( CPF_OptionalParm | CPF_Parm )
+// unsigned long                  InUnlockWhenReached            ( CPF_OptionalParm | CPF_Parm )
+// float                          InterpolationTime              ( CPF_OptionalParm | CPF_Parm )
 
-void AGameAIController::SetDesiredRotation ( )
+void AGameAIController::SetDesiredRotation ( struct FRotator TargetDesiredRotation, unsigned long InLockDesiredRotation, unsigned long InUnlockWhenReached, float InterpolationTime )
 {
 	static UFunction* pFnSetDesiredRotation = NULL;
 
 	if ( ! pFnSetDesiredRotation )
-		pFnSetDesiredRotation = (UFunction*) UObject::GObjObjects()->Data[ 37512 ];
+		pFnSetDesiredRotation = (UFunction*) UObject::GObjObjects()->Data[ 37519 ];
 
 	AGameAIController_execSetDesiredRotation_Parms SetDesiredRotation_Parms;
+	memcpy ( &SetDesiredRotation_Parms.TargetDesiredRotation, &TargetDesiredRotation, 0xC );
+	SetDesiredRotation_Parms.InLockDesiredRotation = InLockDesiredRotation;
+	SetDesiredRotation_Parms.InUnlockWhenReached = InUnlockWhenReached;
+	SetDesiredRotation_Parms.InterpolationTime = InterpolationTime;
 
-	this->ProcessEvent ( pFnSetDesiredRotation, &SetDesiredRotation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetDesiredRotation, &SetDesiredRotation_Parms, NULL );
 };
 
 // Function GameFramework.GameAIController.AILog_Internal
 // [0x00024800] ( FUNC_Event )
 // Parameters infos:
+// struct FString                 LogText                        ( CPF_Parm | CPF_CoerceParm | CPF_NeedCtorLink )
+// struct FName                   LogCategory                    ( CPF_OptionalParm | CPF_Parm )
+// unsigned long                  bForce                         ( CPF_OptionalParm | CPF_Parm )
 
-void AGameAIController::eventAILog_Internal ( )
+void AGameAIController::eventAILog_Internal ( struct FString LogText, struct FName LogCategory, unsigned long bForce )
 {
 	static UFunction* pFnAILog_Internal = NULL;
 
 	if ( ! pFnAILog_Internal )
-		pFnAILog_Internal = (UFunction*) UObject::GObjObjects()->Data[ 37508 ];
+		pFnAILog_Internal = (UFunction*) UObject::GObjObjects()->Data[ 37515 ];
 
 	AGameAIController_eventAILog_Internal_Parms AILog_Internal_Parms;
+	memcpy ( &AILog_Internal_Parms.LogText, &LogText, 0x10 );
+	memcpy ( &AILog_Internal_Parms.LogCategory, &LogCategory, 0x8 );
+	AILog_Internal_Parms.bForce = bForce;
 
-	this->ProcessEvent ( pFnAILog_Internal, &AILog_Internal_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAILog_Internal, &AILog_Internal_Parms, NULL );
 };
 
 // Function GameFramework.GameAIController.RecordDemoAILog
 // [0x00080000] 
 // Parameters infos:
+// struct FString                 LogText                        ( CPF_Parm | CPF_CoerceParm | CPF_NeedCtorLink )
 
-void AGameAIController::RecordDemoAILog ( )
+void AGameAIController::RecordDemoAILog ( struct FString LogText )
 {
 	static UFunction* pFnRecordDemoAILog = NULL;
 
 	if ( ! pFnRecordDemoAILog )
-		pFnRecordDemoAILog = (UFunction*) UObject::GObjObjects()->Data[ 37506 ];
+		pFnRecordDemoAILog = (UFunction*) UObject::GObjObjects()->Data[ 37513 ];
 
 	AGameAIController_execRecordDemoAILog_Parms RecordDemoAILog_Parms;
+	memcpy ( &RecordDemoAILog_Parms.LogText, &LogText, 0x10 );
 
-	this->ProcessEvent ( pFnRecordDemoAILog, &RecordDemoAILog_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRecordDemoAILog, &RecordDemoAILog_Parms, NULL );
 };
 
 // Function GameFramework.GameAIController.Destroyed
@@ -142,11 +174,11 @@ void AGameAIController::eventDestroyed ( )
 	static UFunction* pFnDestroyed = NULL;
 
 	if ( ! pFnDestroyed )
-		pFnDestroyed = (UFunction*) UObject::GObjObjects()->Data[ 37505 ];
+		pFnDestroyed = (UFunction*) UObject::GObjObjects()->Data[ 37512 ];
 
 	AGameAIController_eventDestroyed_Parms Destroyed_Parms;
 
-	this->ProcessEvent ( pFnDestroyed, &Destroyed_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDestroyed, &Destroyed_Parms, NULL );
 };
 
 // Function GameFramework.GameAIController.ReachedIntermediateMoveGoal
@@ -158,11 +190,11 @@ void AGameAIController::ReachedIntermediateMoveGoal ( )
 	static UFunction* pFnReachedIntermediateMoveGoal = NULL;
 
 	if ( ! pFnReachedIntermediateMoveGoal )
-		pFnReachedIntermediateMoveGoal = (UFunction*) UObject::GObjObjects()->Data[ 37504 ];
+		pFnReachedIntermediateMoveGoal = (UFunction*) UObject::GObjObjects()->Data[ 37511 ];
 
 	AGameAIController_execReachedIntermediateMoveGoal_Parms ReachedIntermediateMoveGoal_Parms;
 
-	this->ProcessEvent ( pFnReachedIntermediateMoveGoal, &ReachedIntermediateMoveGoal_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnReachedIntermediateMoveGoal, &ReachedIntermediateMoveGoal_Parms, NULL );
 };
 
 // Function GameFramework.GameAIController.ReachedMoveGoal
@@ -174,67 +206,80 @@ void AGameAIController::ReachedMoveGoal ( )
 	static UFunction* pFnReachedMoveGoal = NULL;
 
 	if ( ! pFnReachedMoveGoal )
-		pFnReachedMoveGoal = (UFunction*) UObject::GObjObjects()->Data[ 37503 ];
+		pFnReachedMoveGoal = (UFunction*) UObject::GObjObjects()->Data[ 37510 ];
 
 	AGameAIController_execReachedMoveGoal_Parms ReachedMoveGoal_Parms;
 
-	this->ProcessEvent ( pFnReachedMoveGoal, &ReachedMoveGoal_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnReachedMoveGoal, &ReachedMoveGoal_Parms, NULL );
 };
 
 // Function GameFramework.GameAIController.GetDestinationOffset
 // [0x00020000] 
 // Parameters infos:
+// float                          ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void AGameAIController::GetDestinationOffset ( )
+float AGameAIController::GetDestinationOffset ( )
 {
 	static UFunction* pFnGetDestinationOffset = NULL;
 
 	if ( ! pFnGetDestinationOffset )
-		pFnGetDestinationOffset = (UFunction*) UObject::GObjObjects()->Data[ 37501 ];
+		pFnGetDestinationOffset = (UFunction*) UObject::GObjObjects()->Data[ 37508 ];
 
 	AGameAIController_execGetDestinationOffset_Parms GetDestinationOffset_Parms;
 
-	this->ProcessEvent ( pFnGetDestinationOffset, &GetDestinationOffset_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetDestinationOffset, &GetDestinationOffset_Parms, NULL );
+
+	return GetDestinationOffset_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAIController.GetAICommandInStack
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// class UGameAICommand*          ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UClass*                  InClass                        ( CPF_Const | CPF_Parm )
 
-void AGameAIController::GetAICommandInStack ( )
+class UGameAICommand* AGameAIController::GetAICommandInStack ( class UClass* InClass )
 {
 	static UFunction* pFnGetAICommandInStack = NULL;
 
 	if ( ! pFnGetAICommandInStack )
-		pFnGetAICommandInStack = (UFunction*) UObject::GObjObjects()->Data[ 37498 ];
+		pFnGetAICommandInStack = (UFunction*) UObject::GObjObjects()->Data[ 37505 ];
 
 	AGameAIController_execGetAICommandInStack_Parms GetAICommandInStack_Parms;
+	GetAICommandInStack_Parms.InClass = InClass;
 
 	pFnGetAICommandInStack->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnGetAICommandInStack, &GetAICommandInStack_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetAICommandInStack, &GetAICommandInStack_Parms, NULL );
 
 	pFnGetAICommandInStack->FunctionFlags |= 0x400;
+
+	return GetAICommandInStack_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAIController.FindCommandOfClass
 // [0x00020401] ( FUNC_Final | FUNC_Native )
 // Parameters infos:
+// class UGameAICommand*          ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_CoerceParm )
+// class UClass*                  SearchClass                    ( CPF_Parm )
 
-void AGameAIController::FindCommandOfClass ( )
+class UGameAICommand* AGameAIController::FindCommandOfClass ( class UClass* SearchClass )
 {
 	static UFunction* pFnFindCommandOfClass = NULL;
 
 	if ( ! pFnFindCommandOfClass )
-		pFnFindCommandOfClass = (UFunction*) UObject::GObjObjects()->Data[ 37495 ];
+		pFnFindCommandOfClass = (UFunction*) UObject::GObjObjects()->Data[ 37502 ];
 
 	AGameAIController_execFindCommandOfClass_Parms FindCommandOfClass_Parms;
+	FindCommandOfClass_Parms.SearchClass = SearchClass;
 
 	pFnFindCommandOfClass->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnFindCommandOfClass, &FindCommandOfClass_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnFindCommandOfClass, &FindCommandOfClass_Parms, NULL );
 
 	pFnFindCommandOfClass->FunctionFlags |= 0x400;
+
+	return FindCommandOfClass_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAIController.DumpCommandStack
@@ -246,13 +291,13 @@ void AGameAIController::DumpCommandStack ( )
 	static UFunction* pFnDumpCommandStack = NULL;
 
 	if ( ! pFnDumpCommandStack )
-		pFnDumpCommandStack = (UFunction*) UObject::GObjObjects()->Data[ 37494 ];
+		pFnDumpCommandStack = (UFunction*) UObject::GObjObjects()->Data[ 37501 ];
 
 	AGameAIController_execDumpCommandStack_Parms DumpCommandStack_Parms;
 
 	pFnDumpCommandStack->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnDumpCommandStack, &DumpCommandStack_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDumpCommandStack, &DumpCommandStack_Parms, NULL );
 
 	pFnDumpCommandStack->FunctionFlags |= 0x400;
 };
@@ -266,13 +311,13 @@ void AGameAIController::CheckCommandCount ( )
 	static UFunction* pFnCheckCommandCount = NULL;
 
 	if ( ! pFnCheckCommandCount )
-		pFnCheckCommandCount = (UFunction*) UObject::GObjObjects()->Data[ 37493 ];
+		pFnCheckCommandCount = (UFunction*) UObject::GObjObjects()->Data[ 37500 ];
 
 	AGameAIController_execCheckCommandCount_Parms CheckCommandCount_Parms;
 
 	pFnCheckCommandCount->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnCheckCommandCount, &CheckCommandCount_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCheckCommandCount, &CheckCommandCount_Parms, NULL );
 
 	pFnCheckCommandCount->FunctionFlags |= 0x400;
 };
@@ -280,59 +325,71 @@ void AGameAIController::CheckCommandCount ( )
 // Function GameFramework.GameAIController.GetActiveCommand
 // [0x00020401] ( FUNC_Final | FUNC_Native )
 // Parameters infos:
+// class UGameAICommand*          ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void AGameAIController::GetActiveCommand ( )
+class UGameAICommand* AGameAIController::GetActiveCommand ( )
 {
 	static UFunction* pFnGetActiveCommand = NULL;
 
 	if ( ! pFnGetActiveCommand )
-		pFnGetActiveCommand = (UFunction*) UObject::GObjObjects()->Data[ 37491 ];
+		pFnGetActiveCommand = (UFunction*) UObject::GObjObjects()->Data[ 37498 ];
 
 	AGameAIController_execGetActiveCommand_Parms GetActiveCommand_Parms;
 
 	pFnGetActiveCommand->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnGetActiveCommand, &GetActiveCommand_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetActiveCommand, &GetActiveCommand_Parms, NULL );
 
 	pFnGetActiveCommand->FunctionFlags |= 0x400;
+
+	return GetActiveCommand_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAIController.AbortCommand
 // [0x00024400] ( FUNC_Native )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UGameAICommand*          AbortCmd                       ( CPF_Parm )
+// class UClass*                  AbortClass                     ( CPF_OptionalParm | CPF_Parm )
 
-void AGameAIController::AbortCommand ( )
+bool AGameAIController::AbortCommand ( class UGameAICommand* AbortCmd, class UClass* AbortClass )
 {
 	static UFunction* pFnAbortCommand = NULL;
 
 	if ( ! pFnAbortCommand )
-		pFnAbortCommand = (UFunction*) UObject::GObjObjects()->Data[ 37487 ];
+		pFnAbortCommand = (UFunction*) UObject::GObjObjects()->Data[ 37494 ];
 
 	AGameAIController_execAbortCommand_Parms AbortCommand_Parms;
+	AbortCommand_Parms.AbortCmd = AbortCmd;
+	AbortCommand_Parms.AbortClass = AbortClass;
 
 	pFnAbortCommand->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnAbortCommand, &AbortCommand_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAbortCommand, &AbortCommand_Parms, NULL );
 
 	pFnAbortCommand->FunctionFlags |= 0x400;
+
+	return AbortCommand_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAIController.PopCommand
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// class UGameAICommand*          ToBePoppedCommand              ( CPF_Parm )
 
-void AGameAIController::PopCommand ( )
+void AGameAIController::PopCommand ( class UGameAICommand* ToBePoppedCommand )
 {
 	static UFunction* pFnPopCommand = NULL;
 
 	if ( ! pFnPopCommand )
-		pFnPopCommand = (UFunction*) UObject::GObjObjects()->Data[ 37485 ];
+		pFnPopCommand = (UFunction*) UObject::GObjObjects()->Data[ 37492 ];
 
 	AGameAIController_execPopCommand_Parms PopCommand_Parms;
+	PopCommand_Parms.ToBePoppedCommand = ToBePoppedCommand;
 
 	pFnPopCommand->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnPopCommand, &PopCommand_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPopCommand, &PopCommand_Parms, NULL );
 
 	pFnPopCommand->FunctionFlags |= 0x400;
 };
@@ -340,19 +397,21 @@ void AGameAIController::PopCommand ( )
 // Function GameFramework.GameAIController.PushCommand
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// class UGameAICommand*          NewCommand                     ( CPF_Parm )
 
-void AGameAIController::PushCommand ( )
+void AGameAIController::PushCommand ( class UGameAICommand* NewCommand )
 {
 	static UFunction* pFnPushCommand = NULL;
 
 	if ( ! pFnPushCommand )
-		pFnPushCommand = (UFunction*) UObject::GObjObjects()->Data[ 37483 ];
+		pFnPushCommand = (UFunction*) UObject::GObjObjects()->Data[ 37490 ];
 
 	AGameAIController_execPushCommand_Parms PushCommand_Parms;
+	PushCommand_Parms.NewCommand = NewCommand;
 
 	pFnPushCommand->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnPushCommand, &PushCommand_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPushCommand, &PushCommand_Parms, NULL );
 
 	pFnPushCommand->FunctionFlags |= 0x400;
 };
@@ -360,53 +419,71 @@ void AGameAIController::PushCommand ( )
 // Function GameFramework.GameAIController.AllCommands
 // [0x00420405] ( FUNC_Final | FUNC_Native )
 // Parameters infos:
+// class UClass*                  BaseClass                      ( CPF_Parm )
+// class UGameAICommand*          Cmd                            ( CPF_Parm | CPF_OutParm )
 
-void AGameAIController::AllCommands ( )
+void AGameAIController::AllCommands ( class UClass* BaseClass, class UGameAICommand** Cmd )
 {
 	static UFunction* pFnAllCommands = NULL;
 
 	if ( ! pFnAllCommands )
-		pFnAllCommands = (UFunction*) UObject::GObjObjects()->Data[ 37480 ];
+		pFnAllCommands = (UFunction*) UObject::GObjObjects()->Data[ 37487 ];
 
 	AGameAIController_execAllCommands_Parms AllCommands_Parms;
+	AllCommands_Parms.BaseClass = BaseClass;
 
 	pFnAllCommands->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnAllCommands, &AllCommands_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAllCommands, &AllCommands_Parms, NULL );
 
 	pFnAllCommands->FunctionFlags |= 0x400;
+
+	if ( Cmd )
+		*Cmd = AllCommands_Parms.Cmd;
 };
 
 // Function GameFramework.GameAICommand.HandlePathObstruction
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AActor*                  BlockedBy                      ( CPF_Parm )
 
-void UGameAICommand::HandlePathObstruction ( )
+bool UGameAICommand::HandlePathObstruction ( class AActor* BlockedBy )
 {
 	static UFunction* pFnHandlePathObstruction = NULL;
 
 	if ( ! pFnHandlePathObstruction )
-		pFnHandlePathObstruction = (UFunction*) UObject::GObjObjects()->Data[ 37323 ];
+		pFnHandlePathObstruction = (UFunction*) UObject::GObjObjects()->Data[ 37330 ];
 
 	UGameAICommand_execHandlePathObstruction_Parms HandlePathObstruction_Parms;
+	HandlePathObstruction_Parms.BlockedBy = BlockedBy;
 
-	this->ProcessEvent ( pFnHandlePathObstruction, &HandlePathObstruction_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnHandlePathObstruction, &HandlePathObstruction_Parms, NULL );
+
+	return HandlePathObstruction_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAICommand.MoveUnreachable
 // [0x00020000] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// struct FVector                 AttemptedDest                  ( CPF_Parm )
+// class AActor*                  AttemptedTarget                ( CPF_Parm )
 
-void UGameAICommand::MoveUnreachable ( )
+bool UGameAICommand::MoveUnreachable ( struct FVector AttemptedDest, class AActor* AttemptedTarget )
 {
 	static UFunction* pFnMoveUnreachable = NULL;
 
 	if ( ! pFnMoveUnreachable )
-		pFnMoveUnreachable = (UFunction*) UObject::GObjObjects()->Data[ 37319 ];
+		pFnMoveUnreachable = (UFunction*) UObject::GObjObjects()->Data[ 37326 ];
 
 	UGameAICommand_execMoveUnreachable_Parms MoveUnreachable_Parms;
+	memcpy ( &MoveUnreachable_Parms.AttemptedDest, &AttemptedDest, 0xC );
+	MoveUnreachable_Parms.AttemptedTarget = AttemptedTarget;
 
-	this->ProcessEvent ( pFnMoveUnreachable, &MoveUnreachable_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnMoveUnreachable, &MoveUnreachable_Parms, NULL );
+
+	return MoveUnreachable_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAICommand.NotifyNeedRepath
@@ -418,107 +495,127 @@ void UGameAICommand::NotifyNeedRepath ( )
 	static UFunction* pFnNotifyNeedRepath = NULL;
 
 	if ( ! pFnNotifyNeedRepath )
-		pFnNotifyNeedRepath = (UFunction*) UObject::GObjObjects()->Data[ 37318 ];
+		pFnNotifyNeedRepath = (UFunction*) UObject::GObjObjects()->Data[ 37325 ];
 
 	UGameAICommand_execNotifyNeedRepath_Parms NotifyNeedRepath_Parms;
 
-	this->ProcessEvent ( pFnNotifyNeedRepath, &NotifyNeedRepath_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnNotifyNeedRepath, &NotifyNeedRepath_Parms, NULL );
 };
 
 // Function GameFramework.GameAICommand.GetDebugVerboseText
 // [0x00020800] ( FUNC_Event )
 // Parameters infos:
+// struct FString                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
 
-void UGameAICommand::eventGetDebugVerboseText ( )
+struct FString UGameAICommand::eventGetDebugVerboseText ( )
 {
 	static UFunction* pFnGetDebugVerboseText = NULL;
 
 	if ( ! pFnGetDebugVerboseText )
-		pFnGetDebugVerboseText = (UFunction*) UObject::GObjObjects()->Data[ 37316 ];
+		pFnGetDebugVerboseText = (UFunction*) UObject::GObjObjects()->Data[ 37323 ];
 
 	UGameAICommand_eventGetDebugVerboseText_Parms GetDebugVerboseText_Parms;
 
-	this->ProcessEvent ( pFnGetDebugVerboseText, &GetDebugVerboseText_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetDebugVerboseText, &GetDebugVerboseText_Parms, NULL );
+
+	return GetDebugVerboseText_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAICommand.GetDebugOverheadText
 // [0x00420000] 
 // Parameters infos:
+// class APlayerController*       PC                             ( CPF_Parm )
+// TArray< struct FString >       OutText                        ( CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void UGameAICommand::GetDebugOverheadText ( )
+void UGameAICommand::GetDebugOverheadText ( class APlayerController* PC, TArray< struct FString >* OutText )
 {
 	static UFunction* pFnGetDebugOverheadText = NULL;
 
 	if ( ! pFnGetDebugOverheadText )
-		pFnGetDebugOverheadText = (UFunction*) UObject::GObjObjects()->Data[ 37312 ];
+		pFnGetDebugOverheadText = (UFunction*) UObject::GObjObjects()->Data[ 37319 ];
 
 	UGameAICommand_execGetDebugOverheadText_Parms GetDebugOverheadText_Parms;
+	GetDebugOverheadText_Parms.PC = PC;
 
-	this->ProcessEvent ( pFnGetDebugOverheadText, &GetDebugOverheadText_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetDebugOverheadText, &GetDebugOverheadText_Parms, NULL );
+
+	if ( OutText )
+		memcpy ( OutText, &GetDebugOverheadText_Parms.OutText, 0x10 );
 };
 
 // Function GameFramework.GameAICommand.DrawDebug
 // [0x00020800] ( FUNC_Event )
 // Parameters infos:
+// class AHUD*                    H                              ( CPF_Parm )
+// struct FName                   Category                       ( CPF_Parm )
 
-void UGameAICommand::eventDrawDebug ( )
+void UGameAICommand::eventDrawDebug ( class AHUD* H, struct FName Category )
 {
 	static UFunction* pFnDrawDebug = NULL;
 
 	if ( ! pFnDrawDebug )
-		pFnDrawDebug = (UFunction*) UObject::GObjObjects()->Data[ 37309 ];
+		pFnDrawDebug = (UFunction*) UObject::GObjObjects()->Data[ 37316 ];
 
 	UGameAICommand_eventDrawDebug_Parms DrawDebug_Parms;
+	DrawDebug_Parms.H = H;
+	memcpy ( &DrawDebug_Parms.Category, &Category, 0x8 );
 
-	this->ProcessEvent ( pFnDrawDebug, &DrawDebug_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDrawDebug, &DrawDebug_Parms, NULL );
 };
 
 // Function GameFramework.GameAICommand.GetDumpString
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// struct FString                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
 
-void UGameAICommand::eventGetDumpString ( )
+struct FString UGameAICommand::eventGetDumpString ( )
 {
 	static UFunction* pFnGetDumpString = NULL;
 
 	if ( ! pFnGetDumpString )
-		pFnGetDumpString = (UFunction*) UObject::GObjObjects()->Data[ 37296 ];
+		pFnGetDumpString = (UFunction*) UObject::GObjObjects()->Data[ 37303 ];
 
 	UGameAICommand_eventGetDumpString_Parms GetDumpString_Parms;
 
-	this->ProcessEvent ( pFnGetDumpString, &GetDumpString_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetDumpString, &GetDumpString_Parms, NULL );
+
+	return GetDumpString_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAICommand.Resumed
 // [0x00020002] 
 // Parameters infos:
+// struct FName                   OldCommandName                 ( CPF_Parm )
 
-void UGameAICommand::Resumed ( )
+void UGameAICommand::Resumed ( struct FName OldCommandName )
 {
 	static UFunction* pFnResumed = NULL;
 
 	if ( ! pFnResumed )
-		pFnResumed = (UFunction*) UObject::GObjObjects()->Data[ 37294 ];
+		pFnResumed = (UFunction*) UObject::GObjObjects()->Data[ 37301 ];
 
 	UGameAICommand_execResumed_Parms Resumed_Parms;
+	memcpy ( &Resumed_Parms.OldCommandName, &OldCommandName, 0x8 );
 
-	this->ProcessEvent ( pFnResumed, &Resumed_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnResumed, &Resumed_Parms, NULL );
 };
 
 // Function GameFramework.GameAICommand.Paused
 // [0x00020002] 
 // Parameters infos:
+// class UGameAICommand*          NewCommand                     ( CPF_Parm )
 
-void UGameAICommand::Paused ( )
+void UGameAICommand::Paused ( class UGameAICommand* NewCommand )
 {
 	static UFunction* pFnPaused = NULL;
 
 	if ( ! pFnPaused )
-		pFnPaused = (UFunction*) UObject::GObjObjects()->Data[ 37292 ];
+		pFnPaused = (UFunction*) UObject::GObjObjects()->Data[ 37299 ];
 
 	UGameAICommand_execPaused_Parms Paused_Parms;
+	Paused_Parms.NewCommand = NewCommand;
 
-	this->ProcessEvent ( pFnPaused, &Paused_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPaused, &Paused_Parms, NULL );
 };
 
 // Function GameFramework.GameAICommand.Popped
@@ -530,11 +627,11 @@ void UGameAICommand::Popped ( )
 	static UFunction* pFnPopped = NULL;
 
 	if ( ! pFnPopped )
-		pFnPopped = (UFunction*) UObject::GObjObjects()->Data[ 37291 ];
+		pFnPopped = (UFunction*) UObject::GObjObjects()->Data[ 37298 ];
 
 	UGameAICommand_execPopped_Parms Popped_Parms;
 
-	this->ProcessEvent ( pFnPopped, &Popped_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPopped, &Popped_Parms, NULL );
 };
 
 // Function GameFramework.GameAICommand.Pushed
@@ -546,11 +643,11 @@ void UGameAICommand::Pushed ( )
 	static UFunction* pFnPushed = NULL;
 
 	if ( ! pFnPushed )
-		pFnPushed = (UFunction*) UObject::GObjObjects()->Data[ 37290 ];
+		pFnPushed = (UFunction*) UObject::GObjObjects()->Data[ 37297 ];
 
 	UGameAICommand_execPushed_Parms Pushed_Parms;
 
-	this->ProcessEvent ( pFnPushed, &Pushed_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPushed, &Pushed_Parms, NULL );
 };
 
 // Function GameFramework.GameAICommand.PostPopped
@@ -562,143 +659,166 @@ void UGameAICommand::PostPopped ( )
 	static UFunction* pFnPostPopped = NULL;
 
 	if ( ! pFnPostPopped )
-		pFnPostPopped = (UFunction*) UObject::GObjObjects()->Data[ 37289 ];
+		pFnPostPopped = (UFunction*) UObject::GObjObjects()->Data[ 37296 ];
 
 	UGameAICommand_execPostPopped_Parms PostPopped_Parms;
 
-	this->ProcessEvent ( pFnPostPopped, &PostPopped_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostPopped, &PostPopped_Parms, NULL );
 };
 
 // Function GameFramework.GameAICommand.PrePushed
 // [0x00020000] 
 // Parameters infos:
+// class AGameAIController*       AI                             ( CPF_Parm )
 
-void UGameAICommand::PrePushed ( )
+void UGameAICommand::PrePushed ( class AGameAIController* AI )
 {
 	static UFunction* pFnPrePushed = NULL;
 
 	if ( ! pFnPrePushed )
-		pFnPrePushed = (UFunction*) UObject::GObjObjects()->Data[ 37287 ];
+		pFnPrePushed = (UFunction*) UObject::GObjObjects()->Data[ 37294 ];
 
 	UGameAICommand_execPrePushed_Parms PrePushed_Parms;
+	PrePushed_Parms.AI = AI;
 
-	this->ProcessEvent ( pFnPrePushed, &PrePushed_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPrePushed, &PrePushed_Parms, NULL );
 };
 
 // Function GameFramework.GameAICommand.AllowStateTransitionTo
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// struct FName                   StateName                      ( CPF_Parm )
 
-void UGameAICommand::AllowStateTransitionTo ( )
+bool UGameAICommand::AllowStateTransitionTo ( struct FName StateName )
 {
 	static UFunction* pFnAllowStateTransitionTo = NULL;
 
 	if ( ! pFnAllowStateTransitionTo )
-		pFnAllowStateTransitionTo = (UFunction*) UObject::GObjObjects()->Data[ 37284 ];
+		pFnAllowStateTransitionTo = (UFunction*) UObject::GObjObjects()->Data[ 37291 ];
 
 	UGameAICommand_execAllowStateTransitionTo_Parms AllowStateTransitionTo_Parms;
+	memcpy ( &AllowStateTransitionTo_Parms.StateName, &StateName, 0x8 );
 
-	this->ProcessEvent ( pFnAllowStateTransitionTo, &AllowStateTransitionTo_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAllowStateTransitionTo, &AllowStateTransitionTo_Parms, NULL );
+
+	return AllowStateTransitionTo_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAICommand.AllowTransitionTo
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UClass*                  AttemptCommand                 ( CPF_Parm )
 
-void UGameAICommand::AllowTransitionTo ( )
+bool UGameAICommand::AllowTransitionTo ( class UClass* AttemptCommand )
 {
 	static UFunction* pFnAllowTransitionTo = NULL;
 
 	if ( ! pFnAllowTransitionTo )
-		pFnAllowTransitionTo = (UFunction*) UObject::GObjObjects()->Data[ 37281 ];
+		pFnAllowTransitionTo = (UFunction*) UObject::GObjObjects()->Data[ 37288 ];
 
 	UGameAICommand_execAllowTransitionTo_Parms AllowTransitionTo_Parms;
+	AllowTransitionTo_Parms.AttemptCommand = AttemptCommand;
 
-	this->ProcessEvent ( pFnAllowTransitionTo, &AllowTransitionTo_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAllowTransitionTo, &AllowTransitionTo_Parms, NULL );
+
+	return AllowTransitionTo_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAICommand.Tick
 // [0x00020000] 
 // Parameters infos:
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UGameAICommand::Tick ( )
+void UGameAICommand::Tick ( float DeltaTime )
 {
 	static UFunction* pFnTick = NULL;
 
 	if ( ! pFnTick )
-		pFnTick = (UFunction*) UObject::GObjObjects()->Data[ 37279 ];
+		pFnTick = (UFunction*) UObject::GObjObjects()->Data[ 37286 ];
 
 	UGameAICommand_execTick_Parms Tick_Parms;
+	Tick_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnTick, &Tick_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnTick, &Tick_Parms, NULL );
 };
 
 // Function GameFramework.GameAICommand.ShouldIgnoreNotifies
 // [0x00020401] ( FUNC_Final | FUNC_Native )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGameAICommand::ShouldIgnoreNotifies ( )
+bool UGameAICommand::ShouldIgnoreNotifies ( )
 {
 	static UFunction* pFnShouldIgnoreNotifies = NULL;
 
 	if ( ! pFnShouldIgnoreNotifies )
-		pFnShouldIgnoreNotifies = (UFunction*) UObject::GObjObjects()->Data[ 37277 ];
+		pFnShouldIgnoreNotifies = (UFunction*) UObject::GObjObjects()->Data[ 37284 ];
 
 	UGameAICommand_execShouldIgnoreNotifies_Parms ShouldIgnoreNotifies_Parms;
 
 	pFnShouldIgnoreNotifies->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnShouldIgnoreNotifies, &ShouldIgnoreNotifies_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnShouldIgnoreNotifies, &ShouldIgnoreNotifies_Parms, NULL );
 
 	pFnShouldIgnoreNotifies->FunctionFlags |= 0x400;
+
+	return ShouldIgnoreNotifies_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAICommand.InternalTick
 // [0x00020803] ( FUNC_Final | FUNC_Event )
 // Parameters infos:
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UGameAICommand::eventInternalTick ( )
+void UGameAICommand::eventInternalTick ( float DeltaTime )
 {
 	static UFunction* pFnInternalTick = NULL;
 
 	if ( ! pFnInternalTick )
-		pFnInternalTick = (UFunction*) UObject::GObjObjects()->Data[ 37275 ];
+		pFnInternalTick = (UFunction*) UObject::GObjObjects()->Data[ 37282 ];
 
 	UGameAICommand_eventInternalTick_Parms InternalTick_Parms;
+	InternalTick_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnInternalTick, &InternalTick_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInternalTick, &InternalTick_Parms, NULL );
 };
 
 // Function GameFramework.GameAICommand.InternalResumed
 // [0x00020803] ( FUNC_Final | FUNC_Event )
 // Parameters infos:
+// struct FName                   OldCommandName                 ( CPF_Parm )
 
-void UGameAICommand::eventInternalResumed ( )
+void UGameAICommand::eventInternalResumed ( struct FName OldCommandName )
 {
 	static UFunction* pFnInternalResumed = NULL;
 
 	if ( ! pFnInternalResumed )
-		pFnInternalResumed = (UFunction*) UObject::GObjObjects()->Data[ 37273 ];
+		pFnInternalResumed = (UFunction*) UObject::GObjObjects()->Data[ 37280 ];
 
 	UGameAICommand_eventInternalResumed_Parms InternalResumed_Parms;
+	memcpy ( &InternalResumed_Parms.OldCommandName, &OldCommandName, 0x8 );
 
-	this->ProcessEvent ( pFnInternalResumed, &InternalResumed_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInternalResumed, &InternalResumed_Parms, NULL );
 };
 
 // Function GameFramework.GameAICommand.InternalPaused
 // [0x00020803] ( FUNC_Final | FUNC_Event )
 // Parameters infos:
+// class UGameAICommand*          NewCommand                     ( CPF_Parm )
 
-void UGameAICommand::eventInternalPaused ( )
+void UGameAICommand::eventInternalPaused ( class UGameAICommand* NewCommand )
 {
 	static UFunction* pFnInternalPaused = NULL;
 
 	if ( ! pFnInternalPaused )
-		pFnInternalPaused = (UFunction*) UObject::GObjObjects()->Data[ 37271 ];
+		pFnInternalPaused = (UFunction*) UObject::GObjObjects()->Data[ 37278 ];
 
 	UGameAICommand_eventInternalPaused_Parms InternalPaused_Parms;
+	InternalPaused_Parms.NewCommand = NewCommand;
 
-	this->ProcessEvent ( pFnInternalPaused, &InternalPaused_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInternalPaused, &InternalPaused_Parms, NULL );
 };
 
 // Function GameFramework.GameAICommand.InternalPopped
@@ -710,11 +830,11 @@ void UGameAICommand::eventInternalPopped ( )
 	static UFunction* pFnInternalPopped = NULL;
 
 	if ( ! pFnInternalPopped )
-		pFnInternalPopped = (UFunction*) UObject::GObjObjects()->Data[ 37270 ];
+		pFnInternalPopped = (UFunction*) UObject::GObjObjects()->Data[ 37277 ];
 
 	UGameAICommand_eventInternalPopped_Parms InternalPopped_Parms;
 
-	this->ProcessEvent ( pFnInternalPopped, &InternalPopped_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInternalPopped, &InternalPopped_Parms, NULL );
 };
 
 // Function GameFramework.GameAICommand.InternalPushed
@@ -726,139 +846,173 @@ void UGameAICommand::eventInternalPushed ( )
 	static UFunction* pFnInternalPushed = NULL;
 
 	if ( ! pFnInternalPushed )
-		pFnInternalPushed = (UFunction*) UObject::GObjObjects()->Data[ 37269 ];
+		pFnInternalPushed = (UFunction*) UObject::GObjObjects()->Data[ 37276 ];
 
 	UGameAICommand_eventInternalPushed_Parms InternalPushed_Parms;
 
-	this->ProcessEvent ( pFnInternalPushed, &InternalPushed_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInternalPushed, &InternalPushed_Parms, NULL );
 };
 
 // Function GameFramework.GameAICommand.InternalPrePushed
 // [0x00020803] ( FUNC_Final | FUNC_Event )
 // Parameters infos:
+// class AGameAIController*       AI                             ( CPF_Parm )
 
-void UGameAICommand::eventInternalPrePushed ( )
+void UGameAICommand::eventInternalPrePushed ( class AGameAIController* AI )
 {
 	static UFunction* pFnInternalPrePushed = NULL;
 
 	if ( ! pFnInternalPrePushed )
-		pFnInternalPrePushed = (UFunction*) UObject::GObjObjects()->Data[ 37267 ];
+		pFnInternalPrePushed = (UFunction*) UObject::GObjObjects()->Data[ 37274 ];
 
 	UGameAICommand_eventInternalPrePushed_Parms InternalPrePushed_Parms;
+	InternalPrePushed_Parms.AI = AI;
 
-	this->ProcessEvent ( pFnInternalPrePushed, &InternalPrePushed_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInternalPrePushed, &InternalPrePushed_Parms, NULL );
 };
 
 // Function GameFramework.GameAICommand.InitCommand
 // [0x00022002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AGameAIController*       AI                             ( CPF_Parm )
 
-void UGameAICommand::InitCommand ( )
+bool UGameAICommand::InitCommand ( class AGameAIController* AI )
 {
 	static UFunction* pFnInitCommand = NULL;
 
 	if ( ! pFnInitCommand )
-		pFnInitCommand = (UFunction*) UObject::GObjObjects()->Data[ 37263 ];
+		pFnInitCommand = (UFunction*) UObject::GObjObjects()->Data[ 37270 ];
 
 	UGameAICommand_execInitCommand_Parms InitCommand_Parms;
+	InitCommand_Parms.AI = AI;
 
-	this->ProcessEvent ( pFnInitCommand, &InitCommand_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitCommand, &InitCommand_Parms, NULL );
+
+	return InitCommand_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAICommand.InitCommandUserActor
 // [0x00022002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AGameAIController*       AI                             ( CPF_Parm )
+// class AActor*                  UserActor                      ( CPF_Parm )
 
-void UGameAICommand::InitCommandUserActor ( )
+bool UGameAICommand::InitCommandUserActor ( class AGameAIController* AI, class AActor* UserActor )
 {
 	static UFunction* pFnInitCommandUserActor = NULL;
 
 	if ( ! pFnInitCommandUserActor )
-		pFnInitCommandUserActor = (UFunction*) UObject::GObjObjects()->Data[ 37259 ];
+		pFnInitCommandUserActor = (UFunction*) UObject::GObjObjects()->Data[ 37266 ];
 
 	UGameAICommand_execInitCommandUserActor_Parms InitCommandUserActor_Parms;
+	InitCommandUserActor_Parms.AI = AI;
+	InitCommandUserActor_Parms.UserActor = UserActor;
 
-	this->ProcessEvent ( pFnInitCommandUserActor, &InitCommandUserActor_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitCommandUserActor, &InitCommandUserActor_Parms, NULL );
+
+	return InitCommandUserActor_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCheatManager.OnRequestComplete
 // [0x00020002] 
 // Parameters infos:
+// class UHttpRequestInterface*   OriginalRequest                ( CPF_Parm )
+// class UHttpResponseInterface*  Response                       ( CPF_Parm )
+// unsigned long                  bDidSucceed                    ( CPF_Parm )
 
-void AGameCheatManager::OnRequestComplete ( )
+void AGameCheatManager::OnRequestComplete ( class UHttpRequestInterface* OriginalRequest, class UHttpResponseInterface* Response, unsigned long bDidSucceed )
 {
 	static UFunction* pFnOnRequestComplete = NULL;
 
 	if ( ! pFnOnRequestComplete )
-		pFnOnRequestComplete = (UFunction*) UObject::GObjObjects()->Data[ 37586 ];
+		pFnOnRequestComplete = (UFunction*) UObject::GObjObjects()->Data[ 37593 ];
 
 	AGameCheatManager_execOnRequestComplete_Parms OnRequestComplete_Parms;
+	OnRequestComplete_Parms.OriginalRequest = OriginalRequest;
+	OnRequestComplete_Parms.Response = Response;
+	OnRequestComplete_Parms.bDidSucceed = bDidSucceed;
 
-	this->ProcessEvent ( pFnOnRequestComplete, &OnRequestComplete_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnRequestComplete, &OnRequestComplete_Parms, NULL );
 };
 
 // Function GameFramework.GameCheatManager.TestHttp
 // [0x00024202] ( FUNC_Exec )
 // Parameters infos:
+// struct FString                 Verb                           ( CPF_Parm | CPF_NeedCtorLink )
+// struct FString                 Payload                        ( CPF_Parm | CPF_NeedCtorLink )
+// struct FString                 URL                            ( CPF_Parm | CPF_NeedCtorLink )
+// unsigned long                  bSendParallelRequest           ( CPF_OptionalParm | CPF_Parm )
 
-void AGameCheatManager::TestHttp ( )
+void AGameCheatManager::TestHttp ( struct FString Verb, struct FString Payload, struct FString URL, unsigned long bSendParallelRequest )
 {
 	static UFunction* pFnTestHttp = NULL;
 
 	if ( ! pFnTestHttp )
-		pFnTestHttp = (UFunction*) UObject::GObjObjects()->Data[ 37580 ];
+		pFnTestHttp = (UFunction*) UObject::GObjObjects()->Data[ 37587 ];
 
 	AGameCheatManager_execTestHttp_Parms TestHttp_Parms;
+	memcpy ( &TestHttp_Parms.Verb, &Verb, 0x10 );
+	memcpy ( &TestHttp_Parms.Payload, &Payload, 0x10 );
+	memcpy ( &TestHttp_Parms.URL, &URL, 0x10 );
+	TestHttp_Parms.bSendParallelRequest = bSendParallelRequest;
 
-	this->ProcessEvent ( pFnTestHttp, &TestHttp_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnTestHttp, &TestHttp_Parms, NULL );
 };
 
 // Function GameFramework.GameCheatManager.EnableDebugCamera
 // [0x00820002] 
 // Parameters infos:
+// unsigned long                  bEnableDebugText               ( CPF_Parm )
 
-void AGameCheatManager::EnableDebugCamera ( )
+void AGameCheatManager::EnableDebugCamera ( unsigned long bEnableDebugText )
 {
 	static UFunction* pFnEnableDebugCamera = NULL;
 
 	if ( ! pFnEnableDebugCamera )
-		pFnEnableDebugCamera = (UFunction*) UObject::GObjObjects()->Data[ 37574 ];
+		pFnEnableDebugCamera = (UFunction*) UObject::GObjObjects()->Data[ 37581 ];
 
 	AGameCheatManager_execEnableDebugCamera_Parms EnableDebugCamera_Parms;
+	EnableDebugCamera_Parms.bEnableDebugText = bEnableDebugText;
 
-	this->ProcessEvent ( pFnEnableDebugCamera, &EnableDebugCamera_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnEnableDebugCamera, &EnableDebugCamera_Parms, NULL );
 };
 
 // Function GameFramework.GameCheatManager.TeleportPawnToCamera
 // [0x00824202] ( FUNC_Exec )
 // Parameters infos:
+// unsigned long                  bToggleDebugCameraOff          ( CPF_OptionalParm | CPF_Parm )
 
-void AGameCheatManager::TeleportPawnToCamera ( )
+void AGameCheatManager::TeleportPawnToCamera ( unsigned long bToggleDebugCameraOff )
 {
 	static UFunction* pFnTeleportPawnToCamera = NULL;
 
 	if ( ! pFnTeleportPawnToCamera )
-		pFnTeleportPawnToCamera = (UFunction*) UObject::GObjObjects()->Data[ 37568 ];
+		pFnTeleportPawnToCamera = (UFunction*) UObject::GObjObjects()->Data[ 37575 ];
 
 	AGameCheatManager_execTeleportPawnToCamera_Parms TeleportPawnToCamera_Parms;
+	TeleportPawnToCamera_Parms.bToggleDebugCameraOff = bToggleDebugCameraOff;
 
-	this->ProcessEvent ( pFnTeleportPawnToCamera, &TeleportPawnToCamera_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnTeleportPawnToCamera, &TeleportPawnToCamera_Parms, NULL );
 };
 
 // Function GameFramework.GameCheatManager.ToggleDebugCamera
 // [0x00024202] ( FUNC_Exec )
 // Parameters infos:
+// unsigned long                  bDrawDebugText                 ( CPF_OptionalParm | CPF_Parm )
 
-void AGameCheatManager::ToggleDebugCamera ( )
+void AGameCheatManager::ToggleDebugCamera ( unsigned long bDrawDebugText )
 {
 	static UFunction* pFnToggleDebugCamera = NULL;
 
 	if ( ! pFnToggleDebugCamera )
-		pFnToggleDebugCamera = (UFunction*) UObject::GObjObjects()->Data[ 37564 ];
+		pFnToggleDebugCamera = (UFunction*) UObject::GObjObjects()->Data[ 37571 ];
 
 	AGameCheatManager_execToggleDebugCamera_Parms ToggleDebugCamera_Parms;
+	ToggleDebugCamera_Parms.bDrawDebugText = bDrawDebugText;
 
-	this->ProcessEvent ( pFnToggleDebugCamera, &ToggleDebugCamera_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnToggleDebugCamera, &ToggleDebugCamera_Parms, NULL );
 };
 
 // Function GameFramework.GameCheatManager.EnableAIDebugCamera
@@ -870,11 +1024,11 @@ void AGameCheatManager::EnableAIDebugCamera ( )
 	static UFunction* pFnEnableAIDebugCamera = NULL;
 
 	if ( ! pFnEnableAIDebugCamera )
-		pFnEnableAIDebugCamera = (UFunction*) UObject::GObjObjects()->Data[ 37563 ];
+		pFnEnableAIDebugCamera = (UFunction*) UObject::GObjObjects()->Data[ 37570 ];
 
 	AGameCheatManager_execEnableAIDebugCamera_Parms EnableAIDebugCamera_Parms;
 
-	this->ProcessEvent ( pFnEnableAIDebugCamera, &EnableAIDebugCamera_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnEnableAIDebugCamera, &EnableAIDebugCamera_Parms, NULL );
 };
 
 // Function GameFramework.GameCheatManager.AIDebugCamera
@@ -886,11 +1040,11 @@ void AGameCheatManager::AIDebugCamera ( )
 	static UFunction* pFnAIDebugCamera = NULL;
 
 	if ( ! pFnAIDebugCamera )
-		pFnAIDebugCamera = (UFunction*) UObject::GObjObjects()->Data[ 37560 ];
+		pFnAIDebugCamera = (UFunction*) UObject::GObjObjects()->Data[ 37567 ];
 
 	AGameCheatManager_execAIDebugCamera_Parms AIDebugCamera_Parms;
 
-	this->ProcessEvent ( pFnAIDebugCamera, &AIDebugCamera_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAIDebugCamera, &AIDebugCamera_Parms, NULL );
 };
 
 // Function GameFramework.GameCheatManager.PatchDebugCameraController
@@ -902,11 +1056,11 @@ void AGameCheatManager::PatchDebugCameraController ( )
 	static UFunction* pFnPatchDebugCameraController = NULL;
 
 	if ( ! pFnPatchDebugCameraController )
-		pFnPatchDebugCameraController = (UFunction*) UObject::GObjObjects()->Data[ 37558 ];
+		pFnPatchDebugCameraController = (UFunction*) UObject::GObjObjects()->Data[ 37565 ];
 
 	AGameCheatManager_execPatchDebugCameraController_Parms PatchDebugCameraController_Parms;
 
-	this->ProcessEvent ( pFnPatchDebugCameraController, &PatchDebugCameraController_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPatchDebugCameraController, &PatchDebugCameraController_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.InitDebugColor
@@ -918,77 +1072,99 @@ void AGameCrowdAgent::InitDebugColor ( )
 	static UFunction* pFnInitDebugColor = NULL;
 
 	if ( ! pFnInitDebugColor )
-		pFnInitDebugColor = (UFunction*) UObject::GObjObjects()->Data[ 37831 ];
+		pFnInitDebugColor = (UFunction*) UObject::GObjObjects()->Data[ 37838 ];
 
 	AGameCrowdAgent_execInitDebugColor_Parms InitDebugColor_Parms;
 
-	this->ProcessEvent ( pFnInitDebugColor, &InitDebugColor_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitDebugColor, &InitDebugColor_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.GetBehaviorString
 // [0x00020002] 
 // Parameters infos:
+// struct FString                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
 
-void AGameCrowdAgent::GetBehaviorString ( )
+struct FString AGameCrowdAgent::GetBehaviorString ( )
 {
 	static UFunction* pFnGetBehaviorString = NULL;
 
 	if ( ! pFnGetBehaviorString )
-		pFnGetBehaviorString = (UFunction*) UObject::GObjObjects()->Data[ 37828 ];
+		pFnGetBehaviorString = (UFunction*) UObject::GObjObjects()->Data[ 37835 ];
 
 	AGameCrowdAgent_execGetBehaviorString_Parms GetBehaviorString_Parms;
 
-	this->ProcessEvent ( pFnGetBehaviorString, &GetBehaviorString_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetBehaviorString, &GetBehaviorString_Parms, NULL );
+
+	return GetBehaviorString_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdAgent.GetDestString
 // [0x00020002] 
 // Parameters infos:
+// struct FString                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
 
-void AGameCrowdAgent::GetDestString ( )
+struct FString AGameCrowdAgent::GetDestString ( )
 {
 	static UFunction* pFnGetDestString = NULL;
 
 	if ( ! pFnGetDestString )
-		pFnGetDestString = (UFunction*) UObject::GObjObjects()->Data[ 37825 ];
+		pFnGetDestString = (UFunction*) UObject::GObjObjects()->Data[ 37832 ];
 
 	AGameCrowdAgent_execGetDestString_Parms GetDestString_Parms;
 
-	this->ProcessEvent ( pFnGetDestString, &GetDestString_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetDestString, &GetDestString_Parms, NULL );
+
+	return GetDestString_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdAgent.PostRenderFor
 // [0x00820902] ( FUNC_Event )
 // Parameters infos:
+// class APlayerController*       PC                             ( CPF_Parm )
+// class UCanvas*                 Canvas                         ( CPF_Parm )
+// struct FVector                 CameraPosition                 ( CPF_Parm )
+// struct FVector                 CameraDir                      ( CPF_Parm )
 
-void AGameCrowdAgent::eventPostRenderFor ( )
+void AGameCrowdAgent::eventPostRenderFor ( class APlayerController* PC, class UCanvas* Canvas, struct FVector CameraPosition, struct FVector CameraDir )
 {
 	static UFunction* pFnPostRenderFor = NULL;
 
 	if ( ! pFnPostRenderFor )
-		pFnPostRenderFor = (UFunction*) UObject::GObjObjects()->Data[ 37809 ];
+		pFnPostRenderFor = (UFunction*) UObject::GObjObjects()->Data[ 37816 ];
 
 	AGameCrowdAgent_eventPostRenderFor_Parms PostRenderFor_Parms;
+	PostRenderFor_Parms.PC = PC;
+	PostRenderFor_Parms.Canvas = Canvas;
+	memcpy ( &PostRenderFor_Parms.CameraPosition, &CameraPosition, 0xC );
+	memcpy ( &PostRenderFor_Parms.CameraDir, &CameraDir, 0xC );
 
-	this->ProcessEvent ( pFnPostRenderFor, &PostRenderFor_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostRenderFor, &PostRenderFor_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.NativePostRenderFor
 // [0x00020500] ( FUNC_Native )
 // Parameters infos:
+// class APlayerController*       PC                             ( CPF_Parm )
+// class UCanvas*                 Canvas                         ( CPF_Parm )
+// struct FVector                 CameraPosition                 ( CPF_Parm )
+// struct FVector                 CameraDir                      ( CPF_Parm )
 
-void AGameCrowdAgent::NativePostRenderFor ( )
+void AGameCrowdAgent::NativePostRenderFor ( class APlayerController* PC, class UCanvas* Canvas, struct FVector CameraPosition, struct FVector CameraDir )
 {
 	static UFunction* pFnNativePostRenderFor = NULL;
 
 	if ( ! pFnNativePostRenderFor )
-		pFnNativePostRenderFor = (UFunction*) UObject::GObjObjects()->Data[ 37804 ];
+		pFnNativePostRenderFor = (UFunction*) UObject::GObjObjects()->Data[ 37811 ];
 
 	AGameCrowdAgent_execNativePostRenderFor_Parms NativePostRenderFor_Parms;
+	NativePostRenderFor_Parms.PC = PC;
+	NativePostRenderFor_Parms.Canvas = Canvas;
+	memcpy ( &NativePostRenderFor_Parms.CameraPosition, &CameraPosition, 0xC );
+	memcpy ( &NativePostRenderFor_Parms.CameraDir, &CameraDir, 0xC );
 
 	pFnNativePostRenderFor->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnNativePostRenderFor, &NativePostRenderFor_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnNativePostRenderFor, &NativePostRenderFor_Parms, NULL );
 
 	pFnNativePostRenderFor->FunctionFlags |= 0x400;
 };
@@ -996,17 +1172,26 @@ void AGameCrowdAgent::NativePostRenderFor ( )
 // Function GameFramework.GameCrowdAgent.GeneratePathToActor
 // [0x00824802] ( FUNC_Event )
 // Parameters infos:
+// struct FVector                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AActor*                  Goal                           ( CPF_Parm )
+// float                          WithinDistance                 ( CPF_OptionalParm | CPF_Parm )
+// unsigned long                  bAllowPartialPath              ( CPF_OptionalParm | CPF_Parm )
 
-void AGameCrowdAgent::eventGeneratePathToActor ( )
+struct FVector AGameCrowdAgent::eventGeneratePathToActor ( class AActor* Goal, float WithinDistance, unsigned long bAllowPartialPath )
 {
 	static UFunction* pFnGeneratePathToActor = NULL;
 
 	if ( ! pFnGeneratePathToActor )
-		pFnGeneratePathToActor = (UFunction*) UObject::GObjObjects()->Data[ 37798 ];
+		pFnGeneratePathToActor = (UFunction*) UObject::GObjObjects()->Data[ 37805 ];
 
 	AGameCrowdAgent_eventGeneratePathToActor_Parms GeneratePathToActor_Parms;
+	GeneratePathToActor_Parms.Goal = Goal;
+	GeneratePathToActor_Parms.WithinDistance = WithinDistance;
+	GeneratePathToActor_Parms.bAllowPartialPath = bAllowPartialPath;
 
-	this->ProcessEvent ( pFnGeneratePathToActor, &GeneratePathToActor_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGeneratePathToActor, &GeneratePathToActor_Parms, NULL );
+
+	return GeneratePathToActor_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdAgent.InitNavigationHandle
@@ -1018,43 +1203,59 @@ void AGameCrowdAgent::eventInitNavigationHandle ( )
 	static UFunction* pFnInitNavigationHandle = NULL;
 
 	if ( ! pFnInitNavigationHandle )
-		pFnInitNavigationHandle = (UFunction*) UObject::GObjObjects()->Data[ 37797 ];
+		pFnInitNavigationHandle = (UFunction*) UObject::GObjObjects()->Data[ 37804 ];
 
 	AGameCrowdAgent_eventInitNavigationHandle_Parms InitNavigationHandle_Parms;
 
-	this->ProcessEvent ( pFnInitNavigationHandle, &InitNavigationHandle_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitNavigationHandle, &InitNavigationHandle_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.OverlappedActorEvent
 // [0x00020800] ( FUNC_Event )
 // Parameters infos:
+// class AActor*                  A                              ( CPF_Parm )
 
-void AGameCrowdAgent::eventOverlappedActorEvent ( )
+void AGameCrowdAgent::eventOverlappedActorEvent ( class AActor* A )
 {
 	static UFunction* pFnOverlappedActorEvent = NULL;
 
 	if ( ! pFnOverlappedActorEvent )
-		pFnOverlappedActorEvent = (UFunction*) UObject::GObjObjects()->Data[ 37795 ];
+		pFnOverlappedActorEvent = (UFunction*) UObject::GObjObjects()->Data[ 37802 ];
 
 	AGameCrowdAgent_eventOverlappedActorEvent_Parms OverlappedActorEvent_Parms;
+	OverlappedActorEvent_Parms.A = A;
 
-	this->ProcessEvent ( pFnOverlappedActorEvent, &OverlappedActorEvent_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOverlappedActorEvent, &OverlappedActorEvent_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.TakeDamage
 // [0x00024002] 
 // Parameters infos:
+// int                            DamageAmount                   ( CPF_Parm )
+// class AController*             EventInstigator                ( CPF_Parm )
+// struct FVector                 HitLocation                    ( CPF_Parm )
+// struct FVector                 Momentum                       ( CPF_Parm )
+// class UClass*                  DamageType                     ( CPF_Parm )
+// struct FTraceHitInfo           HitInfo                        ( CPF_OptionalParm | CPF_Parm )
+// class AActor*                  DamageCauser                   ( CPF_OptionalParm | CPF_Parm )
 
-void AGameCrowdAgent::TakeDamage ( )
+void AGameCrowdAgent::TakeDamage ( int DamageAmount, class AController* EventInstigator, struct FVector HitLocation, struct FVector Momentum, class UClass* DamageType, struct FTraceHitInfo HitInfo, class AActor* DamageCauser )
 {
 	static UFunction* pFnTakeDamage = NULL;
 
 	if ( ! pFnTakeDamage )
-		pFnTakeDamage = (UFunction*) UObject::GObjObjects()->Data[ 37787 ];
+		pFnTakeDamage = (UFunction*) UObject::GObjObjects()->Data[ 37794 ];
 
 	AGameCrowdAgent_execTakeDamage_Parms TakeDamage_Parms;
+	TakeDamage_Parms.DamageAmount = DamageAmount;
+	TakeDamage_Parms.EventInstigator = EventInstigator;
+	memcpy ( &TakeDamage_Parms.HitLocation, &HitLocation, 0xC );
+	memcpy ( &TakeDamage_Parms.Momentum, &Momentum, 0xC );
+	TakeDamage_Parms.DamageType = DamageType;
+	memcpy ( &TakeDamage_Parms.HitInfo, &HitInfo, 0x2C );
+	TakeDamage_Parms.DamageCauser = DamageCauser;
 
-	this->ProcessEvent ( pFnTakeDamage, &TakeDamage_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnTakeDamage, &TakeDamage_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.FireDeathEvent
@@ -1066,29 +1267,31 @@ void AGameCrowdAgent::eventFireDeathEvent ( )
 	static UFunction* pFnFireDeathEvent = NULL;
 
 	if ( ! pFnFireDeathEvent )
-		pFnFireDeathEvent = (UFunction*) UObject::GObjObjects()->Data[ 37786 ];
+		pFnFireDeathEvent = (UFunction*) UObject::GObjObjects()->Data[ 37793 ];
 
 	AGameCrowdAgent_eventFireDeathEvent_Parms FireDeathEvent_Parms;
 
-	this->ProcessEvent ( pFnFireDeathEvent, &FireDeathEvent_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnFireDeathEvent, &FireDeathEvent_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.PlayDeath
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// struct FVector                 KillMomentum                   ( CPF_Parm )
 
-void AGameCrowdAgent::PlayDeath ( )
+void AGameCrowdAgent::PlayDeath ( struct FVector KillMomentum )
 {
 	static UFunction* pFnPlayDeath = NULL;
 
 	if ( ! pFnPlayDeath )
-		pFnPlayDeath = (UFunction*) UObject::GObjObjects()->Data[ 37784 ];
+		pFnPlayDeath = (UFunction*) UObject::GObjObjects()->Data[ 37791 ];
 
 	AGameCrowdAgent_execPlayDeath_Parms PlayDeath_Parms;
+	memcpy ( &PlayDeath_Parms.KillMomentum, &KillMomentum, 0xC );
 
 	pFnPlayDeath->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnPlayDeath, &PlayDeath_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPlayDeath, &PlayDeath_Parms, NULL );
 
 	pFnPlayDeath->FunctionFlags |= 0x400;
 };
@@ -1096,71 +1299,95 @@ void AGameCrowdAgent::PlayDeath ( )
 // Function GameFramework.GameCrowdAgent.UpdateIntermediatePoint
 // [0x00024802] ( FUNC_Event )
 // Parameters infos:
+// class AActor*                  DestinationActor               ( CPF_OptionalParm | CPF_Parm )
 
-void AGameCrowdAgent::eventUpdateIntermediatePoint ( )
+void AGameCrowdAgent::eventUpdateIntermediatePoint ( class AActor* DestinationActor )
 {
 	static UFunction* pFnUpdateIntermediatePoint = NULL;
 
 	if ( ! pFnUpdateIntermediatePoint )
-		pFnUpdateIntermediatePoint = (UFunction*) UObject::GObjObjects()->Data[ 37782 ];
+		pFnUpdateIntermediatePoint = (UFunction*) UObject::GObjObjects()->Data[ 37789 ];
 
 	AGameCrowdAgent_eventUpdateIntermediatePoint_Parms UpdateIntermediatePoint_Parms;
+	UpdateIntermediatePoint_Parms.DestinationActor = DestinationActor;
 
-	this->ProcessEvent ( pFnUpdateIntermediatePoint, &UpdateIntermediatePoint_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnUpdateIntermediatePoint, &UpdateIntermediatePoint_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.CalcCamera
 // [0x00C20102] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// float                          fDeltaTime                     ( CPF_Parm )
+// struct FVector                 out_CamLoc                     ( CPF_Parm | CPF_OutParm )
+// struct FRotator                out_CamRot                     ( CPF_Parm | CPF_OutParm )
+// float                          out_FOV                        ( CPF_Parm | CPF_OutParm )
 
-void AGameCrowdAgent::CalcCamera ( )
+bool AGameCrowdAgent::CalcCamera ( float fDeltaTime, struct FVector* out_CamLoc, struct FRotator* out_CamRot, float* out_FOV )
 {
 	static UFunction* pFnCalcCamera = NULL;
 
 	if ( ! pFnCalcCamera )
-		pFnCalcCamera = (UFunction*) UObject::GObjObjects()->Data[ 37774 ];
+		pFnCalcCamera = (UFunction*) UObject::GObjObjects()->Data[ 37781 ];
 
 	AGameCrowdAgent_execCalcCamera_Parms CalcCamera_Parms;
+	CalcCamera_Parms.fDeltaTime = fDeltaTime;
 
-	this->ProcessEvent ( pFnCalcCamera, &CalcCamera_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCalcCamera, &CalcCamera_Parms, NULL );
+
+	if ( out_CamLoc )
+		memcpy ( out_CamLoc, &CalcCamera_Parms.out_CamLoc, 0xC );
+
+	if ( out_CamRot )
+		memcpy ( out_CamRot, &CalcCamera_Parms.out_CamRot, 0xC );
+
+	if ( out_FOV )
+		*out_FOV = CalcCamera_Parms.out_FOV;
+
+	return CalcCamera_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdAgent.IsIdle
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void AGameCrowdAgent::IsIdle ( )
+bool AGameCrowdAgent::IsIdle ( )
 {
 	static UFunction* pFnIsIdle = NULL;
 
 	if ( ! pFnIsIdle )
-		pFnIsIdle = (UFunction*) UObject::GObjObjects()->Data[ 37772 ];
+		pFnIsIdle = (UFunction*) UObject::GObjObjects()->Data[ 37779 ];
 
 	AGameCrowdAgent_execIsIdle_Parms IsIdle_Parms;
 
 	pFnIsIdle->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnIsIdle, &IsIdle_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnIsIdle, &IsIdle_Parms, NULL );
 
 	pFnIsIdle->FunctionFlags |= 0x400;
+
+	return IsIdle_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdAgent.SetCurrentBehavior
 // [0x00020401] ( FUNC_Final | FUNC_Native )
 // Parameters infos:
+// class UGameCrowdAgentBehavior* BehaviorArchetype              ( CPF_Parm )
 
-void AGameCrowdAgent::SetCurrentBehavior ( )
+void AGameCrowdAgent::SetCurrentBehavior ( class UGameCrowdAgentBehavior* BehaviorArchetype )
 {
 	static UFunction* pFnSetCurrentBehavior = NULL;
 
 	if ( ! pFnSetCurrentBehavior )
-		pFnSetCurrentBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37761 ];
+		pFnSetCurrentBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37768 ];
 
 	AGameCrowdAgent_execSetCurrentBehavior_Parms SetCurrentBehavior_Parms;
+	SetCurrentBehavior_Parms.BehaviorArchetype = BehaviorArchetype;
 
 	pFnSetCurrentBehavior->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnSetCurrentBehavior, &SetCurrentBehavior_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetCurrentBehavior, &SetCurrentBehavior_Parms, NULL );
 
 	pFnSetCurrentBehavior->FunctionFlags |= 0x400;
 };
@@ -1174,59 +1401,73 @@ void AGameCrowdAgent::eventStopBehavior ( )
 	static UFunction* pFnStopBehavior = NULL;
 
 	if ( ! pFnStopBehavior )
-		pFnStopBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37770 ];
+		pFnStopBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37777 ];
 
 	AGameCrowdAgent_eventStopBehavior_Parms StopBehavior_Parms;
 
-	this->ProcessEvent ( pFnStopBehavior, &StopBehavior_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnStopBehavior, &StopBehavior_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.HandleBehaviorEvent
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// unsigned char                  EventType                      ( CPF_Parm )
+// class AActor*                  InInstigator                   ( CPF_Parm )
+// unsigned long                  bViralCause                    ( CPF_Parm )
+// unsigned long                  bPropagateViralFlag            ( CPF_Parm )
 
-void AGameCrowdAgent::eventHandleBehaviorEvent ( )
+void AGameCrowdAgent::eventHandleBehaviorEvent ( unsigned char EventType, class AActor* InInstigator, unsigned long bViralCause, unsigned long bPropagateViralFlag )
 {
 	static UFunction* pFnHandleBehaviorEvent = NULL;
 
 	if ( ! pFnHandleBehaviorEvent )
-		pFnHandleBehaviorEvent = (UFunction*) UObject::GObjObjects()->Data[ 37764 ];
+		pFnHandleBehaviorEvent = (UFunction*) UObject::GObjObjects()->Data[ 37771 ];
 
 	AGameCrowdAgent_eventHandleBehaviorEvent_Parms HandleBehaviorEvent_Parms;
+	HandleBehaviorEvent_Parms.EventType = EventType;
+	HandleBehaviorEvent_Parms.InInstigator = InInstigator;
+	HandleBehaviorEvent_Parms.bViralCause = bViralCause;
+	HandleBehaviorEvent_Parms.bPropagateViralFlag = bPropagateViralFlag;
 
-	this->ProcessEvent ( pFnHandleBehaviorEvent, &HandleBehaviorEvent_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnHandleBehaviorEvent, &HandleBehaviorEvent_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.ActivateInstancedBehavior
 // [0x00020002] 
 // Parameters infos:
+// class UGameCrowdAgentBehavior* NewBehaviorObject              ( CPF_Parm )
 
-void AGameCrowdAgent::ActivateInstancedBehavior ( )
+void AGameCrowdAgent::ActivateInstancedBehavior ( class UGameCrowdAgentBehavior* NewBehaviorObject )
 {
 	static UFunction* pFnActivateInstancedBehavior = NULL;
 
 	if ( ! pFnActivateInstancedBehavior )
-		pFnActivateInstancedBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37762 ];
+		pFnActivateInstancedBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37769 ];
 
 	AGameCrowdAgent_execActivateInstancedBehavior_Parms ActivateInstancedBehavior_Parms;
+	ActivateInstancedBehavior_Parms.NewBehaviorObject = NewBehaviorObject;
 
-	this->ProcessEvent ( pFnActivateInstancedBehavior, &ActivateInstancedBehavior_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnActivateInstancedBehavior, &ActivateInstancedBehavior_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.ActivateBehavior
 // [0x00024802] ( FUNC_Event )
 // Parameters infos:
+// class UGameCrowdAgentBehavior* NewBehaviorArchetype           ( CPF_Parm )
+// class AActor*                  LookAtActor                    ( CPF_OptionalParm | CPF_Parm )
 
-void AGameCrowdAgent::eventActivateBehavior ( )
+void AGameCrowdAgent::eventActivateBehavior ( class UGameCrowdAgentBehavior* NewBehaviorArchetype, class AActor* LookAtActor )
 {
 	static UFunction* pFnActivateBehavior = NULL;
 
 	if ( ! pFnActivateBehavior )
-		pFnActivateBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37758 ];
+		pFnActivateBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37765 ];
 
 	AGameCrowdAgent_eventActivateBehavior_Parms ActivateBehavior_Parms;
+	ActivateBehavior_Parms.NewBehaviorArchetype = NewBehaviorArchetype;
+	ActivateBehavior_Parms.LookAtActor = LookAtActor;
 
-	this->ProcessEvent ( pFnActivateBehavior, &ActivateBehavior_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnActivateBehavior, &ActivateBehavior_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.ResetSeePlayer
@@ -1238,11 +1479,11 @@ void AGameCrowdAgent::ResetSeePlayer ( )
 	static UFunction* pFnResetSeePlayer = NULL;
 
 	if ( ! pFnResetSeePlayer )
-		pFnResetSeePlayer = (UFunction*) UObject::GObjObjects()->Data[ 37757 ];
+		pFnResetSeePlayer = (UFunction*) UObject::GObjObjects()->Data[ 37764 ];
 
 	AGameCrowdAgent_execResetSeePlayer_Parms ResetSeePlayer_Parms;
 
-	this->ProcessEvent ( pFnResetSeePlayer, &ResetSeePlayer_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnResetSeePlayer, &ResetSeePlayer_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.TryRandomBehavior
@@ -1254,27 +1495,29 @@ void AGameCrowdAgent::TryRandomBehavior ( )
 	static UFunction* pFnTryRandomBehavior = NULL;
 
 	if ( ! pFnTryRandomBehavior )
-		pFnTryRandomBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37754 ];
+		pFnTryRandomBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37761 ];
 
 	AGameCrowdAgent_execTryRandomBehavior_Parms TryRandomBehavior_Parms;
 
-	this->ProcessEvent ( pFnTryRandomBehavior, &TryRandomBehavior_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnTryRandomBehavior, &TryRandomBehavior_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.NotifySeePlayer
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// class APlayerController*       PC                             ( CPF_Parm )
 
-void AGameCrowdAgent::eventNotifySeePlayer ( )
+void AGameCrowdAgent::eventNotifySeePlayer ( class APlayerController* PC )
 {
 	static UFunction* pFnNotifySeePlayer = NULL;
 
 	if ( ! pFnNotifySeePlayer )
-		pFnNotifySeePlayer = (UFunction*) UObject::GObjObjects()->Data[ 37750 ];
+		pFnNotifySeePlayer = (UFunction*) UObject::GObjObjects()->Data[ 37757 ];
 
 	AGameCrowdAgent_eventNotifySeePlayer_Parms NotifySeePlayer_Parms;
+	NotifySeePlayer_Parms.PC = PC;
 
-	this->ProcessEvent ( pFnNotifySeePlayer, &NotifySeePlayer_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnNotifySeePlayer, &NotifySeePlayer_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.PlaySpawnBehavior
@@ -1286,11 +1529,11 @@ void AGameCrowdAgent::PlaySpawnBehavior ( )
 	static UFunction* pFnPlaySpawnBehavior = NULL;
 
 	if ( ! pFnPlaySpawnBehavior )
-		pFnPlaySpawnBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37749 ];
+		pFnPlaySpawnBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37756 ];
 
 	AGameCrowdAgent_execPlaySpawnBehavior_Parms PlaySpawnBehavior_Parms;
 
-	this->ProcessEvent ( pFnPlaySpawnBehavior, &PlaySpawnBehavior_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPlaySpawnBehavior, &PlaySpawnBehavior_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.HandlePotentialAgentEncounter
@@ -1302,11 +1545,11 @@ void AGameCrowdAgent::eventHandlePotentialAgentEncounter ( )
 	static UFunction* pFnHandlePotentialAgentEncounter = NULL;
 
 	if ( ! pFnHandlePotentialAgentEncounter )
-		pFnHandlePotentialAgentEncounter = (UFunction*) UObject::GObjObjects()->Data[ 37748 ];
+		pFnHandlePotentialAgentEncounter = (UFunction*) UObject::GObjObjects()->Data[ 37755 ];
 
 	AGameCrowdAgent_eventHandlePotentialAgentEncounter_Parms HandlePotentialAgentEncounter_Parms;
 
-	this->ProcessEvent ( pFnHandlePotentialAgentEncounter, &HandlePotentialAgentEncounter_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnHandlePotentialAgentEncounter, &HandlePotentialAgentEncounter_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.StopIdleAnimation
@@ -1318,11 +1561,11 @@ void AGameCrowdAgent::eventStopIdleAnimation ( )
 	static UFunction* pFnStopIdleAnimation = NULL;
 
 	if ( ! pFnStopIdleAnimation )
-		pFnStopIdleAnimation = (UFunction*) UObject::GObjObjects()->Data[ 37747 ];
+		pFnStopIdleAnimation = (UFunction*) UObject::GObjObjects()->Data[ 37754 ];
 
 	AGameCrowdAgent_eventStopIdleAnimation_Parms StopIdleAnimation_Parms;
 
-	this->ProcessEvent ( pFnStopIdleAnimation, &StopIdleAnimation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnStopIdleAnimation, &StopIdleAnimation_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.PlayIdleAnimation
@@ -1334,91 +1577,138 @@ void AGameCrowdAgent::eventPlayIdleAnimation ( )
 	static UFunction* pFnPlayIdleAnimation = NULL;
 
 	if ( ! pFnPlayIdleAnimation )
-		pFnPlayIdleAnimation = (UFunction*) UObject::GObjObjects()->Data[ 37746 ];
+		pFnPlayIdleAnimation = (UFunction*) UObject::GObjObjects()->Data[ 37753 ];
 
 	AGameCrowdAgent_eventPlayIdleAnimation_Parms PlayIdleAnimation_Parms;
 
-	this->ProcessEvent ( pFnPlayIdleAnimation, &PlayIdleAnimation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPlayIdleAnimation, &PlayIdleAnimation_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.OnPlayAgentAnimation
 // [0x00020102] 
 // Parameters infos:
+// class USeqAct_PlayAgentAnimation* Action                         ( CPF_Parm )
 
-void AGameCrowdAgent::OnPlayAgentAnimation ( )
+void AGameCrowdAgent::OnPlayAgentAnimation ( class USeqAct_PlayAgentAnimation* Action )
 {
 	static UFunction* pFnOnPlayAgentAnimation = NULL;
 
 	if ( ! pFnOnPlayAgentAnimation )
-		pFnOnPlayAgentAnimation = (UFunction*) UObject::GObjObjects()->Data[ 37744 ];
+		pFnOnPlayAgentAnimation = (UFunction*) UObject::GObjObjects()->Data[ 37751 ];
 
 	AGameCrowdAgent_execOnPlayAgentAnimation_Parms OnPlayAgentAnimation_Parms;
+	OnPlayAgentAnimation_Parms.Action = Action;
 
-	this->ProcessEvent ( pFnOnPlayAgentAnimation, &OnPlayAgentAnimation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnPlayAgentAnimation, &OnPlayAgentAnimation_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.InitializeAgent
 // [0x00C20102] 
 // Parameters infos:
+// class AActor*                  SpawnLoc                       ( CPF_Parm )
+// class AGameCrowdAgent*         AgentTemplate                  ( CPF_Parm )
+// class UGameCrowdGroup*         NewGroup                       ( CPF_Parm )
+// float                          AgentWarmupTime                ( CPF_Parm )
+// unsigned long                  bWarmupPosition                ( CPF_Parm )
+// unsigned long                  bCheckWarmupVisibility         ( CPF_Parm )
+// TArray< struct FCrowdSpawnerPlayerInfo > PlayerInfo                     ( CPF_Const | CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void AGameCrowdAgent::InitializeAgent ( )
+void AGameCrowdAgent::InitializeAgent ( class AActor* SpawnLoc, class AGameCrowdAgent* AgentTemplate, class UGameCrowdGroup* NewGroup, float AgentWarmupTime, unsigned long bWarmupPosition, unsigned long bCheckWarmupVisibility, TArray< struct FCrowdSpawnerPlayerInfo >* PlayerInfo )
 {
 	static UFunction* pFnInitializeAgent = NULL;
 
 	if ( ! pFnInitializeAgent )
-		pFnInitializeAgent = (UFunction*) UObject::GObjObjects()->Data[ 37707 ];
+		pFnInitializeAgent = (UFunction*) UObject::GObjObjects()->Data[ 37714 ];
 
 	AGameCrowdAgent_execInitializeAgent_Parms InitializeAgent_Parms;
+	InitializeAgent_Parms.SpawnLoc = SpawnLoc;
+	InitializeAgent_Parms.AgentTemplate = AgentTemplate;
+	InitializeAgent_Parms.NewGroup = NewGroup;
+	InitializeAgent_Parms.AgentWarmupTime = AgentWarmupTime;
+	InitializeAgent_Parms.bWarmupPosition = bWarmupPosition;
+	InitializeAgent_Parms.bCheckWarmupVisibility = bCheckWarmupVisibility;
 
-	this->ProcessEvent ( pFnInitializeAgent, &InitializeAgent_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitializeAgent, &InitializeAgent_Parms, NULL );
+
+	if ( PlayerInfo )
+		memcpy ( PlayerInfo, &InitializeAgent_Parms.PlayerInfo, 0x10 );
 };
 
 // Function GameFramework.GameCrowdAgent.GetAttemptedSpawnLocation
 // [0x00820102] 
 // Parameters infos:
+// struct FVector                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// float                          Pct                            ( CPF_Parm )
+// struct FVector                 CurPos                         ( CPF_Parm )
+// float                          CurRadius                      ( CPF_Parm )
+// struct FVector                 DestPos                        ( CPF_Parm )
+// float                          DestRadius                     ( CPF_Parm )
 
-void AGameCrowdAgent::GetAttemptedSpawnLocation ( )
+struct FVector AGameCrowdAgent::GetAttemptedSpawnLocation ( float Pct, struct FVector CurPos, float CurRadius, struct FVector DestPos, float DestRadius )
 {
 	static UFunction* pFnGetAttemptedSpawnLocation = NULL;
 
 	if ( ! pFnGetAttemptedSpawnLocation )
-		pFnGetAttemptedSpawnLocation = (UFunction*) UObject::GObjObjects()->Data[ 37697 ];
+		pFnGetAttemptedSpawnLocation = (UFunction*) UObject::GObjObjects()->Data[ 37704 ];
 
 	AGameCrowdAgent_execGetAttemptedSpawnLocation_Parms GetAttemptedSpawnLocation_Parms;
+	GetAttemptedSpawnLocation_Parms.Pct = Pct;
+	memcpy ( &GetAttemptedSpawnLocation_Parms.CurPos, &CurPos, 0xC );
+	GetAttemptedSpawnLocation_Parms.CurRadius = CurRadius;
+	memcpy ( &GetAttemptedSpawnLocation_Parms.DestPos, &DestPos, 0xC );
+	GetAttemptedSpawnLocation_Parms.DestRadius = DestRadius;
 
-	this->ProcessEvent ( pFnGetAttemptedSpawnLocation, &GetAttemptedSpawnLocation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetAttemptedSpawnLocation, &GetAttemptedSpawnLocation_Parms, NULL );
+
+	return GetAttemptedSpawnLocation_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdAgent.SetLighting
 // [0x00020102] 
 // Parameters infos:
+// unsigned long                  bEnableLightEnvironment        ( CPF_Parm )
+// struct FLightingChannelContainer AgentLightingChannel           ( CPF_Parm )
+// unsigned long                  bCastShadows                   ( CPF_Parm )
 
-void AGameCrowdAgent::SetLighting ( )
+void AGameCrowdAgent::SetLighting ( unsigned long bEnableLightEnvironment, struct FLightingChannelContainer AgentLightingChannel, unsigned long bCastShadows )
 {
 	static UFunction* pFnSetLighting = NULL;
 
 	if ( ! pFnSetLighting )
-		pFnSetLighting = (UFunction*) UObject::GObjObjects()->Data[ 37693 ];
+		pFnSetLighting = (UFunction*) UObject::GObjObjects()->Data[ 37700 ];
 
 	AGameCrowdAgent_execSetLighting_Parms SetLighting_Parms;
+	SetLighting_Parms.bEnableLightEnvironment = bEnableLightEnvironment;
+	memcpy ( &SetLighting_Parms.AgentLightingChannel, &AgentLightingChannel, 0x4 );
+	SetLighting_Parms.bCastShadows = bCastShadows;
 
-	this->ProcessEvent ( pFnSetLighting, &SetLighting_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetLighting, &SetLighting_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.DisplayDebug
 // [0x00420102] 
 // Parameters infos:
+// class AHUD*                    HUD                            ( CPF_Parm )
+// float                          out_YL                         ( CPF_Parm | CPF_OutParm )
+// float                          out_YPos                       ( CPF_Parm | CPF_OutParm )
 
-void AGameCrowdAgent::DisplayDebug ( )
+void AGameCrowdAgent::DisplayDebug ( class AHUD* HUD, float* out_YL, float* out_YPos )
 {
 	static UFunction* pFnDisplayDebug = NULL;
 
 	if ( ! pFnDisplayDebug )
-		pFnDisplayDebug = (UFunction*) UObject::GObjObjects()->Data[ 37687 ];
+		pFnDisplayDebug = (UFunction*) UObject::GObjObjects()->Data[ 37694 ];
 
 	AGameCrowdAgent_execDisplayDebug_Parms DisplayDebug_Parms;
+	DisplayDebug_Parms.HUD = HUD;
 
-	this->ProcessEvent ( pFnDisplayDebug, &DisplayDebug_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDisplayDebug, &DisplayDebug_Parms, NULL );
+
+	if ( out_YL )
+		*out_YL = DisplayDebug_Parms.out_YL;
+
+	if ( out_YPos )
+		*out_YPos = DisplayDebug_Parms.out_YPos;
 };
 
 // Function GameFramework.GameCrowdAgent.Destroyed
@@ -1430,11 +1720,11 @@ void AGameCrowdAgent::Destroyed ( )
 	static UFunction* pFnDestroyed = NULL;
 
 	if ( ! pFnDestroyed )
-		pFnDestroyed = (UFunction*) UObject::GObjObjects()->Data[ 37686 ];
+		pFnDestroyed = (UFunction*) UObject::GObjObjects()->Data[ 37693 ];
 
 	AGameCrowdAgent_execDestroyed_Parms Destroyed_Parms;
 
-	this->ProcessEvent ( pFnDestroyed, &Destroyed_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDestroyed, &Destroyed_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.ResetPooledAgent
@@ -1446,11 +1736,11 @@ void AGameCrowdAgent::ResetPooledAgent ( )
 	static UFunction* pFnResetPooledAgent = NULL;
 
 	if ( ! pFnResetPooledAgent )
-		pFnResetPooledAgent = (UFunction*) UObject::GObjObjects()->Data[ 37685 ];
+		pFnResetPooledAgent = (UFunction*) UObject::GObjObjects()->Data[ 37692 ];
 
 	AGameCrowdAgent_execResetPooledAgent_Parms ResetPooledAgent_Parms;
 
-	this->ProcessEvent ( pFnResetPooledAgent, &ResetPooledAgent_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnResetPooledAgent, &ResetPooledAgent_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.KillAgent
@@ -1462,11 +1752,11 @@ void AGameCrowdAgent::eventKillAgent ( )
 	static UFunction* pFnKillAgent = NULL;
 
 	if ( ! pFnKillAgent )
-		pFnKillAgent = (UFunction*) UObject::GObjObjects()->Data[ 37684 ];
+		pFnKillAgent = (UFunction*) UObject::GObjObjects()->Data[ 37691 ];
 
 	AGameCrowdAgent_eventKillAgent_Parms KillAgent_Parms;
 
-	this->ProcessEvent ( pFnKillAgent, &KillAgent_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnKillAgent, &KillAgent_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.PostBeginPlay
@@ -1478,11 +1768,11 @@ void AGameCrowdAgent::PostBeginPlay ( )
 	static UFunction* pFnPostBeginPlay = NULL;
 
 	if ( ! pFnPostBeginPlay )
-		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 37680 ];
+		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 37687 ];
 
 	AGameCrowdAgent_execPostBeginPlay_Parms PostBeginPlay_Parms;
 
-	this->ProcessEvent ( pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.SetMaxSpeed
@@ -1494,27 +1784,29 @@ void AGameCrowdAgent::SetMaxSpeed ( )
 	static UFunction* pFnSetMaxSpeed = NULL;
 
 	if ( ! pFnSetMaxSpeed )
-		pFnSetMaxSpeed = (UFunction*) UObject::GObjObjects()->Data[ 37679 ];
+		pFnSetMaxSpeed = (UFunction*) UObject::GObjObjects()->Data[ 37686 ];
 
 	AGameCrowdAgent_execSetMaxSpeed_Parms SetMaxSpeed_Parms;
 
-	this->ProcessEvent ( pFnSetMaxSpeed, &SetMaxSpeed_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetMaxSpeed, &SetMaxSpeed_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.SetCurrentDestination
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// class AGameCrowdDestination*   NewDest                        ( CPF_Parm )
 
-void AGameCrowdAgent::eventSetCurrentDestination ( )
+void AGameCrowdAgent::eventSetCurrentDestination ( class AGameCrowdDestination* NewDest )
 {
 	static UFunction* pFnSetCurrentDestination = NULL;
 
 	if ( ! pFnSetCurrentDestination )
-		pFnSetCurrentDestination = (UFunction*) UObject::GObjObjects()->Data[ 37677 ];
+		pFnSetCurrentDestination = (UFunction*) UObject::GObjObjects()->Data[ 37684 ];
 
 	AGameCrowdAgent_eventSetCurrentDestination_Parms SetCurrentDestination_Parms;
+	SetCurrentDestination_Parms.NewDest = NewDest;
 
-	this->ProcessEvent ( pFnSetCurrentDestination, &SetCurrentDestination_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetCurrentDestination, &SetCurrentDestination_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.WaitForGroupMembers
@@ -1526,83 +1818,98 @@ void AGameCrowdAgent::eventWaitForGroupMembers ( )
 	static UFunction* pFnWaitForGroupMembers = NULL;
 
 	if ( ! pFnWaitForGroupMembers )
-		pFnWaitForGroupMembers = (UFunction*) UObject::GObjObjects()->Data[ 37675 ];
+		pFnWaitForGroupMembers = (UFunction*) UObject::GObjObjects()->Data[ 37682 ];
 
 	AGameCrowdAgent_eventWaitForGroupMembers_Parms WaitForGroupMembers_Parms;
 
-	this->ProcessEvent ( pFnWaitForGroupMembers, &WaitForGroupMembers_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnWaitForGroupMembers, &WaitForGroupMembers_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.PickBehaviorFrom
 // [0x00824002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// TArray< struct FBehaviorEntry > BehaviorList                   ( CPF_Parm | CPF_NeedCtorLink )
+// struct FVector                 BestCameraLoc                  ( CPF_OptionalParm | CPF_Parm )
 
-void AGameCrowdAgent::PickBehaviorFrom ( )
+bool AGameCrowdAgent::PickBehaviorFrom ( TArray< struct FBehaviorEntry > BehaviorList, struct FVector BestCameraLoc )
 {
 	static UFunction* pFnPickBehaviorFrom = NULL;
 
 	if ( ! pFnPickBehaviorFrom )
-		pFnPickBehaviorFrom = (UFunction*) UObject::GObjObjects()->Data[ 37161 ];
+		pFnPickBehaviorFrom = (UFunction*) UObject::GObjObjects()->Data[ 37168 ];
 
 	AGameCrowdAgent_execPickBehaviorFrom_Parms PickBehaviorFrom_Parms;
+	memcpy ( &PickBehaviorFrom_Parms.BehaviorList, &BehaviorList, 0x10 );
+	memcpy ( &PickBehaviorFrom_Parms.BestCameraLoc, &BestCameraLoc, 0xC );
 
-	this->ProcessEvent ( pFnPickBehaviorFrom, &PickBehaviorFrom_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPickBehaviorFrom, &PickBehaviorFrom_Parms, NULL );
+
+	return PickBehaviorFrom_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdAgent.IsPanicked
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void AGameCrowdAgent::IsPanicked ( )
+bool AGameCrowdAgent::IsPanicked ( )
 {
 	static UFunction* pFnIsPanicked = NULL;
 
 	if ( ! pFnIsPanicked )
-		pFnIsPanicked = (UFunction*) UObject::GObjObjects()->Data[ 37662 ];
+		pFnIsPanicked = (UFunction*) UObject::GObjObjects()->Data[ 37669 ];
 
 	AGameCrowdAgent_execIsPanicked_Parms IsPanicked_Parms;
 
 	pFnIsPanicked->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnIsPanicked, &IsPanicked_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnIsPanicked, &IsPanicked_Parms, NULL );
 
 	pFnIsPanicked->FunctionFlags |= 0x400;
+
+	return IsPanicked_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdAgent.FellOutOfWorld
 // [0x00020902] ( FUNC_Event )
 // Parameters infos:
+// class UClass*                  dmgType                        ( CPF_Parm )
 
-void AGameCrowdAgent::eventFellOutOfWorld ( )
+void AGameCrowdAgent::eventFellOutOfWorld ( class UClass* dmgType )
 {
 	static UFunction* pFnFellOutOfWorld = NULL;
 
 	if ( ! pFnFellOutOfWorld )
-		pFnFellOutOfWorld = (UFunction*) UObject::GObjObjects()->Data[ 37660 ];
+		pFnFellOutOfWorld = (UFunction*) UObject::GObjObjects()->Data[ 37667 ];
 
 	AGameCrowdAgent_eventFellOutOfWorld_Parms FellOutOfWorld_Parms;
+	FellOutOfWorld_Parms.dmgType = dmgType;
 
-	this->ProcessEvent ( pFnFellOutOfWorld, &FellOutOfWorld_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnFellOutOfWorld, &FellOutOfWorld_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgent.GetCollisionExtent
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// struct FVector                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void AGameCrowdAgent::GetCollisionExtent ( )
+struct FVector AGameCrowdAgent::GetCollisionExtent ( )
 {
 	static UFunction* pFnGetCollisionExtent = NULL;
 
 	if ( ! pFnGetCollisionExtent )
-		pFnGetCollisionExtent = (UFunction*) UObject::GObjObjects()->Data[ 37658 ];
+		pFnGetCollisionExtent = (UFunction*) UObject::GObjObjects()->Data[ 37665 ];
 
 	AGameCrowdAgent_execGetCollisionExtent_Parms GetCollisionExtent_Parms;
 
 	pFnGetCollisionExtent->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnGetCollisionExtent, &GetCollisionExtent_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetCollisionExtent, &GetCollisionExtent_Parms, NULL );
 
 	pFnGetCollisionExtent->FunctionFlags |= 0x400;
+
+	return GetCollisionExtent_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdAgentSkeletal.CreateAttachments
@@ -1614,27 +1921,33 @@ void AGameCrowdAgentSkeletal::CreateAttachments ( )
 	static UFunction* pFnCreateAttachments = NULL;
 
 	if ( ! pFnCreateAttachments )
-		pFnCreateAttachments = (UFunction*) UObject::GObjObjects()->Data[ 37892 ];
+		pFnCreateAttachments = (UFunction*) UObject::GObjObjects()->Data[ 37899 ];
 
 	AGameCrowdAgentSkeletal_execCreateAttachments_Parms CreateAttachments_Parms;
 
-	this->ProcessEvent ( pFnCreateAttachments, &CreateAttachments_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCreateAttachments, &CreateAttachments_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgentSkeletal.OnAnimEnd
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// class UAnimNodeSequence*       SeqNode                        ( CPF_Parm )
+// float                          PlayedTime                     ( CPF_Parm )
+// float                          ExcessTime                     ( CPF_Parm )
 
-void AGameCrowdAgentSkeletal::eventOnAnimEnd ( )
+void AGameCrowdAgentSkeletal::eventOnAnimEnd ( class UAnimNodeSequence* SeqNode, float PlayedTime, float ExcessTime )
 {
 	static UFunction* pFnOnAnimEnd = NULL;
 
 	if ( ! pFnOnAnimEnd )
-		pFnOnAnimEnd = (UFunction*) UObject::GObjObjects()->Data[ 37888 ];
+		pFnOnAnimEnd = (UFunction*) UObject::GObjObjects()->Data[ 37895 ];
 
 	AGameCrowdAgentSkeletal_eventOnAnimEnd_Parms OnAnimEnd_Parms;
+	OnAnimEnd_Parms.SeqNode = SeqNode;
+	OnAnimEnd_Parms.PlayedTime = PlayedTime;
+	OnAnimEnd_Parms.ExcessTime = ExcessTime;
 
-	this->ProcessEvent ( pFnOnAnimEnd, &OnAnimEnd_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnAnimEnd, &OnAnimEnd_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgentSkeletal.StopIdleAnimation
@@ -1646,11 +1959,11 @@ void AGameCrowdAgentSkeletal::eventStopIdleAnimation ( )
 	static UFunction* pFnStopIdleAnimation = NULL;
 
 	if ( ! pFnStopIdleAnimation )
-		pFnStopIdleAnimation = (UFunction*) UObject::GObjObjects()->Data[ 37887 ];
+		pFnStopIdleAnimation = (UFunction*) UObject::GObjObjects()->Data[ 37894 ];
 
 	AGameCrowdAgentSkeletal_eventStopIdleAnimation_Parms StopIdleAnimation_Parms;
 
-	this->ProcessEvent ( pFnStopIdleAnimation, &StopIdleAnimation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnStopIdleAnimation, &StopIdleAnimation_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgentSkeletal.PlayIdleAnimation
@@ -1662,11 +1975,11 @@ void AGameCrowdAgentSkeletal::eventPlayIdleAnimation ( )
 	static UFunction* pFnPlayIdleAnimation = NULL;
 
 	if ( ! pFnPlayIdleAnimation )
-		pFnPlayIdleAnimation = (UFunction*) UObject::GObjObjects()->Data[ 37886 ];
+		pFnPlayIdleAnimation = (UFunction*) UObject::GObjObjects()->Data[ 37893 ];
 
 	AGameCrowdAgentSkeletal_eventPlayIdleAnimation_Parms PlayIdleAnimation_Parms;
 
-	this->ProcessEvent ( pFnPlayIdleAnimation, &PlayIdleAnimation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPlayIdleAnimation, &PlayIdleAnimation_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgentSkeletal.ClearLatentAnimation
@@ -1678,45 +1991,49 @@ void AGameCrowdAgentSkeletal::eventClearLatentAnimation ( )
 	static UFunction* pFnClearLatentAnimation = NULL;
 
 	if ( ! pFnClearLatentAnimation )
-		pFnClearLatentAnimation = (UFunction*) UObject::GObjObjects()->Data[ 37885 ];
+		pFnClearLatentAnimation = (UFunction*) UObject::GObjObjects()->Data[ 37892 ];
 
 	AGameCrowdAgentSkeletal_eventClearLatentAnimation_Parms ClearLatentAnimation_Parms;
 
-	this->ProcessEvent ( pFnClearLatentAnimation, &ClearLatentAnimation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnClearLatentAnimation, &ClearLatentAnimation_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgentSkeletal.OnPlayAgentAnimation
 // [0x00020102] 
 // Parameters infos:
+// class USeqAct_PlayAgentAnimation* Action                         ( CPF_Parm )
 
-void AGameCrowdAgentSkeletal::OnPlayAgentAnimation ( )
+void AGameCrowdAgentSkeletal::OnPlayAgentAnimation ( class USeqAct_PlayAgentAnimation* Action )
 {
 	static UFunction* pFnOnPlayAgentAnimation = NULL;
 
 	if ( ! pFnOnPlayAgentAnimation )
-		pFnOnPlayAgentAnimation = (UFunction*) UObject::GObjObjects()->Data[ 37883 ];
+		pFnOnPlayAgentAnimation = (UFunction*) UObject::GObjObjects()->Data[ 37890 ];
 
 	AGameCrowdAgentSkeletal_execOnPlayAgentAnimation_Parms OnPlayAgentAnimation_Parms;
+	OnPlayAgentAnimation_Parms.Action = Action;
 
-	this->ProcessEvent ( pFnOnPlayAgentAnimation, &OnPlayAgentAnimation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnPlayAgentAnimation, &OnPlayAgentAnimation_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgentSkeletal.SetRootMotion
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// unsigned long                  bRootMotionEnabled             ( CPF_Parm )
 
-void AGameCrowdAgentSkeletal::SetRootMotion ( )
+void AGameCrowdAgentSkeletal::SetRootMotion ( unsigned long bRootMotionEnabled )
 {
 	static UFunction* pFnSetRootMotion = NULL;
 
 	if ( ! pFnSetRootMotion )
-		pFnSetRootMotion = (UFunction*) UObject::GObjObjects()->Data[ 37881 ];
+		pFnSetRootMotion = (UFunction*) UObject::GObjObjects()->Data[ 37888 ];
 
 	AGameCrowdAgentSkeletal_execSetRootMotion_Parms SetRootMotion_Parms;
+	SetRootMotion_Parms.bRootMotionEnabled = bRootMotionEnabled;
 
 	pFnSetRootMotion->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnSetRootMotion, &SetRootMotion_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetRootMotion, &SetRootMotion_Parms, NULL );
 
 	pFnSetRootMotion->FunctionFlags |= 0x400;
 };
@@ -1724,19 +2041,21 @@ void AGameCrowdAgentSkeletal::SetRootMotion ( )
 // Function GameFramework.GameCrowdAgentSkeletal.PlayDeath
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// struct FVector                 KillMomentum                   ( CPF_Parm )
 
-void AGameCrowdAgentSkeletal::PlayDeath ( )
+void AGameCrowdAgentSkeletal::PlayDeath ( struct FVector KillMomentum )
 {
 	static UFunction* pFnPlayDeath = NULL;
 
 	if ( ! pFnPlayDeath )
-		pFnPlayDeath = (UFunction*) UObject::GObjObjects()->Data[ 37879 ];
+		pFnPlayDeath = (UFunction*) UObject::GObjObjects()->Data[ 37886 ];
 
 	AGameCrowdAgentSkeletal_execPlayDeath_Parms PlayDeath_Parms;
+	memcpy ( &PlayDeath_Parms.KillMomentum, &KillMomentum, 0xC );
 
 	pFnPlayDeath->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnPlayDeath, &PlayDeath_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPlayDeath, &PlayDeath_Parms, NULL );
 
 	pFnPlayDeath->FunctionFlags |= 0x400;
 };
@@ -1744,17 +2063,23 @@ void AGameCrowdAgentSkeletal::PlayDeath ( )
 // Function GameFramework.GameCrowdAgentSkeletal.SetLighting
 // [0x00020102] 
 // Parameters infos:
+// unsigned long                  bEnableLightEnvironment        ( CPF_Parm )
+// struct FLightingChannelContainer AgentLightingChannel           ( CPF_Parm )
+// unsigned long                  bCastShadows                   ( CPF_Parm )
 
-void AGameCrowdAgentSkeletal::SetLighting ( )
+void AGameCrowdAgentSkeletal::SetLighting ( unsigned long bEnableLightEnvironment, struct FLightingChannelContainer AgentLightingChannel, unsigned long bCastShadows )
 {
 	static UFunction* pFnSetLighting = NULL;
 
 	if ( ! pFnSetLighting )
-		pFnSetLighting = (UFunction*) UObject::GObjObjects()->Data[ 37875 ];
+		pFnSetLighting = (UFunction*) UObject::GObjObjects()->Data[ 37882 ];
 
 	AGameCrowdAgentSkeletal_execSetLighting_Parms SetLighting_Parms;
+	SetLighting_Parms.bEnableLightEnvironment = bEnableLightEnvironment;
+	memcpy ( &SetLighting_Parms.AgentLightingChannel, &AgentLightingChannel, 0x4 );
+	SetLighting_Parms.bCastShadows = bCastShadows;
 
-	this->ProcessEvent ( pFnSetLighting, &SetLighting_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetLighting, &SetLighting_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgentSkeletal.PostBeginPlay
@@ -1766,11 +2091,11 @@ void AGameCrowdAgentSkeletal::PostBeginPlay ( )
 	static UFunction* pFnPostBeginPlay = NULL;
 
 	if ( ! pFnPostBeginPlay )
-		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 37874 ];
+		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 37881 ];
 
 	AGameCrowdAgentSkeletal_execPostBeginPlay_Parms PostBeginPlay_Parms;
 
-	this->ProcessEvent ( pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgentSM.StopBehavior
@@ -1782,43 +2107,49 @@ void AGameCrowdAgentSM::StopBehavior ( )
 	static UFunction* pFnStopBehavior = NULL;
 
 	if ( ! pFnStopBehavior )
-		pFnStopBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37913 ];
+		pFnStopBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37920 ];
 
 	AGameCrowdAgentSM_execStopBehavior_Parms StopBehavior_Parms;
 
-	this->ProcessEvent ( pFnStopBehavior, &StopBehavior_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnStopBehavior, &StopBehavior_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgentSM.ActivateBehavior
 // [0x00024002] 
 // Parameters infos:
+// class UGameCrowdAgentBehavior* NewBehaviorArchetype           ( CPF_Parm )
+// class AActor*                  LookAtActor                    ( CPF_OptionalParm | CPF_Parm )
 
-void AGameCrowdAgentSM::ActivateBehavior ( )
+void AGameCrowdAgentSM::ActivateBehavior ( class UGameCrowdAgentBehavior* NewBehaviorArchetype, class AActor* LookAtActor )
 {
 	static UFunction* pFnActivateBehavior = NULL;
 
 	if ( ! pFnActivateBehavior )
-		pFnActivateBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37910 ];
+		pFnActivateBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37917 ];
 
 	AGameCrowdAgentSM_execActivateBehavior_Parms ActivateBehavior_Parms;
+	ActivateBehavior_Parms.NewBehaviorArchetype = NewBehaviorArchetype;
+	ActivateBehavior_Parms.LookAtActor = LookAtActor;
 
-	this->ProcessEvent ( pFnActivateBehavior, &ActivateBehavior_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnActivateBehavior, &ActivateBehavior_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgentSM.ChangeDebugColor
 // [0x00820102] 
 // Parameters infos:
+// struct FColor                  InC                            ( CPF_Parm )
 
-void AGameCrowdAgentSM::ChangeDebugColor ( )
+void AGameCrowdAgentSM::ChangeDebugColor ( struct FColor InC )
 {
 	static UFunction* pFnChangeDebugColor = NULL;
 
 	if ( ! pFnChangeDebugColor )
-		pFnChangeDebugColor = (UFunction*) UObject::GObjObjects()->Data[ 37907 ];
+		pFnChangeDebugColor = (UFunction*) UObject::GObjObjects()->Data[ 37914 ];
 
 	AGameCrowdAgentSM_execChangeDebugColor_Parms ChangeDebugColor_Parms;
+	memcpy ( &ChangeDebugColor_Parms.InC, &InC, 0x4 );
 
-	this->ProcessEvent ( pFnChangeDebugColor, &ChangeDebugColor_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnChangeDebugColor, &ChangeDebugColor_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgentSM.InitDebugColor
@@ -1830,11 +2161,11 @@ void AGameCrowdAgentSM::InitDebugColor ( )
 	static UFunction* pFnInitDebugColor = NULL;
 
 	if ( ! pFnInitDebugColor )
-		pFnInitDebugColor = (UFunction*) UObject::GObjObjects()->Data[ 37906 ];
+		pFnInitDebugColor = (UFunction*) UObject::GObjObjects()->Data[ 37913 ];
 
 	AGameCrowdAgentSM_execInitDebugColor_Parms InitDebugColor_Parms;
 
-	this->ProcessEvent ( pFnInitDebugColor, &InitDebugColor_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitDebugColor, &InitDebugColor_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgentSM.PostBeginPlay
@@ -1846,155 +2177,186 @@ void AGameCrowdAgentSM::PostBeginPlay ( )
 	static UFunction* pFnPostBeginPlay = NULL;
 
 	if ( ! pFnPostBeginPlay )
-		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 37905 ];
+		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 37912 ];
 
 	AGameCrowdAgentSM_execPostBeginPlay_Parms PostBeginPlay_Parms;
 
-	this->ProcessEvent ( pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgentBehavior.AllowBehaviorAt
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AGameCrowdDestination*   Destination                    ( CPF_Parm )
 
-void UGameCrowdAgentBehavior::AllowBehaviorAt ( )
+bool UGameCrowdAgentBehavior::AllowBehaviorAt ( class AGameCrowdDestination* Destination )
 {
 	static UFunction* pFnAllowBehaviorAt = NULL;
 
 	if ( ! pFnAllowBehaviorAt )
-		pFnAllowBehaviorAt = (UFunction*) UObject::GObjObjects()->Data[ 37159 ];
+		pFnAllowBehaviorAt = (UFunction*) UObject::GObjObjects()->Data[ 37166 ];
 
 	UGameCrowdAgentBehavior_execAllowBehaviorAt_Parms AllowBehaviorAt_Parms;
+	AllowBehaviorAt_Parms.Destination = Destination;
 
-	this->ProcessEvent ( pFnAllowBehaviorAt, &AllowBehaviorAt_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAllowBehaviorAt, &AllowBehaviorAt_Parms, NULL );
+
+	return AllowBehaviorAt_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdAgentBehavior.AllowThisDestination
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AGameCrowdDestination*   Destination                    ( CPF_Parm )
 
-void UGameCrowdAgentBehavior::AllowThisDestination ( )
+bool UGameCrowdAgentBehavior::AllowThisDestination ( class AGameCrowdDestination* Destination )
 {
 	static UFunction* pFnAllowThisDestination = NULL;
 
 	if ( ! pFnAllowThisDestination )
-		pFnAllowThisDestination = (UFunction*) UObject::GObjObjects()->Data[ 37192 ];
+		pFnAllowThisDestination = (UFunction*) UObject::GObjObjects()->Data[ 37199 ];
 
 	UGameCrowdAgentBehavior_execAllowThisDestination_Parms AllowThisDestination_Parms;
+	AllowThisDestination_Parms.Destination = Destination;
 
-	this->ProcessEvent ( pFnAllowThisDestination, &AllowThisDestination_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAllowThisDestination, &AllowThisDestination_Parms, NULL );
+
+	return AllowThisDestination_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdAgentBehavior.PropagateViralBehaviorTo
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// class AGameCrowdAgent*         OtherAgent                     ( CPF_Parm )
 
-void UGameCrowdAgentBehavior::eventPropagateViralBehaviorTo ( )
+void UGameCrowdAgentBehavior::eventPropagateViralBehaviorTo ( class AGameCrowdAgent* OtherAgent )
 {
 	static UFunction* pFnPropagateViralBehaviorTo = NULL;
 
 	if ( ! pFnPropagateViralBehaviorTo )
-		pFnPropagateViralBehaviorTo = (UFunction*) UObject::GObjObjects()->Data[ 37654 ];
+		pFnPropagateViralBehaviorTo = (UFunction*) UObject::GObjObjects()->Data[ 37661 ];
 
 	UGameCrowdAgentBehavior_eventPropagateViralBehaviorTo_Parms PropagateViralBehaviorTo_Parms;
+	PropagateViralBehaviorTo_Parms.OtherAgent = OtherAgent;
 
-	this->ProcessEvent ( pFnPropagateViralBehaviorTo, &PropagateViralBehaviorTo_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPropagateViralBehaviorTo, &PropagateViralBehaviorTo_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgentBehavior.GetBehaviorInstigator
 // [0x00020002] 
 // Parameters infos:
+// class AActor*                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGameCrowdAgentBehavior::GetBehaviorInstigator ( )
+class AActor* UGameCrowdAgentBehavior::GetBehaviorInstigator ( )
 {
 	static UFunction* pFnGetBehaviorInstigator = NULL;
 
 	if ( ! pFnGetBehaviorInstigator )
-		pFnGetBehaviorInstigator = (UFunction*) UObject::GObjObjects()->Data[ 37652 ];
+		pFnGetBehaviorInstigator = (UFunction*) UObject::GObjObjects()->Data[ 37659 ];
 
 	UGameCrowdAgentBehavior_execGetBehaviorInstigator_Parms GetBehaviorInstigator_Parms;
 
-	this->ProcessEvent ( pFnGetBehaviorInstigator, &GetBehaviorInstigator_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetBehaviorInstigator, &GetBehaviorInstigator_Parms, NULL );
+
+	return GetBehaviorInstigator_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdAgentBehavior.ActivatedBy
 // [0x00020002] 
 // Parameters infos:
+// class AActor*                  NewActionTarget                ( CPF_Parm )
 
-void UGameCrowdAgentBehavior::ActivatedBy ( )
+void UGameCrowdAgentBehavior::ActivatedBy ( class AActor* NewActionTarget )
 {
 	static UFunction* pFnActivatedBy = NULL;
 
 	if ( ! pFnActivatedBy )
-		pFnActivatedBy = (UFunction*) UObject::GObjObjects()->Data[ 37650 ];
+		pFnActivatedBy = (UFunction*) UObject::GObjObjects()->Data[ 37657 ];
 
 	UGameCrowdAgentBehavior_execActivatedBy_Parms ActivatedBy_Parms;
+	ActivatedBy_Parms.NewActionTarget = NewActionTarget;
 
-	this->ProcessEvent ( pFnActivatedBy, &ActivatedBy_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnActivatedBy, &ActivatedBy_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgentBehavior.GetDestinationActor
 // [0x00020002] 
 // Parameters infos:
+// class AActor*                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGameCrowdAgentBehavior::GetDestinationActor ( )
+class AActor* UGameCrowdAgentBehavior::GetDestinationActor ( )
 {
 	static UFunction* pFnGetDestinationActor = NULL;
 
 	if ( ! pFnGetDestinationActor )
-		pFnGetDestinationActor = (UFunction*) UObject::GObjObjects()->Data[ 37648 ];
+		pFnGetDestinationActor = (UFunction*) UObject::GObjObjects()->Data[ 37655 ];
 
 	UGameCrowdAgentBehavior_execGetDestinationActor_Parms GetDestinationActor_Parms;
 
-	this->ProcessEvent ( pFnGetDestinationActor, &GetDestinationActor_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetDestinationActor, &GetDestinationActor_Parms, NULL );
+
+	return GetDestinationActor_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdAgentBehavior.ChangingDestination
 // [0x00020000] 
 // Parameters infos:
+// class AGameCrowdDestination*   NewDest                        ( CPF_Parm )
 
-void UGameCrowdAgentBehavior::ChangingDestination ( )
+void UGameCrowdAgentBehavior::ChangingDestination ( class AGameCrowdDestination* NewDest )
 {
 	static UFunction* pFnChangingDestination = NULL;
 
 	if ( ! pFnChangingDestination )
-		pFnChangingDestination = (UFunction*) UObject::GObjObjects()->Data[ 37646 ];
+		pFnChangingDestination = (UFunction*) UObject::GObjObjects()->Data[ 37653 ];
 
 	UGameCrowdAgentBehavior_execChangingDestination_Parms ChangingDestination_Parms;
+	ChangingDestination_Parms.NewDest = NewDest;
 
-	this->ProcessEvent ( pFnChangingDestination, &ChangingDestination_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnChangingDestination, &ChangingDestination_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgentBehavior.GetBehaviorString
 // [0x00020002] 
 // Parameters infos:
+// struct FString                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
 
-void UGameCrowdAgentBehavior::GetBehaviorString ( )
+struct FString UGameCrowdAgentBehavior::GetBehaviorString ( )
 {
 	static UFunction* pFnGetBehaviorString = NULL;
 
 	if ( ! pFnGetBehaviorString )
-		pFnGetBehaviorString = (UFunction*) UObject::GObjObjects()->Data[ 37644 ];
+		pFnGetBehaviorString = (UFunction*) UObject::GObjObjects()->Data[ 37651 ];
 
 	UGameCrowdAgentBehavior_execGetBehaviorString_Parms GetBehaviorString_Parms;
 
-	this->ProcessEvent ( pFnGetBehaviorString, &GetBehaviorString_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetBehaviorString, &GetBehaviorString_Parms, NULL );
+
+	return GetBehaviorString_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdAgentBehavior.OnAnimEnd
 // [0x00020800] ( FUNC_Event )
 // Parameters infos:
+// class UAnimNodeSequence*       SeqNode                        ( CPF_Parm )
+// float                          PlayedTime                     ( CPF_Parm )
+// float                          ExcessTime                     ( CPF_Parm )
 
-void UGameCrowdAgentBehavior::eventOnAnimEnd ( )
+void UGameCrowdAgentBehavior::eventOnAnimEnd ( class UAnimNodeSequence* SeqNode, float PlayedTime, float ExcessTime )
 {
 	static UFunction* pFnOnAnimEnd = NULL;
 
 	if ( ! pFnOnAnimEnd )
-		pFnOnAnimEnd = (UFunction*) UObject::GObjObjects()->Data[ 37640 ];
+		pFnOnAnimEnd = (UFunction*) UObject::GObjObjects()->Data[ 37647 ];
 
 	UGameCrowdAgentBehavior_eventOnAnimEnd_Parms OnAnimEnd_Parms;
+	OnAnimEnd_Parms.SeqNode = SeqNode;
+	OnAnimEnd_Parms.PlayedTime = PlayedTime;
+	OnAnimEnd_Parms.ExcessTime = ExcessTime;
 
-	this->ProcessEvent ( pFnOnAnimEnd, &OnAnimEnd_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnAnimEnd, &OnAnimEnd_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgentBehavior.StopBehavior
@@ -2006,47 +2368,52 @@ void UGameCrowdAgentBehavior::StopBehavior ( )
 	static UFunction* pFnStopBehavior = NULL;
 
 	if ( ! pFnStopBehavior )
-		pFnStopBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37639 ];
+		pFnStopBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37646 ];
 
 	UGameCrowdAgentBehavior_execStopBehavior_Parms StopBehavior_Parms;
 
-	this->ProcessEvent ( pFnStopBehavior, &StopBehavior_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnStopBehavior, &StopBehavior_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgentBehavior.InitBehavior
 // [0x00020002] 
 // Parameters infos:
+// class AGameCrowdAgent*         Agent                          ( CPF_Parm )
 
-void UGameCrowdAgentBehavior::InitBehavior ( )
+void UGameCrowdAgentBehavior::InitBehavior ( class AGameCrowdAgent* Agent )
 {
 	static UFunction* pFnInitBehavior = NULL;
 
 	if ( ! pFnInitBehavior )
-		pFnInitBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37637 ];
+		pFnInitBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37644 ];
 
 	UGameCrowdAgentBehavior_execInitBehavior_Parms InitBehavior_Parms;
+	InitBehavior_Parms.Agent = Agent;
 
-	this->ProcessEvent ( pFnInitBehavior, &InitBehavior_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitBehavior, &InitBehavior_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgentBehavior.HandleMovement
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGameCrowdAgentBehavior::HandleMovement ( )
+bool UGameCrowdAgentBehavior::HandleMovement ( )
 {
 	static UFunction* pFnHandleMovement = NULL;
 
 	if ( ! pFnHandleMovement )
-		pFnHandleMovement = (UFunction*) UObject::GObjObjects()->Data[ 37635 ];
+		pFnHandleMovement = (UFunction*) UObject::GObjObjects()->Data[ 37642 ];
 
 	UGameCrowdAgentBehavior_execHandleMovement_Parms HandleMovement_Parms;
 
 	pFnHandleMovement->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnHandleMovement, &HandleMovement_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnHandleMovement, &HandleMovement_Parms, NULL );
 
 	pFnHandleMovement->FunctionFlags |= 0x400;
+
+	return HandleMovement_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdAgentBehavior.FinishedTargetRotation
@@ -2058,45 +2425,54 @@ void UGameCrowdAgentBehavior::eventFinishedTargetRotation ( )
 	static UFunction* pFnFinishedTargetRotation = NULL;
 
 	if ( ! pFnFinishedTargetRotation )
-		pFnFinishedTargetRotation = (UFunction*) UObject::GObjObjects()->Data[ 37634 ];
+		pFnFinishedTargetRotation = (UFunction*) UObject::GObjObjects()->Data[ 37641 ];
 
 	UGameCrowdAgentBehavior_eventFinishedTargetRotation_Parms FinishedTargetRotation_Parms;
 
-	this->ProcessEvent ( pFnFinishedTargetRotation, &FinishedTargetRotation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnFinishedTargetRotation, &FinishedTargetRotation_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdAgentBehavior.CanBeUsedBy
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AGameCrowdAgent*         Agent                          ( CPF_Parm )
+// struct FVector                 CameraLoc                      ( CPF_Parm )
 
-void UGameCrowdAgentBehavior::CanBeUsedBy ( )
+bool UGameCrowdAgentBehavior::CanBeUsedBy ( class AGameCrowdAgent* Agent, struct FVector CameraLoc )
 {
 	static UFunction* pFnCanBeUsedBy = NULL;
 
 	if ( ! pFnCanBeUsedBy )
-		pFnCanBeUsedBy = (UFunction*) UObject::GObjObjects()->Data[ 37630 ];
+		pFnCanBeUsedBy = (UFunction*) UObject::GObjObjects()->Data[ 37637 ];
 
 	UGameCrowdAgentBehavior_execCanBeUsedBy_Parms CanBeUsedBy_Parms;
+	CanBeUsedBy_Parms.Agent = Agent;
+	memcpy ( &CanBeUsedBy_Parms.CameraLoc, &CameraLoc, 0xC );
 
-	this->ProcessEvent ( pFnCanBeUsedBy, &CanBeUsedBy_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCanBeUsedBy, &CanBeUsedBy_Parms, NULL );
+
+	return CanBeUsedBy_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdAgentBehavior.Tick
 // [0x00020C00] ( FUNC_Event | FUNC_Native )
 // Parameters infos:
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UGameCrowdAgentBehavior::eventTick ( )
+void UGameCrowdAgentBehavior::eventTick ( float DeltaTime )
 {
 	static UFunction* pFnTick = NULL;
 
 	if ( ! pFnTick )
-		pFnTick = (UFunction*) UObject::GObjObjects()->Data[ 37628 ];
+		pFnTick = (UFunction*) UObject::GObjObjects()->Data[ 37635 ];
 
 	UGameCrowdAgentBehavior_eventTick_Parms Tick_Parms;
+	Tick_Parms.DeltaTime = DeltaTime;
 
 	pFnTick->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnTick, &Tick_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnTick, &Tick_Parms, NULL );
 
 	pFnTick->FunctionFlags |= 0x400;
 };
@@ -2104,57 +2480,80 @@ void UGameCrowdAgentBehavior::eventTick ( )
 // Function GameFramework.GameCrowdAgentBehavior.ShouldEndIdle
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGameCrowdAgentBehavior::ShouldEndIdle ( )
+bool UGameCrowdAgentBehavior::ShouldEndIdle ( )
 {
 	static UFunction* pFnShouldEndIdle = NULL;
 
 	if ( ! pFnShouldEndIdle )
-		pFnShouldEndIdle = (UFunction*) UObject::GObjObjects()->Data[ 37626 ];
+		pFnShouldEndIdle = (UFunction*) UObject::GObjObjects()->Data[ 37633 ];
 
 	UGameCrowdAgentBehavior_execShouldEndIdle_Parms ShouldEndIdle_Parms;
 
 	pFnShouldEndIdle->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnShouldEndIdle, &ShouldEndIdle_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnShouldEndIdle, &ShouldEndIdle_Parms, NULL );
 
 	pFnShouldEndIdle->FunctionFlags |= 0x400;
+
+	return ShouldEndIdle_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdAgentBehavior.TriggerCrowdBehavior
 // [0x00026400] ( FUNC_Native )
 // Parameters infos:
+// class AGameCrowdBehaviorPoint* ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// unsigned char                  EventType                      ( CPF_Parm )
+// class AActor*                  Instigator                     ( CPF_Parm )
+// struct FVector                 AtLocation                     ( CPF_Parm )
+// float                          InRange                        ( CPF_Parm )
+// float                          InDuration                     ( CPF_Parm )
+// class AActor*                  BaseActor                      ( CPF_OptionalParm | CPF_Parm )
+// unsigned long                  bRequireLOS                    ( CPF_OptionalParm | CPF_Parm )
 
-void UGameCrowdAgentBehavior::TriggerCrowdBehavior ( )
+class AGameCrowdBehaviorPoint* UGameCrowdAgentBehavior::TriggerCrowdBehavior ( unsigned char EventType, class AActor* Instigator, struct FVector AtLocation, float InRange, float InDuration, class AActor* BaseActor, unsigned long bRequireLOS )
 {
 	static UFunction* pFnTriggerCrowdBehavior = NULL;
 
 	if ( ! pFnTriggerCrowdBehavior )
-		pFnTriggerCrowdBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37617 ];
+		pFnTriggerCrowdBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37624 ];
 
 	UGameCrowdAgentBehavior_execTriggerCrowdBehavior_Parms TriggerCrowdBehavior_Parms;
+	TriggerCrowdBehavior_Parms.EventType = EventType;
+	TriggerCrowdBehavior_Parms.Instigator = Instigator;
+	memcpy ( &TriggerCrowdBehavior_Parms.AtLocation, &AtLocation, 0xC );
+	TriggerCrowdBehavior_Parms.InRange = InRange;
+	TriggerCrowdBehavior_Parms.InDuration = InDuration;
+	TriggerCrowdBehavior_Parms.BaseActor = BaseActor;
+	TriggerCrowdBehavior_Parms.bRequireLOS = bRequireLOS;
 
 	pFnTriggerCrowdBehavior->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnTriggerCrowdBehavior, &TriggerCrowdBehavior_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnTriggerCrowdBehavior, &TriggerCrowdBehavior_Parms, NULL );
 
 	pFnTriggerCrowdBehavior->FunctionFlags |= 0x400;
+
+	return TriggerCrowdBehavior_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdBehavior_PlayAnimation.GetBehaviorString
 // [0x00020002] 
 // Parameters infos:
+// struct FString                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
 
-void UGameCrowdBehavior_PlayAnimation::GetBehaviorString ( )
+struct FString UGameCrowdBehavior_PlayAnimation::GetBehaviorString ( )
 {
 	static UFunction* pFnGetBehaviorString = NULL;
 
 	if ( ! pFnGetBehaviorString )
-		pFnGetBehaviorString = (UFunction*) UObject::GObjObjects()->Data[ 37947 ];
+		pFnGetBehaviorString = (UFunction*) UObject::GObjObjects()->Data[ 37954 ];
 
 	UGameCrowdBehavior_PlayAnimation_execGetBehaviorString_Parms GetBehaviorString_Parms;
 
-	this->ProcessEvent ( pFnGetBehaviorString, &GetBehaviorString_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetBehaviorString, &GetBehaviorString_Parms, NULL );
+
+	return GetBehaviorString_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdBehavior_PlayAnimation.StopBehavior
@@ -2166,11 +2565,11 @@ void UGameCrowdBehavior_PlayAnimation::StopBehavior ( )
 	static UFunction* pFnStopBehavior = NULL;
 
 	if ( ! pFnStopBehavior )
-		pFnStopBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37946 ];
+		pFnStopBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37953 ];
 
 	UGameCrowdBehavior_PlayAnimation_execStopBehavior_Parms StopBehavior_Parms;
 
-	this->ProcessEvent ( pFnStopBehavior, &StopBehavior_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnStopBehavior, &StopBehavior_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdBehavior_PlayAnimation.PlayAgentAnimationNow
@@ -2182,27 +2581,33 @@ void UGameCrowdBehavior_PlayAnimation::PlayAgentAnimationNow ( )
 	static UFunction* pFnPlayAgentAnimationNow = NULL;
 
 	if ( ! pFnPlayAgentAnimationNow )
-		pFnPlayAgentAnimationNow = (UFunction*) UObject::GObjObjects()->Data[ 37942 ];
+		pFnPlayAgentAnimationNow = (UFunction*) UObject::GObjObjects()->Data[ 37949 ];
 
 	UGameCrowdBehavior_PlayAnimation_execPlayAgentAnimationNow_Parms PlayAgentAnimationNow_Parms;
 
-	this->ProcessEvent ( pFnPlayAgentAnimationNow, &PlayAgentAnimationNow_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPlayAgentAnimationNow, &PlayAgentAnimationNow_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdBehavior_PlayAnimation.OnAnimEnd
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// class UAnimNodeSequence*       SeqNode                        ( CPF_Parm )
+// float                          PlayedTime                     ( CPF_Parm )
+// float                          ExcessTime                     ( CPF_Parm )
 
-void UGameCrowdBehavior_PlayAnimation::eventOnAnimEnd ( )
+void UGameCrowdBehavior_PlayAnimation::eventOnAnimEnd ( class UAnimNodeSequence* SeqNode, float PlayedTime, float ExcessTime )
 {
 	static UFunction* pFnOnAnimEnd = NULL;
 
 	if ( ! pFnOnAnimEnd )
-		pFnOnAnimEnd = (UFunction*) UObject::GObjObjects()->Data[ 37938 ];
+		pFnOnAnimEnd = (UFunction*) UObject::GObjObjects()->Data[ 37945 ];
 
 	UGameCrowdBehavior_PlayAnimation_eventOnAnimEnd_Parms OnAnimEnd_Parms;
+	OnAnimEnd_Parms.SeqNode = SeqNode;
+	OnAnimEnd_Parms.PlayedTime = PlayedTime;
+	OnAnimEnd_Parms.ExcessTime = ExcessTime;
 
-	this->ProcessEvent ( pFnOnAnimEnd, &OnAnimEnd_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnAnimEnd, &OnAnimEnd_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdBehavior_PlayAnimation.SetSequenceOutput
@@ -2214,13 +2619,13 @@ void UGameCrowdBehavior_PlayAnimation::SetSequenceOutput ( )
 	static UFunction* pFnSetSequenceOutput = NULL;
 
 	if ( ! pFnSetSequenceOutput )
-		pFnSetSequenceOutput = (UFunction*) UObject::GObjObjects()->Data[ 37937 ];
+		pFnSetSequenceOutput = (UFunction*) UObject::GObjObjects()->Data[ 37944 ];
 
 	UGameCrowdBehavior_PlayAnimation_execSetSequenceOutput_Parms SetSequenceOutput_Parms;
 
 	pFnSetSequenceOutput->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnSetSequenceOutput, &SetSequenceOutput_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetSequenceOutput, &SetSequenceOutput_Parms, NULL );
 
 	pFnSetSequenceOutput->FunctionFlags |= 0x400;
 };
@@ -2234,91 +2639,109 @@ void UGameCrowdBehavior_PlayAnimation::eventFinishedTargetRotation ( )
 	static UFunction* pFnFinishedTargetRotation = NULL;
 
 	if ( ! pFnFinishedTargetRotation )
-		pFnFinishedTargetRotation = (UFunction*) UObject::GObjObjects()->Data[ 37936 ];
+		pFnFinishedTargetRotation = (UFunction*) UObject::GObjObjects()->Data[ 37943 ];
 
 	UGameCrowdBehavior_PlayAnimation_eventFinishedTargetRotation_Parms FinishedTargetRotation_Parms;
 
-	this->ProcessEvent ( pFnFinishedTargetRotation, &FinishedTargetRotation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnFinishedTargetRotation, &FinishedTargetRotation_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdBehavior_PlayAnimation.InitBehavior
 // [0x00020002] 
 // Parameters infos:
+// class AGameCrowdAgent*         Agent                          ( CPF_Parm )
 
-void UGameCrowdBehavior_PlayAnimation::InitBehavior ( )
+void UGameCrowdBehavior_PlayAnimation::InitBehavior ( class AGameCrowdAgent* Agent )
 {
 	static UFunction* pFnInitBehavior = NULL;
 
 	if ( ! pFnInitBehavior )
-		pFnInitBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37929 ];
+		pFnInitBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37936 ];
 
 	UGameCrowdBehavior_PlayAnimation_execInitBehavior_Parms InitBehavior_Parms;
+	InitBehavior_Parms.Agent = Agent;
 
-	this->ProcessEvent ( pFnInitBehavior, &InitBehavior_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitBehavior, &InitBehavior_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdBehavior_RunFromPanic.GetBehaviorString
 // [0x00020002] 
 // Parameters infos:
+// struct FString                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
 
-void UGameCrowdBehavior_RunFromPanic::GetBehaviorString ( )
+struct FString UGameCrowdBehavior_RunFromPanic::GetBehaviorString ( )
 {
 	static UFunction* pFnGetBehaviorString = NULL;
 
 	if ( ! pFnGetBehaviorString )
-		pFnGetBehaviorString = (UFunction*) UObject::GObjObjects()->Data[ 37966 ];
+		pFnGetBehaviorString = (UFunction*) UObject::GObjObjects()->Data[ 37973 ];
 
 	UGameCrowdBehavior_RunFromPanic_execGetBehaviorString_Parms GetBehaviorString_Parms;
 
-	this->ProcessEvent ( pFnGetBehaviorString, &GetBehaviorString_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetBehaviorString, &GetBehaviorString_Parms, NULL );
+
+	return GetBehaviorString_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdBehavior_RunFromPanic.AllowBehaviorAt
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AGameCrowdDestination*   Destination                    ( CPF_Parm )
 
-void UGameCrowdBehavior_RunFromPanic::AllowBehaviorAt ( )
+bool UGameCrowdBehavior_RunFromPanic::AllowBehaviorAt ( class AGameCrowdDestination* Destination )
 {
 	static UFunction* pFnAllowBehaviorAt = NULL;
 
 	if ( ! pFnAllowBehaviorAt )
-		pFnAllowBehaviorAt = (UFunction*) UObject::GObjObjects()->Data[ 37963 ];
+		pFnAllowBehaviorAt = (UFunction*) UObject::GObjObjects()->Data[ 37970 ];
 
 	UGameCrowdBehavior_RunFromPanic_execAllowBehaviorAt_Parms AllowBehaviorAt_Parms;
+	AllowBehaviorAt_Parms.Destination = Destination;
 
-	this->ProcessEvent ( pFnAllowBehaviorAt, &AllowBehaviorAt_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAllowBehaviorAt, &AllowBehaviorAt_Parms, NULL );
+
+	return AllowBehaviorAt_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdBehavior_RunFromPanic.AllowThisDestination
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AGameCrowdDestination*   Destination                    ( CPF_Parm )
 
-void UGameCrowdBehavior_RunFromPanic::AllowThisDestination ( )
+bool UGameCrowdBehavior_RunFromPanic::AllowThisDestination ( class AGameCrowdDestination* Destination )
 {
 	static UFunction* pFnAllowThisDestination = NULL;
 
 	if ( ! pFnAllowThisDestination )
-		pFnAllowThisDestination = (UFunction*) UObject::GObjObjects()->Data[ 37960 ];
+		pFnAllowThisDestination = (UFunction*) UObject::GObjObjects()->Data[ 37967 ];
 
 	UGameCrowdBehavior_RunFromPanic_execAllowThisDestination_Parms AllowThisDestination_Parms;
+	AllowThisDestination_Parms.Destination = Destination;
 
-	this->ProcessEvent ( pFnAllowThisDestination, &AllowThisDestination_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAllowThisDestination, &AllowThisDestination_Parms, NULL );
+
+	return AllowThisDestination_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdBehavior_RunFromPanic.GetBehaviorInstigator
 // [0x00020002] 
 // Parameters infos:
+// class AActor*                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGameCrowdBehavior_RunFromPanic::GetBehaviorInstigator ( )
+class AActor* UGameCrowdBehavior_RunFromPanic::GetBehaviorInstigator ( )
 {
 	static UFunction* pFnGetBehaviorInstigator = NULL;
 
 	if ( ! pFnGetBehaviorInstigator )
-		pFnGetBehaviorInstigator = (UFunction*) UObject::GObjObjects()->Data[ 37958 ];
+		pFnGetBehaviorInstigator = (UFunction*) UObject::GObjObjects()->Data[ 37965 ];
 
 	UGameCrowdBehavior_RunFromPanic_execGetBehaviorInstigator_Parms GetBehaviorInstigator_Parms;
 
-	this->ProcessEvent ( pFnGetBehaviorInstigator, &GetBehaviorInstigator_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetBehaviorInstigator, &GetBehaviorInstigator_Parms, NULL );
+
+	return GetBehaviorInstigator_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdBehavior_RunFromPanic.StopBehavior
@@ -2330,43 +2753,47 @@ void UGameCrowdBehavior_RunFromPanic::StopBehavior ( )
 	static UFunction* pFnStopBehavior = NULL;
 
 	if ( ! pFnStopBehavior )
-		pFnStopBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37957 ];
+		pFnStopBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37964 ];
 
 	UGameCrowdBehavior_RunFromPanic_execStopBehavior_Parms StopBehavior_Parms;
 
-	this->ProcessEvent ( pFnStopBehavior, &StopBehavior_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnStopBehavior, &StopBehavior_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdBehavior_RunFromPanic.InitBehavior
 // [0x00020002] 
 // Parameters infos:
+// class AGameCrowdAgent*         Agent                          ( CPF_Parm )
 
-void UGameCrowdBehavior_RunFromPanic::InitBehavior ( )
+void UGameCrowdBehavior_RunFromPanic::InitBehavior ( class AGameCrowdAgent* Agent )
 {
 	static UFunction* pFnInitBehavior = NULL;
 
 	if ( ! pFnInitBehavior )
-		pFnInitBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37955 ];
+		pFnInitBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37962 ];
 
 	UGameCrowdBehavior_RunFromPanic_execInitBehavior_Parms InitBehavior_Parms;
+	InitBehavior_Parms.Agent = Agent;
 
-	this->ProcessEvent ( pFnInitBehavior, &InitBehavior_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitBehavior, &InitBehavior_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdBehavior_RunFromPanic.ActivatedBy
 // [0x00020002] 
 // Parameters infos:
+// class AActor*                  NewActionTarget                ( CPF_Parm )
 
-void UGameCrowdBehavior_RunFromPanic::ActivatedBy ( )
+void UGameCrowdBehavior_RunFromPanic::ActivatedBy ( class AActor* NewActionTarget )
 {
 	static UFunction* pFnActivatedBy = NULL;
 
 	if ( ! pFnActivatedBy )
-		pFnActivatedBy = (UFunction*) UObject::GObjObjects()->Data[ 37951 ];
+		pFnActivatedBy = (UFunction*) UObject::GObjObjects()->Data[ 37958 ];
 
 	UGameCrowdBehavior_RunFromPanic_execActivatedBy_Parms ActivatedBy_Parms;
+	ActivatedBy_Parms.NewActionTarget = NewActionTarget;
 
-	this->ProcessEvent ( pFnActivatedBy, &ActivatedBy_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnActivatedBy, &ActivatedBy_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdBehavior_WaitForGroup.StopBehavior
@@ -2378,63 +2805,71 @@ void UGameCrowdBehavior_WaitForGroup::StopBehavior ( )
 	static UFunction* pFnStopBehavior = NULL;
 
 	if ( ! pFnStopBehavior )
-		pFnStopBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37975 ];
+		pFnStopBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37982 ];
 
 	UGameCrowdBehavior_WaitForGroup_execStopBehavior_Parms StopBehavior_Parms;
 
-	this->ProcessEvent ( pFnStopBehavior, &StopBehavior_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnStopBehavior, &StopBehavior_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdBehavior_WaitForGroup.ShouldEndIdle
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGameCrowdBehavior_WaitForGroup::ShouldEndIdle ( )
+bool UGameCrowdBehavior_WaitForGroup::ShouldEndIdle ( )
 {
 	static UFunction* pFnShouldEndIdle = NULL;
 
 	if ( ! pFnShouldEndIdle )
-		pFnShouldEndIdle = (UFunction*) UObject::GObjObjects()->Data[ 37973 ];
+		pFnShouldEndIdle = (UFunction*) UObject::GObjObjects()->Data[ 37980 ];
 
 	UGameCrowdBehavior_WaitForGroup_execShouldEndIdle_Parms ShouldEndIdle_Parms;
 
 	pFnShouldEndIdle->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnShouldEndIdle, &ShouldEndIdle_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnShouldEndIdle, &ShouldEndIdle_Parms, NULL );
 
 	pFnShouldEndIdle->FunctionFlags |= 0x400;
+
+	return ShouldEndIdle_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdBehavior_WaitForGroup.GetBehaviorString
 // [0x00020002] 
 // Parameters infos:
+// struct FString                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
 
-void UGameCrowdBehavior_WaitForGroup::GetBehaviorString ( )
+struct FString UGameCrowdBehavior_WaitForGroup::GetBehaviorString ( )
 {
 	static UFunction* pFnGetBehaviorString = NULL;
 
 	if ( ! pFnGetBehaviorString )
-		pFnGetBehaviorString = (UFunction*) UObject::GObjObjects()->Data[ 37970 ];
+		pFnGetBehaviorString = (UFunction*) UObject::GObjObjects()->Data[ 37977 ];
 
 	UGameCrowdBehavior_WaitForGroup_execGetBehaviorString_Parms GetBehaviorString_Parms;
 
-	this->ProcessEvent ( pFnGetBehaviorString, &GetBehaviorString_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetBehaviorString, &GetBehaviorString_Parms, NULL );
+
+	return GetBehaviorString_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdBehavior_WaitForGroup.InitBehavior
 // [0x00020002] 
 // Parameters infos:
+// class AGameCrowdAgent*         Agent                          ( CPF_Parm )
 
-void UGameCrowdBehavior_WaitForGroup::InitBehavior ( )
+void UGameCrowdBehavior_WaitForGroup::InitBehavior ( class AGameCrowdAgent* Agent )
 {
 	static UFunction* pFnInitBehavior = NULL;
 
 	if ( ! pFnInitBehavior )
-		pFnInitBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37968 ];
+		pFnInitBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37975 ];
 
 	UGameCrowdBehavior_WaitForGroup_execInitBehavior_Parms InitBehavior_Parms;
+	InitBehavior_Parms.Agent = Agent;
 
-	this->ProcessEvent ( pFnInitBehavior, &InitBehavior_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitBehavior, &InitBehavior_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdBehavior_WaitInQueue.StopBehavior
@@ -2446,211 +2881,251 @@ void UGameCrowdBehavior_WaitInQueue::StopBehavior ( )
 	static UFunction* pFnStopBehavior = NULL;
 
 	if ( ! pFnStopBehavior )
-		pFnStopBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37988 ];
+		pFnStopBehavior = (UFunction*) UObject::GObjObjects()->Data[ 37995 ];
 
 	UGameCrowdBehavior_WaitInQueue_execStopBehavior_Parms StopBehavior_Parms;
 
-	this->ProcessEvent ( pFnStopBehavior, &StopBehavior_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnStopBehavior, &StopBehavior_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdBehavior_WaitInQueue.ShouldEndIdle
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGameCrowdBehavior_WaitInQueue::ShouldEndIdle ( )
+bool UGameCrowdBehavior_WaitInQueue::ShouldEndIdle ( )
 {
 	static UFunction* pFnShouldEndIdle = NULL;
 
 	if ( ! pFnShouldEndIdle )
-		pFnShouldEndIdle = (UFunction*) UObject::GObjObjects()->Data[ 37986 ];
+		pFnShouldEndIdle = (UFunction*) UObject::GObjObjects()->Data[ 37993 ];
 
 	UGameCrowdBehavior_WaitInQueue_execShouldEndIdle_Parms ShouldEndIdle_Parms;
 
 	pFnShouldEndIdle->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnShouldEndIdle, &ShouldEndIdle_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnShouldEndIdle, &ShouldEndIdle_Parms, NULL );
 
 	pFnShouldEndIdle->FunctionFlags |= 0x400;
+
+	return ShouldEndIdle_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdBehavior_WaitInQueue.GetBehaviorString
 // [0x00020002] 
 // Parameters infos:
+// struct FString                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
 
-void UGameCrowdBehavior_WaitInQueue::GetBehaviorString ( )
+struct FString UGameCrowdBehavior_WaitInQueue::GetBehaviorString ( )
 {
 	static UFunction* pFnGetBehaviorString = NULL;
 
 	if ( ! pFnGetBehaviorString )
-		pFnGetBehaviorString = (UFunction*) UObject::GObjObjects()->Data[ 37984 ];
+		pFnGetBehaviorString = (UFunction*) UObject::GObjObjects()->Data[ 37991 ];
 
 	UGameCrowdBehavior_WaitInQueue_execGetBehaviorString_Parms GetBehaviorString_Parms;
 
-	this->ProcessEvent ( pFnGetBehaviorString, &GetBehaviorString_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetBehaviorString, &GetBehaviorString_Parms, NULL );
+
+	return GetBehaviorString_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdBehavior_WaitInQueue.GetDestinationActor
 // [0x00020002] 
 // Parameters infos:
+// class AActor*                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGameCrowdBehavior_WaitInQueue::GetDestinationActor ( )
+class AActor* UGameCrowdBehavior_WaitInQueue::GetDestinationActor ( )
 {
 	static UFunction* pFnGetDestinationActor = NULL;
 
 	if ( ! pFnGetDestinationActor )
-		pFnGetDestinationActor = (UFunction*) UObject::GObjObjects()->Data[ 37982 ];
+		pFnGetDestinationActor = (UFunction*) UObject::GObjObjects()->Data[ 37989 ];
 
 	UGameCrowdBehavior_WaitInQueue_execGetDestinationActor_Parms GetDestinationActor_Parms;
 
-	this->ProcessEvent ( pFnGetDestinationActor, &GetDestinationActor_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetDestinationActor, &GetDestinationActor_Parms, NULL );
+
+	return GetDestinationActor_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdBehavior_WaitInQueue.ChangingDestination
 // [0x00020002] 
 // Parameters infos:
+// class AGameCrowdDestination*   NewDest                        ( CPF_Parm )
 
-void UGameCrowdBehavior_WaitInQueue::ChangingDestination ( )
+void UGameCrowdBehavior_WaitInQueue::ChangingDestination ( class AGameCrowdDestination* NewDest )
 {
 	static UFunction* pFnChangingDestination = NULL;
 
 	if ( ! pFnChangingDestination )
-		pFnChangingDestination = (UFunction*) UObject::GObjObjects()->Data[ 37980 ];
+		pFnChangingDestination = (UFunction*) UObject::GObjObjects()->Data[ 37987 ];
 
 	UGameCrowdBehavior_WaitInQueue_execChangingDestination_Parms ChangingDestination_Parms;
+	ChangingDestination_Parms.NewDest = NewDest;
 
-	this->ProcessEvent ( pFnChangingDestination, &ChangingDestination_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnChangingDestination, &ChangingDestination_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdBehavior_WaitInQueue.HandleMovement
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGameCrowdBehavior_WaitInQueue::HandleMovement ( )
+bool UGameCrowdBehavior_WaitInQueue::HandleMovement ( )
 {
 	static UFunction* pFnHandleMovement = NULL;
 
 	if ( ! pFnHandleMovement )
-		pFnHandleMovement = (UFunction*) UObject::GObjObjects()->Data[ 37978 ];
+		pFnHandleMovement = (UFunction*) UObject::GObjObjects()->Data[ 37985 ];
 
 	UGameCrowdBehavior_WaitInQueue_execHandleMovement_Parms HandleMovement_Parms;
 
 	pFnHandleMovement->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnHandleMovement, &HandleMovement_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnHandleMovement, &HandleMovement_Parms, NULL );
 
 	pFnHandleMovement->FunctionFlags |= 0x400;
+
+	return HandleMovement_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdGroup.UpdateDestinations
 // [0x00020002] 
 // Parameters infos:
+// class AGameCrowdDestination*   NewDestination                 ( CPF_Parm )
 
-void UGameCrowdGroup::UpdateDestinations ( )
+void UGameCrowdGroup::UpdateDestinations ( class AGameCrowdDestination* NewDestination )
 {
 	static UFunction* pFnUpdateDestinations = NULL;
 
 	if ( ! pFnUpdateDestinations )
-		pFnUpdateDestinations = (UFunction*) UObject::GObjObjects()->Data[ 38032 ];
+		pFnUpdateDestinations = (UFunction*) UObject::GObjObjects()->Data[ 38039 ];
 
 	UGameCrowdGroup_execUpdateDestinations_Parms UpdateDestinations_Parms;
+	UpdateDestinations_Parms.NewDestination = NewDestination;
 
-	this->ProcessEvent ( pFnUpdateDestinations, &UpdateDestinations_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnUpdateDestinations, &UpdateDestinations_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdGroup.RemoveMember
 // [0x00020002] 
 // Parameters infos:
+// class AGameCrowdAgent*         Agent                          ( CPF_Parm )
 
-void UGameCrowdGroup::RemoveMember ( )
+void UGameCrowdGroup::RemoveMember ( class AGameCrowdAgent* Agent )
 {
 	static UFunction* pFnRemoveMember = NULL;
 
 	if ( ! pFnRemoveMember )
-		pFnRemoveMember = (UFunction*) UObject::GObjObjects()->Data[ 38030 ];
+		pFnRemoveMember = (UFunction*) UObject::GObjObjects()->Data[ 38037 ];
 
 	UGameCrowdGroup_execRemoveMember_Parms RemoveMember_Parms;
+	RemoveMember_Parms.Agent = Agent;
 
-	this->ProcessEvent ( pFnRemoveMember, &RemoveMember_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRemoveMember, &RemoveMember_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdGroup.AddMember
 // [0x00020002] 
 // Parameters infos:
+// class AGameCrowdAgent*         Agent                          ( CPF_Parm )
 
-void UGameCrowdGroup::AddMember ( )
+void UGameCrowdGroup::AddMember ( class AGameCrowdAgent* Agent )
 {
 	static UFunction* pFnAddMember = NULL;
 
 	if ( ! pFnAddMember )
-		pFnAddMember = (UFunction*) UObject::GObjObjects()->Data[ 38028 ];
+		pFnAddMember = (UFunction*) UObject::GObjObjects()->Data[ 38035 ];
 
 	UGameCrowdGroup_execAddMember_Parms AddMember_Parms;
+	AddMember_Parms.Agent = Agent;
 
-	this->ProcessEvent ( pFnAddMember, &AddMember_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAddMember, &AddMember_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdInfoVolume.UnTouch
 // [0x00020102] 
 // Parameters infos:
+// class AActor*                  Other                          ( CPF_Parm )
 
-void AGameCrowdInfoVolume::UnTouch ( )
+void AGameCrowdInfoVolume::UnTouch ( class AActor* Other )
 {
 	static UFunction* pFnUnTouch = NULL;
 
 	if ( ! pFnUnTouch )
-		pFnUnTouch = (UFunction*) UObject::GObjObjects()->Data[ 38044 ];
+		pFnUnTouch = (UFunction*) UObject::GObjObjects()->Data[ 38051 ];
 
 	AGameCrowdInfoVolume_execUnTouch_Parms UnTouch_Parms;
+	UnTouch_Parms.Other = Other;
 
-	this->ProcessEvent ( pFnUnTouch, &UnTouch_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnUnTouch, &UnTouch_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdInfoVolume.Touch
 // [0x00020102] 
 // Parameters infos:
+// class AActor*                  Other                          ( CPF_Parm )
+// class UPrimitiveComponent*     OtherComp                      ( CPF_Parm | CPF_EditInline )
+// struct FVector                 HitLocation                    ( CPF_Parm )
+// struct FVector                 HitNormal                      ( CPF_Parm )
 
-void AGameCrowdInfoVolume::Touch ( )
+void AGameCrowdInfoVolume::Touch ( class AActor* Other, class UPrimitiveComponent* OtherComp, struct FVector HitLocation, struct FVector HitNormal )
 {
 	static UFunction* pFnTouch = NULL;
 
 	if ( ! pFnTouch )
-		pFnTouch = (UFunction*) UObject::GObjObjects()->Data[ 38037 ];
+		pFnTouch = (UFunction*) UObject::GObjObjects()->Data[ 38044 ];
 
 	AGameCrowdInfoVolume_execTouch_Parms Touch_Parms;
+	Touch_Parms.Other = Other;
+	Touch_Parms.OtherComp = OtherComp;
+	memcpy ( &Touch_Parms.HitLocation, &HitLocation, 0xC );
+	memcpy ( &Touch_Parms.HitNormal, &HitNormal, 0xC );
 
-	this->ProcessEvent ( pFnTouch, &Touch_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnTouch, &Touch_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdInteractionPoint.OnToggle
 // [0x00020002] 
 // Parameters infos:
+// class USeqAct_Toggle*          Action                         ( CPF_Parm )
 
-void AGameCrowdInteractionPoint::OnToggle ( )
+void AGameCrowdInteractionPoint::OnToggle ( class USeqAct_Toggle* Action )
 {
 	static UFunction* pFnOnToggle = NULL;
 
 	if ( ! pFnOnToggle )
-		pFnOnToggle = (UFunction*) UObject::GObjObjects()->Data[ 36866 ];
+		pFnOnToggle = (UFunction*) UObject::GObjObjects()->Data[ 36873 ];
 
 	AGameCrowdInteractionPoint_execOnToggle_Parms OnToggle_Parms;
+	OnToggle_Parms.Action = Action;
 
-	this->ProcessEvent ( pFnOnToggle, &OnToggle_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnToggle, &OnToggle_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdBehaviorPoint.Touch
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// class AActor*                  Other                          ( CPF_Parm )
+// class UPrimitiveComponent*     OtherComp                      ( CPF_Parm | CPF_EditInline )
+// struct FVector                 HitLocation                    ( CPF_Parm )
+// struct FVector                 HitNormal                      ( CPF_Parm )
 
-void AGameCrowdBehaviorPoint::eventTouch ( )
+void AGameCrowdBehaviorPoint::eventTouch ( class AActor* Other, class UPrimitiveComponent* OtherComp, struct FVector HitLocation, struct FVector HitNormal )
 {
 	static UFunction* pFnTouch = NULL;
 
 	if ( ! pFnTouch )
-		pFnTouch = (UFunction*) UObject::GObjObjects()->Data[ 37996 ];
+		pFnTouch = (UFunction*) UObject::GObjObjects()->Data[ 38003 ];
 
 	AGameCrowdBehaviorPoint_eventTouch_Parms Touch_Parms;
+	Touch_Parms.Other = Other;
+	Touch_Parms.OtherComp = OtherComp;
+	memcpy ( &Touch_Parms.HitLocation, &HitLocation, 0xC );
+	memcpy ( &Touch_Parms.HitNormal, &HitNormal, 0xC );
 
-	this->ProcessEvent ( pFnTouch, &Touch_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnTouch, &Touch_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdBehaviorPoint.DestroySelf
@@ -2662,11 +3137,11 @@ void AGameCrowdBehaviorPoint::DestroySelf ( )
 	static UFunction* pFnDestroySelf = NULL;
 
 	if ( ! pFnDestroySelf )
-		pFnDestroySelf = (UFunction*) UObject::GObjObjects()->Data[ 37995 ];
+		pFnDestroySelf = (UFunction*) UObject::GObjObjects()->Data[ 38002 ];
 
 	AGameCrowdBehaviorPoint_execDestroySelf_Parms DestroySelf_Parms;
 
-	this->ProcessEvent ( pFnDestroySelf, &DestroySelf_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDestroySelf, &DestroySelf_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdBehaviorPoint.PostBeginPlay
@@ -2678,203 +3153,264 @@ void AGameCrowdBehaviorPoint::eventPostBeginPlay ( )
 	static UFunction* pFnPostBeginPlay = NULL;
 
 	if ( ! pFnPostBeginPlay )
-		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 37994 ];
+		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 38001 ];
 
 	AGameCrowdBehaviorPoint_eventPostBeginPlay_Parms PostBeginPlay_Parms;
 
-	this->ProcessEvent ( pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdDestination.DrawDebug
 // [0x00C24102] 
 // Parameters infos:
+// unsigned long                  bPresistent                    ( CPF_OptionalParm | CPF_Parm )
+// TArray< struct FCrowdSpawnerPlayerInfo > PlayerInfo                     ( CPF_Const | CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void AGameCrowdDestination::DrawDebug ( )
+void AGameCrowdDestination::DrawDebug ( unsigned long bPresistent, TArray< struct FCrowdSpawnerPlayerInfo >* PlayerInfo )
 {
 	static UFunction* pFnDrawDebug = NULL;
 
 	if ( ! pFnDrawDebug )
-		pFnDrawDebug = (UFunction*) UObject::GObjObjects()->Data[ 37226 ];
+		pFnDrawDebug = (UFunction*) UObject::GObjObjects()->Data[ 37233 ];
 
 	AGameCrowdDestination_execDrawDebug_Parms DrawDebug_Parms;
+	DrawDebug_Parms.bPresistent = bPresistent;
 
-	this->ProcessEvent ( pFnDrawDebug, &DrawDebug_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDrawDebug, &DrawDebug_Parms, NULL );
+
+	if ( PlayerInfo )
+		memcpy ( PlayerInfo, &DrawDebug_Parms.PlayerInfo, 0x10 );
 };
 
 // Function GameFramework.GameCrowdDestination.GetDestinationRadius
 // [0x00020002] 
 // Parameters infos:
+// float                          ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void AGameCrowdDestination::GetDestinationRadius ( )
+float AGameCrowdDestination::GetDestinationRadius ( )
 {
 	static UFunction* pFnGetDestinationRadius = NULL;
 
 	if ( ! pFnGetDestinationRadius )
-		pFnGetDestinationRadius = (UFunction*) UObject::GObjObjects()->Data[ 37224 ];
+		pFnGetDestinationRadius = (UFunction*) UObject::GObjObjects()->Data[ 37231 ];
 
 	AGameCrowdDestination_execGetDestinationRadius_Parms GetDestinationRadius_Parms;
 
-	this->ProcessEvent ( pFnGetDestinationRadius, &GetDestinationRadius_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetDestinationRadius, &GetDestinationRadius_Parms, NULL );
+
+	return GetDestinationRadius_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdDestination.PrioritizeSpawnPoint
 // [0x00420102] 
 // Parameters infos:
+// float                          MaxSpawnDist                   ( CPF_Parm )
+// TArray< struct FCrowdSpawnerPlayerInfo > PlayerInfo                     ( CPF_Const | CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void AGameCrowdDestination::PrioritizeSpawnPoint ( )
+void AGameCrowdDestination::PrioritizeSpawnPoint ( float MaxSpawnDist, TArray< struct FCrowdSpawnerPlayerInfo >* PlayerInfo )
 {
 	static UFunction* pFnPrioritizeSpawnPoint = NULL;
 
 	if ( ! pFnPrioritizeSpawnPoint )
-		pFnPrioritizeSpawnPoint = (UFunction*) UObject::GObjObjects()->Data[ 37218 ];
+		pFnPrioritizeSpawnPoint = (UFunction*) UObject::GObjObjects()->Data[ 37225 ];
 
 	AGameCrowdDestination_execPrioritizeSpawnPoint_Parms PrioritizeSpawnPoint_Parms;
+	PrioritizeSpawnPoint_Parms.MaxSpawnDist = MaxSpawnDist;
 
-	this->ProcessEvent ( pFnPrioritizeSpawnPoint, &PrioritizeSpawnPoint_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPrioritizeSpawnPoint, &PrioritizeSpawnPoint_Parms, NULL );
+
+	if ( PlayerInfo )
+		memcpy ( PlayerInfo, &PrioritizeSpawnPoint_Parms.PlayerInfo, 0x10 );
 };
 
 // Function GameFramework.GameCrowdDestination.AnalyzeSpawnPoint
 // [0x00C20102] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// float                          MaxSpawnDistSq                 ( CPF_Parm )
+// unsigned long                  bForceNavMeshPathing           ( CPF_Parm )
+// class UNavigationHandle*       NavHandle                      ( CPF_Parm )
+// TArray< struct FCrowdSpawnerPlayerInfo > PlayerInfo                     ( CPF_Const | CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void AGameCrowdDestination::AnalyzeSpawnPoint ( )
+bool AGameCrowdDestination::AnalyzeSpawnPoint ( float MaxSpawnDistSq, unsigned long bForceNavMeshPathing, class UNavigationHandle* NavHandle, TArray< struct FCrowdSpawnerPlayerInfo >* PlayerInfo )
 {
 	static UFunction* pFnAnalyzeSpawnPoint = NULL;
 
 	if ( ! pFnAnalyzeSpawnPoint )
-		pFnAnalyzeSpawnPoint = (UFunction*) UObject::GObjObjects()->Data[ 37203 ];
+		pFnAnalyzeSpawnPoint = (UFunction*) UObject::GObjObjects()->Data[ 37210 ];
 
 	AGameCrowdDestination_execAnalyzeSpawnPoint_Parms AnalyzeSpawnPoint_Parms;
+	AnalyzeSpawnPoint_Parms.MaxSpawnDistSq = MaxSpawnDistSq;
+	AnalyzeSpawnPoint_Parms.bForceNavMeshPathing = bForceNavMeshPathing;
+	AnalyzeSpawnPoint_Parms.NavHandle = NavHandle;
 
-	this->ProcessEvent ( pFnAnalyzeSpawnPoint, &AnalyzeSpawnPoint_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAnalyzeSpawnPoint, &AnalyzeSpawnPoint_Parms, NULL );
+
+	if ( PlayerInfo )
+		memcpy ( PlayerInfo, &AnalyzeSpawnPoint_Parms.PlayerInfo, 0x10 );
+
+	return AnalyzeSpawnPoint_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdDestination.GetSpawnPosition
 // [0x00C20102] 
 // Parameters infos:
+// class USeqAct_GameCrowdSpawner* Spawner                        ( CPF_Parm )
+// struct FVector                 SpawnPos                       ( CPF_Parm | CPF_OutParm )
+// struct FRotator                SpawnRot                       ( CPF_Parm | CPF_OutParm )
 
-void AGameCrowdDestination::GetSpawnPosition ( )
+void AGameCrowdDestination::GetSpawnPosition ( class USeqAct_GameCrowdSpawner* Spawner, struct FVector* SpawnPos, struct FRotator* SpawnRot )
 {
 	static UFunction* pFnGetSpawnPosition = NULL;
 
 	if ( ! pFnGetSpawnPosition )
-		pFnGetSpawnPosition = (UFunction*) UObject::GObjObjects()->Data[ 37197 ];
+		pFnGetSpawnPosition = (UFunction*) UObject::GObjObjects()->Data[ 37204 ];
 
 	AGameCrowdDestination_execGetSpawnPosition_Parms GetSpawnPosition_Parms;
+	GetSpawnPosition_Parms.Spawner = Spawner;
 
-	this->ProcessEvent ( pFnGetSpawnPosition, &GetSpawnPosition_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetSpawnPosition, &GetSpawnPosition_Parms, NULL );
+
+	if ( SpawnPos )
+		memcpy ( SpawnPos, &GetSpawnPosition_Parms.SpawnPos, 0xC );
+
+	if ( SpawnRot )
+		memcpy ( SpawnRot, &GetSpawnPosition_Parms.SpawnRot, 0xC );
 };
 
 // Function GameFramework.GameCrowdDestination.GetSpawnRadius
 // [0x00020102] 
 // Parameters infos:
+// float                          ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void AGameCrowdDestination::GetSpawnRadius ( )
+float AGameCrowdDestination::GetSpawnRadius ( )
 {
 	static UFunction* pFnGetSpawnRadius = NULL;
 
 	if ( ! pFnGetSpawnRadius )
-		pFnGetSpawnRadius = (UFunction*) UObject::GObjObjects()->Data[ 37195 ];
+		pFnGetSpawnRadius = (UFunction*) UObject::GObjObjects()->Data[ 37202 ];
 
 	AGameCrowdDestination_execGetSpawnRadius_Parms GetSpawnRadius_Parms;
 
-	this->ProcessEvent ( pFnGetSpawnRadius, &GetSpawnRadius_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetSpawnRadius, &GetSpawnRadius_Parms, NULL );
+
+	return GetSpawnRadius_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdDestination.AllowableDestinationFor
 // [0x00020902] ( FUNC_Event )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AGameCrowdAgent*         Agent                          ( CPF_Parm )
 
-void AGameCrowdDestination::eventAllowableDestinationFor ( )
+bool AGameCrowdDestination::eventAllowableDestinationFor ( class AGameCrowdAgent* Agent )
 {
 	static UFunction* pFnAllowableDestinationFor = NULL;
 
 	if ( ! pFnAllowableDestinationFor )
-		pFnAllowableDestinationFor = (UFunction*) UObject::GObjObjects()->Data[ 37171 ];
+		pFnAllowableDestinationFor = (UFunction*) UObject::GObjObjects()->Data[ 37178 ];
 
 	AGameCrowdDestination_eventAllowableDestinationFor_Parms AllowableDestinationFor_Parms;
+	AllowableDestinationFor_Parms.Agent = Agent;
 
-	this->ProcessEvent ( pFnAllowableDestinationFor, &AllowableDestinationFor_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAllowableDestinationFor, &AllowableDestinationFor_Parms, NULL );
+
+	return AllowableDestinationFor_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdDestination.AtCapacity
 // [0x00024102] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// unsigned char                  CheckCnt                       ( CPF_OptionalParm | CPF_Parm )
 
-void AGameCrowdDestination::AtCapacity ( )
+bool AGameCrowdDestination::AtCapacity ( unsigned char CheckCnt )
 {
 	static UFunction* pFnAtCapacity = NULL;
 
 	if ( ! pFnAtCapacity )
-		pFnAtCapacity = (UFunction*) UObject::GObjObjects()->Data[ 37186 ];
+		pFnAtCapacity = (UFunction*) UObject::GObjObjects()->Data[ 37193 ];
 
 	AGameCrowdDestination_execAtCapacity_Parms AtCapacity_Parms;
+	AtCapacity_Parms.CheckCnt = CheckCnt;
 
-	this->ProcessEvent ( pFnAtCapacity, &AtCapacity_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAtCapacity, &AtCapacity_Parms, NULL );
+
+	return AtCapacity_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdDestination.IncrementCustomerCount
 // [0x00020902] ( FUNC_Event )
 // Parameters infos:
+// class AGameCrowdAgent*         ArrivingAgent                  ( CPF_Parm )
 
-void AGameCrowdDestination::eventIncrementCustomerCount ( )
+void AGameCrowdDestination::eventIncrementCustomerCount ( class AGameCrowdAgent* ArrivingAgent )
 {
 	static UFunction* pFnIncrementCustomerCount = NULL;
 
 	if ( ! pFnIncrementCustomerCount )
-		pFnIncrementCustomerCount = (UFunction*) UObject::GObjObjects()->Data[ 37181 ];
+		pFnIncrementCustomerCount = (UFunction*) UObject::GObjObjects()->Data[ 37188 ];
 
 	AGameCrowdDestination_eventIncrementCustomerCount_Parms IncrementCustomerCount_Parms;
+	IncrementCustomerCount_Parms.ArrivingAgent = ArrivingAgent;
 
-	this->ProcessEvent ( pFnIncrementCustomerCount, &IncrementCustomerCount_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnIncrementCustomerCount, &IncrementCustomerCount_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdDestination.DecrementCustomerCount
 // [0x00020902] ( FUNC_Event )
 // Parameters infos:
+// class AGameCrowdAgent*         DepartingAgent                 ( CPF_Parm )
 
-void AGameCrowdDestination::eventDecrementCustomerCount ( )
+void AGameCrowdDestination::eventDecrementCustomerCount ( class AGameCrowdAgent* DepartingAgent )
 {
 	static UFunction* pFnDecrementCustomerCount = NULL;
 
 	if ( ! pFnDecrementCustomerCount )
-		pFnDecrementCustomerCount = (UFunction*) UObject::GObjObjects()->Data[ 37173 ];
+		pFnDecrementCustomerCount = (UFunction*) UObject::GObjObjects()->Data[ 37180 ];
 
 	AGameCrowdDestination_eventDecrementCustomerCount_Parms DecrementCustomerCount_Parms;
+	DecrementCustomerCount_Parms.DepartingAgent = DepartingAgent;
 
-	this->ProcessEvent ( pFnDecrementCustomerCount, &DecrementCustomerCount_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDecrementCustomerCount, &DecrementCustomerCount_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdDestination.PickNewDestinationFor
 // [0x00020102] 
 // Parameters infos:
+// class AGameCrowdAgent*         Agent                          ( CPF_Parm )
+// unsigned long                  bIgnoreRestrictions            ( CPF_Parm )
 
-void AGameCrowdDestination::PickNewDestinationFor ( )
+void AGameCrowdDestination::PickNewDestinationFor ( class AGameCrowdAgent* Agent, unsigned long bIgnoreRestrictions )
 {
 	static UFunction* pFnPickNewDestinationFor = NULL;
 
 	if ( ! pFnPickNewDestinationFor )
-		pFnPickNewDestinationFor = (UFunction*) UObject::GObjObjects()->Data[ 37163 ];
+		pFnPickNewDestinationFor = (UFunction*) UObject::GObjObjects()->Data[ 37170 ];
 
 	AGameCrowdDestination_execPickNewDestinationFor_Parms PickNewDestinationFor_Parms;
+	PickNewDestinationFor_Parms.Agent = Agent;
+	PickNewDestinationFor_Parms.bIgnoreRestrictions = bIgnoreRestrictions;
 
-	this->ProcessEvent ( pFnPickNewDestinationFor, &PickNewDestinationFor_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPickNewDestinationFor, &PickNewDestinationFor_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdDestination.ReachedDestination
 // [0x00020902] ( FUNC_Event )
 // Parameters infos:
+// class AGameCrowdAgent*         Agent                          ( CPF_Parm )
 
-void AGameCrowdDestination::eventReachedDestination ( )
+void AGameCrowdDestination::eventReachedDestination ( class AGameCrowdAgent* Agent )
 {
 	static UFunction* pFnReachedDestination = NULL;
 
 	if ( ! pFnReachedDestination )
-		pFnReachedDestination = (UFunction*) UObject::GObjObjects()->Data[ 37153 ];
+		pFnReachedDestination = (UFunction*) UObject::GObjObjects()->Data[ 37160 ];
 
 	AGameCrowdDestination_eventReachedDestination_Parms ReachedDestination_Parms;
+	ReachedDestination_Parms.Agent = Agent;
 
-	this->ProcessEvent ( pFnReachedDestination, &ReachedDestination_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnReachedDestination, &ReachedDestination_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdDestination.Destroyed
@@ -2886,11 +3422,11 @@ void AGameCrowdDestination::Destroyed ( )
 	static UFunction* pFnDestroyed = NULL;
 
 	if ( ! pFnDestroyed )
-		pFnDestroyed = (UFunction*) UObject::GObjObjects()->Data[ 37152 ];
+		pFnDestroyed = (UFunction*) UObject::GObjObjects()->Data[ 37159 ];
 
 	AGameCrowdDestination_execDestroyed_Parms Destroyed_Parms;
 
-	this->ProcessEvent ( pFnDestroyed, &Destroyed_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDestroyed, &Destroyed_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdDestination.PostBeginPlay
@@ -2902,79 +3438,97 @@ void AGameCrowdDestination::PostBeginPlay ( )
 	static UFunction* pFnPostBeginPlay = NULL;
 
 	if ( ! pFnPostBeginPlay )
-		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 37149 ];
+		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 37156 ];
 
 	AGameCrowdDestination_execPostBeginPlay_Parms PostBeginPlay_Parms;
 
-	this->ProcessEvent ( pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdDestination.ReachedByAgent
 // [0x00020500] ( FUNC_Native )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AGameCrowdAgent*         Agent                          ( CPF_Parm )
+// struct FVector                 TestPosition                   ( CPF_Parm )
+// unsigned long                  bTestExactly                   ( CPF_Parm )
 
-void AGameCrowdDestination::ReachedByAgent ( )
+bool AGameCrowdDestination::ReachedByAgent ( class AGameCrowdAgent* Agent, struct FVector TestPosition, unsigned long bTestExactly )
 {
 	static UFunction* pFnReachedByAgent = NULL;
 
 	if ( ! pFnReachedByAgent )
-		pFnReachedByAgent = (UFunction*) UObject::GObjObjects()->Data[ 37144 ];
+		pFnReachedByAgent = (UFunction*) UObject::GObjObjects()->Data[ 37151 ];
 
 	AGameCrowdDestination_execReachedByAgent_Parms ReachedByAgent_Parms;
+	ReachedByAgent_Parms.Agent = Agent;
+	memcpy ( &ReachedByAgent_Parms.TestPosition, &TestPosition, 0xC );
+	ReachedByAgent_Parms.bTestExactly = bTestExactly;
 
 	pFnReachedByAgent->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnReachedByAgent, &ReachedByAgent_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnReachedByAgent, &ReachedByAgent_Parms, NULL );
 
 	pFnReachedByAgent->FunctionFlags |= 0x400;
+
+	return ReachedByAgent_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdDestinationQueuePoint.HasCustomer
 // [0x00020102] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void AGameCrowdDestinationQueuePoint::HasCustomer ( )
+bool AGameCrowdDestinationQueuePoint::HasCustomer ( )
 {
 	static UFunction* pFnHasCustomer = NULL;
 
 	if ( ! pFnHasCustomer )
-		pFnHasCustomer = (UFunction*) UObject::GObjObjects()->Data[ 37179 ];
+		pFnHasCustomer = (UFunction*) UObject::GObjObjects()->Data[ 37186 ];
 
 	AGameCrowdDestinationQueuePoint_execHasCustomer_Parms HasCustomer_Parms;
 
-	this->ProcessEvent ( pFnHasCustomer, &HasCustomer_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnHasCustomer, &HasCustomer_Parms, NULL );
+
+	return HasCustomer_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdDestinationQueuePoint.ClearQueue
 // [0x00020102] 
 // Parameters infos:
+// class AGameCrowdAgent*         OldCustomer                    ( CPF_Parm )
 
-void AGameCrowdDestinationQueuePoint::ClearQueue ( )
+void AGameCrowdDestinationQueuePoint::ClearQueue ( class AGameCrowdAgent* OldCustomer )
 {
 	static UFunction* pFnClearQueue = NULL;
 
 	if ( ! pFnClearQueue )
-		pFnClearQueue = (UFunction*) UObject::GObjObjects()->Data[ 38024 ];
+		pFnClearQueue = (UFunction*) UObject::GObjObjects()->Data[ 38031 ];
 
 	AGameCrowdDestinationQueuePoint_execClearQueue_Parms ClearQueue_Parms;
+	ClearQueue_Parms.OldCustomer = OldCustomer;
 
-	this->ProcessEvent ( pFnClearQueue, &ClearQueue_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnClearQueue, &ClearQueue_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdDestinationQueuePoint.AddCustomer
 // [0x00020102] 
 // Parameters infos:
+// class AGameCrowdAgent*         NewCustomer                    ( CPF_Parm )
+// class AGameCrowdInteractionPoint* PreviousPosition               ( CPF_Parm )
 
-void AGameCrowdDestinationQueuePoint::AddCustomer ( )
+void AGameCrowdDestinationQueuePoint::AddCustomer ( class AGameCrowdAgent* NewCustomer, class AGameCrowdInteractionPoint* PreviousPosition )
 {
 	static UFunction* pFnAddCustomer = NULL;
 
 	if ( ! pFnAddCustomer )
-		pFnAddCustomer = (UFunction*) UObject::GObjObjects()->Data[ 38021 ];
+		pFnAddCustomer = (UFunction*) UObject::GObjObjects()->Data[ 38028 ];
 
 	AGameCrowdDestinationQueuePoint_execAddCustomer_Parms AddCustomer_Parms;
+	AddCustomer_Parms.NewCustomer = NewCustomer;
+	AddCustomer_Parms.PreviousPosition = PreviousPosition;
 
-	this->ProcessEvent ( pFnAddCustomer, &AddCustomer_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAddCustomer, &AddCustomer_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdDestinationQueuePoint.ActuallyAdvance
@@ -2986,309 +3540,418 @@ void AGameCrowdDestinationQueuePoint::ActuallyAdvance ( )
 	static UFunction* pFnActuallyAdvance = NULL;
 
 	if ( ! pFnActuallyAdvance )
-		pFnActuallyAdvance = (UFunction*) UObject::GObjObjects()->Data[ 38017 ];
+		pFnActuallyAdvance = (UFunction*) UObject::GObjObjects()->Data[ 38024 ];
 
 	AGameCrowdDestinationQueuePoint_execActuallyAdvance_Parms ActuallyAdvance_Parms;
 
-	this->ProcessEvent ( pFnActuallyAdvance, &ActuallyAdvance_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnActuallyAdvance, &ActuallyAdvance_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdDestinationQueuePoint.AdvanceCustomerTo
 // [0x00020102] 
 // Parameters infos:
+// class AGameCrowdInteractionPoint* FrontPosition                  ( CPF_Parm )
 
-void AGameCrowdDestinationQueuePoint::AdvanceCustomerTo ( )
+void AGameCrowdDestinationQueuePoint::AdvanceCustomerTo ( class AGameCrowdInteractionPoint* FrontPosition )
 {
 	static UFunction* pFnAdvanceCustomerTo = NULL;
 
 	if ( ! pFnAdvanceCustomerTo )
-		pFnAdvanceCustomerTo = (UFunction*) UObject::GObjObjects()->Data[ 38015 ];
+		pFnAdvanceCustomerTo = (UFunction*) UObject::GObjObjects()->Data[ 38022 ];
 
 	AGameCrowdDestinationQueuePoint_execAdvanceCustomerTo_Parms AdvanceCustomerTo_Parms;
+	AdvanceCustomerTo_Parms.FrontPosition = FrontPosition;
 
-	this->ProcessEvent ( pFnAdvanceCustomerTo, &AdvanceCustomerTo_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAdvanceCustomerTo, &AdvanceCustomerTo_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdDestinationQueuePoint.ReachedDestination
 // [0x00020902] ( FUNC_Event )
 // Parameters infos:
+// class AGameCrowdAgent*         Agent                          ( CPF_Parm )
 
-void AGameCrowdDestinationQueuePoint::eventReachedDestination ( )
+void AGameCrowdDestinationQueuePoint::eventReachedDestination ( class AGameCrowdAgent* Agent )
 {
 	static UFunction* pFnReachedDestination = NULL;
 
 	if ( ! pFnReachedDestination )
-		pFnReachedDestination = (UFunction*) UObject::GObjObjects()->Data[ 38012 ];
+		pFnReachedDestination = (UFunction*) UObject::GObjObjects()->Data[ 38019 ];
 
 	AGameCrowdDestinationQueuePoint_eventReachedDestination_Parms ReachedDestination_Parms;
+	ReachedDestination_Parms.Agent = Agent;
 
-	this->ProcessEvent ( pFnReachedDestination, &ReachedDestination_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnReachedDestination, &ReachedDestination_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdDestinationQueuePoint.HasSpace
 // [0x00020102] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void AGameCrowdDestinationQueuePoint::HasSpace ( )
+bool AGameCrowdDestinationQueuePoint::HasSpace ( )
 {
 	static UFunction* pFnHasSpace = NULL;
 
 	if ( ! pFnHasSpace )
-		pFnHasSpace = (UFunction*) UObject::GObjObjects()->Data[ 37184 ];
+		pFnHasSpace = (UFunction*) UObject::GObjObjects()->Data[ 37191 ];
 
 	AGameCrowdDestinationQueuePoint_execHasSpace_Parms HasSpace_Parms;
 
-	this->ProcessEvent ( pFnHasSpace, &HasSpace_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnHasSpace, &HasSpace_Parms, NULL );
+
+	return HasSpace_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdDestinationQueuePoint.QueueReachedBy
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AGameCrowdAgent*         Agent                          ( CPF_Parm )
+// struct FVector                 TestPosition                   ( CPF_Parm )
 
-void AGameCrowdDestinationQueuePoint::QueueReachedBy ( )
+bool AGameCrowdDestinationQueuePoint::QueueReachedBy ( class AGameCrowdAgent* Agent, struct FVector TestPosition )
 {
 	static UFunction* pFnQueueReachedBy = NULL;
 
 	if ( ! pFnQueueReachedBy )
-		pFnQueueReachedBy = (UFunction*) UObject::GObjObjects()->Data[ 38008 ];
+		pFnQueueReachedBy = (UFunction*) UObject::GObjObjects()->Data[ 38015 ];
 
 	AGameCrowdDestinationQueuePoint_execQueueReachedBy_Parms QueueReachedBy_Parms;
+	QueueReachedBy_Parms.Agent = Agent;
+	memcpy ( &QueueReachedBy_Parms.TestPosition, &TestPosition, 0xC );
 
 	pFnQueueReachedBy->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnQueueReachedBy, &QueueReachedBy_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnQueueReachedBy, &QueueReachedBy_Parms, NULL );
 
 	pFnQueueReachedBy->FunctionFlags |= 0x400;
+
+	return QueueReachedBy_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdPopulationManager.CreateNewAgent
 // [0x00C20802] ( FUNC_Event )
 // Parameters infos:
+// class AGameCrowdAgent*         ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AGameCrowdDestination*   SpawnLoc                       ( CPF_Parm )
+// class AGameCrowdAgent*         AgentTemplate                  ( CPF_Parm )
+// class UGameCrowdGroup*         NewGroup                       ( CPF_Parm )
+// struct FCrowdSpawnInfoItem     Item                           ( CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void AGameCrowdPopulationManager::eventCreateNewAgent ( )
+class AGameCrowdAgent* AGameCrowdPopulationManager::eventCreateNewAgent ( class AGameCrowdDestination* SpawnLoc, class AGameCrowdAgent* AgentTemplate, class UGameCrowdGroup* NewGroup, struct FCrowdSpawnInfoItem* Item )
 {
 	static UFunction* pFnCreateNewAgent = NULL;
 
 	if ( ! pFnCreateNewAgent )
-		pFnCreateNewAgent = (UFunction*) UObject::GObjObjects()->Data[ 38186 ];
+		pFnCreateNewAgent = (UFunction*) UObject::GObjObjects()->Data[ 38193 ];
 
 	AGameCrowdPopulationManager_eventCreateNewAgent_Parms CreateNewAgent_Parms;
+	CreateNewAgent_Parms.SpawnLoc = SpawnLoc;
+	CreateNewAgent_Parms.AgentTemplate = AgentTemplate;
+	CreateNewAgent_Parms.NewGroup = NewGroup;
 
-	this->ProcessEvent ( pFnCreateNewAgent, &CreateNewAgent_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCreateNewAgent, &CreateNewAgent_Parms, NULL );
+
+	if ( Item )
+		memcpy ( Item, &CreateNewAgent_Parms.Item, 0x90 );
+
+	return CreateNewAgent_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdPopulationManager.Warmup
 // [0x00420400] ( FUNC_Native )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// int                            WarmupNum                      ( CPF_Parm )
+// struct FCrowdSpawnInfoItem     Item                           ( CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void AGameCrowdPopulationManager::Warmup ( )
+bool AGameCrowdPopulationManager::Warmup ( int WarmupNum, struct FCrowdSpawnInfoItem* Item )
 {
 	static UFunction* pFnWarmup = NULL;
 
 	if ( ! pFnWarmup )
-		pFnWarmup = (UFunction*) UObject::GObjObjects()->Data[ 38182 ];
+		pFnWarmup = (UFunction*) UObject::GObjObjects()->Data[ 38189 ];
 
 	AGameCrowdPopulationManager_execWarmup_Parms Warmup_Parms;
+	Warmup_Parms.WarmupNum = WarmupNum;
 
 	pFnWarmup->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnWarmup, &Warmup_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnWarmup, &Warmup_Parms, NULL );
 
 	pFnWarmup->FunctionFlags |= 0x400;
+
+	if ( Item )
+		memcpy ( Item, &Warmup_Parms.Item, 0x90 );
+
+	return Warmup_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdPopulationManager.SpawnAgent
 // [0x00420400] ( FUNC_Native )
 // Parameters infos:
+// class AGameCrowdAgent*         ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AGameCrowdDestination*   SpawnLoc                       ( CPF_Parm )
+// struct FCrowdSpawnInfoItem     Item                           ( CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void AGameCrowdPopulationManager::SpawnAgent ( )
+class AGameCrowdAgent* AGameCrowdPopulationManager::SpawnAgent ( class AGameCrowdDestination* SpawnLoc, struct FCrowdSpawnInfoItem* Item )
 {
 	static UFunction* pFnSpawnAgent = NULL;
 
 	if ( ! pFnSpawnAgent )
-		pFnSpawnAgent = (UFunction*) UObject::GObjObjects()->Data[ 38178 ];
+		pFnSpawnAgent = (UFunction*) UObject::GObjObjects()->Data[ 38185 ];
 
 	AGameCrowdPopulationManager_execSpawnAgent_Parms SpawnAgent_Parms;
+	SpawnAgent_Parms.SpawnLoc = SpawnLoc;
 
 	pFnSpawnAgent->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnSpawnAgent, &SpawnAgent_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSpawnAgent, &SpawnAgent_Parms, NULL );
 
 	pFnSpawnAgent->FunctionFlags |= 0x400;
+
+	if ( Item )
+		memcpy ( Item, &SpawnAgent_Parms.Item, 0x90 );
+
+	return SpawnAgent_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdPopulationManager.SpawnAgentByIdx
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// class AGameCrowdAgent*         ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// int                            SpawnerIdx                     ( CPF_Parm )
+// class AGameCrowdDestination*   SpawnLoc                       ( CPF_Parm )
 
-void AGameCrowdPopulationManager::SpawnAgentByIdx ( )
+class AGameCrowdAgent* AGameCrowdPopulationManager::SpawnAgentByIdx ( int SpawnerIdx, class AGameCrowdDestination* SpawnLoc )
 {
 	static UFunction* pFnSpawnAgentByIdx = NULL;
 
 	if ( ! pFnSpawnAgentByIdx )
-		pFnSpawnAgentByIdx = (UFunction*) UObject::GObjObjects()->Data[ 38174 ];
+		pFnSpawnAgentByIdx = (UFunction*) UObject::GObjObjects()->Data[ 38181 ];
 
 	AGameCrowdPopulationManager_execSpawnAgentByIdx_Parms SpawnAgentByIdx_Parms;
+	SpawnAgentByIdx_Parms.SpawnerIdx = SpawnerIdx;
+	SpawnAgentByIdx_Parms.SpawnLoc = SpawnLoc;
 
 	pFnSpawnAgentByIdx->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnSpawnAgentByIdx, &SpawnAgentByIdx_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSpawnAgentByIdx, &SpawnAgentByIdx_Parms, NULL );
 
 	pFnSpawnAgentByIdx->FunctionFlags |= 0x400;
+
+	return SpawnAgentByIdx_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdPopulationManager.ValidateSpawnAt
 // [0x00C20002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AGameCrowdDestination*   Candidate                      ( CPF_Parm )
+// struct FCrowdSpawnInfoItem     Item                           ( CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void AGameCrowdPopulationManager::ValidateSpawnAt ( )
+bool AGameCrowdPopulationManager::ValidateSpawnAt ( class AGameCrowdDestination* Candidate, struct FCrowdSpawnInfoItem* Item )
 {
 	static UFunction* pFnValidateSpawnAt = NULL;
 
 	if ( ! pFnValidateSpawnAt )
-		pFnValidateSpawnAt = (UFunction*) UObject::GObjObjects()->Data[ 38163 ];
+		pFnValidateSpawnAt = (UFunction*) UObject::GObjObjects()->Data[ 38170 ];
 
 	AGameCrowdPopulationManager_execValidateSpawnAt_Parms ValidateSpawnAt_Parms;
+	ValidateSpawnAt_Parms.Candidate = Candidate;
 
-	this->ProcessEvent ( pFnValidateSpawnAt, &ValidateSpawnAt_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnValidateSpawnAt, &ValidateSpawnAt_Parms, NULL );
+
+	if ( Item )
+		memcpy ( Item, &ValidateSpawnAt_Parms.Item, 0x90 );
+
+	return ValidateSpawnAt_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdPopulationManager.AddPrioritizedSpawnPoint
 // [0x00420002] 
 // Parameters infos:
+// class AGameCrowdDestination*   GCD                            ( CPF_Parm )
+// struct FCrowdSpawnInfoItem     Item                           ( CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void AGameCrowdPopulationManager::AddPrioritizedSpawnPoint ( )
+void AGameCrowdPopulationManager::AddPrioritizedSpawnPoint ( class AGameCrowdDestination* GCD, struct FCrowdSpawnInfoItem* Item )
 {
 	static UFunction* pFnAddPrioritizedSpawnPoint = NULL;
 
 	if ( ! pFnAddPrioritizedSpawnPoint )
-		pFnAddPrioritizedSpawnPoint = (UFunction*) UObject::GObjObjects()->Data[ 38158 ];
+		pFnAddPrioritizedSpawnPoint = (UFunction*) UObject::GObjObjects()->Data[ 38165 ];
 
 	AGameCrowdPopulationManager_execAddPrioritizedSpawnPoint_Parms AddPrioritizedSpawnPoint_Parms;
+	AddPrioritizedSpawnPoint_Parms.GCD = GCD;
 
-	this->ProcessEvent ( pFnAddPrioritizedSpawnPoint, &AddPrioritizedSpawnPoint_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAddPrioritizedSpawnPoint, &AddPrioritizedSpawnPoint_Parms, NULL );
+
+	if ( Item )
+		memcpy ( Item, &AddPrioritizedSpawnPoint_Parms.Item, 0x90 );
 };
 
 // Function GameFramework.GameCrowdPopulationManager.AnalyzeSpawnPoints
 // [0x00420002] 
 // Parameters infos:
+// int                            StartIndex                     ( CPF_Parm )
+// int                            NumToUpdate                    ( CPF_Parm )
+// struct FCrowdSpawnInfoItem     Item                           ( CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void AGameCrowdPopulationManager::AnalyzeSpawnPoints ( )
+void AGameCrowdPopulationManager::AnalyzeSpawnPoints ( int StartIndex, int NumToUpdate, struct FCrowdSpawnInfoItem* Item )
 {
 	static UFunction* pFnAnalyzeSpawnPoints = NULL;
 
 	if ( ! pFnAnalyzeSpawnPoints )
-		pFnAnalyzeSpawnPoints = (UFunction*) UObject::GObjObjects()->Data[ 38150 ];
+		pFnAnalyzeSpawnPoints = (UFunction*) UObject::GObjObjects()->Data[ 38157 ];
 
 	AGameCrowdPopulationManager_execAnalyzeSpawnPoints_Parms AnalyzeSpawnPoints_Parms;
+	AnalyzeSpawnPoints_Parms.StartIndex = StartIndex;
+	AnalyzeSpawnPoints_Parms.NumToUpdate = NumToUpdate;
 
-	this->ProcessEvent ( pFnAnalyzeSpawnPoints, &AnalyzeSpawnPoints_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAnalyzeSpawnPoints, &AnalyzeSpawnPoints_Parms, NULL );
+
+	if ( Item )
+		memcpy ( Item, &AnalyzeSpawnPoints_Parms.Item, 0x90 );
 };
 
 // Function GameFramework.GameCrowdPopulationManager.PrioritizeSpawnPoints
 // [0x00420802] ( FUNC_Event )
 // Parameters infos:
+// float                          DeltaTime                      ( CPF_Parm )
+// struct FCrowdSpawnInfoItem     Item                           ( CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void AGameCrowdPopulationManager::eventPrioritizeSpawnPoints ( )
+void AGameCrowdPopulationManager::eventPrioritizeSpawnPoints ( float DeltaTime, struct FCrowdSpawnInfoItem* Item )
 {
 	static UFunction* pFnPrioritizeSpawnPoints = NULL;
 
 	if ( ! pFnPrioritizeSpawnPoints )
-		pFnPrioritizeSpawnPoints = (UFunction*) UObject::GObjObjects()->Data[ 38146 ];
+		pFnPrioritizeSpawnPoints = (UFunction*) UObject::GObjObjects()->Data[ 38153 ];
 
 	AGameCrowdPopulationManager_eventPrioritizeSpawnPoints_Parms PrioritizeSpawnPoints_Parms;
+	PrioritizeSpawnPoints_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnPrioritizeSpawnPoints, &PrioritizeSpawnPoints_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPrioritizeSpawnPoints, &PrioritizeSpawnPoints_Parms, NULL );
+
+	if ( Item )
+		memcpy ( Item, &PrioritizeSpawnPoints_Parms.Item, 0x90 );
 };
 
 // Function GameFramework.GameCrowdPopulationManager.StaticGetPlayerInfo
 // [0x00422500] ( FUNC_Native )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// TArray< struct FCrowdSpawnerPlayerInfo > out_PlayerInfo                 ( CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void AGameCrowdPopulationManager::StaticGetPlayerInfo ( )
+bool AGameCrowdPopulationManager::StaticGetPlayerInfo ( TArray< struct FCrowdSpawnerPlayerInfo >* out_PlayerInfo )
 {
 	static UFunction* pFnStaticGetPlayerInfo = NULL;
 
 	if ( ! pFnStaticGetPlayerInfo )
-		pFnStaticGetPlayerInfo = (UFunction*) UObject::GObjObjects()->Data[ 38142 ];
+		pFnStaticGetPlayerInfo = (UFunction*) UObject::GObjObjects()->Data[ 38149 ];
 
 	AGameCrowdPopulationManager_execStaticGetPlayerInfo_Parms StaticGetPlayerInfo_Parms;
 
 	pFnStaticGetPlayerInfo->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnStaticGetPlayerInfo, &StaticGetPlayerInfo_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnStaticGetPlayerInfo, &StaticGetPlayerInfo_Parms, NULL );
 
 	pFnStaticGetPlayerInfo->FunctionFlags |= 0x400;
+
+	if ( out_PlayerInfo )
+		memcpy ( out_PlayerInfo, &StaticGetPlayerInfo_Parms.out_PlayerInfo, 0x10 );
+
+	return StaticGetPlayerInfo_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdPopulationManager.GetPlayerInfo
 // [0x00020500] ( FUNC_Native )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void AGameCrowdPopulationManager::GetPlayerInfo ( )
+bool AGameCrowdPopulationManager::GetPlayerInfo ( )
 {
 	static UFunction* pFnGetPlayerInfo = NULL;
 
 	if ( ! pFnGetPlayerInfo )
-		pFnGetPlayerInfo = (UFunction*) UObject::GObjObjects()->Data[ 38140 ];
+		pFnGetPlayerInfo = (UFunction*) UObject::GObjObjects()->Data[ 38147 ];
 
 	AGameCrowdPopulationManager_execGetPlayerInfo_Parms GetPlayerInfo_Parms;
 
 	pFnGetPlayerInfo->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnGetPlayerInfo, &GetPlayerInfo_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetPlayerInfo, &GetPlayerInfo_Parms, NULL );
 
 	pFnGetPlayerInfo->FunctionFlags |= 0x400;
+
+	return GetPlayerInfo_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdPopulationManager.PickSpawnPoint
 // [0x00420802] ( FUNC_Event )
 // Parameters infos:
+// class AGameCrowdDestination*   ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// struct FCrowdSpawnInfoItem     Item                           ( CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void AGameCrowdPopulationManager::eventPickSpawnPoint ( )
+class AGameCrowdDestination* AGameCrowdPopulationManager::eventPickSpawnPoint ( struct FCrowdSpawnInfoItem* Item )
 {
 	static UFunction* pFnPickSpawnPoint = NULL;
 
 	if ( ! pFnPickSpawnPoint )
-		pFnPickSpawnPoint = (UFunction*) UObject::GObjObjects()->Data[ 38134 ];
+		pFnPickSpawnPoint = (UFunction*) UObject::GObjObjects()->Data[ 38141 ];
 
 	AGameCrowdPopulationManager_eventPickSpawnPoint_Parms PickSpawnPoint_Parms;
 
-	this->ProcessEvent ( pFnPickSpawnPoint, &PickSpawnPoint_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPickSpawnPoint, &PickSpawnPoint_Parms, NULL );
+
+	if ( Item )
+		memcpy ( Item, &PickSpawnPoint_Parms.Item, 0x90 );
+
+	return PickSpawnPoint_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdPopulationManager.UpdateSpawner
 // [0x00420802] ( FUNC_Event )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// float                          DeltaTime                      ( CPF_Parm )
+// struct FCrowdSpawnInfoItem     Item                           ( CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void AGameCrowdPopulationManager::eventUpdateSpawner ( )
+bool AGameCrowdPopulationManager::eventUpdateSpawner ( float DeltaTime, struct FCrowdSpawnInfoItem* Item )
 {
 	static UFunction* pFnUpdateSpawner = NULL;
 
 	if ( ! pFnUpdateSpawner )
-		pFnUpdateSpawner = (UFunction*) UObject::GObjObjects()->Data[ 38126 ];
+		pFnUpdateSpawner = (UFunction*) UObject::GObjObjects()->Data[ 38133 ];
 
 	AGameCrowdPopulationManager_eventUpdateSpawner_Parms UpdateSpawner_Parms;
+	UpdateSpawner_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnUpdateSpawner, &UpdateSpawner_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnUpdateSpawner, &UpdateSpawner_Parms, NULL );
+
+	if ( Item )
+		memcpy ( Item, &UpdateSpawner_Parms.Item, 0x90 );
+
+	return UpdateSpawner_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdPopulationManager.UpdateAllSpawners
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// float                          DeltaTime                      ( CPF_Parm )
 
-void AGameCrowdPopulationManager::UpdateAllSpawners ( )
+void AGameCrowdPopulationManager::UpdateAllSpawners ( float DeltaTime )
 {
 	static UFunction* pFnUpdateAllSpawners = NULL;
 
 	if ( ! pFnUpdateAllSpawners )
-		pFnUpdateAllSpawners = (UFunction*) UObject::GObjObjects()->Data[ 38124 ];
+		pFnUpdateAllSpawners = (UFunction*) UObject::GObjObjects()->Data[ 38131 ];
 
 	AGameCrowdPopulationManager_execUpdateAllSpawners_Parms UpdateAllSpawners_Parms;
+	UpdateAllSpawners_Parms.DeltaTime = DeltaTime;
 
 	pFnUpdateAllSpawners->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnUpdateAllSpawners, &UpdateAllSpawners_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnUpdateAllSpawners, &UpdateAllSpawners_Parms, NULL );
 
 	pFnUpdateAllSpawners->FunctionFlags |= 0x400;
 };
@@ -3296,81 +3959,101 @@ void AGameCrowdPopulationManager::UpdateAllSpawners ( )
 // Function GameFramework.GameCrowdPopulationManager.Tick
 // [0x00020002] 
 // Parameters infos:
+// float                          DeltaTime                      ( CPF_Parm )
 
-void AGameCrowdPopulationManager::Tick ( )
+void AGameCrowdPopulationManager::Tick ( float DeltaTime )
 {
 	static UFunction* pFnTick = NULL;
 
 	if ( ! pFnTick )
-		pFnTick = (UFunction*) UObject::GObjObjects()->Data[ 38122 ];
+		pFnTick = (UFunction*) UObject::GObjObjects()->Data[ 38129 ];
 
 	AGameCrowdPopulationManager_execTick_Parms Tick_Parms;
+	Tick_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnTick, &Tick_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnTick, &Tick_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdPopulationManager.ShouldDebugDestinations
 // [0x00020102] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void AGameCrowdPopulationManager::ShouldDebugDestinations ( )
+bool AGameCrowdPopulationManager::ShouldDebugDestinations ( )
 {
 	static UFunction* pFnShouldDebugDestinations = NULL;
 
 	if ( ! pFnShouldDebugDestinations )
-		pFnShouldDebugDestinations = (UFunction*) UObject::GObjObjects()->Data[ 38120 ];
+		pFnShouldDebugDestinations = (UFunction*) UObject::GObjObjects()->Data[ 38127 ];
 
 	AGameCrowdPopulationManager_execShouldDebugDestinations_Parms ShouldDebugDestinations_Parms;
 
-	this->ProcessEvent ( pFnShouldDebugDestinations, &ShouldDebugDestinations_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnShouldDebugDestinations, &ShouldDebugDestinations_Parms, NULL );
+
+	return ShouldDebugDestinations_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdPopulationManager.IsSpawningActive
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void AGameCrowdPopulationManager::IsSpawningActive ( )
+bool AGameCrowdPopulationManager::IsSpawningActive ( )
 {
 	static UFunction* pFnIsSpawningActive = NULL;
 
 	if ( ! pFnIsSpawningActive )
-		pFnIsSpawningActive = (UFunction*) UObject::GObjObjects()->Data[ 38117 ];
+		pFnIsSpawningActive = (UFunction*) UObject::GObjObjects()->Data[ 38124 ];
 
 	AGameCrowdPopulationManager_execIsSpawningActive_Parms IsSpawningActive_Parms;
 
-	this->ProcessEvent ( pFnIsSpawningActive, &IsSpawningActive_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnIsSpawningActive, &IsSpawningActive_Parms, NULL );
+
+	return IsSpawningActive_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdPopulationManager.DisplayDebug
 // [0x00C20102] 
 // Parameters infos:
+// class AHUD*                    HUD                            ( CPF_Parm )
+// float                          out_YL                         ( CPF_Parm | CPF_OutParm )
+// float                          out_YPos                       ( CPF_Parm | CPF_OutParm )
 
-void AGameCrowdPopulationManager::DisplayDebug ( )
+void AGameCrowdPopulationManager::DisplayDebug ( class AHUD* HUD, float* out_YL, float* out_YPos )
 {
 	static UFunction* pFnDisplayDebug = NULL;
 
 	if ( ! pFnDisplayDebug )
-		pFnDisplayDebug = (UFunction*) UObject::GObjObjects()->Data[ 38094 ];
+		pFnDisplayDebug = (UFunction*) UObject::GObjObjects()->Data[ 38101 ];
 
 	AGameCrowdPopulationManager_execDisplayDebug_Parms DisplayDebug_Parms;
+	DisplayDebug_Parms.HUD = HUD;
 
-	this->ProcessEvent ( pFnDisplayDebug, &DisplayDebug_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDisplayDebug, &DisplayDebug_Parms, NULL );
+
+	if ( out_YL )
+		*out_YL = DisplayDebug_Parms.out_YL;
+
+	if ( out_YPos )
+		*out_YPos = DisplayDebug_Parms.out_YPos;
 };
 
 // Function GameFramework.GameCrowdPopulationManager.AgentDestroyed
 // [0x00020002] 
 // Parameters infos:
+// class AGameCrowdAgent*         Agent                          ( CPF_Parm )
 
-void AGameCrowdPopulationManager::AgentDestroyed ( )
+void AGameCrowdPopulationManager::AgentDestroyed ( class AGameCrowdAgent* Agent )
 {
 	static UFunction* pFnAgentDestroyed = NULL;
 
 	if ( ! pFnAgentDestroyed )
-		pFnAgentDestroyed = (UFunction*) UObject::GObjObjects()->Data[ 38090 ];
+		pFnAgentDestroyed = (UFunction*) UObject::GObjObjects()->Data[ 38097 ];
 
 	AGameCrowdPopulationManager_execAgentDestroyed_Parms AgentDestroyed_Parms;
+	AgentDestroyed_Parms.Agent = Agent;
 
-	this->ProcessEvent ( pFnAgentDestroyed, &AgentDestroyed_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAgentDestroyed, &AgentDestroyed_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdPopulationManager.FlushAllAgents
@@ -3382,91 +4065,104 @@ void AGameCrowdPopulationManager::eventFlushAllAgents ( )
 	static UFunction* pFnFlushAllAgents = NULL;
 
 	if ( ! pFnFlushAllAgents )
-		pFnFlushAllAgents = (UFunction*) UObject::GObjObjects()->Data[ 38088 ];
+		pFnFlushAllAgents = (UFunction*) UObject::GObjObjects()->Data[ 38095 ];
 
 	AGameCrowdPopulationManager_eventFlushAllAgents_Parms FlushAllAgents_Parms;
 
-	this->ProcessEvent ( pFnFlushAllAgents, &FlushAllAgents_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnFlushAllAgents, &FlushAllAgents_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdPopulationManager.FlushAgents
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// struct FCrowdSpawnInfoItem     Item                           ( CPF_Parm | CPF_NeedCtorLink )
 
-void AGameCrowdPopulationManager::eventFlushAgents ( )
+void AGameCrowdPopulationManager::eventFlushAgents ( struct FCrowdSpawnInfoItem Item )
 {
 	static UFunction* pFnFlushAgents = NULL;
 
 	if ( ! pFnFlushAgents )
-		pFnFlushAgents = (UFunction*) UObject::GObjObjects()->Data[ 38085 ];
+		pFnFlushAgents = (UFunction*) UObject::GObjObjects()->Data[ 38092 ];
 
 	AGameCrowdPopulationManager_eventFlushAgents_Parms FlushAgents_Parms;
+	memcpy ( &FlushAgents_Parms.Item, &Item, 0x90 );
 
-	this->ProcessEvent ( pFnFlushAgents, &FlushAgents_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnFlushAgents, &FlushAgents_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdPopulationManager.CreateSpawner
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// int                            ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class USeqAct_GameCrowdPopulationManagerToggle* inAction                       ( CPF_Parm )
 
-void AGameCrowdPopulationManager::eventCreateSpawner ( )
+int AGameCrowdPopulationManager::eventCreateSpawner ( class USeqAct_GameCrowdPopulationManagerToggle* inAction )
 {
 	static UFunction* pFnCreateSpawner = NULL;
 
 	if ( ! pFnCreateSpawner )
-		pFnCreateSpawner = (UFunction*) UObject::GObjObjects()->Data[ 38081 ];
+		pFnCreateSpawner = (UFunction*) UObject::GObjObjects()->Data[ 38088 ];
 
 	AGameCrowdPopulationManager_eventCreateSpawner_Parms CreateSpawner_Parms;
+	CreateSpawner_Parms.inAction = inAction;
 
-	this->ProcessEvent ( pFnCreateSpawner, &CreateSpawner_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCreateSpawner, &CreateSpawner_Parms, NULL );
+
+	return CreateSpawner_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdPopulationManager.SetCrowdInfoVolume
 // [0x00020002] 
 // Parameters infos:
+// class AGameCrowdInfoVolume*    Vol                            ( CPF_Parm )
 
-void AGameCrowdPopulationManager::SetCrowdInfoVolume ( )
+void AGameCrowdPopulationManager::SetCrowdInfoVolume ( class AGameCrowdInfoVolume* Vol )
 {
 	static UFunction* pFnSetCrowdInfoVolume = NULL;
 
 	if ( ! pFnSetCrowdInfoVolume )
-		pFnSetCrowdInfoVolume = (UFunction*) UObject::GObjObjects()->Data[ 38079 ];
+		pFnSetCrowdInfoVolume = (UFunction*) UObject::GObjObjects()->Data[ 38086 ];
 
 	AGameCrowdPopulationManager_execSetCrowdInfoVolume_Parms SetCrowdInfoVolume_Parms;
+	SetCrowdInfoVolume_Parms.Vol = Vol;
 
-	this->ProcessEvent ( pFnSetCrowdInfoVolume, &SetCrowdInfoVolume_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetCrowdInfoVolume, &SetCrowdInfoVolume_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdPopulationManager.RemoveSpawnPoint
 // [0x00020002] 
 // Parameters infos:
+// class AGameCrowdDestination*   GCD                            ( CPF_Parm )
 
-void AGameCrowdPopulationManager::RemoveSpawnPoint ( )
+void AGameCrowdPopulationManager::RemoveSpawnPoint ( class AGameCrowdDestination* GCD )
 {
 	static UFunction* pFnRemoveSpawnPoint = NULL;
 
 	if ( ! pFnRemoveSpawnPoint )
-		pFnRemoveSpawnPoint = (UFunction*) UObject::GObjObjects()->Data[ 38075 ];
+		pFnRemoveSpawnPoint = (UFunction*) UObject::GObjObjects()->Data[ 38082 ];
 
 	AGameCrowdPopulationManager_execRemoveSpawnPoint_Parms RemoveSpawnPoint_Parms;
+	RemoveSpawnPoint_Parms.GCD = GCD;
 
-	this->ProcessEvent ( pFnRemoveSpawnPoint, &RemoveSpawnPoint_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRemoveSpawnPoint, &RemoveSpawnPoint_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdPopulationManager.AddSpawnPoint
 // [0x00020002] 
 // Parameters infos:
+// class AGameCrowdDestination*   GCD                            ( CPF_Parm )
 
-void AGameCrowdPopulationManager::AddSpawnPoint ( )
+void AGameCrowdPopulationManager::AddSpawnPoint ( class AGameCrowdDestination* GCD )
 {
 	static UFunction* pFnAddSpawnPoint = NULL;
 
 	if ( ! pFnAddSpawnPoint )
-		pFnAddSpawnPoint = (UFunction*) UObject::GObjObjects()->Data[ 38073 ];
+		pFnAddSpawnPoint = (UFunction*) UObject::GObjObjects()->Data[ 38080 ];
 
 	AGameCrowdPopulationManager_execAddSpawnPoint_Parms AddSpawnPoint_Parms;
+	AddSpawnPoint_Parms.GCD = GCD;
 
-	this->ProcessEvent ( pFnAddSpawnPoint, &AddSpawnPoint_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAddSpawnPoint, &AddSpawnPoint_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdPopulationManager.NotifyPathChanged
@@ -3478,11 +4174,11 @@ void AGameCrowdPopulationManager::eventNotifyPathChanged ( )
 	static UFunction* pFnNotifyPathChanged = NULL;
 
 	if ( ! pFnNotifyPathChanged )
-		pFnNotifyPathChanged = (UFunction*) UObject::GObjObjects()->Data[ 38072 ];
+		pFnNotifyPathChanged = (UFunction*) UObject::GObjObjects()->Data[ 38079 ];
 
 	AGameCrowdPopulationManager_eventNotifyPathChanged_Parms NotifyPathChanged_Parms;
 
-	this->ProcessEvent ( pFnNotifyPathChanged, &NotifyPathChanged_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnNotifyPathChanged, &NotifyPathChanged_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdPopulationManager.PostBeginPlay
@@ -3494,43 +4190,52 @@ void AGameCrowdPopulationManager::PostBeginPlay ( )
 	static UFunction* pFnPostBeginPlay = NULL;
 
 	if ( ! pFnPostBeginPlay )
-		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 38070 ];
+		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 38077 ];
 
 	AGameCrowdPopulationManager_execPostBeginPlay_Parms PostBeginPlay_Parms;
 
-	this->ProcessEvent ( pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdReplicationActor.ReplicatedEvent
 // [0x00020900] ( FUNC_Event )
 // Parameters infos:
+// struct FName                   VarName                        ( CPF_Parm )
 
-void AGameCrowdReplicationActor::eventReplicatedEvent ( )
+void AGameCrowdReplicationActor::eventReplicatedEvent ( struct FName VarName )
 {
 	static UFunction* pFnReplicatedEvent = NULL;
 
 	if ( ! pFnReplicatedEvent )
-		pFnReplicatedEvent = (UFunction*) UObject::GObjObjects()->Data[ 38199 ];
+		pFnReplicatedEvent = (UFunction*) UObject::GObjObjects()->Data[ 38206 ];
 
 	AGameCrowdReplicationActor_eventReplicatedEvent_Parms ReplicatedEvent_Parms;
+	memcpy ( &ReplicatedEvent_Parms.VarName, &VarName, 0x8 );
 
-	this->ProcessEvent ( pFnReplicatedEvent, &ReplicatedEvent_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnReplicatedEvent, &ReplicatedEvent_Parms, NULL );
 };
 
 // Function GameFramework.GameExplosionActor.ChooseCameraShake
 // [0x00880102] 
 // Parameters infos:
+// class UCameraShake*            ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// struct FVector                 Epicenter                      ( CPF_Parm )
+// class APlayerController*       PC                             ( CPF_Parm )
 
-void AGameExplosionActor::ChooseCameraShake ( )
+class UCameraShake* AGameExplosionActor::ChooseCameraShake ( struct FVector Epicenter, class APlayerController* PC )
 {
 	static UFunction* pFnChooseCameraShake = NULL;
 
 	if ( ! pFnChooseCameraShake )
-		pFnChooseCameraShake = (UFunction*) UObject::GObjObjects()->Data[ 38368 ];
+		pFnChooseCameraShake = (UFunction*) UObject::GObjObjects()->Data[ 38375 ];
 
 	AGameExplosionActor_execChooseCameraShake_Parms ChooseCameraShake_Parms;
+	memcpy ( &ChooseCameraShake_Parms.Epicenter, &Epicenter, 0xC );
+	ChooseCameraShake_Parms.PC = PC;
 
-	this->ProcessEvent ( pFnChooseCameraShake, &ChooseCameraShake_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnChooseCameraShake, &ChooseCameraShake_Parms, NULL );
+
+	return ChooseCameraShake_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameExplosionActor.SpawnCameraLensEffects
@@ -3542,11 +4247,11 @@ void AGameExplosionActor::SpawnCameraLensEffects ( )
 	static UFunction* pFnSpawnCameraLensEffects = NULL;
 
 	if ( ! pFnSpawnCameraLensEffects )
-		pFnSpawnCameraLensEffects = (UFunction*) UObject::GObjObjects()->Data[ 38366 ];
+		pFnSpawnCameraLensEffects = (UFunction*) UObject::GObjObjects()->Data[ 38373 ];
 
 	AGameExplosionActor_execSpawnCameraLensEffects_Parms SpawnCameraLensEffects_Parms;
 
-	this->ProcessEvent ( pFnSpawnCameraLensEffects, &SpawnCameraLensEffects_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSpawnCameraLensEffects, &SpawnCameraLensEffects_Parms, NULL );
 };
 
 // Function GameFramework.GameExplosionActor.DoExplosionCameraEffects
@@ -3558,11 +4263,11 @@ void AGameExplosionActor::DoExplosionCameraEffects ( )
 	static UFunction* pFnDoExplosionCameraEffects = NULL;
 
 	if ( ! pFnDoExplosionCameraEffects )
-		pFnDoExplosionCameraEffects = (UFunction*) UObject::GObjObjects()->Data[ 38362 ];
+		pFnDoExplosionCameraEffects = (UFunction*) UObject::GObjObjects()->Data[ 38369 ];
 
 	AGameExplosionActor_execDoExplosionCameraEffects_Parms DoExplosionCameraEffects_Parms;
 
-	this->ProcessEvent ( pFnDoExplosionCameraEffects, &DoExplosionCameraEffects_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDoExplosionCameraEffects, &DoExplosionCameraEffects_Parms, NULL );
 };
 
 // Function GameFramework.GameExplosionActor.DrawDebug
@@ -3574,11 +4279,11 @@ void AGameExplosionActor::DrawDebug ( )
 	static UFunction* pFnDrawDebug = NULL;
 
 	if ( ! pFnDrawDebug )
-		pFnDrawDebug = (UFunction*) UObject::GObjObjects()->Data[ 38359 ];
+		pFnDrawDebug = (UFunction*) UObject::GObjObjects()->Data[ 38366 ];
 
 	AGameExplosionActor_execDrawDebug_Parms DrawDebug_Parms;
 
-	this->ProcessEvent ( pFnDrawDebug, &DrawDebug_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDrawDebug, &DrawDebug_Parms, NULL );
 };
 
 // Function GameFramework.GameExplosionActor.DelayedExplosionDamage
@@ -3590,27 +4295,31 @@ void AGameExplosionActor::DelayedExplosionDamage ( )
 	static UFunction* pFnDelayedExplosionDamage = NULL;
 
 	if ( ! pFnDelayedExplosionDamage )
-		pFnDelayedExplosionDamage = (UFunction*) UObject::GObjObjects()->Data[ 38358 ];
+		pFnDelayedExplosionDamage = (UFunction*) UObject::GObjObjects()->Data[ 38365 ];
 
 	AGameExplosionActor_execDelayedExplosionDamage_Parms DelayedExplosionDamage_Parms;
 
-	this->ProcessEvent ( pFnDelayedExplosionDamage, &DelayedExplosionDamage_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDelayedExplosionDamage, &DelayedExplosionDamage_Parms, NULL );
 };
 
 // Function GameFramework.GameExplosionActor.Explode
 // [0x00024102] 
 // Parameters infos:
+// class UGameExplosion*          NewExplosionTemplate           ( CPF_Parm )
+// struct FVector                 Direction                      ( CPF_OptionalParm | CPF_Parm )
 
-void AGameExplosionActor::Explode ( )
+void AGameExplosionActor::Explode ( class UGameExplosion* NewExplosionTemplate, struct FVector Direction )
 {
 	static UFunction* pFnExplode = NULL;
 
 	if ( ! pFnExplode )
-		pFnExplode = (UFunction*) UObject::GObjObjects()->Data[ 38352 ];
+		pFnExplode = (UFunction*) UObject::GObjObjects()->Data[ 38359 ];
 
 	AGameExplosionActor_execExplode_Parms Explode_Parms;
+	Explode_Parms.NewExplosionTemplate = NewExplosionTemplate;
+	memcpy ( &Explode_Parms.Direction, &Direction, 0xC );
 
-	this->ProcessEvent ( pFnExplode, &Explode_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnExplode, &Explode_Parms, NULL );
 };
 
 // Function GameFramework.GameExplosionActor.SpawnExplosionFogVolume
@@ -3622,11 +4331,11 @@ void AGameExplosionActor::SpawnExplosionFogVolume ( )
 	static UFunction* pFnSpawnExplosionFogVolume = NULL;
 
 	if ( ! pFnSpawnExplosionFogVolume )
-		pFnSpawnExplosionFogVolume = (UFunction*) UObject::GObjObjects()->Data[ 38351 ];
+		pFnSpawnExplosionFogVolume = (UFunction*) UObject::GObjObjects()->Data[ 38358 ];
 
 	AGameExplosionActor_execSpawnExplosionFogVolume_Parms SpawnExplosionFogVolume_Parms;
 
-	this->ProcessEvent ( pFnSpawnExplosionFogVolume, &SpawnExplosionFogVolume_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSpawnExplosionFogVolume, &SpawnExplosionFogVolume_Parms, NULL );
 };
 
 // Function GameFramework.GameExplosionActor.SpawnExplosionDecal
@@ -3638,175 +4347,223 @@ void AGameExplosionActor::SpawnExplosionDecal ( )
 	static UFunction* pFnSpawnExplosionDecal = NULL;
 
 	if ( ! pFnSpawnExplosionDecal )
-		pFnSpawnExplosionDecal = (UFunction*) UObject::GObjObjects()->Data[ 38350 ];
+		pFnSpawnExplosionDecal = (UFunction*) UObject::GObjObjects()->Data[ 38357 ];
 
 	AGameExplosionActor_execSpawnExplosionDecal_Parms SpawnExplosionDecal_Parms;
 
-	this->ProcessEvent ( pFnSpawnExplosionDecal, &SpawnExplosionDecal_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSpawnExplosionDecal, &SpawnExplosionDecal_Parms, NULL );
 };
 
 // Function GameFramework.GameExplosionActor.SpawnExplosionParticleSystem
 // [0x00020100] 
 // Parameters infos:
+// class UParticleSystem*         Template                       ( CPF_Parm )
 
-void AGameExplosionActor::SpawnExplosionParticleSystem ( )
+void AGameExplosionActor::SpawnExplosionParticleSystem ( class UParticleSystem* Template )
 {
 	static UFunction* pFnSpawnExplosionParticleSystem = NULL;
 
 	if ( ! pFnSpawnExplosionParticleSystem )
-		pFnSpawnExplosionParticleSystem = (UFunction*) UObject::GObjObjects()->Data[ 38348 ];
+		pFnSpawnExplosionParticleSystem = (UFunction*) UObject::GObjObjects()->Data[ 38355 ];
 
 	AGameExplosionActor_execSpawnExplosionParticleSystem_Parms SpawnExplosionParticleSystem_Parms;
+	SpawnExplosionParticleSystem_Parms.Template = Template;
 
-	this->ProcessEvent ( pFnSpawnExplosionParticleSystem, &SpawnExplosionParticleSystem_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSpawnExplosionParticleSystem, &SpawnExplosionParticleSystem_Parms, NULL );
 };
 
 // Function GameFramework.GameExplosionActor.UpdateExplosionTemplateWithPerMaterialFX
 // [0x00080100] 
 // Parameters infos:
+// class UPhysicalMaterial*       PhysMaterial                   ( CPF_Parm )
 
-void AGameExplosionActor::UpdateExplosionTemplateWithPerMaterialFX ( )
+void AGameExplosionActor::UpdateExplosionTemplateWithPerMaterialFX ( class UPhysicalMaterial* PhysMaterial )
 {
 	static UFunction* pFnUpdateExplosionTemplateWithPerMaterialFX = NULL;
 
 	if ( ! pFnUpdateExplosionTemplateWithPerMaterialFX )
-		pFnUpdateExplosionTemplateWithPerMaterialFX = (UFunction*) UObject::GObjObjects()->Data[ 38346 ];
+		pFnUpdateExplosionTemplateWithPerMaterialFX = (UFunction*) UObject::GObjObjects()->Data[ 38353 ];
 
 	AGameExplosionActor_execUpdateExplosionTemplateWithPerMaterialFX_Parms UpdateExplosionTemplateWithPerMaterialFX_Parms;
+	UpdateExplosionTemplateWithPerMaterialFX_Parms.PhysMaterial = PhysMaterial;
 
-	this->ProcessEvent ( pFnUpdateExplosionTemplateWithPerMaterialFX, &UpdateExplosionTemplateWithPerMaterialFX_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnUpdateExplosionTemplateWithPerMaterialFX, &UpdateExplosionTemplateWithPerMaterialFX_Parms, NULL );
 };
 
 // Function GameFramework.GameExplosionActor.SpecialCringeEffectsFor
 // [0x00080000] 
 // Parameters infos:
+// class AActor*                  Victim                         ( CPF_Parm )
+// float                          VictimDist                     ( CPF_Parm )
 
-void AGameExplosionActor::SpecialCringeEffectsFor ( )
+void AGameExplosionActor::SpecialCringeEffectsFor ( class AActor* Victim, float VictimDist )
 {
 	static UFunction* pFnSpecialCringeEffectsFor = NULL;
 
 	if ( ! pFnSpecialCringeEffectsFor )
-		pFnSpecialCringeEffectsFor = (UFunction*) UObject::GObjObjects()->Data[ 38343 ];
+		pFnSpecialCringeEffectsFor = (UFunction*) UObject::GObjObjects()->Data[ 38350 ];
 
 	AGameExplosionActor_execSpecialCringeEffectsFor_Parms SpecialCringeEffectsFor_Parms;
+	SpecialCringeEffectsFor_Parms.Victim = Victim;
+	SpecialCringeEffectsFor_Parms.VictimDist = VictimDist;
 
-	this->ProcessEvent ( pFnSpecialCringeEffectsFor, &SpecialCringeEffectsFor_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSpecialCringeEffectsFor, &SpecialCringeEffectsFor_Parms, NULL );
 };
 
 // Function GameFramework.GameExplosionActor.SpecialPawnEffectsFor
 // [0x00080000] 
 // Parameters infos:
+// class AGamePawn*               VictimPawn                     ( CPF_Parm )
+// float                          VictimDist                     ( CPF_Parm )
 
-void AGameExplosionActor::SpecialPawnEffectsFor ( )
+void AGameExplosionActor::SpecialPawnEffectsFor ( class AGamePawn* VictimPawn, float VictimDist )
 {
 	static UFunction* pFnSpecialPawnEffectsFor = NULL;
 
 	if ( ! pFnSpecialPawnEffectsFor )
-		pFnSpecialPawnEffectsFor = (UFunction*) UObject::GObjObjects()->Data[ 38340 ];
+		pFnSpecialPawnEffectsFor = (UFunction*) UObject::GObjObjects()->Data[ 38347 ];
 
 	AGameExplosionActor_execSpecialPawnEffectsFor_Parms SpecialPawnEffectsFor_Parms;
+	SpecialPawnEffectsFor_Parms.VictimPawn = VictimPawn;
+	SpecialPawnEffectsFor_Parms.VictimDist = VictimDist;
 
-	this->ProcessEvent ( pFnSpecialPawnEffectsFor, &SpecialPawnEffectsFor_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSpecialPawnEffectsFor, &SpecialPawnEffectsFor_Parms, NULL );
 };
 
 // Function GameFramework.GameExplosionActor.GetEffectCheckRadius
 // [0x00020002] 
 // Parameters infos:
+// float                          ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// unsigned long                  bCauseDamage                   ( CPF_Parm )
+// unsigned long                  bCauseFractureEffects          ( CPF_Parm )
+// unsigned long                  bCauseEffects                  ( CPF_Parm )
 
-void AGameExplosionActor::GetEffectCheckRadius ( )
+float AGameExplosionActor::GetEffectCheckRadius ( unsigned long bCauseDamage, unsigned long bCauseFractureEffects, unsigned long bCauseEffects )
 {
 	static UFunction* pFnGetEffectCheckRadius = NULL;
 
 	if ( ! pFnGetEffectCheckRadius )
-		pFnGetEffectCheckRadius = (UFunction*) UObject::GObjObjects()->Data[ 38334 ];
+		pFnGetEffectCheckRadius = (UFunction*) UObject::GObjObjects()->Data[ 38341 ];
 
 	AGameExplosionActor_execGetEffectCheckRadius_Parms GetEffectCheckRadius_Parms;
+	GetEffectCheckRadius_Parms.bCauseDamage = bCauseDamage;
+	GetEffectCheckRadius_Parms.bCauseFractureEffects = bCauseFractureEffects;
+	GetEffectCheckRadius_Parms.bCauseEffects = bCauseEffects;
 
-	this->ProcessEvent ( pFnGetEffectCheckRadius, &GetEffectCheckRadius_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetEffectCheckRadius, &GetEffectCheckRadius_Parms, NULL );
+
+	return GetEffectCheckRadius_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameExplosionActor.DoExplosionDamage
 // [0x00880102] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// unsigned long                  bCauseDamage                   ( CPF_Parm )
+// unsigned long                  bCauseEffects                  ( CPF_Parm )
 
-void AGameExplosionActor::DoExplosionDamage ( )
+bool AGameExplosionActor::DoExplosionDamage ( unsigned long bCauseDamage, unsigned long bCauseEffects )
 {
 	static UFunction* pFnDoExplosionDamage = NULL;
 
 	if ( ! pFnDoExplosionDamage )
-		pFnDoExplosionDamage = (UFunction*) UObject::GObjObjects()->Data[ 38304 ];
+		pFnDoExplosionDamage = (UFunction*) UObject::GObjObjects()->Data[ 38311 ];
 
 	AGameExplosionActor_execDoExplosionDamage_Parms DoExplosionDamage_Parms;
+	DoExplosionDamage_Parms.bCauseDamage = bCauseDamage;
+	DoExplosionDamage_Parms.bCauseEffects = bCauseEffects;
 
-	this->ProcessEvent ( pFnDoExplosionDamage, &DoExplosionDamage_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDoExplosionDamage, &DoExplosionDamage_Parms, NULL );
+
+	return DoExplosionDamage_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameExplosionActor.BoxDistanceToPoint
 // [0x00022401] ( FUNC_Final | FUNC_Native )
 // Parameters infos:
+// float                          ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// struct FVector                 Start                          ( CPF_Parm )
+// struct FBox                    BBox                           ( CPF_Parm )
 
-void AGameExplosionActor::BoxDistanceToPoint ( )
+float AGameExplosionActor::BoxDistanceToPoint ( struct FVector Start, struct FBox BBox )
 {
 	static UFunction* pFnBoxDistanceToPoint = NULL;
 
 	if ( ! pFnBoxDistanceToPoint )
-		pFnBoxDistanceToPoint = (UFunction*) UObject::GObjObjects()->Data[ 38300 ];
+		pFnBoxDistanceToPoint = (UFunction*) UObject::GObjObjects()->Data[ 38307 ];
 
 	AGameExplosionActor_execBoxDistanceToPoint_Parms BoxDistanceToPoint_Parms;
+	memcpy ( &BoxDistanceToPoint_Parms.Start, &Start, 0xC );
+	memcpy ( &BoxDistanceToPoint_Parms.BBox, &BBox, 0x1C );
 
 	pFnBoxDistanceToPoint->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnBoxDistanceToPoint, &BoxDistanceToPoint_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnBoxDistanceToPoint, &BoxDistanceToPoint_Parms, NULL );
 
 	pFnBoxDistanceToPoint->FunctionFlags |= 0x400;
+
+	return BoxDistanceToPoint_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameExplosionActor.IsBehindExplosion
 // [0x00080102] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AActor*                  A                              ( CPF_Parm )
 
-void AGameExplosionActor::IsBehindExplosion ( )
+bool AGameExplosionActor::IsBehindExplosion ( class AActor* A )
 {
 	static UFunction* pFnIsBehindExplosion = NULL;
 
 	if ( ! pFnIsBehindExplosion )
-		pFnIsBehindExplosion = (UFunction*) UObject::GObjObjects()->Data[ 38297 ];
+		pFnIsBehindExplosion = (UFunction*) UObject::GObjObjects()->Data[ 38304 ];
 
 	AGameExplosionActor_execIsBehindExplosion_Parms IsBehindExplosion_Parms;
+	IsBehindExplosion_Parms.A = A;
 
-	this->ProcessEvent ( pFnIsBehindExplosion, &IsBehindExplosion_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnIsBehindExplosion, &IsBehindExplosion_Parms, NULL );
+
+	return IsBehindExplosion_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameExplosionActor.DoFullDamageToActor
 // [0x00020102] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AActor*                  Victim                         ( CPF_Parm )
 
-void AGameExplosionActor::DoFullDamageToActor ( )
+bool AGameExplosionActor::DoFullDamageToActor ( class AActor* Victim )
 {
 	static UFunction* pFnDoFullDamageToActor = NULL;
 
 	if ( ! pFnDoFullDamageToActor )
-		pFnDoFullDamageToActor = (UFunction*) UObject::GObjObjects()->Data[ 38294 ];
+		pFnDoFullDamageToActor = (UFunction*) UObject::GObjObjects()->Data[ 38301 ];
 
 	AGameExplosionActor_execDoFullDamageToActor_Parms DoFullDamageToActor_Parms;
+	DoFullDamageToActor_Parms.Victim = Victim;
 
-	this->ProcessEvent ( pFnDoFullDamageToActor, &DoFullDamageToActor_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDoFullDamageToActor, &DoFullDamageToActor_Parms, NULL );
+
+	return DoFullDamageToActor_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameExplosionActor.GetPhysicalMaterial
 // [0x00880102] 
 // Parameters infos:
+// class UPhysicalMaterial*       ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void AGameExplosionActor::GetPhysicalMaterial ( )
+class UPhysicalMaterial* AGameExplosionActor::GetPhysicalMaterial ( )
 {
 	static UFunction* pFnGetPhysicalMaterial = NULL;
 
 	if ( ! pFnGetPhysicalMaterial )
-		pFnGetPhysicalMaterial = (UFunction*) UObject::GObjObjects()->Data[ 38286 ];
+		pFnGetPhysicalMaterial = (UFunction*) UObject::GObjObjects()->Data[ 38293 ];
 
 	AGameExplosionActor_execGetPhysicalMaterial_Parms GetPhysicalMaterial_Parms;
 
-	this->ProcessEvent ( pFnGetPhysicalMaterial, &GetPhysicalMaterial_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetPhysicalMaterial, &GetPhysicalMaterial_Parms, NULL );
+
+	return GetPhysicalMaterial_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameExplosionActor.PreBeginPlay
@@ -3818,11 +4575,11 @@ void AGameExplosionActor::eventPreBeginPlay ( )
 	static UFunction* pFnPreBeginPlay = NULL;
 
 	if ( ! pFnPreBeginPlay )
-		pFnPreBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 38285 ];
+		pFnPreBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 38292 ];
 
 	AGameExplosionActor_eventPreBeginPlay_Parms PreBeginPlay_Parms;
 
-	this->ProcessEvent ( pFnPreBeginPlay, &PreBeginPlay_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPreBeginPlay, &PreBeginPlay_Parms, NULL );
 };
 
 // Function GameFramework.GamePawn.ReattachMeshWithoutBeingSeen
@@ -3834,11 +4591,11 @@ void AGamePawn::ReattachMeshWithoutBeingSeen ( )
 	static UFunction* pFnReattachMeshWithoutBeingSeen = NULL;
 
 	if ( ! pFnReattachMeshWithoutBeingSeen )
-		pFnReattachMeshWithoutBeingSeen = (UFunction*) UObject::GObjObjects()->Data[ 38431 ];
+		pFnReattachMeshWithoutBeingSeen = (UFunction*) UObject::GObjObjects()->Data[ 38438 ];
 
 	AGamePawn_execReattachMeshWithoutBeingSeen_Parms ReattachMeshWithoutBeingSeen_Parms;
 
-	this->ProcessEvent ( pFnReattachMeshWithoutBeingSeen, &ReattachMeshWithoutBeingSeen_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnReattachMeshWithoutBeingSeen, &ReattachMeshWithoutBeingSeen_Parms, NULL );
 };
 
 // Function GameFramework.GamePawn.ReattachMesh
@@ -3850,145 +4607,176 @@ void AGamePawn::ReattachMesh ( )
 	static UFunction* pFnReattachMesh = NULL;
 
 	if ( ! pFnReattachMesh )
-		pFnReattachMesh = (UFunction*) UObject::GObjObjects()->Data[ 38430 ];
+		pFnReattachMesh = (UFunction*) UObject::GObjObjects()->Data[ 38437 ];
 
 	AGamePawn_execReattachMesh_Parms ReattachMesh_Parms;
 
-	this->ProcessEvent ( pFnReattachMesh, &ReattachMesh_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnReattachMesh, &ReattachMesh_Parms, NULL );
 };
 
 // Function GameFramework.GamePawn.UpdateShadowSettings
 // [0x00020902] ( FUNC_Event )
 // Parameters infos:
+// unsigned long                  bInWantShadow                  ( CPF_Parm )
 
-void AGamePawn::eventUpdateShadowSettings ( )
+void AGamePawn::eventUpdateShadowSettings ( unsigned long bInWantShadow )
 {
 	static UFunction* pFnUpdateShadowSettings = NULL;
 
 	if ( ! pFnUpdateShadowSettings )
-		pFnUpdateShadowSettings = (UFunction*) UObject::GObjObjects()->Data[ 38426 ];
+		pFnUpdateShadowSettings = (UFunction*) UObject::GObjObjects()->Data[ 38433 ];
 
 	AGamePawn_eventUpdateShadowSettings_Parms UpdateShadowSettings_Parms;
+	UpdateShadowSettings_Parms.bInWantShadow = bInWantShadow;
 
-	this->ProcessEvent ( pFnUpdateShadowSettings, &UpdateShadowSettings_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnUpdateShadowSettings, &UpdateShadowSettings_Parms, NULL );
 };
 
 // Function GameFramework.GamePlayerController.CallPrintHUDLogInClient
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// struct FString                 text_                          ( CPF_Parm | CPF_NeedCtorLink )
 
-void AGamePlayerController::eventCallPrintHUDLogInClient ( )
+void AGamePlayerController::eventCallPrintHUDLogInClient ( struct FString text_ )
 {
 	static UFunction* pFnCallPrintHUDLogInClient = NULL;
 
 	if ( ! pFnCallPrintHUDLogInClient )
-		pFnCallPrintHUDLogInClient = (UFunction*) UObject::GObjObjects()->Data[ 36768 ];
+		pFnCallPrintHUDLogInClient = (UFunction*) UObject::GObjObjects()->Data[ 36775 ];
 
 	AGamePlayerController_eventCallPrintHUDLogInClient_Parms CallPrintHUDLogInClient_Parms;
+	memcpy ( &CallPrintHUDLogInClient_Parms.text_, &text_, 0x10 );
 
-	this->ProcessEvent ( pFnCallPrintHUDLogInClient, &CallPrintHUDLogInClient_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCallPrintHUDLogInClient, &CallPrintHUDLogInClient_Parms, NULL );
 };
 
 // Function GameFramework.GamePlayerController.PrintHUDLogInClient
 // [0x00020100] 
 // Parameters infos:
+// struct FString                 text_                          ( CPF_Parm | CPF_NeedCtorLink )
 
-void AGamePlayerController::PrintHUDLogInClient ( )
+void AGamePlayerController::PrintHUDLogInClient ( struct FString text_ )
 {
 	static UFunction* pFnPrintHUDLogInClient = NULL;
 
 	if ( ! pFnPrintHUDLogInClient )
-		pFnPrintHUDLogInClient = (UFunction*) UObject::GObjObjects()->Data[ 36766 ];
+		pFnPrintHUDLogInClient = (UFunction*) UObject::GObjObjects()->Data[ 36773 ];
 
 	AGamePlayerController_execPrintHUDLogInClient_Parms PrintHUDLogInClient_Parms;
+	memcpy ( &PrintHUDLogInClient_Parms.text_, &text_, 0x10 );
 
-	this->ProcessEvent ( pFnPrintHUDLogInClient, &PrintHUDLogInClient_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPrintHUDLogInClient, &PrintHUDLogInClient_Parms, NULL );
 };
 
 // Function GameFramework.GamePlayerController.ClientColorFade
 // [0x010201C0] 
 // Parameters infos:
+// struct FColor                  FadeColor                      ( CPF_Parm )
+// unsigned char                  FromAlpha                      ( CPF_Parm )
+// unsigned char                  ToAlpha                        ( CPF_Parm )
+// float                          FadeTime                       ( CPF_Parm )
 
-void AGamePlayerController::ClientColorFade ( )
+void AGamePlayerController::ClientColorFade ( struct FColor FadeColor, unsigned char FromAlpha, unsigned char ToAlpha, float FadeTime )
 {
 	static UFunction* pFnClientColorFade = NULL;
 
 	if ( ! pFnClientColorFade )
-		pFnClientColorFade = (UFunction*) UObject::GObjObjects()->Data[ 36761 ];
+		pFnClientColorFade = (UFunction*) UObject::GObjObjects()->Data[ 36768 ];
 
 	AGamePlayerController_execClientColorFade_Parms ClientColorFade_Parms;
+	memcpy ( &ClientColorFade_Parms.FadeColor, &FadeColor, 0x4 );
+	ClientColorFade_Parms.FromAlpha = FromAlpha;
+	ClientColorFade_Parms.ToAlpha = ToAlpha;
+	ClientColorFade_Parms.FadeTime = FadeTime;
 
-	this->ProcessEvent ( pFnClientColorFade, &ClientColorFade_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnClientColorFade, &ClientColorFade_Parms, NULL );
 };
 
 // Function GameFramework.GamePlayerController.WarmupPause
 // [0x00820802] ( FUNC_Event )
 // Parameters infos:
+// unsigned long                  bDesiredPauseState             ( CPF_Parm )
 
-void AGamePlayerController::eventWarmupPause ( )
+void AGamePlayerController::eventWarmupPause ( unsigned long bDesiredPauseState )
 {
 	static UFunction* pFnWarmupPause = NULL;
 
 	if ( ! pFnWarmupPause )
-		pFnWarmupPause = (UFunction*) UObject::GObjObjects()->Data[ 36756 ];
+		pFnWarmupPause = (UFunction*) UObject::GObjObjects()->Data[ 36763 ];
 
 	AGamePlayerController_eventWarmupPause_Parms WarmupPause_Parms;
+	WarmupPause_Parms.bDesiredPauseState = bDesiredPauseState;
 
-	this->ProcessEvent ( pFnWarmupPause, &WarmupPause_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnWarmupPause, &WarmupPause_Parms, NULL );
 };
 
 // Function GameFramework.GamePlayerController.CanUnpauseWarmup
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void AGamePlayerController::CanUnpauseWarmup ( )
+bool AGamePlayerController::CanUnpauseWarmup ( )
 {
 	static UFunction* pFnCanUnpauseWarmup = NULL;
 
 	if ( ! pFnCanUnpauseWarmup )
-		pFnCanUnpauseWarmup = (UFunction*) UObject::GObjObjects()->Data[ 36754 ];
+		pFnCanUnpauseWarmup = (UFunction*) UObject::GObjObjects()->Data[ 36761 ];
 
 	AGamePlayerController_execCanUnpauseWarmup_Parms CanUnpauseWarmup_Parms;
 
-	this->ProcessEvent ( pFnCanUnpauseWarmup, &CanUnpauseWarmup_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCanUnpauseWarmup, &CanUnpauseWarmup_Parms, NULL );
+
+	return CanUnpauseWarmup_Parms.ReturnValue;
 };
 
 // Function GameFramework.GamePlayerController.GetCurrentMovie
 // [0x00420401] ( FUNC_Final | FUNC_Native )
 // Parameters infos:
+// struct FString                 MovieName                      ( CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void AGamePlayerController::GetCurrentMovie ( )
+void AGamePlayerController::GetCurrentMovie ( struct FString* MovieName )
 {
 	static UFunction* pFnGetCurrentMovie = NULL;
 
 	if ( ! pFnGetCurrentMovie )
-		pFnGetCurrentMovie = (UFunction*) UObject::GObjObjects()->Data[ 36752 ];
+		pFnGetCurrentMovie = (UFunction*) UObject::GObjObjects()->Data[ 36759 ];
 
 	AGamePlayerController_execGetCurrentMovie_Parms GetCurrentMovie_Parms;
 
 	pFnGetCurrentMovie->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnGetCurrentMovie, &GetCurrentMovie_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetCurrentMovie, &GetCurrentMovie_Parms, NULL );
 
 	pFnGetCurrentMovie->FunctionFlags |= 0x400;
+
+	if ( MovieName )
+		memcpy ( MovieName, &GetCurrentMovie_Parms.MovieName, 0x10 );
 };
 
 // Function GameFramework.GamePlayerController.ClientStopMovie
 // [0x01020DC1] ( FUNC_Final | FUNC_Event | FUNC_Native )
 // Parameters infos:
+// float                          DelayInSeconds                 ( CPF_Parm )
+// unsigned long                  bAllowMovieToFinish            ( CPF_Parm )
+// unsigned long                  bForceStopNonSkippable         ( CPF_Parm )
+// unsigned long                  bForceStopLoadingMovie         ( CPF_Parm )
 
-void AGamePlayerController::eventClientStopMovie ( )
+void AGamePlayerController::eventClientStopMovie ( float DelayInSeconds, unsigned long bAllowMovieToFinish, unsigned long bForceStopNonSkippable, unsigned long bForceStopLoadingMovie )
 {
 	static UFunction* pFnClientStopMovie = NULL;
 
 	if ( ! pFnClientStopMovie )
-		pFnClientStopMovie = (UFunction*) UObject::GObjObjects()->Data[ 36747 ];
+		pFnClientStopMovie = (UFunction*) UObject::GObjObjects()->Data[ 36754 ];
 
 	AGamePlayerController_eventClientStopMovie_Parms ClientStopMovie_Parms;
+	ClientStopMovie_Parms.DelayInSeconds = DelayInSeconds;
+	ClientStopMovie_Parms.bAllowMovieToFinish = bAllowMovieToFinish;
+	ClientStopMovie_Parms.bForceStopNonSkippable = bForceStopNonSkippable;
+	ClientStopMovie_Parms.bForceStopLoadingMovie = bForceStopLoadingMovie;
 
 	pFnClientStopMovie->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnClientStopMovie, &ClientStopMovie_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnClientStopMovie, &ClientStopMovie_Parms, NULL );
 
 	pFnClientStopMovie->FunctionFlags |= 0x400;
 };
@@ -3996,19 +4784,31 @@ void AGamePlayerController::eventClientStopMovie ( )
 // Function GameFramework.GamePlayerController.ClientPlayMovie
 // [0x01020DC1] ( FUNC_Final | FUNC_Event | FUNC_Native )
 // Parameters infos:
+// struct FString                 MovieName                      ( CPF_Parm | CPF_NeedCtorLink )
+// int                            InStartOfRenderingMovieFrame   ( CPF_Parm )
+// int                            InEndOfRenderingMovieFrame     ( CPF_Parm )
+// unsigned long                  bRestrictPausing               ( CPF_Parm )
+// unsigned long                  bPlayOnceFromStream            ( CPF_Parm )
+// unsigned long                  bOnlyBackButtonSkipsMovie      ( CPF_Parm )
 
-void AGamePlayerController::eventClientPlayMovie ( )
+void AGamePlayerController::eventClientPlayMovie ( struct FString MovieName, int InStartOfRenderingMovieFrame, int InEndOfRenderingMovieFrame, unsigned long bRestrictPausing, unsigned long bPlayOnceFromStream, unsigned long bOnlyBackButtonSkipsMovie )
 {
 	static UFunction* pFnClientPlayMovie = NULL;
 
 	if ( ! pFnClientPlayMovie )
-		pFnClientPlayMovie = (UFunction*) UObject::GObjObjects()->Data[ 36740 ];
+		pFnClientPlayMovie = (UFunction*) UObject::GObjObjects()->Data[ 36747 ];
 
 	AGamePlayerController_eventClientPlayMovie_Parms ClientPlayMovie_Parms;
+	memcpy ( &ClientPlayMovie_Parms.MovieName, &MovieName, 0x10 );
+	ClientPlayMovie_Parms.InStartOfRenderingMovieFrame = InStartOfRenderingMovieFrame;
+	ClientPlayMovie_Parms.InEndOfRenderingMovieFrame = InEndOfRenderingMovieFrame;
+	ClientPlayMovie_Parms.bRestrictPausing = bRestrictPausing;
+	ClientPlayMovie_Parms.bPlayOnceFromStream = bPlayOnceFromStream;
+	ClientPlayMovie_Parms.bOnlyBackButtonSkipsMovie = bOnlyBackButtonSkipsMovie;
 
 	pFnClientPlayMovie->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnClientPlayMovie, &ClientPlayMovie_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnClientPlayMovie, &ClientPlayMovie_Parms, NULL );
 
 	pFnClientPlayMovie->FunctionFlags |= 0x400;
 };
@@ -4022,13 +4822,13 @@ void AGamePlayerController::KeepPlayingLoadingMovie ( )
 	static UFunction* pFnKeepPlayingLoadingMovie = NULL;
 
 	if ( ! pFnKeepPlayingLoadingMovie )
-		pFnKeepPlayingLoadingMovie = (UFunction*) UObject::GObjObjects()->Data[ 36739 ];
+		pFnKeepPlayingLoadingMovie = (UFunction*) UObject::GObjObjects()->Data[ 36746 ];
 
 	AGamePlayerController_execKeepPlayingLoadingMovie_Parms KeepPlayingLoadingMovie_Parms;
 
 	pFnKeepPlayingLoadingMovie->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnKeepPlayingLoadingMovie, &KeepPlayingLoadingMovie_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnKeepPlayingLoadingMovie, &KeepPlayingLoadingMovie_Parms, NULL );
 
 	pFnKeepPlayingLoadingMovie->FunctionFlags |= 0x400;
 };
@@ -4036,19 +4836,29 @@ void AGamePlayerController::KeepPlayingLoadingMovie ( )
 // Function GameFramework.GamePlayerController.ShowLoadingMovie
 // [0x00026401] ( FUNC_Final | FUNC_Native )
 // Parameters infos:
+// unsigned long                  bShowMovie                     ( CPF_Parm )
+// unsigned long                  bPauseAfterHide                ( CPF_OptionalParm | CPF_Parm )
+// float                          PauseDuration                  ( CPF_OptionalParm | CPF_Parm )
+// float                          KeepPlayingDuration            ( CPF_OptionalParm | CPF_Parm )
+// unsigned long                  bOverridePreviousDelays        ( CPF_OptionalParm | CPF_Parm )
 
-void AGamePlayerController::ShowLoadingMovie ( )
+void AGamePlayerController::ShowLoadingMovie ( unsigned long bShowMovie, unsigned long bPauseAfterHide, float PauseDuration, float KeepPlayingDuration, unsigned long bOverridePreviousDelays )
 {
 	static UFunction* pFnShowLoadingMovie = NULL;
 
 	if ( ! pFnShowLoadingMovie )
-		pFnShowLoadingMovie = (UFunction*) UObject::GObjObjects()->Data[ 36733 ];
+		pFnShowLoadingMovie = (UFunction*) UObject::GObjObjects()->Data[ 36740 ];
 
 	AGamePlayerController_execShowLoadingMovie_Parms ShowLoadingMovie_Parms;
+	ShowLoadingMovie_Parms.bShowMovie = bShowMovie;
+	ShowLoadingMovie_Parms.bPauseAfterHide = bPauseAfterHide;
+	ShowLoadingMovie_Parms.PauseDuration = PauseDuration;
+	ShowLoadingMovie_Parms.KeepPlayingDuration = KeepPlayingDuration;
+	ShowLoadingMovie_Parms.bOverridePreviousDelays = bOverridePreviousDelays;
 
 	pFnShowLoadingMovie->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnShowLoadingMovie, &ShowLoadingMovie_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnShowLoadingMovie, &ShowLoadingMovie_Parms, NULL );
 
 	pFnShowLoadingMovie->FunctionFlags |= 0x400;
 };
@@ -4056,49 +4866,57 @@ void AGamePlayerController::ShowLoadingMovie ( )
 // Function GameFramework.GamePlayerController.SetSoundMode
 // [0x00020102] 
 // Parameters infos:
+// struct FName                   InSoundModeName                ( CPF_Parm )
 
-void AGamePlayerController::SetSoundMode ( )
+void AGamePlayerController::SetSoundMode ( struct FName InSoundModeName )
 {
 	static UFunction* pFnSetSoundMode = NULL;
 
 	if ( ! pFnSetSoundMode )
-		pFnSetSoundMode = (UFunction*) UObject::GObjObjects()->Data[ 36729 ];
+		pFnSetSoundMode = (UFunction*) UObject::GObjObjects()->Data[ 36736 ];
 
 	AGamePlayerController_execSetSoundMode_Parms SetSoundMode_Parms;
+	memcpy ( &SetSoundMode_Parms.InSoundModeName, &InSoundModeName, 0x8 );
 
-	this->ProcessEvent ( pFnSetSoundMode, &SetSoundMode_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetSoundMode, &SetSoundMode_Parms, NULL );
 };
 
 // Function GameFramework.GamePlayerController.DoForceFeedbackForScreenShake
 // [0x00080102] 
 // Parameters infos:
+// class UCameraShake*            ShakeData                      ( CPF_Parm )
+// float                          Scale                          ( CPF_Parm )
 
-void AGamePlayerController::DoForceFeedbackForScreenShake ( )
+void AGamePlayerController::DoForceFeedbackForScreenShake ( class UCameraShake* ShakeData, float Scale )
 {
 	static UFunction* pFnDoForceFeedbackForScreenShake = NULL;
 
 	if ( ! pFnDoForceFeedbackForScreenShake )
-		pFnDoForceFeedbackForScreenShake = (UFunction*) UObject::GObjObjects()->Data[ 36717 ];
+		pFnDoForceFeedbackForScreenShake = (UFunction*) UObject::GObjObjects()->Data[ 36724 ];
 
 	AGamePlayerController_execDoForceFeedbackForScreenShake_Parms DoForceFeedbackForScreenShake_Parms;
+	DoForceFeedbackForScreenShake_Parms.ShakeData = ShakeData;
+	DoForceFeedbackForScreenShake_Parms.Scale = Scale;
 
-	this->ProcessEvent ( pFnDoForceFeedbackForScreenShake, &DoForceFeedbackForScreenShake_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDoForceFeedbackForScreenShake, &DoForceFeedbackForScreenShake_Parms, NULL );
 };
 
 // Function GameFramework.GamePlayerController.NotifyCrowdAgentInRadius
 // [0x00020800] ( FUNC_Event )
 // Parameters infos:
+// class AGameCrowdAgent*         Agent                          ( CPF_Parm )
 
-void AGamePlayerController::eventNotifyCrowdAgentInRadius ( )
+void AGamePlayerController::eventNotifyCrowdAgentInRadius ( class AGameCrowdAgent* Agent )
 {
 	static UFunction* pFnNotifyCrowdAgentInRadius = NULL;
 
 	if ( ! pFnNotifyCrowdAgentInRadius )
-		pFnNotifyCrowdAgentInRadius = (UFunction*) UObject::GObjObjects()->Data[ 36715 ];
+		pFnNotifyCrowdAgentInRadius = (UFunction*) UObject::GObjObjects()->Data[ 36722 ];
 
 	AGamePlayerController_eventNotifyCrowdAgentInRadius_Parms NotifyCrowdAgentInRadius_Parms;
+	NotifyCrowdAgentInRadius_Parms.Agent = Agent;
 
-	this->ProcessEvent ( pFnNotifyCrowdAgentInRadius, &NotifyCrowdAgentInRadius_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnNotifyCrowdAgentInRadius, &NotifyCrowdAgentInRadius_Parms, NULL );
 };
 
 // Function GameFramework.GamePlayerController.NotifyCrowdAgentRefresh
@@ -4110,83 +4928,97 @@ void AGamePlayerController::eventNotifyCrowdAgentRefresh ( )
 	static UFunction* pFnNotifyCrowdAgentRefresh = NULL;
 
 	if ( ! pFnNotifyCrowdAgentRefresh )
-		pFnNotifyCrowdAgentRefresh = (UFunction*) UObject::GObjObjects()->Data[ 36714 ];
+		pFnNotifyCrowdAgentRefresh = (UFunction*) UObject::GObjObjects()->Data[ 36721 ];
 
 	AGamePlayerController_eventNotifyCrowdAgentRefresh_Parms NotifyCrowdAgentRefresh_Parms;
 
-	this->ProcessEvent ( pFnNotifyCrowdAgentRefresh, &NotifyCrowdAgentRefresh_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnNotifyCrowdAgentRefresh, &NotifyCrowdAgentRefresh_Parms, NULL );
 };
 
 // Function GameFramework.GamePlayerController.CrowdDebug
 // [0x00020202] ( FUNC_Exec )
 // Parameters infos:
+// unsigned long                  bEnabled                       ( CPF_Parm )
 
-void AGamePlayerController::CrowdDebug ( )
+void AGamePlayerController::CrowdDebug ( unsigned long bEnabled )
 {
 	static UFunction* pFnCrowdDebug = NULL;
 
 	if ( ! pFnCrowdDebug )
-		pFnCrowdDebug = (UFunction*) UObject::GObjObjects()->Data[ 36708 ];
+		pFnCrowdDebug = (UFunction*) UObject::GObjObjects()->Data[ 36715 ];
 
 	AGamePlayerController_execCrowdDebug_Parms CrowdDebug_Parms;
+	CrowdDebug_Parms.bEnabled = bEnabled;
 
-	this->ProcessEvent ( pFnCrowdDebug, &CrowdDebug_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCrowdDebug, &CrowdDebug_Parms, NULL );
 };
 
 // Function GameFramework.GamePlayerController.GetUIPlayerIndex
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// int                            ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void AGamePlayerController::GetUIPlayerIndex ( )
+int AGamePlayerController::GetUIPlayerIndex ( )
 {
 	static UFunction* pFnGetUIPlayerIndex = NULL;
 
 	if ( ! pFnGetUIPlayerIndex )
-		pFnGetUIPlayerIndex = (UFunction*) UObject::GObjObjects()->Data[ 36706 ];
+		pFnGetUIPlayerIndex = (UFunction*) UObject::GObjObjects()->Data[ 36713 ];
 
 	AGamePlayerController_execGetUIPlayerIndex_Parms GetUIPlayerIndex_Parms;
 
 	pFnGetUIPlayerIndex->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnGetUIPlayerIndex, &GetUIPlayerIndex_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetUIPlayerIndex, &GetUIPlayerIndex_Parms, NULL );
 
 	pFnGetUIPlayerIndex->FunctionFlags |= 0x400;
+
+	return GetUIPlayerIndex_Parms.ReturnValue;
 };
 
 // Function GameFramework.GamePlayerController.OnToggleMouseCursor
 // [0x00020002] 
 // Parameters infos:
+// class USeqAct_ToggleMouseCursor* inAction                       ( CPF_Parm )
 
-void AGamePlayerController::OnToggleMouseCursor ( )
+void AGamePlayerController::OnToggleMouseCursor ( class USeqAct_ToggleMouseCursor* inAction )
 {
 	static UFunction* pFnOnToggleMouseCursor = NULL;
 
 	if ( ! pFnOnToggleMouseCursor )
-		pFnOnToggleMouseCursor = (UFunction*) UObject::GObjObjects()->Data[ 36702 ];
+		pFnOnToggleMouseCursor = (UFunction*) UObject::GObjObjects()->Data[ 36709 ];
 
 	AGamePlayerController_execOnToggleMouseCursor_Parms OnToggleMouseCursor_Parms;
+	OnToggleMouseCursor_Parms.inAction = inAction;
 
-	this->ProcessEvent ( pFnOnToggleMouseCursor, &OnToggleMouseCursor_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnToggleMouseCursor, &OnToggleMouseCursor_Parms, NULL );
 };
 
 // Function GameFramework.DebugCameraController.ConsoleCommand
 // [0x00024400] ( FUNC_Native )
 // Parameters infos:
+// struct FString                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
+// struct FString                 Command                        ( CPF_Parm | CPF_NeedCtorLink )
+// unsigned long                  bWriteToLog                    ( CPF_OptionalParm | CPF_Parm )
 
-void ADebugCameraController::ConsoleCommand ( )
+struct FString ADebugCameraController::ConsoleCommand ( struct FString Command, unsigned long bWriteToLog )
 {
 	static UFunction* pFnConsoleCommand = NULL;
 
 	if ( ! pFnConsoleCommand )
-		pFnConsoleCommand = (UFunction*) UObject::GObjObjects()->Data[ 36796 ];
+		pFnConsoleCommand = (UFunction*) UObject::GObjObjects()->Data[ 36803 ];
 
 	ADebugCameraController_execConsoleCommand_Parms ConsoleCommand_Parms;
+	memcpy ( &ConsoleCommand_Parms.Command, &Command, 0x10 );
+	ConsoleCommand_Parms.bWriteToLog = bWriteToLog;
 
 	pFnConsoleCommand->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnConsoleCommand, &ConsoleCommand_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnConsoleCommand, &ConsoleCommand_Parms, NULL );
 
 	pFnConsoleCommand->FunctionFlags |= 0x400;
+
+	return ConsoleCommand_Parms.ReturnValue;
 };
 
 // Function GameFramework.DebugCameraController.ShowDebugSelectedInfo
@@ -4198,27 +5030,40 @@ void ADebugCameraController::ShowDebugSelectedInfo ( )
 	static UFunction* pFnShowDebugSelectedInfo = NULL;
 
 	if ( ! pFnShowDebugSelectedInfo )
-		pFnShowDebugSelectedInfo = (UFunction*) UObject::GObjObjects()->Data[ 36823 ];
+		pFnShowDebugSelectedInfo = (UFunction*) UObject::GObjObjects()->Data[ 36830 ];
 
 	ADebugCameraController_execShowDebugSelectedInfo_Parms ShowDebugSelectedInfo_Parms;
 
-	this->ProcessEvent ( pFnShowDebugSelectedInfo, &ShowDebugSelectedInfo_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnShowDebugSelectedInfo, &ShowDebugSelectedInfo_Parms, NULL );
 };
 
 // Function GameFramework.DebugCameraController.NativeInputKey
 // [0x00824002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// int                            ControllerId                   ( CPF_Parm )
+// struct FName                   Key                            ( CPF_Parm )
+// unsigned char                  Event                          ( CPF_Parm )
+// float                          AmountDepressed                ( CPF_OptionalParm | CPF_Parm )
+// unsigned long                  bGamepad                       ( CPF_OptionalParm | CPF_Parm )
 
-void ADebugCameraController::NativeInputKey ( )
+bool ADebugCameraController::NativeInputKey ( int ControllerId, struct FName Key, unsigned char Event, float AmountDepressed, unsigned long bGamepad )
 {
 	static UFunction* pFnNativeInputKey = NULL;
 
 	if ( ! pFnNativeInputKey )
-		pFnNativeInputKey = (UFunction*) UObject::GObjObjects()->Data[ 36809 ];
+		pFnNativeInputKey = (UFunction*) UObject::GObjObjects()->Data[ 36816 ];
 
 	ADebugCameraController_execNativeInputKey_Parms NativeInputKey_Parms;
+	NativeInputKey_Parms.ControllerId = ControllerId;
+	memcpy ( &NativeInputKey_Parms.Key, &Key, 0x8 );
+	NativeInputKey_Parms.Event = Event;
+	NativeInputKey_Parms.AmountDepressed = AmountDepressed;
+	NativeInputKey_Parms.bGamepad = bGamepad;
 
-	this->ProcessEvent ( pFnNativeInputKey, &NativeInputKey_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnNativeInputKey, &NativeInputKey_Parms, NULL );
+
+	return NativeInputKey_Parms.ReturnValue;
 };
 
 // Function GameFramework.DebugCameraController.InitDebugInputSystem
@@ -4230,11 +5075,11 @@ void ADebugCameraController::InitDebugInputSystem ( )
 	static UFunction* pFnInitDebugInputSystem = NULL;
 
 	if ( ! pFnInitDebugInputSystem )
-		pFnInitDebugInputSystem = (UFunction*) UObject::GObjObjects()->Data[ 36804 ];
+		pFnInitDebugInputSystem = (UFunction*) UObject::GObjObjects()->Data[ 36811 ];
 
 	ADebugCameraController_execInitDebugInputSystem_Parms InitDebugInputSystem_Parms;
 
-	this->ProcessEvent ( pFnInitDebugInputSystem, &InitDebugInputSystem_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitDebugInputSystem, &InitDebugInputSystem_Parms, NULL );
 };
 
 // Function GameFramework.DebugCameraController.DisableDebugCamera
@@ -4246,11 +5091,11 @@ void ADebugCameraController::DisableDebugCamera ( )
 	static UFunction* pFnDisableDebugCamera = NULL;
 
 	if ( ! pFnDisableDebugCamera )
-		pFnDisableDebugCamera = (UFunction*) UObject::GObjObjects()->Data[ 36803 ];
+		pFnDisableDebugCamera = (UFunction*) UObject::GObjObjects()->Data[ 36810 ];
 
 	ADebugCameraController_execDisableDebugCamera_Parms DisableDebugCamera_Parms;
 
-	this->ProcessEvent ( pFnDisableDebugCamera, &DisableDebugCamera_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDisableDebugCamera, &DisableDebugCamera_Parms, NULL );
 };
 
 // Function GameFramework.DebugCameraController.NormalSpeed
@@ -4262,11 +5107,11 @@ void ADebugCameraController::NormalSpeed ( )
 	static UFunction* pFnNormalSpeed = NULL;
 
 	if ( ! pFnNormalSpeed )
-		pFnNormalSpeed = (UFunction*) UObject::GObjObjects()->Data[ 36802 ];
+		pFnNormalSpeed = (UFunction*) UObject::GObjObjects()->Data[ 36809 ];
 
 	ADebugCameraController_execNormalSpeed_Parms NormalSpeed_Parms;
 
-	this->ProcessEvent ( pFnNormalSpeed, &NormalSpeed_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnNormalSpeed, &NormalSpeed_Parms, NULL );
 };
 
 // Function GameFramework.DebugCameraController.MoreSpeed
@@ -4278,11 +5123,11 @@ void ADebugCameraController::MoreSpeed ( )
 	static UFunction* pFnMoreSpeed = NULL;
 
 	if ( ! pFnMoreSpeed )
-		pFnMoreSpeed = (UFunction*) UObject::GObjObjects()->Data[ 36801 ];
+		pFnMoreSpeed = (UFunction*) UObject::GObjObjects()->Data[ 36808 ];
 
 	ADebugCameraController_execMoreSpeed_Parms MoreSpeed_Parms;
 
-	this->ProcessEvent ( pFnMoreSpeed, &MoreSpeed_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnMoreSpeed, &MoreSpeed_Parms, NULL );
 };
 
 // Function GameFramework.DebugCameraController.SetFreezeRendering
@@ -4294,43 +5139,47 @@ void ADebugCameraController::SetFreezeRendering ( )
 	static UFunction* pFnSetFreezeRendering = NULL;
 
 	if ( ! pFnSetFreezeRendering )
-		pFnSetFreezeRendering = (UFunction*) UObject::GObjObjects()->Data[ 36800 ];
+		pFnSetFreezeRendering = (UFunction*) UObject::GObjObjects()->Data[ 36807 ];
 
 	ADebugCameraController_execSetFreezeRendering_Parms SetFreezeRendering_Parms;
 
-	this->ProcessEvent ( pFnSetFreezeRendering, &SetFreezeRendering_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetFreezeRendering, &SetFreezeRendering_Parms, NULL );
 };
 
 // Function GameFramework.DebugCameraController.OnDeactivate
 // [0x00020002] 
 // Parameters infos:
+// class APlayerController*       PC                             ( CPF_Parm )
 
-void ADebugCameraController::OnDeactivate ( )
+void ADebugCameraController::OnDeactivate ( class APlayerController* PC )
 {
 	static UFunction* pFnOnDeactivate = NULL;
 
 	if ( ! pFnOnDeactivate )
-		pFnOnDeactivate = (UFunction*) UObject::GObjObjects()->Data[ 36798 ];
+		pFnOnDeactivate = (UFunction*) UObject::GObjObjects()->Data[ 36805 ];
 
 	ADebugCameraController_execOnDeactivate_Parms OnDeactivate_Parms;
+	OnDeactivate_Parms.PC = PC;
 
-	this->ProcessEvent ( pFnOnDeactivate, &OnDeactivate_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnDeactivate, &OnDeactivate_Parms, NULL );
 };
 
 // Function GameFramework.DebugCameraController.OnActivate
 // [0x00020002] 
 // Parameters infos:
+// class APlayerController*       PC                             ( CPF_Parm )
 
-void ADebugCameraController::OnActivate ( )
+void ADebugCameraController::OnActivate ( class APlayerController* PC )
 {
 	static UFunction* pFnOnActivate = NULL;
 
 	if ( ! pFnOnActivate )
-		pFnOnActivate = (UFunction*) UObject::GObjObjects()->Data[ 36793 ];
+		pFnOnActivate = (UFunction*) UObject::GObjObjects()->Data[ 36800 ];
 
 	ADebugCameraController_execOnActivate_Parms OnActivate_Parms;
+	OnActivate_Parms.PC = PC;
 
-	this->ProcessEvent ( pFnOnActivate, &OnActivate_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnActivate, &OnActivate_Parms, NULL );
 };
 
 // Function GameFramework.DebugCameraController.PostBeginPlay
@@ -4342,11 +5191,11 @@ void ADebugCameraController::eventPostBeginPlay ( )
 	static UFunction* pFnPostBeginPlay = NULL;
 
 	if ( ! pFnPostBeginPlay )
-		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 36792 ];
+		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 36799 ];
 
 	ADebugCameraController_eventPostBeginPlay_Parms PostBeginPlay_Parms;
 
-	this->ProcessEvent ( pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
 };
 
 // Function GameFramework.DebugCameraController.Unselect
@@ -4358,13 +5207,13 @@ void ADebugCameraController::Unselect ( )
 	static UFunction* pFnUnselect = NULL;
 
 	if ( ! pFnUnselect )
-		pFnUnselect = (UFunction*) UObject::GObjObjects()->Data[ 36791 ];
+		pFnUnselect = (UFunction*) UObject::GObjObjects()->Data[ 36798 ];
 
 	ADebugCameraController_execUnselect_Parms Unselect_Parms;
 
 	pFnUnselect->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnUnselect, &Unselect_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnUnselect, &Unselect_Parms, NULL );
 
 	pFnUnselect->FunctionFlags |= 0x400;
 };
@@ -4372,19 +5221,25 @@ void ADebugCameraController::Unselect ( )
 // Function GameFramework.DebugCameraController.SecondarySelect
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// struct FVector                 HitLoc                         ( CPF_Parm )
+// struct FVector                 HitNormal                      ( CPF_Parm )
+// struct FTraceHitInfo           HitInfo                        ( CPF_Parm )
 
-void ADebugCameraController::SecondarySelect ( )
+void ADebugCameraController::SecondarySelect ( struct FVector HitLoc, struct FVector HitNormal, struct FTraceHitInfo HitInfo )
 {
 	static UFunction* pFnSecondarySelect = NULL;
 
 	if ( ! pFnSecondarySelect )
-		pFnSecondarySelect = (UFunction*) UObject::GObjObjects()->Data[ 36787 ];
+		pFnSecondarySelect = (UFunction*) UObject::GObjObjects()->Data[ 36794 ];
 
 	ADebugCameraController_execSecondarySelect_Parms SecondarySelect_Parms;
+	memcpy ( &SecondarySelect_Parms.HitLoc, &HitLoc, 0xC );
+	memcpy ( &SecondarySelect_Parms.HitNormal, &HitNormal, 0xC );
+	memcpy ( &SecondarySelect_Parms.HitInfo, &HitInfo, 0x2C );
 
 	pFnSecondarySelect->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnSecondarySelect, &SecondarySelect_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSecondarySelect, &SecondarySelect_Parms, NULL );
 
 	pFnSecondarySelect->FunctionFlags |= 0x400;
 };
@@ -4392,19 +5247,25 @@ void ADebugCameraController::SecondarySelect ( )
 // Function GameFramework.DebugCameraController.PrimarySelect
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// struct FVector                 HitLoc                         ( CPF_Parm )
+// struct FVector                 HitNormal                      ( CPF_Parm )
+// struct FTraceHitInfo           HitInfo                        ( CPF_Parm )
 
-void ADebugCameraController::PrimarySelect ( )
+void ADebugCameraController::PrimarySelect ( struct FVector HitLoc, struct FVector HitNormal, struct FTraceHitInfo HitInfo )
 {
 	static UFunction* pFnPrimarySelect = NULL;
 
 	if ( ! pFnPrimarySelect )
-		pFnPrimarySelect = (UFunction*) UObject::GObjObjects()->Data[ 36783 ];
+		pFnPrimarySelect = (UFunction*) UObject::GObjObjects()->Data[ 36790 ];
 
 	ADebugCameraController_execPrimarySelect_Parms PrimarySelect_Parms;
+	memcpy ( &PrimarySelect_Parms.HitLoc, &HitLoc, 0xC );
+	memcpy ( &PrimarySelect_Parms.HitNormal, &HitNormal, 0xC );
+	memcpy ( &PrimarySelect_Parms.HitInfo, &HitInfo, 0x2C );
 
 	pFnPrimarySelect->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnPrimarySelect, &PrimarySelect_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPrimarySelect, &PrimarySelect_Parms, NULL );
 
 	pFnPrimarySelect->FunctionFlags |= 0x400;
 };
@@ -4418,27 +5279,29 @@ void AMobileHUD::RenderKismetHud ( )
 	static UFunction* pFnRenderKismetHud = NULL;
 
 	if ( ! pFnRenderKismetHud )
-		pFnRenderKismetHud = (UFunction*) UObject::GObjObjects()->Data[ 39123 ];
+		pFnRenderKismetHud = (UFunction*) UObject::GObjObjects()->Data[ 39130 ];
 
 	AMobileHUD_execRenderKismetHud_Parms RenderKismetHud_Parms;
 
-	this->ProcessEvent ( pFnRenderKismetHud, &RenderKismetHud_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRenderKismetHud, &RenderKismetHud_Parms, NULL );
 };
 
 // Function GameFramework.MobileHUD.AddKismetRenderEvent
 // [0x00020002] 
 // Parameters infos:
+// class USeqEvent_HudRender*     NewEvent                       ( CPF_Parm )
 
-void AMobileHUD::AddKismetRenderEvent ( )
+void AMobileHUD::AddKismetRenderEvent ( class USeqEvent_HudRender* NewEvent )
 {
 	static UFunction* pFnAddKismetRenderEvent = NULL;
 
 	if ( ! pFnAddKismetRenderEvent )
-		pFnAddKismetRenderEvent = (UFunction*) UObject::GObjObjects()->Data[ 39120 ];
+		pFnAddKismetRenderEvent = (UFunction*) UObject::GObjObjects()->Data[ 39127 ];
 
 	AMobileHUD_execAddKismetRenderEvent_Parms AddKismetRenderEvent_Parms;
+	AddKismetRenderEvent_Parms.NewEvent = NewEvent;
 
-	this->ProcessEvent ( pFnAddKismetRenderEvent, &AddKismetRenderEvent_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAddKismetRenderEvent, &AddKismetRenderEvent_Parms, NULL );
 };
 
 // Function GameFramework.MobileHUD.RefreshKismetLinks
@@ -4450,91 +5313,101 @@ void AMobileHUD::RefreshKismetLinks ( )
 	static UFunction* pFnRefreshKismetLinks = NULL;
 
 	if ( ! pFnRefreshKismetLinks )
-		pFnRefreshKismetLinks = (UFunction*) UObject::GObjObjects()->Data[ 39115 ];
+		pFnRefreshKismetLinks = (UFunction*) UObject::GObjObjects()->Data[ 39122 ];
 
 	AMobileHUD_execRefreshKismetLinks_Parms RefreshKismetLinks_Parms;
 
-	this->ProcessEvent ( pFnRefreshKismetLinks, &RefreshKismetLinks_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRefreshKismetLinks, &RefreshKismetLinks_Parms, NULL );
 };
 
 // Function GameFramework.MobileHUD.DrawMobileZone_Slider
 // [0x00820002] 
 // Parameters infos:
+// class UMobileInputZone*        Zone                           ( CPF_Parm )
 
-void AMobileHUD::DrawMobileZone_Slider ( )
+void AMobileHUD::DrawMobileZone_Slider ( class UMobileInputZone* Zone )
 {
 	static UFunction* pFnDrawMobileZone_Slider = NULL;
 
 	if ( ! pFnDrawMobileZone_Slider )
-		pFnDrawMobileZone_Slider = (UFunction*) UObject::GObjObjects()->Data[ 39108 ];
+		pFnDrawMobileZone_Slider = (UFunction*) UObject::GObjObjects()->Data[ 39115 ];
 
 	AMobileHUD_execDrawMobileZone_Slider_Parms DrawMobileZone_Slider_Parms;
+	DrawMobileZone_Slider_Parms.Zone = Zone;
 
-	this->ProcessEvent ( pFnDrawMobileZone_Slider, &DrawMobileZone_Slider_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDrawMobileZone_Slider, &DrawMobileZone_Slider_Parms, NULL );
 };
 
 // Function GameFramework.MobileHUD.DrawMobileTilt
 // [0x00020002] 
 // Parameters infos:
+// class UMobilePlayerInput*      MobileInput                    ( CPF_Parm )
 
-void AMobileHUD::DrawMobileTilt ( )
+void AMobileHUD::DrawMobileTilt ( class UMobilePlayerInput* MobileInput )
 {
 	static UFunction* pFnDrawMobileTilt = NULL;
 
 	if ( ! pFnDrawMobileTilt )
-		pFnDrawMobileTilt = (UFunction*) UObject::GObjObjects()->Data[ 39092 ];
+		pFnDrawMobileTilt = (UFunction*) UObject::GObjObjects()->Data[ 39099 ];
 
 	AMobileHUD_execDrawMobileTilt_Parms DrawMobileTilt_Parms;
+	DrawMobileTilt_Parms.MobileInput = MobileInput;
 
-	this->ProcessEvent ( pFnDrawMobileTilt, &DrawMobileTilt_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDrawMobileTilt, &DrawMobileTilt_Parms, NULL );
 };
 
 // Function GameFramework.MobileHUD.DrawMobileZone_Trackball
 // [0x00020002] 
 // Parameters infos:
+// class UMobileInputZone*        Zone                           ( CPF_Parm )
 
-void AMobileHUD::DrawMobileZone_Trackball ( )
+void AMobileHUD::DrawMobileZone_Trackball ( class UMobileInputZone* Zone )
 {
 	static UFunction* pFnDrawMobileZone_Trackball = NULL;
 
 	if ( ! pFnDrawMobileZone_Trackball )
-		pFnDrawMobileZone_Trackball = (UFunction*) UObject::GObjObjects()->Data[ 39088 ];
+		pFnDrawMobileZone_Trackball = (UFunction*) UObject::GObjObjects()->Data[ 39095 ];
 
 	AMobileHUD_execDrawMobileZone_Trackball_Parms DrawMobileZone_Trackball_Parms;
+	DrawMobileZone_Trackball_Parms.Zone = Zone;
 
-	this->ProcessEvent ( pFnDrawMobileZone_Trackball, &DrawMobileZone_Trackball_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDrawMobileZone_Trackball, &DrawMobileZone_Trackball_Parms, NULL );
 };
 
 // Function GameFramework.MobileHUD.DrawMobileZone_Joystick
 // [0x00820002] 
 // Parameters infos:
+// class UMobileInputZone*        Zone                           ( CPF_Parm )
 
-void AMobileHUD::DrawMobileZone_Joystick ( )
+void AMobileHUD::DrawMobileZone_Joystick ( class UMobileInputZone* Zone )
 {
 	static UFunction* pFnDrawMobileZone_Joystick = NULL;
 
 	if ( ! pFnDrawMobileZone_Joystick )
-		pFnDrawMobileZone_Joystick = (UFunction*) UObject::GObjObjects()->Data[ 39076 ];
+		pFnDrawMobileZone_Joystick = (UFunction*) UObject::GObjObjects()->Data[ 39083 ];
 
 	AMobileHUD_execDrawMobileZone_Joystick_Parms DrawMobileZone_Joystick_Parms;
+	DrawMobileZone_Joystick_Parms.Zone = Zone;
 
-	this->ProcessEvent ( pFnDrawMobileZone_Joystick, &DrawMobileZone_Joystick_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDrawMobileZone_Joystick, &DrawMobileZone_Joystick_Parms, NULL );
 };
 
 // Function GameFramework.MobileHUD.DrawMobileZone_Button
 // [0x00020002] 
 // Parameters infos:
+// class UMobileInputZone*        Zone                           ( CPF_Parm )
 
-void AMobileHUD::DrawMobileZone_Button ( )
+void AMobileHUD::DrawMobileZone_Button ( class UMobileInputZone* Zone )
 {
 	static UFunction* pFnDrawMobileZone_Button = NULL;
 
 	if ( ! pFnDrawMobileZone_Button )
-		pFnDrawMobileZone_Button = (UFunction*) UObject::GObjObjects()->Data[ 39054 ];
+		pFnDrawMobileZone_Button = (UFunction*) UObject::GObjObjects()->Data[ 39061 ];
 
 	AMobileHUD_execDrawMobileZone_Button_Parms DrawMobileZone_Button_Parms;
+	DrawMobileZone_Button_Parms.Zone = Zone;
 
-	this->ProcessEvent ( pFnDrawMobileZone_Button, &DrawMobileZone_Button_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDrawMobileZone_Button, &DrawMobileZone_Button_Parms, NULL );
 };
 
 // Function GameFramework.MobileHUD.DrawInputZoneOverlays
@@ -4546,11 +5419,11 @@ void AMobileHUD::DrawInputZoneOverlays ( )
 	static UFunction* pFnDrawInputZoneOverlays = NULL;
 
 	if ( ! pFnDrawInputZoneOverlays )
-		pFnDrawInputZoneOverlays = (UFunction*) UObject::GObjObjects()->Data[ 39030 ];
+		pFnDrawInputZoneOverlays = (UFunction*) UObject::GObjObjects()->Data[ 39037 ];
 
 	AMobileHUD_execDrawInputZoneOverlays_Parms DrawInputZoneOverlays_Parms;
 
-	this->ProcessEvent ( pFnDrawInputZoneOverlays, &DrawInputZoneOverlays_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDrawInputZoneOverlays, &DrawInputZoneOverlays_Parms, NULL );
 };
 
 // Function GameFramework.MobileHUD.RenderMobileMenu
@@ -4562,43 +5435,52 @@ void AMobileHUD::RenderMobileMenu ( )
 	static UFunction* pFnRenderMobileMenu = NULL;
 
 	if ( ! pFnRenderMobileMenu )
-		pFnRenderMobileMenu = (UFunction*) UObject::GObjObjects()->Data[ 39020 ];
+		pFnRenderMobileMenu = (UFunction*) UObject::GObjObjects()->Data[ 39027 ];
 
 	AMobileHUD_execRenderMobileMenu_Parms RenderMobileMenu_Parms;
 
-	this->ProcessEvent ( pFnRenderMobileMenu, &RenderMobileMenu_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRenderMobileMenu, &RenderMobileMenu_Parms, NULL );
 };
 
 // Function GameFramework.MobileHUD.ShowMobileHud
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void AMobileHUD::ShowMobileHud ( )
+bool AMobileHUD::ShowMobileHud ( )
 {
 	static UFunction* pFnShowMobileHud = NULL;
 
 	if ( ! pFnShowMobileHud )
-		pFnShowMobileHud = (UFunction*) UObject::GObjObjects()->Data[ 39018 ];
+		pFnShowMobileHud = (UFunction*) UObject::GObjObjects()->Data[ 39025 ];
 
 	AMobileHUD_execShowMobileHud_Parms ShowMobileHud_Parms;
 
-	this->ProcessEvent ( pFnShowMobileHud, &ShowMobileHud_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnShowMobileHud, &ShowMobileHud_Parms, NULL );
+
+	return ShowMobileHud_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileHUD.DrawMobileDebugString
 // [0x00020002] 
 // Parameters infos:
+// float                          XPos                           ( CPF_Parm )
+// float                          YPos                           ( CPF_Parm )
+// struct FString                 Str                            ( CPF_Parm | CPF_NeedCtorLink )
 
-void AMobileHUD::DrawMobileDebugString ( )
+void AMobileHUD::DrawMobileDebugString ( float XPos, float YPos, struct FString Str )
 {
 	static UFunction* pFnDrawMobileDebugString = NULL;
 
 	if ( ! pFnDrawMobileDebugString )
-		pFnDrawMobileDebugString = (UFunction*) UObject::GObjObjects()->Data[ 39014 ];
+		pFnDrawMobileDebugString = (UFunction*) UObject::GObjObjects()->Data[ 39021 ];
 
 	AMobileHUD_execDrawMobileDebugString_Parms DrawMobileDebugString_Parms;
+	DrawMobileDebugString_Parms.XPos = XPos;
+	DrawMobileDebugString_Parms.YPos = YPos;
+	memcpy ( &DrawMobileDebugString_Parms.Str, &Str, 0x10 );
 
-	this->ProcessEvent ( pFnDrawMobileDebugString, &DrawMobileDebugString_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDrawMobileDebugString, &DrawMobileDebugString_Parms, NULL );
 };
 
 // Function GameFramework.MobileHUD.PostRender
@@ -4610,11 +5492,11 @@ void AMobileHUD::PostRender ( )
 	static UFunction* pFnPostRender = NULL;
 
 	if ( ! pFnPostRender )
-		pFnPostRender = (UFunction*) UObject::GObjObjects()->Data[ 39012 ];
+		pFnPostRender = (UFunction*) UObject::GObjObjects()->Data[ 39019 ];
 
 	AMobileHUD_execPostRender_Parms PostRender_Parms;
 
-	this->ProcessEvent ( pFnPostRender, &PostRender_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostRender, &PostRender_Parms, NULL );
 };
 
 // Function GameFramework.MobileHUD.PostBeginPlay
@@ -4626,123 +5508,178 @@ void AMobileHUD::PostBeginPlay ( )
 	static UFunction* pFnPostBeginPlay = NULL;
 
 	if ( ! pFnPostBeginPlay )
-		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 39011 ];
+		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 39018 ];
 
 	AMobileHUD_execPostBeginPlay_Parms PostBeginPlay_Parms;
 
-	this->ProcessEvent ( pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
 };
 
 // Function GameFramework.MobileInputZone.AddKismetEventHandler
 // [0x00020002] 
 // Parameters infos:
+// class USeqEvent_MobileZoneBase* NewHandler                     ( CPF_Parm )
 
-void UMobileInputZone::AddKismetEventHandler ( )
+void UMobileInputZone::AddKismetEventHandler ( class USeqEvent_MobileZoneBase* NewHandler )
 {
 	static UFunction* pFnAddKismetEventHandler = NULL;
 
 	if ( ! pFnAddKismetEventHandler )
-		pFnAddKismetEventHandler = (UFunction*) UObject::GObjObjects()->Data[ 39417 ];
+		pFnAddKismetEventHandler = (UFunction*) UObject::GObjObjects()->Data[ 39424 ];
 
 	UMobileInputZone_execAddKismetEventHandler_Parms AddKismetEventHandler_Parms;
+	AddKismetEventHandler_Parms.NewHandler = NewHandler;
 
-	this->ProcessEvent ( pFnAddKismetEventHandler, &AddKismetEventHandler_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAddKismetEventHandler, &AddKismetEventHandler_Parms, NULL );
 };
 
 // Function GameFramework.MobileInputZone.OnPostDrawZone
 // [0x00120000] 
 // Parameters infos:
+// class UMobileInputZone*        Zone                           ( CPF_Parm )
+// class UCanvas*                 Canvas                         ( CPF_Parm )
 
-void UMobileInputZone::OnPostDrawZone ( )
+void UMobileInputZone::OnPostDrawZone ( class UMobileInputZone* Zone, class UCanvas* Canvas )
 {
 	static UFunction* pFnOnPostDrawZone = NULL;
 
 	if ( ! pFnOnPostDrawZone )
-		pFnOnPostDrawZone = (UFunction*) UObject::GObjObjects()->Data[ 39335 ];
+		pFnOnPostDrawZone = (UFunction*) UObject::GObjObjects()->Data[ 39342 ];
 
 	UMobileInputZone_execOnPostDrawZone_Parms OnPostDrawZone_Parms;
+	OnPostDrawZone_Parms.Zone = Zone;
+	OnPostDrawZone_Parms.Canvas = Canvas;
 
-	this->ProcessEvent ( pFnOnPostDrawZone, &OnPostDrawZone_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnPostDrawZone, &OnPostDrawZone_Parms, NULL );
 };
 
 // Function GameFramework.MobileInputZone.OnPreDrawZone
 // [0x00120000] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UMobileInputZone*        Zone                           ( CPF_Parm )
+// class UCanvas*                 Canvas                         ( CPF_Parm )
 
-void UMobileInputZone::OnPreDrawZone ( )
+bool UMobileInputZone::OnPreDrawZone ( class UMobileInputZone* Zone, class UCanvas* Canvas )
 {
 	static UFunction* pFnOnPreDrawZone = NULL;
 
 	if ( ! pFnOnPreDrawZone )
-		pFnOnPreDrawZone = (UFunction*) UObject::GObjObjects()->Data[ 39049 ];
+		pFnOnPreDrawZone = (UFunction*) UObject::GObjObjects()->Data[ 39056 ];
 
 	UMobileInputZone_execOnPreDrawZone_Parms OnPreDrawZone_Parms;
+	OnPreDrawZone_Parms.Zone = Zone;
+	OnPreDrawZone_Parms.Canvas = Canvas;
 
-	this->ProcessEvent ( pFnOnPreDrawZone, &OnPreDrawZone_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnPreDrawZone, &OnPreDrawZone_Parms, NULL );
+
+	return OnPreDrawZone_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileInputZone.OnProcessSlide
 // [0x00120000] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UMobileInputZone*        Zone                           ( CPF_Parm )
+// unsigned char                  EventType                      ( CPF_Parm )
+// int                            SlideValue                     ( CPF_Parm )
+// struct FVector2D               ViewportSize                   ( CPF_Parm )
 
-void UMobileInputZone::OnProcessSlide ( )
+bool UMobileInputZone::OnProcessSlide ( class UMobileInputZone* Zone, unsigned char EventType, int SlideValue, struct FVector2D ViewportSize )
 {
 	static UFunction* pFnOnProcessSlide = NULL;
 
 	if ( ! pFnOnProcessSlide )
-		pFnOnProcessSlide = (UFunction*) UObject::GObjObjects()->Data[ 39337 ];
+		pFnOnProcessSlide = (UFunction*) UObject::GObjObjects()->Data[ 39344 ];
 
 	UMobileInputZone_execOnProcessSlide_Parms OnProcessSlide_Parms;
+	OnProcessSlide_Parms.Zone = Zone;
+	OnProcessSlide_Parms.EventType = EventType;
+	OnProcessSlide_Parms.SlideValue = SlideValue;
+	memcpy ( &OnProcessSlide_Parms.ViewportSize, &ViewportSize, 0x8 );
 
-	this->ProcessEvent ( pFnOnProcessSlide, &OnProcessSlide_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnProcessSlide, &OnProcessSlide_Parms, NULL );
+
+	return OnProcessSlide_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileInputZone.OnDoubleTapDelegate
 // [0x00120000] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UMobileInputZone*        Zone                           ( CPF_Parm )
+// unsigned char                  EventType                      ( CPF_Parm )
+// struct FVector2D               TouchLocation                  ( CPF_Parm )
 
-void UMobileInputZone::OnDoubleTapDelegate ( )
+bool UMobileInputZone::OnDoubleTapDelegate ( class UMobileInputZone* Zone, unsigned char EventType, struct FVector2D TouchLocation )
 {
 	static UFunction* pFnOnDoubleTapDelegate = NULL;
 
 	if ( ! pFnOnDoubleTapDelegate )
-		pFnOnDoubleTapDelegate = (UFunction*) UObject::GObjObjects()->Data[ 39339 ];
+		pFnOnDoubleTapDelegate = (UFunction*) UObject::GObjObjects()->Data[ 39346 ];
 
 	UMobileInputZone_execOnDoubleTapDelegate_Parms OnDoubleTapDelegate_Parms;
+	OnDoubleTapDelegate_Parms.Zone = Zone;
+	OnDoubleTapDelegate_Parms.EventType = EventType;
+	memcpy ( &OnDoubleTapDelegate_Parms.TouchLocation, &TouchLocation, 0x8 );
 
-	this->ProcessEvent ( pFnOnDoubleTapDelegate, &OnDoubleTapDelegate_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnDoubleTapDelegate, &OnDoubleTapDelegate_Parms, NULL );
+
+	return OnDoubleTapDelegate_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileInputZone.OnTapDelegate
 // [0x00120000] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UMobileInputZone*        Zone                           ( CPF_Parm )
+// unsigned char                  EventType                      ( CPF_Parm )
+// struct FVector2D               TouchLocation                  ( CPF_Parm )
 
-void UMobileInputZone::OnTapDelegate ( )
+bool UMobileInputZone::OnTapDelegate ( class UMobileInputZone* Zone, unsigned char EventType, struct FVector2D TouchLocation )
 {
 	static UFunction* pFnOnTapDelegate = NULL;
 
 	if ( ! pFnOnTapDelegate )
-		pFnOnTapDelegate = (UFunction*) UObject::GObjObjects()->Data[ 39341 ];
+		pFnOnTapDelegate = (UFunction*) UObject::GObjObjects()->Data[ 39348 ];
 
 	UMobileInputZone_execOnTapDelegate_Parms OnTapDelegate_Parms;
+	OnTapDelegate_Parms.Zone = Zone;
+	OnTapDelegate_Parms.EventType = EventType;
+	memcpy ( &OnTapDelegate_Parms.TouchLocation, &TouchLocation, 0x8 );
 
-	this->ProcessEvent ( pFnOnTapDelegate, &OnTapDelegate_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnTapDelegate, &OnTapDelegate_Parms, NULL );
+
+	return OnTapDelegate_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileInputZone.OnProcessInputDelegate
 // [0x00120000] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UMobileInputZone*        Zone                           ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
+// int                            Handle                         ( CPF_Parm )
+// unsigned char                  EventType                      ( CPF_Parm )
+// struct FVector2D               TouchLocation                  ( CPF_Parm )
 
-void UMobileInputZone::OnProcessInputDelegate ( )
+bool UMobileInputZone::OnProcessInputDelegate ( class UMobileInputZone* Zone, float DeltaTime, int Handle, unsigned char EventType, struct FVector2D TouchLocation )
 {
 	static UFunction* pFnOnProcessInputDelegate = NULL;
 
 	if ( ! pFnOnProcessInputDelegate )
-		pFnOnProcessInputDelegate = (UFunction*) UObject::GObjObjects()->Data[ 39343 ];
+		pFnOnProcessInputDelegate = (UFunction*) UObject::GObjObjects()->Data[ 39350 ];
 
 	UMobileInputZone_execOnProcessInputDelegate_Parms OnProcessInputDelegate_Parms;
+	OnProcessInputDelegate_Parms.Zone = Zone;
+	OnProcessInputDelegate_Parms.DeltaTime = DeltaTime;
+	OnProcessInputDelegate_Parms.Handle = Handle;
+	OnProcessInputDelegate_Parms.EventType = EventType;
+	memcpy ( &OnProcessInputDelegate_Parms.TouchLocation, &TouchLocation, 0x8 );
 
-	this->ProcessEvent ( pFnOnProcessInputDelegate, &OnProcessInputDelegate_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnProcessInputDelegate, &OnProcessInputDelegate_Parms, NULL );
+
+	return OnProcessInputDelegate_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileInputZone.DeactivateZone
@@ -4754,13 +5691,13 @@ void UMobileInputZone::DeactivateZone ( )
 	static UFunction* pFnDeactivateZone = NULL;
 
 	if ( ! pFnDeactivateZone )
-		pFnDeactivateZone = (UFunction*) UObject::GObjObjects()->Data[ 39393 ];
+		pFnDeactivateZone = (UFunction*) UObject::GObjObjects()->Data[ 39400 ];
 
 	UMobileInputZone_execDeactivateZone_Parms DeactivateZone_Parms;
 
 	pFnDeactivateZone->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnDeactivateZone, &DeactivateZone_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDeactivateZone, &DeactivateZone_Parms, NULL );
 
 	pFnDeactivateZone->FunctionFlags |= 0x400;
 };
@@ -4774,13 +5711,13 @@ void UMobileInputZone::ActivateZone ( )
 	static UFunction* pFnActivateZone = NULL;
 
 	if ( ! pFnActivateZone )
-		pFnActivateZone = (UFunction*) UObject::GObjObjects()->Data[ 39392 ];
+		pFnActivateZone = (UFunction*) UObject::GObjObjects()->Data[ 39399 ];
 
 	UMobileInputZone_execActivateZone_Parms ActivateZone_Parms;
 
 	pFnActivateZone->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnActivateZone, &ActivateZone_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnActivateZone, &ActivateZone_Parms, NULL );
 
 	pFnActivateZone->FunctionFlags |= 0x400;
 };
@@ -4788,129 +5725,184 @@ void UMobileInputZone::ActivateZone ( )
 // Function GameFramework.MobileMenuObject.RenderObject
 // [0x00020000] 
 // Parameters infos:
+// class UCanvas*                 Canvas                         ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobileMenuObject::RenderObject ( )
+void UMobileMenuObject::RenderObject ( class UCanvas* Canvas, float DeltaTime )
 {
 	static UFunction* pFnRenderObject = NULL;
 
 	if ( ! pFnRenderObject )
-		pFnRenderObject = (UFunction*) UObject::GObjObjects()->Data[ 39504 ];
+		pFnRenderObject = (UFunction*) UObject::GObjObjects()->Data[ 39511 ];
 
 	UMobileMenuObject_execRenderObject_Parms RenderObject_Parms;
+	RenderObject_Parms.Canvas = Canvas;
+	RenderObject_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnRenderObject, &RenderObject_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRenderObject, &RenderObject_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuObject.SetCanvasPos
 // [0x00024002] 
 // Parameters infos:
+// class UCanvas*                 Canvas                         ( CPF_Parm )
+// float                          OffsetX                        ( CPF_OptionalParm | CPF_Parm )
+// float                          OffsetY                        ( CPF_OptionalParm | CPF_Parm )
 
-void UMobileMenuObject::SetCanvasPos ( )
+void UMobileMenuObject::SetCanvasPos ( class UCanvas* Canvas, float OffsetX, float OffsetY )
 {
 	static UFunction* pFnSetCanvasPos = NULL;
 
 	if ( ! pFnSetCanvasPos )
-		pFnSetCanvasPos = (UFunction*) UObject::GObjObjects()->Data[ 39498 ];
+		pFnSetCanvasPos = (UFunction*) UObject::GObjObjects()->Data[ 39505 ];
 
 	UMobileMenuObject_execSetCanvasPos_Parms SetCanvasPos_Parms;
+	SetCanvasPos_Parms.Canvas = Canvas;
+	SetCanvasPos_Parms.OffsetX = OffsetX;
+	SetCanvasPos_Parms.OffsetY = OffsetY;
 
-	this->ProcessEvent ( pFnSetCanvasPos, &SetCanvasPos_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetCanvasPos, &SetCanvasPos_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuObject.InitMenuObject
 // [0x00020002] 
 // Parameters infos:
+// class UMobilePlayerInput*      PlayerInput                    ( CPF_Parm )
+// class UMobileMenuScene*        Scene                          ( CPF_Parm )
+// int                            ScreenWidth                    ( CPF_Parm )
+// int                            ScreenHeight                   ( CPF_Parm )
+// unsigned long                  bIsFirstInitialization         ( CPF_Parm )
 
-void UMobileMenuObject::InitMenuObject ( )
+void UMobileMenuObject::InitMenuObject ( class UMobilePlayerInput* PlayerInput, class UMobileMenuScene* Scene, int ScreenWidth, int ScreenHeight, unsigned long bIsFirstInitialization )
 {
 	static UFunction* pFnInitMenuObject = NULL;
 
 	if ( ! pFnInitMenuObject )
-		pFnInitMenuObject = (UFunction*) UObject::GObjObjects()->Data[ 39476 ];
+		pFnInitMenuObject = (UFunction*) UObject::GObjObjects()->Data[ 39483 ];
 
 	UMobileMenuObject_execInitMenuObject_Parms InitMenuObject_Parms;
+	InitMenuObject_Parms.PlayerInput = PlayerInput;
+	InitMenuObject_Parms.Scene = Scene;
+	InitMenuObject_Parms.ScreenWidth = ScreenWidth;
+	InitMenuObject_Parms.ScreenHeight = ScreenHeight;
+	InitMenuObject_Parms.bIsFirstInitialization = bIsFirstInitialization;
 
-	this->ProcessEvent ( pFnInitMenuObject, &InitMenuObject_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitMenuObject, &InitMenuObject_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuObject.GetRealPosition
 // [0x00420802] ( FUNC_Event )
 // Parameters infos:
+// float                          PosX                           ( CPF_Parm | CPF_OutParm )
+// float                          PosY                           ( CPF_Parm | CPF_OutParm )
 
-void UMobileMenuObject::eventGetRealPosition ( )
+void UMobileMenuObject::eventGetRealPosition ( float* PosX, float* PosY )
 {
 	static UFunction* pFnGetRealPosition = NULL;
 
 	if ( ! pFnGetRealPosition )
-		pFnGetRealPosition = (UFunction*) UObject::GObjObjects()->Data[ 39471 ];
+		pFnGetRealPosition = (UFunction*) UObject::GObjObjects()->Data[ 39478 ];
 
 	UMobileMenuObject_eventGetRealPosition_Parms GetRealPosition_Parms;
 
-	this->ProcessEvent ( pFnGetRealPosition, &GetRealPosition_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetRealPosition, &GetRealPosition_Parms, NULL );
+
+	if ( PosX )
+		*PosX = GetRealPosition_Parms.PosX;
+
+	if ( PosY )
+		*PosY = GetRealPosition_Parms.PosY;
 };
 
 // Function GameFramework.MobileMenuObject.OnTouch
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// unsigned char                  EventType                      ( CPF_Parm )
+// float                          TouchX                         ( CPF_Parm )
+// float                          TouchY                         ( CPF_Parm )
+// class UMobileMenuObject*       ObjectOver                     ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobileMenuObject::eventOnTouch ( )
+bool UMobileMenuObject::eventOnTouch ( unsigned char EventType, float TouchX, float TouchY, class UMobileMenuObject* ObjectOver, float DeltaTime )
 {
 	static UFunction* pFnOnTouch = NULL;
 
 	if ( ! pFnOnTouch )
-		pFnOnTouch = (UFunction*) UObject::GObjObjects()->Data[ 39464 ];
+		pFnOnTouch = (UFunction*) UObject::GObjObjects()->Data[ 39471 ];
 
 	UMobileMenuObject_eventOnTouch_Parms OnTouch_Parms;
+	OnTouch_Parms.EventType = EventType;
+	OnTouch_Parms.TouchX = TouchX;
+	OnTouch_Parms.TouchY = TouchY;
+	OnTouch_Parms.ObjectOver = ObjectOver;
+	OnTouch_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnOnTouch, &OnTouch_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnTouch, &OnTouch_Parms, NULL );
+
+	return OnTouch_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuImage.RenderObject
 // [0x00820002] 
 // Parameters infos:
+// class UCanvas*                 Canvas                         ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobileMenuImage::RenderObject ( )
+void UMobileMenuImage::RenderObject ( class UCanvas* Canvas, float DeltaTime )
 {
 	static UFunction* pFnRenderObject = NULL;
 
 	if ( ! pFnRenderObject )
-		pFnRenderObject = (UFunction*) UObject::GObjObjects()->Data[ 39617 ];
+		pFnRenderObject = (UFunction*) UObject::GObjObjects()->Data[ 39624 ];
 
 	UMobileMenuImage_execRenderObject_Parms RenderObject_Parms;
+	RenderObject_Parms.Canvas = Canvas;
+	RenderObject_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnRenderObject, &RenderObject_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRenderObject, &RenderObject_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuScene.MobileMenuCommand
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// struct FString                 Command                        ( CPF_Parm | CPF_NeedCtorLink )
 
-void UMobileMenuScene::MobileMenuCommand ( )
+bool UMobileMenuScene::MobileMenuCommand ( struct FString Command )
 {
 	static UFunction* pFnMobileMenuCommand = NULL;
 
 	if ( ! pFnMobileMenuCommand )
-		pFnMobileMenuCommand = (UFunction*) UObject::GObjObjects()->Data[ 39312 ];
+		pFnMobileMenuCommand = (UFunction*) UObject::GObjObjects()->Data[ 39319 ];
 
 	UMobileMenuScene_execMobileMenuCommand_Parms MobileMenuCommand_Parms;
+	memcpy ( &MobileMenuCommand_Parms.Command, &Command, 0x10 );
 
-	this->ProcessEvent ( pFnMobileMenuCommand, &MobileMenuCommand_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnMobileMenuCommand, &MobileMenuCommand_Parms, NULL );
+
+	return MobileMenuCommand_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuScene.FindMenuObject
 // [0x00020002] 
 // Parameters infos:
+// class UMobileMenuObject*       ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// struct FString                 Tag                            ( CPF_Parm | CPF_NeedCtorLink )
 
-void UMobileMenuScene::FindMenuObject ( )
+class UMobileMenuObject* UMobileMenuScene::FindMenuObject ( struct FString Tag )
 {
 	static UFunction* pFnFindMenuObject = NULL;
 
 	if ( ! pFnFindMenuObject )
-		pFnFindMenuObject = (UFunction*) UObject::GObjObjects()->Data[ 39489 ];
+		pFnFindMenuObject = (UFunction*) UObject::GObjObjects()->Data[ 39496 ];
 
 	UMobileMenuScene_execFindMenuObject_Parms FindMenuObject_Parms;
+	memcpy ( &FindMenuObject_Parms.Tag, &Tag, 0x10 );
 
-	this->ProcessEvent ( pFnFindMenuObject, &FindMenuObject_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnFindMenuObject, &FindMenuObject_Parms, NULL );
+
+	return FindMenuObject_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuScene.CleanUpScene
@@ -4922,13 +5914,13 @@ void UMobileMenuScene::CleanUpScene ( )
 	static UFunction* pFnCleanUpScene = NULL;
 
 	if ( ! pFnCleanUpScene )
-		pFnCleanUpScene = (UFunction*) UObject::GObjObjects()->Data[ 39975 ];
+		pFnCleanUpScene = (UFunction*) UObject::GObjObjects()->Data[ 39982 ];
 
 	UMobileMenuScene_execCleanUpScene_Parms CleanUpScene_Parms;
 
 	pFnCleanUpScene->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnCleanUpScene, &CleanUpScene_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCleanUpScene, &CleanUpScene_Parms, NULL );
 
 	pFnCleanUpScene->FunctionFlags |= 0x400;
 };
@@ -4942,27 +5934,30 @@ void UMobileMenuScene::Closed ( )
 	static UFunction* pFnClosed = NULL;
 
 	if ( ! pFnClosed )
-		pFnClosed = (UFunction*) UObject::GObjObjects()->Data[ 39974 ];
+		pFnClosed = (UFunction*) UObject::GObjObjects()->Data[ 39981 ];
 
 	UMobileMenuScene_execClosed_Parms Closed_Parms;
 
-	this->ProcessEvent ( pFnClosed, &Closed_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnClosed, &Closed_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuScene.Closing
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UMobileMenuScene::Closing ( )
+bool UMobileMenuScene::Closing ( )
 {
 	static UFunction* pFnClosing = NULL;
 
 	if ( ! pFnClosing )
-		pFnClosing = (UFunction*) UObject::GObjObjects()->Data[ 39296 ];
+		pFnClosing = (UFunction*) UObject::GObjObjects()->Data[ 39303 ];
 
 	UMobileMenuScene_execClosing_Parms Closing_Parms;
 
-	this->ProcessEvent ( pFnClosing, &Closing_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnClosing, &Closing_Parms, NULL );
+
+	return Closing_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuScene.MadeTopMenu
@@ -4974,211 +5969,273 @@ void UMobileMenuScene::MadeTopMenu ( )
 	static UFunction* pFnMadeTopMenu = NULL;
 
 	if ( ! pFnMadeTopMenu )
-		pFnMadeTopMenu = (UFunction*) UObject::GObjObjects()->Data[ 39973 ];
+		pFnMadeTopMenu = (UFunction*) UObject::GObjObjects()->Data[ 39980 ];
 
 	UMobileMenuScene_execMadeTopMenu_Parms MadeTopMenu_Parms;
 
-	this->ProcessEvent ( pFnMadeTopMenu, &MadeTopMenu_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnMadeTopMenu, &MadeTopMenu_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuScene.Opened
 // [0x00020000] 
 // Parameters infos:
+// struct FString                 Mode                           ( CPF_Parm | CPF_NeedCtorLink )
 
-void UMobileMenuScene::Opened ( )
+void UMobileMenuScene::Opened ( struct FString Mode )
 {
 	static UFunction* pFnOpened = NULL;
 
 	if ( ! pFnOpened )
-		pFnOpened = (UFunction*) UObject::GObjObjects()->Data[ 39971 ];
+		pFnOpened = (UFunction*) UObject::GObjObjects()->Data[ 39978 ];
 
 	UMobileMenuScene_execOpened_Parms Opened_Parms;
+	memcpy ( &Opened_Parms.Mode, &Mode, 0x10 );
 
-	this->ProcessEvent ( pFnOpened, &Opened_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOpened, &Opened_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuScene.OnSceneTouch
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// unsigned char                  EventType                      ( CPF_Parm )
+// float                          TouchX                         ( CPF_Parm )
+// float                          TouchY                         ( CPF_Parm )
+// unsigned long                  bInside                        ( CPF_Parm )
 
-void UMobileMenuScene::eventOnSceneTouch ( )
+bool UMobileMenuScene::eventOnSceneTouch ( unsigned char EventType, float TouchX, float TouchY, unsigned long bInside )
 {
 	static UFunction* pFnOnSceneTouch = NULL;
 
 	if ( ! pFnOnSceneTouch )
-		pFnOnSceneTouch = (UFunction*) UObject::GObjObjects()->Data[ 39965 ];
+		pFnOnSceneTouch = (UFunction*) UObject::GObjObjects()->Data[ 39972 ];
 
 	UMobileMenuScene_eventOnSceneTouch_Parms OnSceneTouch_Parms;
+	OnSceneTouch_Parms.EventType = EventType;
+	OnSceneTouch_Parms.TouchX = TouchX;
+	OnSceneTouch_Parms.TouchY = TouchY;
+	OnSceneTouch_Parms.bInside = bInside;
 
-	this->ProcessEvent ( pFnOnSceneTouch, &OnSceneTouch_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnSceneTouch, &OnSceneTouch_Parms, NULL );
+
+	return OnSceneTouch_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuScene.OnTouch
 // [0x00020800] ( FUNC_Event )
 // Parameters infos:
+// class UMobileMenuObject*       Sender                         ( CPF_Parm )
+// unsigned char                  EventType                      ( CPF_Parm )
+// float                          TouchX                         ( CPF_Parm )
+// float                          TouchY                         ( CPF_Parm )
 
-void UMobileMenuScene::eventOnTouch ( )
+void UMobileMenuScene::eventOnTouch ( class UMobileMenuObject* Sender, unsigned char EventType, float TouchX, float TouchY )
 {
 	static UFunction* pFnOnTouch = NULL;
 
 	if ( ! pFnOnTouch )
-		pFnOnTouch = (UFunction*) UObject::GObjObjects()->Data[ 39960 ];
+		pFnOnTouch = (UFunction*) UObject::GObjObjects()->Data[ 39967 ];
 
 	UMobileMenuScene_eventOnTouch_Parms OnTouch_Parms;
+	OnTouch_Parms.Sender = Sender;
+	OnTouch_Parms.EventType = EventType;
+	OnTouch_Parms.TouchX = TouchX;
+	OnTouch_Parms.TouchY = TouchY;
 
-	this->ProcessEvent ( pFnOnTouch, &OnTouch_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnTouch, &OnTouch_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuScene.PreRenderMenuObject
 // [0x00020000] 
 // Parameters infos:
+// class UMobileMenuObject*       MenuObject                     ( CPF_Parm )
+// class UCanvas*                 Canvas                         ( CPF_Parm )
+// float                          RenderDelta                    ( CPF_Parm )
 
-void UMobileMenuScene::PreRenderMenuObject ( )
+void UMobileMenuScene::PreRenderMenuObject ( class UMobileMenuObject* MenuObject, class UCanvas* Canvas, float RenderDelta )
 {
 	static UFunction* pFnPreRenderMenuObject = NULL;
 
 	if ( ! pFnPreRenderMenuObject )
-		pFnPreRenderMenuObject = (UFunction*) UObject::GObjObjects()->Data[ 39956 ];
+		pFnPreRenderMenuObject = (UFunction*) UObject::GObjObjects()->Data[ 39963 ];
 
 	UMobileMenuScene_execPreRenderMenuObject_Parms PreRenderMenuObject_Parms;
+	PreRenderMenuObject_Parms.MenuObject = MenuObject;
+	PreRenderMenuObject_Parms.Canvas = Canvas;
+	PreRenderMenuObject_Parms.RenderDelta = RenderDelta;
 
-	this->ProcessEvent ( pFnPreRenderMenuObject, &PreRenderMenuObject_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPreRenderMenuObject, &PreRenderMenuObject_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuScene.RenderScene
 // [0x00020002] 
 // Parameters infos:
+// class UCanvas*                 Canvas                         ( CPF_Parm )
+// float                          RenderDelta                    ( CPF_Parm )
 
-void UMobileMenuScene::RenderScene ( )
+void UMobileMenuScene::RenderScene ( class UCanvas* Canvas, float RenderDelta )
 {
 	static UFunction* pFnRenderScene = NULL;
 
 	if ( ! pFnRenderScene )
-		pFnRenderScene = (UFunction*) UObject::GObjObjects()->Data[ 39952 ];
+		pFnRenderScene = (UFunction*) UObject::GObjObjects()->Data[ 39959 ];
 
 	UMobileMenuScene_execRenderScene_Parms RenderScene_Parms;
+	RenderScene_Parms.Canvas = Canvas;
+	RenderScene_Parms.RenderDelta = RenderDelta;
 
-	this->ProcessEvent ( pFnRenderScene, &RenderScene_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRenderScene, &RenderScene_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuScene.GetSceneFont
 // [0x00020002] 
 // Parameters infos:
+// class UFont*                   ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UMobileMenuScene::GetSceneFont ( )
+class UFont* UMobileMenuScene::GetSceneFont ( )
 {
 	static UFunction* pFnGetSceneFont = NULL;
 
 	if ( ! pFnGetSceneFont )
-		pFnGetSceneFont = (UFunction*) UObject::GObjObjects()->Data[ 39950 ];
+		pFnGetSceneFont = (UFunction*) UObject::GObjObjects()->Data[ 39957 ];
 
 	UMobileMenuScene_execGetSceneFont_Parms GetSceneFont_Parms;
 
-	this->ProcessEvent ( pFnGetSceneFont, &GetSceneFont_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetSceneFont, &GetSceneFont_Parms, NULL );
+
+	return GetSceneFont_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuScene.InitMenuScene
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// class UMobilePlayerInput*      PlayerInput                    ( CPF_Parm )
+// int                            ScreenWidth                    ( CPF_Parm )
+// int                            ScreenHeight                   ( CPF_Parm )
+// unsigned long                  bIsFirstInitialization         ( CPF_Parm )
 
-void UMobileMenuScene::eventInitMenuScene ( )
+void UMobileMenuScene::eventInitMenuScene ( class UMobilePlayerInput* PlayerInput, int ScreenWidth, int ScreenHeight, unsigned long bIsFirstInitialization )
 {
 	static UFunction* pFnInitMenuScene = NULL;
 
 	if ( ! pFnInitMenuScene )
-		pFnInitMenuScene = (UFunction*) UObject::GObjObjects()->Data[ 39940 ];
+		pFnInitMenuScene = (UFunction*) UObject::GObjObjects()->Data[ 39947 ];
 
 	UMobileMenuScene_eventInitMenuScene_Parms InitMenuScene_Parms;
+	InitMenuScene_Parms.PlayerInput = PlayerInput;
+	InitMenuScene_Parms.ScreenWidth = ScreenWidth;
+	InitMenuScene_Parms.ScreenHeight = ScreenHeight;
+	InitMenuScene_Parms.bIsFirstInitialization = bIsFirstInitialization;
 
-	this->ProcessEvent ( pFnInitMenuScene, &InitMenuScene_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitMenuScene, &InitMenuScene_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuScene.GetGlobalScaleY
 // [0x00022401] ( FUNC_Final | FUNC_Native )
 // Parameters infos:
+// float                          ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UMobileMenuScene::GetGlobalScaleY ( )
+float UMobileMenuScene::GetGlobalScaleY ( )
 {
 	static UFunction* pFnGetGlobalScaleY = NULL;
 
 	if ( ! pFnGetGlobalScaleY )
-		pFnGetGlobalScaleY = (UFunction*) UObject::GObjObjects()->Data[ 39496 ];
+		pFnGetGlobalScaleY = (UFunction*) UObject::GObjObjects()->Data[ 39503 ];
 
 	UMobileMenuScene_execGetGlobalScaleY_Parms GetGlobalScaleY_Parms;
 
 	pFnGetGlobalScaleY->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnGetGlobalScaleY, &GetGlobalScaleY_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetGlobalScaleY, &GetGlobalScaleY_Parms, NULL );
 
 	pFnGetGlobalScaleY->FunctionFlags |= 0x400;
+
+	return GetGlobalScaleY_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuScene.GetGlobalScaleX
 // [0x00022401] ( FUNC_Final | FUNC_Native )
 // Parameters infos:
+// float                          ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UMobileMenuScene::GetGlobalScaleX ( )
+float UMobileMenuScene::GetGlobalScaleX ( )
 {
 	static UFunction* pFnGetGlobalScaleX = NULL;
 
 	if ( ! pFnGetGlobalScaleX )
-		pFnGetGlobalScaleX = (UFunction*) UObject::GObjObjects()->Data[ 39494 ];
+		pFnGetGlobalScaleX = (UFunction*) UObject::GObjObjects()->Data[ 39501 ];
 
 	UMobileMenuScene_execGetGlobalScaleX_Parms GetGlobalScaleX_Parms;
 
 	pFnGetGlobalScaleX->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnGetGlobalScaleX, &GetGlobalScaleX_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetGlobalScaleX, &GetGlobalScaleX_Parms, NULL );
 
 	pFnGetGlobalScaleX->FunctionFlags |= 0x400;
+
+	return GetGlobalScaleX_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobilePlayerInput.OpenMobileMenuMode
 // [0x00020202] ( FUNC_Exec )
 // Parameters infos:
+// class UMobileMenuScene*        ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// struct FString                 MenuClassName                  ( CPF_Parm | CPF_NeedCtorLink )
+// struct FString                 Mode                           ( CPF_Parm | CPF_NeedCtorLink )
 
-void UMobilePlayerInput::OpenMobileMenuMode ( )
+class UMobileMenuScene* UMobilePlayerInput::OpenMobileMenuMode ( struct FString MenuClassName, struct FString Mode )
 {
 	static UFunction* pFnOpenMobileMenuMode = NULL;
 
 	if ( ! pFnOpenMobileMenuMode )
-		pFnOpenMobileMenuMode = (UFunction*) UObject::GObjObjects()->Data[ 39318 ];
+		pFnOpenMobileMenuMode = (UFunction*) UObject::GObjObjects()->Data[ 39325 ];
 
 	UMobilePlayerInput_execOpenMobileMenuMode_Parms OpenMobileMenuMode_Parms;
+	memcpy ( &OpenMobileMenuMode_Parms.MenuClassName, &MenuClassName, 0x10 );
+	memcpy ( &OpenMobileMenuMode_Parms.Mode, &Mode, 0x10 );
 
-	this->ProcessEvent ( pFnOpenMobileMenuMode, &OpenMobileMenuMode_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOpenMobileMenuMode, &OpenMobileMenuMode_Parms, NULL );
+
+	return OpenMobileMenuMode_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobilePlayerInput.OpenMobileMenu
 // [0x00020202] ( FUNC_Exec )
 // Parameters infos:
+// class UMobileMenuScene*        ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// struct FString                 MenuClassName                  ( CPF_Parm | CPF_NeedCtorLink )
 
-void UMobilePlayerInput::OpenMobileMenu ( )
+class UMobileMenuScene* UMobilePlayerInput::OpenMobileMenu ( struct FString MenuClassName )
 {
 	static UFunction* pFnOpenMobileMenu = NULL;
 
 	if ( ! pFnOpenMobileMenu )
-		pFnOpenMobileMenu = (UFunction*) UObject::GObjObjects()->Data[ 39314 ];
+		pFnOpenMobileMenu = (UFunction*) UObject::GObjObjects()->Data[ 39321 ];
 
 	UMobilePlayerInput_execOpenMobileMenu_Parms OpenMobileMenu_Parms;
+	memcpy ( &OpenMobileMenu_Parms.MenuClassName, &MenuClassName, 0x10 );
 
-	this->ProcessEvent ( pFnOpenMobileMenu, &OpenMobileMenu_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOpenMobileMenu, &OpenMobileMenu_Parms, NULL );
+
+	return OpenMobileMenu_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobilePlayerInput.MobileMenuCommand
 // [0x00020202] ( FUNC_Exec )
 // Parameters infos:
+// struct FString                 MenuCommand                    ( CPF_Parm | CPF_NeedCtorLink )
 
-void UMobilePlayerInput::MobileMenuCommand ( )
+void UMobilePlayerInput::MobileMenuCommand ( struct FString MenuCommand )
 {
 	static UFunction* pFnMobileMenuCommand = NULL;
 
 	if ( ! pFnMobileMenuCommand )
-		pFnMobileMenuCommand = (UFunction*) UObject::GObjObjects()->Data[ 39309 ];
+		pFnMobileMenuCommand = (UFunction*) UObject::GObjObjects()->Data[ 39316 ];
 
 	UMobilePlayerInput_execMobileMenuCommand_Parms MobileMenuCommand_Parms;
+	memcpy ( &MobileMenuCommand_Parms.MenuCommand, &MenuCommand, 0x10 );
 
-	this->ProcessEvent ( pFnMobileMenuCommand, &MobileMenuCommand_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnMobileMenuCommand, &MobileMenuCommand_Parms, NULL );
 };
 
 // Function GameFramework.MobilePlayerInput.SceneRenderToggle
@@ -5190,43 +6247,53 @@ void UMobilePlayerInput::SceneRenderToggle ( )
 	static UFunction* pFnSceneRenderToggle = NULL;
 
 	if ( ! pFnSceneRenderToggle )
-		pFnSceneRenderToggle = (UFunction*) UObject::GObjObjects()->Data[ 39308 ];
+		pFnSceneRenderToggle = (UFunction*) UObject::GObjObjects()->Data[ 39315 ];
 
 	UMobilePlayerInput_execSceneRenderToggle_Parms SceneRenderToggle_Parms;
 
-	this->ProcessEvent ( pFnSceneRenderToggle, &SceneRenderToggle_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSceneRenderToggle, &SceneRenderToggle_Parms, NULL );
 };
 
 // Function GameFramework.MobilePlayerInput.PreClientTravel
 // [0x00020002] 
 // Parameters infos:
+// struct FString                 PendingURL                     ( CPF_Parm | CPF_NeedCtorLink )
+// unsigned char                  TravelType                     ( CPF_Parm )
+// unsigned long                  bIsSeamlessTravel              ( CPF_Parm )
 
-void UMobilePlayerInput::PreClientTravel ( )
+void UMobilePlayerInput::PreClientTravel ( struct FString PendingURL, unsigned char TravelType, unsigned long bIsSeamlessTravel )
 {
 	static UFunction* pFnPreClientTravel = NULL;
 
 	if ( ! pFnPreClientTravel )
-		pFnPreClientTravel = (UFunction*) UObject::GObjObjects()->Data[ 39303 ];
+		pFnPreClientTravel = (UFunction*) UObject::GObjObjects()->Data[ 39310 ];
 
 	UMobilePlayerInput_execPreClientTravel_Parms PreClientTravel_Parms;
+	memcpy ( &PreClientTravel_Parms.PendingURL, &PendingURL, 0x10 );
+	PreClientTravel_Parms.TravelType = TravelType;
+	PreClientTravel_Parms.bIsSeamlessTravel = bIsSeamlessTravel;
 
-	this->ProcessEvent ( pFnPreClientTravel, &PreClientTravel_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPreClientTravel, &PreClientTravel_Parms, NULL );
 };
 
 // Function GameFramework.MobilePlayerInput.RenderMenus
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// class UCanvas*                 Canvas                         ( CPF_Parm )
+// float                          RenderDelta                    ( CPF_Parm )
 
-void UMobilePlayerInput::eventRenderMenus ( )
+void UMobilePlayerInput::eventRenderMenus ( class UCanvas* Canvas, float RenderDelta )
 {
 	static UFunction* pFnRenderMenus = NULL;
 
 	if ( ! pFnRenderMenus )
-		pFnRenderMenus = (UFunction*) UObject::GObjObjects()->Data[ 39299 ];
+		pFnRenderMenus = (UFunction*) UObject::GObjObjects()->Data[ 39306 ];
 
 	UMobilePlayerInput_eventRenderMenus_Parms RenderMenus_Parms;
+	RenderMenus_Parms.Canvas = Canvas;
+	RenderMenus_Parms.RenderDelta = RenderDelta;
 
-	this->ProcessEvent ( pFnRenderMenus, &RenderMenus_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRenderMenus, &RenderMenus_Parms, NULL );
 };
 
 // Function GameFramework.MobilePlayerInput.CloseAllMenus
@@ -5238,171 +6305,204 @@ void UMobilePlayerInput::eventCloseAllMenus ( )
 	static UFunction* pFnCloseAllMenus = NULL;
 
 	if ( ! pFnCloseAllMenus )
-		pFnCloseAllMenus = (UFunction*) UObject::GObjObjects()->Data[ 39298 ];
+		pFnCloseAllMenus = (UFunction*) UObject::GObjObjects()->Data[ 39305 ];
 
 	UMobilePlayerInput_eventCloseAllMenus_Parms CloseAllMenus_Parms;
 
-	this->ProcessEvent ( pFnCloseAllMenus, &CloseAllMenus_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCloseAllMenus, &CloseAllMenus_Parms, NULL );
 };
 
 // Function GameFramework.MobilePlayerInput.CloseMenuScene
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// class UMobileMenuScene*        SceneToClose                   ( CPF_Parm )
 
-void UMobilePlayerInput::eventCloseMenuScene ( )
+void UMobilePlayerInput::eventCloseMenuScene ( class UMobileMenuScene* SceneToClose )
 {
 	static UFunction* pFnCloseMenuScene = NULL;
 
 	if ( ! pFnCloseMenuScene )
-		pFnCloseMenuScene = (UFunction*) UObject::GObjObjects()->Data[ 39291 ];
+		pFnCloseMenuScene = (UFunction*) UObject::GObjObjects()->Data[ 39298 ];
 
 	UMobilePlayerInput_eventCloseMenuScene_Parms CloseMenuScene_Parms;
+	CloseMenuScene_Parms.SceneToClose = SceneToClose;
 
-	this->ProcessEvent ( pFnCloseMenuScene, &CloseMenuScene_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCloseMenuScene, &CloseMenuScene_Parms, NULL );
 };
 
 // Function GameFramework.MobilePlayerInput.OpenMenuScene
 // [0x00824802] ( FUNC_Event )
 // Parameters infos:
+// class UMobileMenuScene*        ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UClass*                  SceneClass                     ( CPF_Parm )
+// struct FString                 Mode                           ( CPF_OptionalParm | CPF_Parm | CPF_NeedCtorLink )
 
-void UMobilePlayerInput::eventOpenMenuScene ( )
+class UMobileMenuScene* UMobilePlayerInput::eventOpenMenuScene ( class UClass* SceneClass, struct FString Mode )
 {
 	static UFunction* pFnOpenMenuScene = NULL;
 
 	if ( ! pFnOpenMenuScene )
-		pFnOpenMenuScene = (UFunction*) UObject::GObjObjects()->Data[ 39285 ];
+		pFnOpenMenuScene = (UFunction*) UObject::GObjObjects()->Data[ 39292 ];
 
 	UMobilePlayerInput_eventOpenMenuScene_Parms OpenMenuScene_Parms;
+	OpenMenuScene_Parms.SceneClass = SceneClass;
+	memcpy ( &OpenMenuScene_Parms.Mode, &Mode, 0x10 );
 
-	this->ProcessEvent ( pFnOpenMenuScene, &OpenMenuScene_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOpenMenuScene, &OpenMenuScene_Parms, NULL );
+
+	return OpenMenuScene_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobilePlayerInput.SetMobileInputConfig
 // [0x00020202] ( FUNC_Exec )
 // Parameters infos:
+// struct FString                 GroupName                      ( CPF_Parm | CPF_NeedCtorLink )
 
-void UMobilePlayerInput::SetMobileInputConfig ( )
+void UMobilePlayerInput::SetMobileInputConfig ( struct FString GroupName )
 {
 	static UFunction* pFnSetMobileInputConfig = NULL;
 
 	if ( ! pFnSetMobileInputConfig )
-		pFnSetMobileInputConfig = (UFunction*) UObject::GObjObjects()->Data[ 39282 ];
+		pFnSetMobileInputConfig = (UFunction*) UObject::GObjObjects()->Data[ 39289 ];
 
 	UMobilePlayerInput_execSetMobileInputConfig_Parms SetMobileInputConfig_Parms;
+	memcpy ( &SetMobileInputConfig_Parms.GroupName, &GroupName, 0x10 );
 
-	this->ProcessEvent ( pFnSetMobileInputConfig, &SetMobileInputConfig_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetMobileInputConfig, &SetMobileInputConfig_Parms, NULL );
 };
 
 // Function GameFramework.MobilePlayerInput.ActivateInputGroup
 // [0x00020202] ( FUNC_Exec )
 // Parameters infos:
+// struct FString                 GroupName                      ( CPF_Parm | CPF_NeedCtorLink )
 
-void UMobilePlayerInput::ActivateInputGroup ( )
+void UMobilePlayerInput::ActivateInputGroup ( struct FString GroupName )
 {
 	static UFunction* pFnActivateInputGroup = NULL;
 
 	if ( ! pFnActivateInputGroup )
-		pFnActivateInputGroup = (UFunction*) UObject::GObjObjects()->Data[ 39279 ];
+		pFnActivateInputGroup = (UFunction*) UObject::GObjObjects()->Data[ 39286 ];
 
 	UMobilePlayerInput_execActivateInputGroup_Parms ActivateInputGroup_Parms;
+	memcpy ( &ActivateInputGroup_Parms.GroupName, &GroupName, 0x10 );
 
-	this->ProcessEvent ( pFnActivateInputGroup, &ActivateInputGroup_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnActivateInputGroup, &ActivateInputGroup_Parms, NULL );
 };
 
 // Function GameFramework.MobilePlayerInput.GetCurrentZones
 // [0x00020002] 
 // Parameters infos:
+// TArray< class UMobileInputZone* > ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
 
-void UMobilePlayerInput::GetCurrentZones ( )
+TArray< class UMobileInputZone* > UMobilePlayerInput::GetCurrentZones ( )
 {
 	static UFunction* pFnGetCurrentZones = NULL;
 
 	if ( ! pFnGetCurrentZones )
-		pFnGetCurrentZones = (UFunction*) UObject::GObjObjects()->Data[ 39039 ];
+		pFnGetCurrentZones = (UFunction*) UObject::GObjObjects()->Data[ 39046 ];
 
 	UMobilePlayerInput_execGetCurrentZones_Parms GetCurrentZones_Parms;
 
-	this->ProcessEvent ( pFnGetCurrentZones, &GetCurrentZones_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetCurrentZones, &GetCurrentZones_Parms, NULL );
+
+	return GetCurrentZones_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobilePlayerInput.HasZones
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UMobilePlayerInput::HasZones ( )
+bool UMobilePlayerInput::HasZones ( )
 {
 	static UFunction* pFnHasZones = NULL;
 
 	if ( ! pFnHasZones )
-		pFnHasZones = (UFunction*) UObject::GObjObjects()->Data[ 39037 ];
+		pFnHasZones = (UFunction*) UObject::GObjObjects()->Data[ 39044 ];
 
 	UMobilePlayerInput_execHasZones_Parms HasZones_Parms;
 
-	this->ProcessEvent ( pFnHasZones, &HasZones_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnHasZones, &HasZones_Parms, NULL );
+
+	return HasZones_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobilePlayerInput.FindorAddZone
 // [0x00020002] 
 // Parameters infos:
+// class UMobileInputZone*        ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// struct FString                 ZoneName                       ( CPF_Parm | CPF_NeedCtorLink )
 
-void UMobilePlayerInput::FindorAddZone ( )
+class UMobileInputZone* UMobilePlayerInput::FindorAddZone ( struct FString ZoneName )
 {
 	static UFunction* pFnFindorAddZone = NULL;
 
 	if ( ! pFnFindorAddZone )
-		pFnFindorAddZone = (UFunction*) UObject::GObjObjects()->Data[ 39272 ];
+		pFnFindorAddZone = (UFunction*) UObject::GObjObjects()->Data[ 39279 ];
 
 	UMobilePlayerInput_execFindorAddZone_Parms FindorAddZone_Parms;
+	memcpy ( &FindorAddZone_Parms.ZoneName, &ZoneName, 0x10 );
 
-	this->ProcessEvent ( pFnFindorAddZone, &FindorAddZone_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnFindorAddZone, &FindorAddZone_Parms, NULL );
+
+	return FindorAddZone_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobilePlayerInput.FindZone
 // [0x00020002] 
 // Parameters infos:
+// class UMobileInputZone*        ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// struct FString                 ZoneName                       ( CPF_Parm | CPF_NeedCtorLink )
 
-void UMobilePlayerInput::FindZone ( )
+class UMobileInputZone* UMobilePlayerInput::FindZone ( struct FString ZoneName )
 {
 	static UFunction* pFnFindZone = NULL;
 
 	if ( ! pFnFindZone )
-		pFnFindZone = (UFunction*) UObject::GObjObjects()->Data[ 38969 ];
+		pFnFindZone = (UFunction*) UObject::GObjObjects()->Data[ 38976 ];
 
 	UMobilePlayerInput_execFindZone_Parms FindZone_Parms;
+	memcpy ( &FindZone_Parms.ZoneName, &ZoneName, 0x10 );
 
-	this->ProcessEvent ( pFnFindZone, &FindZone_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnFindZone, &FindZone_Parms, NULL );
+
+	return FindZone_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobilePlayerInput.AddKismetRawInputEventHandler
 // [0x00020002] 
 // Parameters infos:
+// class USeqEvent_MobileRawInput* NewHandler                     ( CPF_Parm )
 
-void UMobilePlayerInput::AddKismetRawInputEventHandler ( )
+void UMobilePlayerInput::AddKismetRawInputEventHandler ( class USeqEvent_MobileRawInput* NewHandler )
 {
 	static UFunction* pFnAddKismetRawInputEventHandler = NULL;
 
 	if ( ! pFnAddKismetRawInputEventHandler )
-		pFnAddKismetRawInputEventHandler = (UFunction*) UObject::GObjObjects()->Data[ 39267 ];
+		pFnAddKismetRawInputEventHandler = (UFunction*) UObject::GObjObjects()->Data[ 39274 ];
 
 	UMobilePlayerInput_execAddKismetRawInputEventHandler_Parms AddKismetRawInputEventHandler_Parms;
+	AddKismetRawInputEventHandler_Parms.NewHandler = NewHandler;
 
-	this->ProcessEvent ( pFnAddKismetRawInputEventHandler, &AddKismetRawInputEventHandler_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAddKismetRawInputEventHandler, &AddKismetRawInputEventHandler_Parms, NULL );
 };
 
 // Function GameFramework.MobilePlayerInput.AddKismetEventHandler
 // [0x00020002] 
 // Parameters infos:
+// class USeqEvent_MobileBase*    NewHandler                     ( CPF_Parm )
 
-void UMobilePlayerInput::AddKismetEventHandler ( )
+void UMobilePlayerInput::AddKismetEventHandler ( class USeqEvent_MobileBase* NewHandler )
 {
 	static UFunction* pFnAddKismetEventHandler = NULL;
 
 	if ( ! pFnAddKismetEventHandler )
-		pFnAddKismetEventHandler = (UFunction*) UObject::GObjObjects()->Data[ 39264 ];
+		pFnAddKismetEventHandler = (UFunction*) UObject::GObjObjects()->Data[ 39271 ];
 
 	UMobilePlayerInput_execAddKismetEventHandler_Parms AddKismetEventHandler_Parms;
+	AddKismetEventHandler_Parms.NewHandler = NewHandler;
 
-	this->ProcessEvent ( pFnAddKismetEventHandler, &AddKismetEventHandler_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAddKismetEventHandler, &AddKismetEventHandler_Parms, NULL );
 };
 
 // Function GameFramework.MobilePlayerInput.RefreshKismetLinks
@@ -5414,11 +6514,11 @@ void UMobilePlayerInput::eventRefreshKismetLinks ( )
 	static UFunction* pFnRefreshKismetLinks = NULL;
 
 	if ( ! pFnRefreshKismetLinks )
-		pFnRefreshKismetLinks = (UFunction*) UObject::GObjObjects()->Data[ 39259 ];
+		pFnRefreshKismetLinks = (UFunction*) UObject::GObjObjects()->Data[ 39266 ];
 
 	UMobilePlayerInput_eventRefreshKismetLinks_Parms RefreshKismetLinks_Parms;
 
-	this->ProcessEvent ( pFnRefreshKismetLinks, &RefreshKismetLinks_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRefreshKismetLinks, &RefreshKismetLinks_Parms, NULL );
 };
 
 // Function GameFramework.MobilePlayerInput.SwapZoneOwners
@@ -5430,11 +6530,11 @@ void UMobilePlayerInput::SwapZoneOwners ( )
 	static UFunction* pFnSwapZoneOwners = NULL;
 
 	if ( ! pFnSwapZoneOwners )
-		pFnSwapZoneOwners = (UFunction*) UObject::GObjObjects()->Data[ 39256 ];
+		pFnSwapZoneOwners = (UFunction*) UObject::GObjObjects()->Data[ 39263 ];
 
 	UMobilePlayerInput_execSwapZoneOwners_Parms SwapZoneOwners_Parms;
 
-	this->ProcessEvent ( pFnSwapZoneOwners, &SwapZoneOwners_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSwapZoneOwners, &SwapZoneOwners_Parms, NULL );
 };
 
 // Function GameFramework.MobilePlayerInput.InitializeInputZones
@@ -5446,11 +6546,11 @@ void UMobilePlayerInput::InitializeInputZones ( )
 	static UFunction* pFnInitializeInputZones = NULL;
 
 	if ( ! pFnInitializeInputZones )
-		pFnInitializeInputZones = (UFunction*) UObject::GObjObjects()->Data[ 39251 ];
+		pFnInitializeInputZones = (UFunction*) UObject::GObjObjects()->Data[ 39258 ];
 
 	UMobilePlayerInput_execInitializeInputZones_Parms InitializeInputZones_Parms;
 
-	this->ProcessEvent ( pFnInitializeInputZones, &InitializeInputZones_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitializeInputZones, &InitializeInputZones_Parms, NULL );
 };
 
 // Function GameFramework.MobilePlayerInput.InitTouchSystem
@@ -5462,11 +6562,11 @@ void UMobilePlayerInput::InitTouchSystem ( )
 	static UFunction* pFnInitTouchSystem = NULL;
 
 	if ( ! pFnInitTouchSystem )
-		pFnInitTouchSystem = (UFunction*) UObject::GObjObjects()->Data[ 39250 ];
+		pFnInitTouchSystem = (UFunction*) UObject::GObjObjects()->Data[ 39257 ];
 
 	UMobilePlayerInput_execInitTouchSystem_Parms InitTouchSystem_Parms;
 
-	this->ProcessEvent ( pFnInitTouchSystem, &InitTouchSystem_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitTouchSystem, &InitTouchSystem_Parms, NULL );
 };
 
 // Function GameFramework.MobilePlayerInput.ClientInitInputSystem
@@ -5478,11 +6578,11 @@ void UMobilePlayerInput::ClientInitInputSystem ( )
 	static UFunction* pFnClientInitInputSystem = NULL;
 
 	if ( ! pFnClientInitInputSystem )
-		pFnClientInitInputSystem = (UFunction*) UObject::GObjObjects()->Data[ 39249 ];
+		pFnClientInitInputSystem = (UFunction*) UObject::GObjObjects()->Data[ 39256 ];
 
 	UMobilePlayerInput_execClientInitInputSystem_Parms ClientInitInputSystem_Parms;
 
-	this->ProcessEvent ( pFnClientInitInputSystem, &ClientInitInputSystem_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnClientInitInputSystem, &ClientInitInputSystem_Parms, NULL );
 };
 
 // Function GameFramework.MobilePlayerInput.InitInputSystem
@@ -5494,49 +6594,64 @@ void UMobilePlayerInput::InitInputSystem ( )
 	static UFunction* pFnInitInputSystem = NULL;
 
 	if ( ! pFnInitInputSystem )
-		pFnInitInputSystem = (UFunction*) UObject::GObjObjects()->Data[ 39248 ];
+		pFnInitInputSystem = (UFunction*) UObject::GObjObjects()->Data[ 39255 ];
 
 	UMobilePlayerInput_execInitInputSystem_Parms InitInputSystem_Parms;
 
-	this->ProcessEvent ( pFnInitInputSystem, &InitInputSystem_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitInputSystem, &InitInputSystem_Parms, NULL );
 };
 
 // Function GameFramework.MobilePlayerInput.ProcessWorldTouch
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UMobileInputZone*        Zone                           ( CPF_Parm )
+// unsigned char                  EventType                      ( CPF_Parm )
+// struct FVector2D               TouchLocation                  ( CPF_Parm )
 
-void UMobilePlayerInput::ProcessWorldTouch ( )
+bool UMobilePlayerInput::ProcessWorldTouch ( class UMobileInputZone* Zone, unsigned char EventType, struct FVector2D TouchLocation )
 {
 	static UFunction* pFnProcessWorldTouch = NULL;
 
 	if ( ! pFnProcessWorldTouch )
-		pFnProcessWorldTouch = (UFunction*) UObject::GObjObjects()->Data[ 39243 ];
+		pFnProcessWorldTouch = (UFunction*) UObject::GObjObjects()->Data[ 39250 ];
 
 	UMobilePlayerInput_execProcessWorldTouch_Parms ProcessWorldTouch_Parms;
+	ProcessWorldTouch_Parms.Zone = Zone;
+	ProcessWorldTouch_Parms.EventType = EventType;
+	memcpy ( &ProcessWorldTouch_Parms.TouchLocation, &TouchLocation, 0x8 );
 
 	pFnProcessWorldTouch->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnProcessWorldTouch, &ProcessWorldTouch_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnProcessWorldTouch, &ProcessWorldTouch_Parms, NULL );
 
 	pFnProcessWorldTouch->FunctionFlags |= 0x400;
+
+	return ProcessWorldTouch_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobilePlayerInput.SendInputAxis
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// struct FName                   Key                            ( CPF_Parm )
+// float                          Delta                          ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobilePlayerInput::SendInputAxis ( )
+void UMobilePlayerInput::SendInputAxis ( struct FName Key, float Delta, float DeltaTime )
 {
 	static UFunction* pFnSendInputAxis = NULL;
 
 	if ( ! pFnSendInputAxis )
-		pFnSendInputAxis = (UFunction*) UObject::GObjObjects()->Data[ 39239 ];
+		pFnSendInputAxis = (UFunction*) UObject::GObjObjects()->Data[ 39246 ];
 
 	UMobilePlayerInput_execSendInputAxis_Parms SendInputAxis_Parms;
+	memcpy ( &SendInputAxis_Parms.Key, &Key, 0x8 );
+	SendInputAxis_Parms.Delta = Delta;
+	SendInputAxis_Parms.DeltaTime = DeltaTime;
 
 	pFnSendInputAxis->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnSendInputAxis, &SendInputAxis_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSendInputAxis, &SendInputAxis_Parms, NULL );
 
 	pFnSendInputAxis->FunctionFlags |= 0x400;
 };
@@ -5544,19 +6659,25 @@ void UMobilePlayerInput::SendInputAxis ( )
 // Function GameFramework.MobilePlayerInput.SendInputKey
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// struct FName                   Key                            ( CPF_Parm )
+// unsigned char                  Event                          ( CPF_Parm )
+// float                          AmountDepressed                ( CPF_Parm )
 
-void UMobilePlayerInput::SendInputKey ( )
+void UMobilePlayerInput::SendInputKey ( struct FName Key, unsigned char Event, float AmountDepressed )
 {
 	static UFunction* pFnSendInputKey = NULL;
 
 	if ( ! pFnSendInputKey )
-		pFnSendInputKey = (UFunction*) UObject::GObjObjects()->Data[ 39235 ];
+		pFnSendInputKey = (UFunction*) UObject::GObjObjects()->Data[ 39242 ];
 
 	UMobilePlayerInput_execSendInputKey_Parms SendInputKey_Parms;
+	memcpy ( &SendInputKey_Parms.Key, &Key, 0x8 );
+	SendInputKey_Parms.Event = Event;
+	SendInputKey_Parms.AmountDepressed = AmountDepressed;
 
 	pFnSendInputKey->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnSendInputKey, &SendInputKey_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSendInputKey, &SendInputKey_Parms, NULL );
 
 	pFnSendInputKey->FunctionFlags |= 0x400;
 };
@@ -5564,19 +6685,27 @@ void UMobilePlayerInput::SendInputKey ( )
 // Function GameFramework.MobilePlayerInput.ConditionalUpdateInputZones
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// int                            NewViewportX                   ( CPF_Parm )
+// int                            NewViewportY                   ( CPF_Parm )
+// int                            NewViewportSizeX               ( CPF_Parm )
+// int                            NewViewportSizeY               ( CPF_Parm )
 
-void UMobilePlayerInput::ConditionalUpdateInputZones ( )
+void UMobilePlayerInput::ConditionalUpdateInputZones ( int NewViewportX, int NewViewportY, int NewViewportSizeX, int NewViewportSizeY )
 {
 	static UFunction* pFnConditionalUpdateInputZones = NULL;
 
 	if ( ! pFnConditionalUpdateInputZones )
-		pFnConditionalUpdateInputZones = (UFunction*) UObject::GObjObjects()->Data[ 39230 ];
+		pFnConditionalUpdateInputZones = (UFunction*) UObject::GObjObjects()->Data[ 39237 ];
 
 	UMobilePlayerInput_execConditionalUpdateInputZones_Parms ConditionalUpdateInputZones_Parms;
+	ConditionalUpdateInputZones_Parms.NewViewportX = NewViewportX;
+	ConditionalUpdateInputZones_Parms.NewViewportY = NewViewportY;
+	ConditionalUpdateInputZones_Parms.NewViewportSizeX = NewViewportSizeX;
+	ConditionalUpdateInputZones_Parms.NewViewportSizeY = NewViewportSizeY;
 
 	pFnConditionalUpdateInputZones->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnConditionalUpdateInputZones, &ConditionalUpdateInputZones_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnConditionalUpdateInputZones, &ConditionalUpdateInputZones_Parms, NULL );
 
 	pFnConditionalUpdateInputZones->FunctionFlags |= 0x400;
 };
@@ -5584,19 +6713,21 @@ void UMobilePlayerInput::ConditionalUpdateInputZones ( )
 // Function GameFramework.MobilePlayerInput.NativeInitializeInputZones
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// unsigned long                  bIsFirstInitialize             ( CPF_Parm )
 
-void UMobilePlayerInput::NativeInitializeInputZones ( )
+void UMobilePlayerInput::NativeInitializeInputZones ( unsigned long bIsFirstInitialize )
 {
 	static UFunction* pFnNativeInitializeInputZones = NULL;
 
 	if ( ! pFnNativeInitializeInputZones )
-		pFnNativeInitializeInputZones = (UFunction*) UObject::GObjObjects()->Data[ 39228 ];
+		pFnNativeInitializeInputZones = (UFunction*) UObject::GObjObjects()->Data[ 39235 ];
 
 	UMobilePlayerInput_execNativeInitializeInputZones_Parms NativeInitializeInputZones_Parms;
+	NativeInitializeInputZones_Parms.bIsFirstInitialize = bIsFirstInitialize;
 
 	pFnNativeInitializeInputZones->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnNativeInitializeInputZones, &NativeInitializeInputZones_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnNativeInitializeInputZones, &NativeInitializeInputZones_Parms, NULL );
 
 	pFnNativeInitializeInputZones->FunctionFlags |= 0x400;
 };
@@ -5610,13 +6741,13 @@ void UMobilePlayerInput::NativeInitializeInputSystem ( )
 	static UFunction* pFnNativeInitializeInputSystem = NULL;
 
 	if ( ! pFnNativeInitializeInputSystem )
-		pFnNativeInitializeInputSystem = (UFunction*) UObject::GObjObjects()->Data[ 39227 ];
+		pFnNativeInitializeInputSystem = (UFunction*) UObject::GObjObjects()->Data[ 39234 ];
 
 	UMobilePlayerInput_execNativeInitializeInputSystem_Parms NativeInitializeInputSystem_Parms;
 
 	pFnNativeInitializeInputSystem->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnNativeInitializeInputSystem, &NativeInitializeInputSystem_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnNativeInitializeInputSystem, &NativeInitializeInputSystem_Parms, NULL );
 
 	pFnNativeInitializeInputSystem->FunctionFlags |= 0x400;
 };
@@ -5624,33 +6755,52 @@ void UMobilePlayerInput::NativeInitializeInputSystem ( )
 // Function GameFramework.MobilePlayerInput.OnInputTouch
 // [0x00120000] 
 // Parameters infos:
+// int                            Handle                         ( CPF_Parm )
+// unsigned char                  Type                           ( CPF_Parm )
+// struct FVector2D               TouchLocation                  ( CPF_Parm )
+// float                          DeviceTimestamp                ( CPF_Parm )
+// int                            TouchpadIndex                  ( CPF_Parm )
 
-void UMobilePlayerInput::OnInputTouch ( )
+void UMobilePlayerInput::OnInputTouch ( int Handle, unsigned char Type, struct FVector2D TouchLocation, float DeviceTimestamp, int TouchpadIndex )
 {
 	static UFunction* pFnOnInputTouch = NULL;
 
 	if ( ! pFnOnInputTouch )
-		pFnOnInputTouch = (UFunction*) UObject::GObjObjects()->Data[ 39186 ];
+		pFnOnInputTouch = (UFunction*) UObject::GObjObjects()->Data[ 39193 ];
 
 	UMobilePlayerInput_execOnInputTouch_Parms OnInputTouch_Parms;
+	OnInputTouch_Parms.Handle = Handle;
+	OnInputTouch_Parms.Type = Type;
+	memcpy ( &OnInputTouch_Parms.TouchLocation, &TouchLocation, 0x8 );
+	OnInputTouch_Parms.DeviceTimestamp = DeviceTimestamp;
+	OnInputTouch_Parms.TouchpadIndex = TouchpadIndex;
 
-	this->ProcessEvent ( pFnOnInputTouch, &OnInputTouch_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnInputTouch, &OnInputTouch_Parms, NULL );
 };
 
 // Function GameFramework.MobilePlayerInput.OnPreviewTouch
 // [0x00120000] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// float                          X                              ( CPF_Parm )
+// float                          Y                              ( CPF_Parm )
+// int                            TouchpadIndex                  ( CPF_Parm )
 
-void UMobilePlayerInput::OnPreviewTouch ( )
+bool UMobilePlayerInput::OnPreviewTouch ( float X, float Y, int TouchpadIndex )
 {
 	static UFunction* pFnOnPreviewTouch = NULL;
 
 	if ( ! pFnOnPreviewTouch )
-		pFnOnPreviewTouch = (UFunction*) UObject::GObjObjects()->Data[ 39188 ];
+		pFnOnPreviewTouch = (UFunction*) UObject::GObjObjects()->Data[ 39195 ];
 
 	UMobilePlayerInput_execOnPreviewTouch_Parms OnPreviewTouch_Parms;
+	OnPreviewTouch_Parms.X = X;
+	OnPreviewTouch_Parms.Y = Y;
+	OnPreviewTouch_Parms.TouchpadIndex = TouchpadIndex;
 
-	this->ProcessEvent ( pFnOnPreviewTouch, &OnPreviewTouch_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnPreviewTouch, &OnPreviewTouch_Parms, NULL );
+
+	return OnPreviewTouch_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobilePlayerInput.OnTouchNotHandledInMenu
@@ -5662,27 +6812,29 @@ void UMobilePlayerInput::OnTouchNotHandledInMenu ( )
 	static UFunction* pFnOnTouchNotHandledInMenu = NULL;
 
 	if ( ! pFnOnTouchNotHandledInMenu )
-		pFnOnTouchNotHandledInMenu = (UFunction*) UObject::GObjObjects()->Data[ 39190 ];
+		pFnOnTouchNotHandledInMenu = (UFunction*) UObject::GObjObjects()->Data[ 39197 ];
 
 	UMobilePlayerInput_execOnTouchNotHandledInMenu_Parms OnTouchNotHandledInMenu_Parms;
 
-	this->ProcessEvent ( pFnOnTouchNotHandledInMenu, &OnTouchNotHandledInMenu_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnTouchNotHandledInMenu, &OnTouchNotHandledInMenu_Parms, NULL );
 };
 
 // Function GameFramework.MobilePlayerInput.PlayerInput
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobilePlayerInput::eventPlayerInput ( )
+void UMobilePlayerInput::eventPlayerInput ( float DeltaTime )
 {
 	static UFunction* pFnPlayerInput = NULL;
 
 	if ( ! pFnPlayerInput )
-		pFnPlayerInput = (UFunction*) UObject::GObjObjects()->Data[ 39216 ];
+		pFnPlayerInput = (UFunction*) UObject::GObjObjects()->Data[ 39223 ];
 
 	UMobilePlayerInput_eventPlayerInput_Parms PlayerInput_Parms;
+	PlayerInput_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnPlayerInput, &PlayerInput_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPlayerInput, &PlayerInput_Parms, NULL );
 };
 
 // Function GameFramework.MobilePlayerInput.CancelMobileInput
@@ -5694,13 +6846,13 @@ void UMobilePlayerInput::CancelMobileInput ( )
 	static UFunction* pFnCancelMobileInput = NULL;
 
 	if ( ! pFnCancelMobileInput )
-		pFnCancelMobileInput = (UFunction*) UObject::GObjObjects()->Data[ 39215 ];
+		pFnCancelMobileInput = (UFunction*) UObject::GObjObjects()->Data[ 39222 ];
 
 	UMobilePlayerInput_execCancelMobileInput_Parms CancelMobileInput_Parms;
 
 	pFnCancelMobileInput->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnCancelMobileInput, &CancelMobileInput_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCancelMobileInput, &CancelMobileInput_Parms, NULL );
 
 	pFnCancelMobileInput->FunctionFlags |= 0x400;
 };
@@ -5708,19 +6860,21 @@ void UMobilePlayerInput::CancelMobileInput ( )
 // Function GameFramework.MobilePlayerInput.ProcessMobileInput
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobilePlayerInput::ProcessMobileInput ( )
+void UMobilePlayerInput::ProcessMobileInput ( float DeltaTime )
 {
 	static UFunction* pFnProcessMobileInput = NULL;
 
 	if ( ! pFnProcessMobileInput )
-		pFnProcessMobileInput = (UFunction*) UObject::GObjObjects()->Data[ 39213 ];
+		pFnProcessMobileInput = (UFunction*) UObject::GObjObjects()->Data[ 39220 ];
 
 	UMobilePlayerInput_execProcessMobileInput_Parms ProcessMobileInput_Parms;
+	ProcessMobileInput_Parms.DeltaTime = DeltaTime;
 
 	pFnProcessMobileInput->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnProcessMobileInput, &ProcessMobileInput_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnProcessMobileInput, &ProcessMobileInput_Parms, NULL );
 
 	pFnProcessMobileInput->FunctionFlags |= 0x400;
 };
@@ -5734,27 +6888,34 @@ void UNavMeshGoal_OutOfViewFrom::Recycle ( )
 	static UFunction* pFnRecycle = NULL;
 
 	if ( ! pFnRecycle )
-		pFnRecycle = (UFunction*) UObject::GObjObjects()->Data[ 40006 ];
+		pFnRecycle = (UFunction*) UObject::GObjObjects()->Data[ 40013 ];
 
 	UNavMeshGoal_OutOfViewFrom_execRecycle_Parms Recycle_Parms;
 
-	this->ProcessEvent ( pFnRecycle, &Recycle_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRecycle, &Recycle_Parms, NULL );
 };
 
 // Function GameFramework.NavMeshGoal_OutOfViewFrom.MustBeHiddenFromThisPoint
 // [0x00022002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UNavigationHandle*       NavHandle                      ( CPF_Parm )
+// struct FVector                 InOutOfViewLocation            ( CPF_Parm )
 
-void UNavMeshGoal_OutOfViewFrom::MustBeHiddenFromThisPoint ( )
+bool UNavMeshGoal_OutOfViewFrom::MustBeHiddenFromThisPoint ( class UNavigationHandle* NavHandle, struct FVector InOutOfViewLocation )
 {
 	static UFunction* pFnMustBeHiddenFromThisPoint = NULL;
 
 	if ( ! pFnMustBeHiddenFromThisPoint )
-		pFnMustBeHiddenFromThisPoint = (UFunction*) UObject::GObjObjects()->Data[ 40001 ];
+		pFnMustBeHiddenFromThisPoint = (UFunction*) UObject::GObjObjects()->Data[ 40008 ];
 
 	UNavMeshGoal_OutOfViewFrom_execMustBeHiddenFromThisPoint_Parms MustBeHiddenFromThisPoint_Parms;
+	MustBeHiddenFromThisPoint_Parms.NavHandle = NavHandle;
+	memcpy ( &MustBeHiddenFromThisPoint_Parms.InOutOfViewLocation, &InOutOfViewLocation, 0xC );
 
-	this->ProcessEvent ( pFnMustBeHiddenFromThisPoint, &MustBeHiddenFromThisPoint_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnMustBeHiddenFromThisPoint, &MustBeHiddenFromThisPoint_Parms, NULL );
+
+	return MustBeHiddenFromThisPoint_Parms.ReturnValue;
 };
 
 // Function GameFramework.NavMeshGoal_OutOfViewFrom.RecycleNative
@@ -5766,13 +6927,13 @@ void UNavMeshGoal_OutOfViewFrom::RecycleNative ( )
 	static UFunction* pFnRecycleNative = NULL;
 
 	if ( ! pFnRecycleNative )
-		pFnRecycleNative = (UFunction*) UObject::GObjObjects()->Data[ 40000 ];
+		pFnRecycleNative = (UFunction*) UObject::GObjObjects()->Data[ 40007 ];
 
 	UNavMeshGoal_OutOfViewFrom_execRecycleNative_Parms RecycleNative_Parms;
 
 	pFnRecycleNative->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnRecycleNative, &RecycleNative_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRecycleNative, &RecycleNative_Parms, NULL );
 
 	pFnRecycleNative->FunctionFlags |= 0x400;
 };
@@ -5786,203 +6947,249 @@ void UNavMeshPath_BiasAgainstPolysWithinDistanceOfLocations::Recycle ( )
 	static UFunction* pFnRecycle = NULL;
 
 	if ( ! pFnRecycle )
-		pFnRecycle = (UFunction*) UObject::GObjObjects()->Data[ 40021 ];
+		pFnRecycle = (UFunction*) UObject::GObjObjects()->Data[ 40028 ];
 
 	UNavMeshPath_BiasAgainstPolysWithinDistanceOfLocations_execRecycle_Parms Recycle_Parms;
 
-	this->ProcessEvent ( pFnRecycle, &Recycle_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRecycle, &Recycle_Parms, NULL );
 };
 
 // Function GameFramework.NavMeshPath_BiasAgainstPolysWithinDistanceOfLocations.BiasAgainstPolysWithinDistanceOfLocations
 // [0x00022002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UNavigationHandle*       NavHandle                      ( CPF_Parm )
+// struct FVector                 InLocation                     ( CPF_Const | CPF_Parm )
+// struct FRotator                InRotation                     ( CPF_Const | CPF_Parm )
+// float                          InDistanceToCheck              ( CPF_Const | CPF_Parm )
+// TArray< struct FVector >       InLocationsToCheck             ( CPF_Const | CPF_Parm | CPF_NeedCtorLink )
 
-void UNavMeshPath_BiasAgainstPolysWithinDistanceOfLocations::BiasAgainstPolysWithinDistanceOfLocations ( )
+bool UNavMeshPath_BiasAgainstPolysWithinDistanceOfLocations::BiasAgainstPolysWithinDistanceOfLocations ( class UNavigationHandle* NavHandle, struct FVector InLocation, struct FRotator InRotation, float InDistanceToCheck, TArray< struct FVector > InLocationsToCheck )
 {
 	static UFunction* pFnBiasAgainstPolysWithinDistanceOfLocations = NULL;
 
 	if ( ! pFnBiasAgainstPolysWithinDistanceOfLocations )
-		pFnBiasAgainstPolysWithinDistanceOfLocations = (UFunction*) UObject::GObjObjects()->Data[ 40012 ];
+		pFnBiasAgainstPolysWithinDistanceOfLocations = (UFunction*) UObject::GObjObjects()->Data[ 40019 ];
 
 	UNavMeshPath_BiasAgainstPolysWithinDistanceOfLocations_execBiasAgainstPolysWithinDistanceOfLocations_Parms BiasAgainstPolysWithinDistanceOfLocations_Parms;
+	BiasAgainstPolysWithinDistanceOfLocations_Parms.NavHandle = NavHandle;
+	memcpy ( &BiasAgainstPolysWithinDistanceOfLocations_Parms.InLocation, &InLocation, 0xC );
+	memcpy ( &BiasAgainstPolysWithinDistanceOfLocations_Parms.InRotation, &InRotation, 0xC );
+	BiasAgainstPolysWithinDistanceOfLocations_Parms.InDistanceToCheck = InDistanceToCheck;
+	memcpy ( &BiasAgainstPolysWithinDistanceOfLocations_Parms.InLocationsToCheck, &InLocationsToCheck, 0x10 );
 
-	this->ProcessEvent ( pFnBiasAgainstPolysWithinDistanceOfLocations, &BiasAgainstPolysWithinDistanceOfLocations_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnBiasAgainstPolysWithinDistanceOfLocations, &BiasAgainstPolysWithinDistanceOfLocations_Parms, NULL );
+
+	return BiasAgainstPolysWithinDistanceOfLocations_Parms.ReturnValue;
 };
 
 // Function GameFramework.SecondaryViewportClient.PostRender
 // [0x00020800] ( FUNC_Event )
 // Parameters infos:
+// class UCanvas*                 Canvas                         ( CPF_Parm )
 
-void USecondaryViewportClient::eventPostRender ( )
+void USecondaryViewportClient::eventPostRender ( class UCanvas* Canvas )
 {
 	static UFunction* pFnPostRender = NULL;
 
 	if ( ! pFnPostRender )
-		pFnPostRender = (UFunction*) UObject::GObjObjects()->Data[ 39979 ];
+		pFnPostRender = (UFunction*) UObject::GObjObjects()->Data[ 39986 ];
 
 	USecondaryViewportClient_eventPostRender_Parms PostRender_Parms;
+	PostRender_Parms.Canvas = Canvas;
 
-	this->ProcessEvent ( pFnPostRender, &PostRender_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostRender, &PostRender_Parms, NULL );
 };
 
 // Function GameFramework.MobileSecondaryViewportClient.PostRender
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// class UCanvas*                 Canvas                         ( CPF_Parm )
 
-void UMobileSecondaryViewportClient::eventPostRender ( )
+void UMobileSecondaryViewportClient::eventPostRender ( class UCanvas* Canvas )
 {
 	static UFunction* pFnPostRender = NULL;
 
 	if ( ! pFnPostRender )
-		pFnPostRender = (UFunction*) UObject::GObjObjects()->Data[ 39981 ];
+		pFnPostRender = (UFunction*) UObject::GObjObjects()->Data[ 39988 ];
 
 	UMobileSecondaryViewportClient_eventPostRender_Parms PostRender_Parms;
+	PostRender_Parms.Canvas = Canvas;
 
-	this->ProcessEvent ( pFnPostRender, &PostRender_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostRender, &PostRender_Parms, NULL );
 };
 
 // Function GameFramework.SeqAct_GameCrowdPopulationManagerToggle.AgentDestroyed
 // [0x00020002] 
 // Parameters infos:
+// class AGameCrowdAgent*         Agent                          ( CPF_Parm )
 
-void USeqAct_GameCrowdPopulationManagerToggle::AgentDestroyed ( )
+void USeqAct_GameCrowdPopulationManagerToggle::AgentDestroyed ( class AGameCrowdAgent* Agent )
 {
 	static UFunction* pFnAgentDestroyed = NULL;
 
 	if ( ! pFnAgentDestroyed )
-		pFnAgentDestroyed = (UFunction*) UObject::GObjObjects()->Data[ 40076 ];
+		pFnAgentDestroyed = (UFunction*) UObject::GObjObjects()->Data[ 40083 ];
 
 	USeqAct_GameCrowdPopulationManagerToggle_execAgentDestroyed_Parms AgentDestroyed_Parms;
+	AgentDestroyed_Parms.Agent = Agent;
 
-	this->ProcessEvent ( pFnAgentDestroyed, &AgentDestroyed_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAgentDestroyed, &AgentDestroyed_Parms, NULL );
 };
 
 // Function GameFramework.SeqAct_GameCrowdPopulationManagerToggle.GetMaxSpawnDist
 // [0x00020002] 
 // Parameters infos:
+// float                          ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void USeqAct_GameCrowdPopulationManagerToggle::GetMaxSpawnDist ( )
+float USeqAct_GameCrowdPopulationManagerToggle::GetMaxSpawnDist ( )
 {
 	static UFunction* pFnGetMaxSpawnDist = NULL;
 
 	if ( ! pFnGetMaxSpawnDist )
-		pFnGetMaxSpawnDist = (UFunction*) UObject::GObjObjects()->Data[ 40074 ];
+		pFnGetMaxSpawnDist = (UFunction*) UObject::GObjObjects()->Data[ 40081 ];
 
 	USeqAct_GameCrowdPopulationManagerToggle_execGetMaxSpawnDist_Parms GetMaxSpawnDist_Parms;
 
-	this->ProcessEvent ( pFnGetMaxSpawnDist, &GetMaxSpawnDist_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetMaxSpawnDist, &GetMaxSpawnDist_Parms, NULL );
+
+	return GetMaxSpawnDist_Parms.ReturnValue;
 };
 
 // Function GameFramework.SeqAct_GameCrowdPopulationManagerToggle.FillCrowdSpawnInfoItem
 // [0x00420802] ( FUNC_Event )
 // Parameters infos:
+// class AGameCrowdPopulationManager* PopMgr                         ( CPF_Parm )
+// struct FCrowdSpawnInfoItem     out_Item                       ( CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void USeqAct_GameCrowdPopulationManagerToggle::eventFillCrowdSpawnInfoItem ( )
+void USeqAct_GameCrowdPopulationManagerToggle::eventFillCrowdSpawnInfoItem ( class AGameCrowdPopulationManager* PopMgr, struct FCrowdSpawnInfoItem* out_Item )
 {
 	static UFunction* pFnFillCrowdSpawnInfoItem = NULL;
 
 	if ( ! pFnFillCrowdSpawnInfoItem )
-		pFnFillCrowdSpawnInfoItem = (UFunction*) UObject::GObjObjects()->Data[ 40070 ];
+		pFnFillCrowdSpawnInfoItem = (UFunction*) UObject::GObjObjects()->Data[ 40077 ];
 
 	USeqAct_GameCrowdPopulationManagerToggle_eventFillCrowdSpawnInfoItem_Parms FillCrowdSpawnInfoItem_Parms;
+	FillCrowdSpawnInfoItem_Parms.PopMgr = PopMgr;
 
-	this->ProcessEvent ( pFnFillCrowdSpawnInfoItem, &FillCrowdSpawnInfoItem_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnFillCrowdSpawnInfoItem, &FillCrowdSpawnInfoItem_Parms, NULL );
+
+	if ( out_Item )
+		memcpy ( out_Item, &FillCrowdSpawnInfoItem_Parms.out_Item, 0x90 );
 };
 
 // Function GameFramework.SeqAct_GameCrowdPopulationManagerToggle.GetObjClassVersion
 // [0x00022802] ( FUNC_Event )
 // Parameters infos:
+// int                            ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void USeqAct_GameCrowdPopulationManagerToggle::eventGetObjClassVersion ( )
+int USeqAct_GameCrowdPopulationManagerToggle::eventGetObjClassVersion ( )
 {
 	static UFunction* pFnGetObjClassVersion = NULL;
 
 	if ( ! pFnGetObjClassVersion )
-		pFnGetObjClassVersion = (UFunction*) UObject::GObjObjects()->Data[ 40068 ];
+		pFnGetObjClassVersion = (UFunction*) UObject::GObjObjects()->Data[ 40075 ];
 
 	USeqAct_GameCrowdPopulationManagerToggle_eventGetObjClassVersion_Parms GetObjClassVersion_Parms;
 
-	this->ProcessEvent ( pFnGetObjClassVersion, &GetObjClassVersion_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetObjClassVersion, &GetObjClassVersion_Parms, NULL );
+
+	return GetObjClassVersion_Parms.ReturnValue;
 };
 
 // Function GameFramework.SeqAct_GameCrowdSpawner.GetObjClassVersion
 // [0x00022802] ( FUNC_Event )
 // Parameters infos:
+// int                            ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void USeqAct_GameCrowdSpawner::eventGetObjClassVersion ( )
+int USeqAct_GameCrowdSpawner::eventGetObjClassVersion ( )
 {
 	static UFunction* pFnGetObjClassVersion = NULL;
 
 	if ( ! pFnGetObjClassVersion )
-		pFnGetObjClassVersion = (UFunction*) UObject::GObjObjects()->Data[ 40079 ];
+		pFnGetObjClassVersion = (UFunction*) UObject::GObjObjects()->Data[ 40086 ];
 
 	USeqAct_GameCrowdSpawner_eventGetObjClassVersion_Parms GetObjClassVersion_Parms;
 
-	this->ProcessEvent ( pFnGetObjClassVersion, &GetObjClassVersion_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetObjClassVersion, &GetObjClassVersion_Parms, NULL );
+
+	return GetObjClassVersion_Parms.ReturnValue;
 };
 
 // Function GameFramework.SeqAct_MobileSaveLoadValue.GetObjClassVersion
 // [0x00022802] ( FUNC_Event )
 // Parameters infos:
+// int                            ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void USeqAct_MobileSaveLoadValue::eventGetObjClassVersion ( )
+int USeqAct_MobileSaveLoadValue::eventGetObjClassVersion ( )
 {
 	static UFunction* pFnGetObjClassVersion = NULL;
 
 	if ( ! pFnGetObjClassVersion )
-		pFnGetObjClassVersion = (UFunction*) UObject::GObjObjects()->Data[ 40084 ];
+		pFnGetObjClassVersion = (UFunction*) UObject::GObjObjects()->Data[ 40091 ];
 
 	USeqAct_MobileSaveLoadValue_eventGetObjClassVersion_Parms GetObjClassVersion_Parms;
 
-	this->ProcessEvent ( pFnGetObjClassVersion, &GetObjClassVersion_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetObjClassVersion, &GetObjClassVersion_Parms, NULL );
+
+	return GetObjClassVersion_Parms.ReturnValue;
 };
 
 // Function GameFramework.SeqAct_PlayAgentAnimation.SetCurrentAnimationActionFor
 // [0x00020002] 
 // Parameters infos:
+// class AGameCrowdAgentSkeletal* Agent                          ( CPF_Parm )
 
-void USeqAct_PlayAgentAnimation::SetCurrentAnimationActionFor ( )
+void USeqAct_PlayAgentAnimation::SetCurrentAnimationActionFor ( class AGameCrowdAgentSkeletal* Agent )
 {
 	static UFunction* pFnSetCurrentAnimationActionFor = NULL;
 
 	if ( ! pFnSetCurrentAnimationActionFor )
-		pFnSetCurrentAnimationActionFor = (UFunction*) UObject::GObjObjects()->Data[ 40105 ];
+		pFnSetCurrentAnimationActionFor = (UFunction*) UObject::GObjObjects()->Data[ 40112 ];
 
 	USeqAct_PlayAgentAnimation_execSetCurrentAnimationActionFor_Parms SetCurrentAnimationActionFor_Parms;
+	SetCurrentAnimationActionFor_Parms.Agent = Agent;
 
-	this->ProcessEvent ( pFnSetCurrentAnimationActionFor, &SetCurrentAnimationActionFor_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetCurrentAnimationActionFor, &SetCurrentAnimationActionFor_Parms, NULL );
 };
 
 // Function GameFramework.SeqAct_PlayAgentAnimation.GetObjClassVersion
 // [0x00022802] ( FUNC_Event )
 // Parameters infos:
+// int                            ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void USeqAct_PlayAgentAnimation::eventGetObjClassVersion ( )
+int USeqAct_PlayAgentAnimation::eventGetObjClassVersion ( )
 {
 	static UFunction* pFnGetObjClassVersion = NULL;
 
 	if ( ! pFnGetObjClassVersion )
-		pFnGetObjClassVersion = (UFunction*) UObject::GObjObjects()->Data[ 40103 ];
+		pFnGetObjClassVersion = (UFunction*) UObject::GObjObjects()->Data[ 40110 ];
 
 	USeqAct_PlayAgentAnimation_eventGetObjClassVersion_Parms GetObjClassVersion_Parms;
 
-	this->ProcessEvent ( pFnGetObjClassVersion, &GetObjClassVersion_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetObjClassVersion, &GetObjClassVersion_Parms, NULL );
+
+	return GetObjClassVersion_Parms.ReturnValue;
 };
 
 // Function GameFramework.SeqEvent_HudRender.Render
 // [0x00020000] 
 // Parameters infos:
+// class UCanvas*                 TargetCanvas                   ( CPF_Parm )
+// class AHUD*                    TargetHud                      ( CPF_Parm )
 
-void USeqEvent_HudRender::Render ( )
+void USeqEvent_HudRender::Render ( class UCanvas* TargetCanvas, class AHUD* TargetHud )
 {
 	static UFunction* pFnRender = NULL;
 
 	if ( ! pFnRender )
-		pFnRender = (UFunction*) UObject::GObjObjects()->Data[ 40117 ];
+		pFnRender = (UFunction*) UObject::GObjObjects()->Data[ 40124 ];
 
 	USeqEvent_HudRender_execRender_Parms Render_Parms;
+	Render_Parms.TargetCanvas = TargetCanvas;
+	Render_Parms.TargetHud = TargetHud;
 
-	this->ProcessEvent ( pFnRender, &Render_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRender, &Render_Parms, NULL );
 };
 
 // Function GameFramework.SeqEvent_HudRender.RegisterEvent
@@ -5994,27 +7201,29 @@ void USeqEvent_HudRender::eventRegisterEvent ( )
 	static UFunction* pFnRegisterEvent = NULL;
 
 	if ( ! pFnRegisterEvent )
-		pFnRegisterEvent = (UFunction*) UObject::GObjObjects()->Data[ 40113 ];
+		pFnRegisterEvent = (UFunction*) UObject::GObjObjects()->Data[ 40120 ];
 
 	USeqEvent_HudRender_eventRegisterEvent_Parms RegisterEvent_Parms;
 
-	this->ProcessEvent ( pFnRegisterEvent, &RegisterEvent_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRegisterEvent, &RegisterEvent_Parms, NULL );
 };
 
 // Function GameFramework.SeqEvent_MobileBase.AddToMobileInput
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// class UMobilePlayerInput*      MPI                            ( CPF_Parm )
 
-void USeqEvent_MobileBase::eventAddToMobileInput ( )
+void USeqEvent_MobileBase::eventAddToMobileInput ( class UMobilePlayerInput* MPI )
 {
 	static UFunction* pFnAddToMobileInput = NULL;
 
 	if ( ! pFnAddToMobileInput )
-		pFnAddToMobileInput = (UFunction*) UObject::GObjObjects()->Data[ 40165 ];
+		pFnAddToMobileInput = (UFunction*) UObject::GObjObjects()->Data[ 40172 ];
 
 	USeqEvent_MobileBase_eventAddToMobileInput_Parms AddToMobileInput_Parms;
+	AddToMobileInput_Parms.MPI = MPI;
 
-	this->ProcessEvent ( pFnAddToMobileInput, &AddToMobileInput_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAddToMobileInput, &AddToMobileInput_Parms, NULL );
 };
 
 // Function GameFramework.SeqEvent_MobileBase.RegisterEvent
@@ -6026,43 +7235,48 @@ void USeqEvent_MobileBase::eventRegisterEvent ( )
 	static UFunction* pFnRegisterEvent = NULL;
 
 	if ( ! pFnRegisterEvent )
-		pFnRegisterEvent = (UFunction*) UObject::GObjObjects()->Data[ 40161 ];
+		pFnRegisterEvent = (UFunction*) UObject::GObjObjects()->Data[ 40168 ];
 
 	USeqEvent_MobileBase_eventRegisterEvent_Parms RegisterEvent_Parms;
 
-	this->ProcessEvent ( pFnRegisterEvent, &RegisterEvent_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRegisterEvent, &RegisterEvent_Parms, NULL );
 };
 
 // Function GameFramework.SeqEvent_MobileMotion.GetObjClassVersion
 // [0x00022802] ( FUNC_Event )
 // Parameters infos:
+// int                            ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void USeqEvent_MobileMotion::eventGetObjClassVersion ( )
+int USeqEvent_MobileMotion::eventGetObjClassVersion ( )
 {
 	static UFunction* pFnGetObjClassVersion = NULL;
 
 	if ( ! pFnGetObjClassVersion )
-		pFnGetObjClassVersion = (UFunction*) UObject::GObjObjects()->Data[ 40189 ];
+		pFnGetObjClassVersion = (UFunction*) UObject::GObjObjects()->Data[ 40196 ];
 
 	USeqEvent_MobileMotion_eventGetObjClassVersion_Parms GetObjClassVersion_Parms;
 
-	this->ProcessEvent ( pFnGetObjClassVersion, &GetObjClassVersion_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetObjClassVersion, &GetObjClassVersion_Parms, NULL );
+
+	return GetObjClassVersion_Parms.ReturnValue;
 };
 
 // Function GameFramework.SeqEvent_MobileZoneBase.AddToMobileInput
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// class UMobilePlayerInput*      MPI                            ( CPF_Parm )
 
-void USeqEvent_MobileZoneBase::eventAddToMobileInput ( )
+void USeqEvent_MobileZoneBase::eventAddToMobileInput ( class UMobilePlayerInput* MPI )
 {
 	static UFunction* pFnAddToMobileInput = NULL;
 
 	if ( ! pFnAddToMobileInput )
-		pFnAddToMobileInput = (UFunction*) UObject::GObjObjects()->Data[ 40168 ];
+		pFnAddToMobileInput = (UFunction*) UObject::GObjObjects()->Data[ 40175 ];
 
 	USeqEvent_MobileZoneBase_eventAddToMobileInput_Parms AddToMobileInput_Parms;
+	AddToMobileInput_Parms.MPI = MPI;
 
-	this->ProcessEvent ( pFnAddToMobileInput, &AddToMobileInput_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAddToMobileInput, &AddToMobileInput_Parms, NULL );
 };
 
 // Function GameFramework.SeqEvent_MobileRawInput.RegisterEvent
@@ -6074,27 +7288,31 @@ void USeqEvent_MobileRawInput::eventRegisterEvent ( )
 	static UFunction* pFnRegisterEvent = NULL;
 
 	if ( ! pFnRegisterEvent )
-		pFnRegisterEvent = (UFunction*) UObject::GObjObjects()->Data[ 40196 ];
+		pFnRegisterEvent = (UFunction*) UObject::GObjObjects()->Data[ 40203 ];
 
 	USeqEvent_MobileRawInput_eventRegisterEvent_Parms RegisterEvent_Parms;
 
-	this->ProcessEvent ( pFnRegisterEvent, &RegisterEvent_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRegisterEvent, &RegisterEvent_Parms, NULL );
 };
 
 // Function GameFramework.GameCameraBase.ModifyPostProcessSettings
 // [0x00420800] ( FUNC_Event )
 // Parameters infos:
+// struct FPostProcessSettings    PP                             ( CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void UGameCameraBase::eventModifyPostProcessSettings ( )
+void UGameCameraBase::eventModifyPostProcessSettings ( struct FPostProcessSettings* PP )
 {
 	static UFunction* pFnModifyPostProcessSettings = NULL;
 
 	if ( ! pFnModifyPostProcessSettings )
-		pFnModifyPostProcessSettings = (UFunction*) UObject::GObjObjects()->Data[ 37552 ];
+		pFnModifyPostProcessSettings = (UFunction*) UObject::GObjObjects()->Data[ 37559 ];
 
 	UGameCameraBase_eventModifyPostProcessSettings_Parms ModifyPostProcessSettings_Parms;
 
-	this->ProcessEvent ( pFnModifyPostProcessSettings, &ModifyPostProcessSettings_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnModifyPostProcessSettings, &ModifyPostProcessSettings_Parms, NULL );
+
+	if ( PP )
+		memcpy ( PP, &ModifyPostProcessSettings_Parms.PP, 0x164 );
 };
 
 // Function GameFramework.GameCameraBase.Init
@@ -6106,59 +7324,91 @@ void UGameCameraBase::Init ( )
 	static UFunction* pFnInit = NULL;
 
 	if ( ! pFnInit )
-		pFnInit = (UFunction*) UObject::GObjObjects()->Data[ 37551 ];
+		pFnInit = (UFunction*) UObject::GObjObjects()->Data[ 37558 ];
 
 	UGameCameraBase_execInit_Parms Init_Parms;
 
-	this->ProcessEvent ( pFnInit, &Init_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInit, &Init_Parms, NULL );
 };
 
 // Function GameFramework.GameCameraBase.DisplayDebug
 // [0x00420100] 
 // Parameters infos:
+// class AHUD*                    HUD                            ( CPF_Parm )
+// float                          out_YL                         ( CPF_Parm | CPF_OutParm )
+// float                          out_YPos                       ( CPF_Parm | CPF_OutParm )
 
-void UGameCameraBase::DisplayDebug ( )
+void UGameCameraBase::DisplayDebug ( class AHUD* HUD, float* out_YL, float* out_YPos )
 {
 	static UFunction* pFnDisplayDebug = NULL;
 
 	if ( ! pFnDisplayDebug )
-		pFnDisplayDebug = (UFunction*) UObject::GObjObjects()->Data[ 37547 ];
+		pFnDisplayDebug = (UFunction*) UObject::GObjObjects()->Data[ 37554 ];
 
 	UGameCameraBase_execDisplayDebug_Parms DisplayDebug_Parms;
+	DisplayDebug_Parms.HUD = HUD;
 
-	this->ProcessEvent ( pFnDisplayDebug, &DisplayDebug_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDisplayDebug, &DisplayDebug_Parms, NULL );
+
+	if ( out_YL )
+		*out_YL = DisplayDebug_Parms.out_YL;
+
+	if ( out_YPos )
+		*out_YPos = DisplayDebug_Parms.out_YPos;
 };
 
 // Function GameFramework.GameCameraBase.ProcessViewRotation
 // [0x00420000] 
 // Parameters infos:
+// float                          DeltaTime                      ( CPF_Parm )
+// class AActor*                  ViewTarget                     ( CPF_Parm )
+// struct FRotator                out_ViewRotation               ( CPF_Parm | CPF_OutParm )
+// struct FRotator                out_DeltaRot                   ( CPF_Parm | CPF_OutParm )
 
-void UGameCameraBase::ProcessViewRotation ( )
+void UGameCameraBase::ProcessViewRotation ( float DeltaTime, class AActor* ViewTarget, struct FRotator* out_ViewRotation, struct FRotator* out_DeltaRot )
 {
 	static UFunction* pFnProcessViewRotation = NULL;
 
 	if ( ! pFnProcessViewRotation )
-		pFnProcessViewRotation = (UFunction*) UObject::GObjObjects()->Data[ 37542 ];
+		pFnProcessViewRotation = (UFunction*) UObject::GObjObjects()->Data[ 37549 ];
 
 	UGameCameraBase_execProcessViewRotation_Parms ProcessViewRotation_Parms;
+	ProcessViewRotation_Parms.DeltaTime = DeltaTime;
+	ProcessViewRotation_Parms.ViewTarget = ViewTarget;
 
-	this->ProcessEvent ( pFnProcessViewRotation, &ProcessViewRotation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnProcessViewRotation, &ProcessViewRotation_Parms, NULL );
+
+	if ( out_ViewRotation )
+		memcpy ( out_ViewRotation, &ProcessViewRotation_Parms.out_ViewRotation, 0xC );
+
+	if ( out_DeltaRot )
+		memcpy ( out_DeltaRot, &ProcessViewRotation_Parms.out_DeltaRot, 0xC );
 };
 
 // Function GameFramework.GameCameraBase.UpdateCamera
 // [0x00420000] 
 // Parameters infos:
+// class APawn*                   P                              ( CPF_Parm )
+// class AGamePlayerCamera*       CameraActor                    ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
+// struct FTViewTarget            OutVT                          ( CPF_Parm | CPF_OutParm )
 
-void UGameCameraBase::UpdateCamera ( )
+void UGameCameraBase::UpdateCamera ( class APawn* P, class AGamePlayerCamera* CameraActor, float DeltaTime, struct FTViewTarget* OutVT )
 {
 	static UFunction* pFnUpdateCamera = NULL;
 
 	if ( ! pFnUpdateCamera )
-		pFnUpdateCamera = (UFunction*) UObject::GObjObjects()->Data[ 37537 ];
+		pFnUpdateCamera = (UFunction*) UObject::GObjObjects()->Data[ 37544 ];
 
 	UGameCameraBase_execUpdateCamera_Parms UpdateCamera_Parms;
+	UpdateCamera_Parms.P = P;
+	UpdateCamera_Parms.CameraActor = CameraActor;
+	UpdateCamera_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnUpdateCamera, &UpdateCamera_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnUpdateCamera, &UpdateCamera_Parms, NULL );
+
+	if ( OutVT )
+		memcpy ( OutVT, &UpdateCamera_Parms.OutVT, 0x38 );
 };
 
 // Function GameFramework.GameCameraBase.ResetInterpolation
@@ -6170,43 +7420,47 @@ void UGameCameraBase::ResetInterpolation ( )
 	static UFunction* pFnResetInterpolation = NULL;
 
 	if ( ! pFnResetInterpolation )
-		pFnResetInterpolation = (UFunction*) UObject::GObjObjects()->Data[ 37536 ];
+		pFnResetInterpolation = (UFunction*) UObject::GObjObjects()->Data[ 37543 ];
 
 	UGameCameraBase_execResetInterpolation_Parms ResetInterpolation_Parms;
 
-	this->ProcessEvent ( pFnResetInterpolation, &ResetInterpolation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnResetInterpolation, &ResetInterpolation_Parms, NULL );
 };
 
 // Function GameFramework.GameCameraBase.OnBecomeInActive
 // [0x00020000] 
 // Parameters infos:
+// class UGameCameraBase*         NewCamera                      ( CPF_Parm )
 
-void UGameCameraBase::OnBecomeInActive ( )
+void UGameCameraBase::OnBecomeInActive ( class UGameCameraBase* NewCamera )
 {
 	static UFunction* pFnOnBecomeInActive = NULL;
 
 	if ( ! pFnOnBecomeInActive )
-		pFnOnBecomeInActive = (UFunction*) UObject::GObjObjects()->Data[ 37534 ];
+		pFnOnBecomeInActive = (UFunction*) UObject::GObjObjects()->Data[ 37541 ];
 
 	UGameCameraBase_execOnBecomeInActive_Parms OnBecomeInActive_Parms;
+	OnBecomeInActive_Parms.NewCamera = NewCamera;
 
-	this->ProcessEvent ( pFnOnBecomeInActive, &OnBecomeInActive_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnBecomeInActive, &OnBecomeInActive_Parms, NULL );
 };
 
 // Function GameFramework.GameCameraBase.OnBecomeActive
 // [0x00020000] 
 // Parameters infos:
+// class UGameCameraBase*         OldCamera                      ( CPF_Parm )
 
-void UGameCameraBase::OnBecomeActive ( )
+void UGameCameraBase::OnBecomeActive ( class UGameCameraBase* OldCamera )
 {
 	static UFunction* pFnOnBecomeActive = NULL;
 
 	if ( ! pFnOnBecomeActive )
-		pFnOnBecomeActive = (UFunction*) UObject::GObjObjects()->Data[ 37532 ];
+		pFnOnBecomeActive = (UFunction*) UObject::GObjObjects()->Data[ 37539 ];
 
 	UGameCameraBase_execOnBecomeActive_Parms OnBecomeActive_Parms;
+	OnBecomeActive_Parms.OldCamera = OldCamera;
 
-	this->ProcessEvent ( pFnOnBecomeActive, &OnBecomeActive_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnBecomeActive, &OnBecomeActive_Parms, NULL );
 };
 
 // Function GameFramework.GameThirdPersonCamera.ResetInterpolation
@@ -6218,219 +7472,292 @@ void UGameThirdPersonCamera::ResetInterpolation ( )
 	static UFunction* pFnResetInterpolation = NULL;
 
 	if ( ! pFnResetInterpolation )
-		pFnResetInterpolation = (UFunction*) UObject::GObjObjects()->Data[ 38828 ];
+		pFnResetInterpolation = (UFunction*) UObject::GObjObjects()->Data[ 38835 ];
 
 	UGameThirdPersonCamera_execResetInterpolation_Parms ResetInterpolation_Parms;
 
-	this->ProcessEvent ( pFnResetInterpolation, &ResetInterpolation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnResetInterpolation, &ResetInterpolation_Parms, NULL );
 };
 
 // Function GameFramework.GameThirdPersonCamera.ModifyPostProcessSettings
 // [0x00420802] ( FUNC_Event )
 // Parameters infos:
+// struct FPostProcessSettings    PP                             ( CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void UGameThirdPersonCamera::eventModifyPostProcessSettings ( )
+void UGameThirdPersonCamera::eventModifyPostProcessSettings ( struct FPostProcessSettings* PP )
 {
 	static UFunction* pFnModifyPostProcessSettings = NULL;
 
 	if ( ! pFnModifyPostProcessSettings )
-		pFnModifyPostProcessSettings = (UFunction*) UObject::GObjObjects()->Data[ 38826 ];
+		pFnModifyPostProcessSettings = (UFunction*) UObject::GObjObjects()->Data[ 38833 ];
 
 	UGameThirdPersonCamera_eventModifyPostProcessSettings_Parms ModifyPostProcessSettings_Parms;
 
-	this->ProcessEvent ( pFnModifyPostProcessSettings, &ModifyPostProcessSettings_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnModifyPostProcessSettings, &ModifyPostProcessSettings_Parms, NULL );
+
+	if ( PP )
+		memcpy ( PP, &ModifyPostProcessSettings_Parms.PP, 0x164 );
 };
 
 // Function GameFramework.GameThirdPersonCamera.OnBecomeActive
 // [0x00020002] 
 // Parameters infos:
+// class UGameCameraBase*         OldCamera                      ( CPF_Parm )
 
-void UGameThirdPersonCamera::OnBecomeActive ( )
+void UGameThirdPersonCamera::OnBecomeActive ( class UGameCameraBase* OldCamera )
 {
 	static UFunction* pFnOnBecomeActive = NULL;
 
 	if ( ! pFnOnBecomeActive )
-		pFnOnBecomeActive = (UFunction*) UObject::GObjObjects()->Data[ 38824 ];
+		pFnOnBecomeActive = (UFunction*) UObject::GObjObjects()->Data[ 38831 ];
 
 	UGameThirdPersonCamera_execOnBecomeActive_Parms OnBecomeActive_Parms;
+	OnBecomeActive_Parms.OldCamera = OldCamera;
 
-	this->ProcessEvent ( pFnOnBecomeActive, &OnBecomeActive_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnBecomeActive, &OnBecomeActive_Parms, NULL );
 };
 
 // Function GameFramework.GameThirdPersonCamera.ProcessViewRotation
 // [0x00420002] 
 // Parameters infos:
+// float                          DeltaTime                      ( CPF_Parm )
+// class AActor*                  ViewTarget                     ( CPF_Parm )
+// struct FRotator                out_ViewRotation               ( CPF_Parm | CPF_OutParm )
+// struct FRotator                out_DeltaRot                   ( CPF_Parm | CPF_OutParm )
 
-void UGameThirdPersonCamera::ProcessViewRotation ( )
+void UGameThirdPersonCamera::ProcessViewRotation ( float DeltaTime, class AActor* ViewTarget, struct FRotator* out_ViewRotation, struct FRotator* out_DeltaRot )
 {
 	static UFunction* pFnProcessViewRotation = NULL;
 
 	if ( ! pFnProcessViewRotation )
-		pFnProcessViewRotation = (UFunction*) UObject::GObjObjects()->Data[ 38819 ];
+		pFnProcessViewRotation = (UFunction*) UObject::GObjObjects()->Data[ 38826 ];
 
 	UGameThirdPersonCamera_execProcessViewRotation_Parms ProcessViewRotation_Parms;
+	ProcessViewRotation_Parms.DeltaTime = DeltaTime;
+	ProcessViewRotation_Parms.ViewTarget = ViewTarget;
 
-	this->ProcessEvent ( pFnProcessViewRotation, &ProcessViewRotation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnProcessViewRotation, &ProcessViewRotation_Parms, NULL );
+
+	if ( out_ViewRotation )
+		memcpy ( out_ViewRotation, &ProcessViewRotation_Parms.out_ViewRotation, 0xC );
+
+	if ( out_DeltaRot )
+		memcpy ( out_DeltaRot, &ProcessViewRotation_Parms.out_DeltaRot, 0xC );
 };
 
 // Function GameFramework.GameThirdPersonCamera.UpdateCameraMode
 // [0x00080003] ( FUNC_Final )
 // Parameters infos:
+// class APawn*                   P                              ( CPF_Parm )
 
-void UGameThirdPersonCamera::UpdateCameraMode ( )
+void UGameThirdPersonCamera::UpdateCameraMode ( class APawn* P )
 {
 	static UFunction* pFnUpdateCameraMode = NULL;
 
 	if ( ! pFnUpdateCameraMode )
-		pFnUpdateCameraMode = (UFunction*) UObject::GObjObjects()->Data[ 38766 ];
+		pFnUpdateCameraMode = (UFunction*) UObject::GObjObjects()->Data[ 38773 ];
 
 	UGameThirdPersonCamera_execUpdateCameraMode_Parms UpdateCameraMode_Parms;
+	UpdateCameraMode_Parms.P = P;
 
-	this->ProcessEvent ( pFnUpdateCameraMode, &UpdateCameraMode_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnUpdateCameraMode, &UpdateCameraMode_Parms, NULL );
 };
 
 // Function GameFramework.GameThirdPersonCamera.FindBestCameraMode
 // [0x00020002] 
 // Parameters infos:
+// class UGameThirdPersonCameraMode* ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class APawn*                   P                              ( CPF_Parm )
 
-void UGameThirdPersonCamera::FindBestCameraMode ( )
+class UGameThirdPersonCameraMode* UGameThirdPersonCamera::FindBestCameraMode ( class APawn* P )
 {
 	static UFunction* pFnFindBestCameraMode = NULL;
 
 	if ( ! pFnFindBestCameraMode )
-		pFnFindBestCameraMode = (UFunction*) UObject::GObjObjects()->Data[ 38814 ];
+		pFnFindBestCameraMode = (UFunction*) UObject::GObjObjects()->Data[ 38821 ];
 
 	UGameThirdPersonCamera_execFindBestCameraMode_Parms FindBestCameraMode_Parms;
+	FindBestCameraMode_Parms.P = P;
 
-	this->ProcessEvent ( pFnFindBestCameraMode, &FindBestCameraMode_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnFindBestCameraMode, &FindBestCameraMode_Parms, NULL );
+
+	return FindBestCameraMode_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameThirdPersonCamera.AdjustFocusPointInterpolation
 // [0x00020002] 
 // Parameters infos:
+// struct FRotator                Delta                          ( CPF_Parm )
 
-void UGameThirdPersonCamera::AdjustFocusPointInterpolation ( )
+void UGameThirdPersonCamera::AdjustFocusPointInterpolation ( struct FRotator Delta )
 {
 	static UFunction* pFnAdjustFocusPointInterpolation = NULL;
 
 	if ( ! pFnAdjustFocusPointInterpolation )
-		pFnAdjustFocusPointInterpolation = (UFunction*) UObject::GObjObjects()->Data[ 38812 ];
+		pFnAdjustFocusPointInterpolation = (UFunction*) UObject::GObjObjects()->Data[ 38819 ];
 
 	UGameThirdPersonCamera_execAdjustFocusPointInterpolation_Parms AdjustFocusPointInterpolation_Parms;
+	memcpy ( &AdjustFocusPointInterpolation_Parms.Delta, &Delta, 0xC );
 
-	this->ProcessEvent ( pFnAdjustFocusPointInterpolation, &AdjustFocusPointInterpolation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAdjustFocusPointInterpolation, &AdjustFocusPointInterpolation_Parms, NULL );
 };
 
 // Function GameFramework.GameThirdPersonCamera.GetActualFocusLocation
 // [0x00880002] 
 // Parameters infos:
+// struct FVector                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGameThirdPersonCamera::GetActualFocusLocation ( )
+struct FVector UGameThirdPersonCamera::GetActualFocusLocation ( )
 {
 	static UFunction* pFnGetActualFocusLocation = NULL;
 
 	if ( ! pFnGetActualFocusLocation )
-		pFnGetActualFocusLocation = (UFunction*) UObject::GObjObjects()->Data[ 38808 ];
+		pFnGetActualFocusLocation = (UFunction*) UObject::GObjObjects()->Data[ 38815 ];
 
 	UGameThirdPersonCamera_execGetActualFocusLocation_Parms GetActualFocusLocation_Parms;
 
-	this->ProcessEvent ( pFnGetActualFocusLocation, &GetActualFocusLocation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetActualFocusLocation, &GetActualFocusLocation_Parms, NULL );
+
+	return GetActualFocusLocation_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameThirdPersonCamera.UpdateFocusPoint
 // [0x00080802] ( FUNC_Event )
 // Parameters infos:
+// class APawn*                   P                              ( CPF_Parm )
 
-void UGameThirdPersonCamera::eventUpdateFocusPoint ( )
+void UGameThirdPersonCamera::eventUpdateFocusPoint ( class APawn* P )
 {
 	static UFunction* pFnUpdateFocusPoint = NULL;
 
 	if ( ! pFnUpdateFocusPoint )
-		pFnUpdateFocusPoint = (UFunction*) UObject::GObjObjects()->Data[ 38804 ];
+		pFnUpdateFocusPoint = (UFunction*) UObject::GObjObjects()->Data[ 38811 ];
 
 	UGameThirdPersonCamera_eventUpdateFocusPoint_Parms UpdateFocusPoint_Parms;
+	UpdateFocusPoint_Parms.P = P;
 
-	this->ProcessEvent ( pFnUpdateFocusPoint, &UpdateFocusPoint_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnUpdateFocusPoint, &UpdateFocusPoint_Parms, NULL );
 };
 
 // Function GameFramework.GameThirdPersonCamera.ClearFocusPoint
 // [0x00024002] 
 // Parameters infos:
+// unsigned long                  bLeaveCameraRotation           ( CPF_OptionalParm | CPF_Parm )
 
-void UGameThirdPersonCamera::ClearFocusPoint ( )
+void UGameThirdPersonCamera::ClearFocusPoint ( unsigned long bLeaveCameraRotation )
 {
 	static UFunction* pFnClearFocusPoint = NULL;
 
 	if ( ! pFnClearFocusPoint )
-		pFnClearFocusPoint = (UFunction*) UObject::GObjObjects()->Data[ 38802 ];
+		pFnClearFocusPoint = (UFunction*) UObject::GObjObjects()->Data[ 38809 ];
 
 	UGameThirdPersonCamera_execClearFocusPoint_Parms ClearFocusPoint_Parms;
+	ClearFocusPoint_Parms.bLeaveCameraRotation = bLeaveCameraRotation;
 
-	this->ProcessEvent ( pFnClearFocusPoint, &ClearFocusPoint_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnClearFocusPoint, &ClearFocusPoint_Parms, NULL );
 };
 
 // Function GameFramework.GameThirdPersonCamera.GetFocusActor
 // [0x00020002] 
 // Parameters infos:
+// class AActor*                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGameThirdPersonCamera::GetFocusActor ( )
+class AActor* UGameThirdPersonCamera::GetFocusActor ( )
 {
 	static UFunction* pFnGetFocusActor = NULL;
 
 	if ( ! pFnGetFocusActor )
-		pFnGetFocusActor = (UFunction*) UObject::GObjObjects()->Data[ 38800 ];
+		pFnGetFocusActor = (UFunction*) UObject::GObjObjects()->Data[ 38807 ];
 
 	UGameThirdPersonCamera_execGetFocusActor_Parms GetFocusActor_Parms;
 
-	this->ProcessEvent ( pFnGetFocusActor, &GetFocusActor_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetFocusActor, &GetFocusActor_Parms, NULL );
+
+	return GetFocusActor_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameThirdPersonCamera.SetFocusOnActor
 // [0x00024002] 
 // Parameters infos:
+// class AActor*                  FocusActor                     ( CPF_Parm )
+// struct FName                   FocusBoneName                  ( CPF_Parm )
+// struct FVector2D               InterpSpeedRange               ( CPF_Parm )
+// struct FVector2D               InFocusFOV                     ( CPF_Parm )
+// float                          CameraFOV                      ( CPF_OptionalParm | CPF_Parm )
+// unsigned long                  bAlwaysFocus                   ( CPF_OptionalParm | CPF_Parm )
+// unsigned long                  bAdjustCamera                  ( CPF_OptionalParm | CPF_Parm )
+// unsigned long                  bIgnoreTrace                   ( CPF_OptionalParm | CPF_Parm )
+// float                          FocusPitchOffsetDeg            ( CPF_OptionalParm | CPF_Parm )
 
-void UGameThirdPersonCamera::SetFocusOnActor ( )
+void UGameThirdPersonCamera::SetFocusOnActor ( class AActor* FocusActor, struct FName FocusBoneName, struct FVector2D InterpSpeedRange, struct FVector2D InFocusFOV, float CameraFOV, unsigned long bAlwaysFocus, unsigned long bAdjustCamera, unsigned long bIgnoreTrace, float FocusPitchOffsetDeg )
 {
 	static UFunction* pFnSetFocusOnActor = NULL;
 
 	if ( ! pFnSetFocusOnActor )
-		pFnSetFocusOnActor = (UFunction*) UObject::GObjObjects()->Data[ 38790 ];
+		pFnSetFocusOnActor = (UFunction*) UObject::GObjObjects()->Data[ 38797 ];
 
 	UGameThirdPersonCamera_execSetFocusOnActor_Parms SetFocusOnActor_Parms;
+	SetFocusOnActor_Parms.FocusActor = FocusActor;
+	memcpy ( &SetFocusOnActor_Parms.FocusBoneName, &FocusBoneName, 0x8 );
+	memcpy ( &SetFocusOnActor_Parms.InterpSpeedRange, &InterpSpeedRange, 0x8 );
+	memcpy ( &SetFocusOnActor_Parms.InFocusFOV, &InFocusFOV, 0x8 );
+	SetFocusOnActor_Parms.CameraFOV = CameraFOV;
+	SetFocusOnActor_Parms.bAlwaysFocus = bAlwaysFocus;
+	SetFocusOnActor_Parms.bAdjustCamera = bAdjustCamera;
+	SetFocusOnActor_Parms.bIgnoreTrace = bIgnoreTrace;
+	SetFocusOnActor_Parms.FocusPitchOffsetDeg = FocusPitchOffsetDeg;
 
-	this->ProcessEvent ( pFnSetFocusOnActor, &SetFocusOnActor_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetFocusOnActor, &SetFocusOnActor_Parms, NULL );
 };
 
 // Function GameFramework.GameThirdPersonCamera.SetFocusOnLoc
 // [0x00024002] 
 // Parameters infos:
+// struct FVector                 FocusWorldLoc                  ( CPF_Parm )
+// struct FVector2D               InterpSpeedRange               ( CPF_Parm )
+// struct FVector2D               InFocusFOV                     ( CPF_Parm )
+// float                          CameraFOV                      ( CPF_OptionalParm | CPF_Parm )
+// unsigned long                  bAlwaysFocus                   ( CPF_OptionalParm | CPF_Parm )
+// unsigned long                  bAdjustCamera                  ( CPF_OptionalParm | CPF_Parm )
+// unsigned long                  bIgnoreTrace                   ( CPF_OptionalParm | CPF_Parm )
+// float                          FocusPitchOffsetDeg            ( CPF_OptionalParm | CPF_Parm )
 
-void UGameThirdPersonCamera::SetFocusOnLoc ( )
+void UGameThirdPersonCamera::SetFocusOnLoc ( struct FVector FocusWorldLoc, struct FVector2D InterpSpeedRange, struct FVector2D InFocusFOV, float CameraFOV, unsigned long bAlwaysFocus, unsigned long bAdjustCamera, unsigned long bIgnoreTrace, float FocusPitchOffsetDeg )
 {
 	static UFunction* pFnSetFocusOnLoc = NULL;
 
 	if ( ! pFnSetFocusOnLoc )
-		pFnSetFocusOnLoc = (UFunction*) UObject::GObjObjects()->Data[ 38781 ];
+		pFnSetFocusOnLoc = (UFunction*) UObject::GObjObjects()->Data[ 38788 ];
 
 	UGameThirdPersonCamera_execSetFocusOnLoc_Parms SetFocusOnLoc_Parms;
+	memcpy ( &SetFocusOnLoc_Parms.FocusWorldLoc, &FocusWorldLoc, 0xC );
+	memcpy ( &SetFocusOnLoc_Parms.InterpSpeedRange, &InterpSpeedRange, 0x8 );
+	memcpy ( &SetFocusOnLoc_Parms.InFocusFOV, &InFocusFOV, 0x8 );
+	SetFocusOnLoc_Parms.CameraFOV = CameraFOV;
+	SetFocusOnLoc_Parms.bAlwaysFocus = bAlwaysFocus;
+	SetFocusOnLoc_Parms.bAdjustCamera = bAdjustCamera;
+	SetFocusOnLoc_Parms.bIgnoreTrace = bIgnoreTrace;
+	SetFocusOnLoc_Parms.FocusPitchOffsetDeg = FocusPitchOffsetDeg;
 
-	this->ProcessEvent ( pFnSetFocusOnLoc, &SetFocusOnLoc_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetFocusOnLoc, &SetFocusOnLoc_Parms, NULL );
 };
 
 // Function GameFramework.GameThirdPersonCamera.AdjustTurn
 // [0x00020002] 
 // Parameters infos:
+// int                            AngleOffset                    ( CPF_Parm )
 
-void UGameThirdPersonCamera::AdjustTurn ( )
+void UGameThirdPersonCamera::AdjustTurn ( int AngleOffset )
 {
 	static UFunction* pFnAdjustTurn = NULL;
 
 	if ( ! pFnAdjustTurn )
-		pFnAdjustTurn = (UFunction*) UObject::GObjObjects()->Data[ 38779 ];
+		pFnAdjustTurn = (UFunction*) UObject::GObjObjects()->Data[ 38786 ];
 
 	UGameThirdPersonCamera_execAdjustTurn_Parms AdjustTurn_Parms;
+	AdjustTurn_Parms.AngleOffset = AngleOffset;
 
-	this->ProcessEvent ( pFnAdjustTurn, &AdjustTurn_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAdjustTurn, &AdjustTurn_Parms, NULL );
 };
 
 // Function GameFramework.GameThirdPersonCamera.EndTurn
@@ -6442,13 +7769,13 @@ void UGameThirdPersonCamera::EndTurn ( )
 	static UFunction* pFnEndTurn = NULL;
 
 	if ( ! pFnEndTurn )
-		pFnEndTurn = (UFunction*) UObject::GObjObjects()->Data[ 38778 ];
+		pFnEndTurn = (UFunction*) UObject::GObjObjects()->Data[ 38785 ];
 
 	UGameThirdPersonCamera_execEndTurn_Parms EndTurn_Parms;
 
 	pFnEndTurn->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnEndTurn, &EndTurn_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnEndTurn, &EndTurn_Parms, NULL );
 
 	pFnEndTurn->FunctionFlags |= 0x400;
 };
@@ -6456,69 +7783,104 @@ void UGameThirdPersonCamera::EndTurn ( )
 // Function GameFramework.GameThirdPersonCamera.BeginTurn
 // [0x00024002] 
 // Parameters infos:
+// int                            StartAngle                     ( CPF_Parm )
+// int                            EndAngle                       ( CPF_Parm )
+// float                          TimeSec                        ( CPF_Parm )
+// float                          DelaySec                       ( CPF_OptionalParm | CPF_Parm )
+// unsigned long                  bAlignTargetWhenFinished       ( CPF_OptionalParm | CPF_Parm )
 
-void UGameThirdPersonCamera::BeginTurn ( )
+void UGameThirdPersonCamera::BeginTurn ( int StartAngle, int EndAngle, float TimeSec, float DelaySec, unsigned long bAlignTargetWhenFinished )
 {
 	static UFunction* pFnBeginTurn = NULL;
 
 	if ( ! pFnBeginTurn )
-		pFnBeginTurn = (UFunction*) UObject::GObjObjects()->Data[ 38772 ];
+		pFnBeginTurn = (UFunction*) UObject::GObjObjects()->Data[ 38779 ];
 
 	UGameThirdPersonCamera_execBeginTurn_Parms BeginTurn_Parms;
+	BeginTurn_Parms.StartAngle = StartAngle;
+	BeginTurn_Parms.EndAngle = EndAngle;
+	BeginTurn_Parms.TimeSec = TimeSec;
+	BeginTurn_Parms.DelaySec = DelaySec;
+	BeginTurn_Parms.bAlignTargetWhenFinished = bAlignTargetWhenFinished;
 
-	this->ProcessEvent ( pFnBeginTurn, &BeginTurn_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnBeginTurn, &BeginTurn_Parms, NULL );
 };
 
 // Function GameFramework.GameThirdPersonCamera.PlayerUpdateCamera
 // [0x00480400] ( FUNC_Native )
 // Parameters infos:
+// class APawn*                   P                              ( CPF_Parm )
+// class AGamePlayerCamera*       CameraActor                    ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
+// struct FTViewTarget            OutVT                          ( CPF_Parm | CPF_OutParm )
 
-void UGameThirdPersonCamera::PlayerUpdateCamera ( )
+void UGameThirdPersonCamera::PlayerUpdateCamera ( class APawn* P, class AGamePlayerCamera* CameraActor, float DeltaTime, struct FTViewTarget* OutVT )
 {
 	static UFunction* pFnPlayerUpdateCamera = NULL;
 
 	if ( ! pFnPlayerUpdateCamera )
-		pFnPlayerUpdateCamera = (UFunction*) UObject::GObjObjects()->Data[ 38767 ];
+		pFnPlayerUpdateCamera = (UFunction*) UObject::GObjObjects()->Data[ 38774 ];
 
 	UGameThirdPersonCamera_execPlayerUpdateCamera_Parms PlayerUpdateCamera_Parms;
+	PlayerUpdateCamera_Parms.P = P;
+	PlayerUpdateCamera_Parms.CameraActor = CameraActor;
+	PlayerUpdateCamera_Parms.DeltaTime = DeltaTime;
 
 	pFnPlayerUpdateCamera->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnPlayerUpdateCamera, &PlayerUpdateCamera_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPlayerUpdateCamera, &PlayerUpdateCamera_Parms, NULL );
 
 	pFnPlayerUpdateCamera->FunctionFlags |= 0x400;
+
+	if ( OutVT )
+		memcpy ( OutVT, &PlayerUpdateCamera_Parms.OutVT, 0x38 );
 };
 
 // Function GameFramework.GameThirdPersonCamera.UpdateCamera
 // [0x00420002] 
 // Parameters infos:
+// class APawn*                   P                              ( CPF_Parm )
+// class AGamePlayerCamera*       CameraActor                    ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
+// struct FTViewTarget            OutVT                          ( CPF_Parm | CPF_OutParm )
 
-void UGameThirdPersonCamera::UpdateCamera ( )
+void UGameThirdPersonCamera::UpdateCamera ( class APawn* P, class AGamePlayerCamera* CameraActor, float DeltaTime, struct FTViewTarget* OutVT )
 {
 	static UFunction* pFnUpdateCamera = NULL;
 
 	if ( ! pFnUpdateCamera )
-		pFnUpdateCamera = (UFunction*) UObject::GObjObjects()->Data[ 38761 ];
+		pFnUpdateCamera = (UFunction*) UObject::GObjObjects()->Data[ 38768 ];
 
 	UGameThirdPersonCamera_execUpdateCamera_Parms UpdateCamera_Parms;
+	UpdateCamera_Parms.P = P;
+	UpdateCamera_Parms.CameraActor = CameraActor;
+	UpdateCamera_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnUpdateCamera, &UpdateCamera_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnUpdateCamera, &UpdateCamera_Parms, NULL );
+
+	if ( OutVT )
+		memcpy ( OutVT, &UpdateCamera_Parms.OutVT, 0x38 );
 };
 
 // Function GameFramework.GameThirdPersonCamera.GetDesiredFOV
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// float                          ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class APawn*                   ViewedPawn                     ( CPF_Parm )
 
-void UGameThirdPersonCamera::eventGetDesiredFOV ( )
+float UGameThirdPersonCamera::eventGetDesiredFOV ( class APawn* ViewedPawn )
 {
 	static UFunction* pFnGetDesiredFOV = NULL;
 
 	if ( ! pFnGetDesiredFOV )
-		pFnGetDesiredFOV = (UFunction*) UObject::GObjObjects()->Data[ 38756 ];
+		pFnGetDesiredFOV = (UFunction*) UObject::GObjObjects()->Data[ 38763 ];
 
 	UGameThirdPersonCamera_eventGetDesiredFOV_Parms GetDesiredFOV_Parms;
+	GetDesiredFOV_Parms.ViewedPawn = ViewedPawn;
 
-	this->ProcessEvent ( pFnGetDesiredFOV, &GetDesiredFOV_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetDesiredFOV, &GetDesiredFOV_Parms, NULL );
+
+	return GetDesiredFOV_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameThirdPersonCamera.Init
@@ -6530,11 +7892,11 @@ void UGameThirdPersonCamera::Init ( )
 	static UFunction* pFnInit = NULL;
 
 	if ( ! pFnInit )
-		pFnInit = (UFunction*) UObject::GObjObjects()->Data[ 38755 ];
+		pFnInit = (UFunction*) UObject::GObjObjects()->Data[ 38762 ];
 
 	UGameThirdPersonCamera_execInit_Parms Init_Parms;
 
-	this->ProcessEvent ( pFnInit, &Init_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInit, &Init_Parms, NULL );
 };
 
 // Function GameFramework.GameThirdPersonCamera.Reset
@@ -6546,63 +7908,85 @@ void UGameThirdPersonCamera::Reset ( )
 	static UFunction* pFnReset = NULL;
 
 	if ( ! pFnReset )
-		pFnReset = (UFunction*) UObject::GObjObjects()->Data[ 38754 ];
+		pFnReset = (UFunction*) UObject::GObjObjects()->Data[ 38761 ];
 
 	UGameThirdPersonCamera_execReset_Parms Reset_Parms;
 
-	this->ProcessEvent ( pFnReset, &Reset_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnReset, &Reset_Parms, NULL );
 };
 
 // Function GameFramework.GameThirdPersonCamera.CreateCameraMode
 // [0x00080002] 
 // Parameters infos:
+// class UGameThirdPersonCameraMode* ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UClass*                  ModeClass                      ( CPF_Parm )
 
-void UGameThirdPersonCamera::CreateCameraMode ( )
+class UGameThirdPersonCameraMode* UGameThirdPersonCamera::CreateCameraMode ( class UClass* ModeClass )
 {
 	static UFunction* pFnCreateCameraMode = NULL;
 
 	if ( ! pFnCreateCameraMode )
-		pFnCreateCameraMode = (UFunction*) UObject::GObjObjects()->Data[ 38749 ];
+		pFnCreateCameraMode = (UFunction*) UObject::GObjObjects()->Data[ 38756 ];
 
 	UGameThirdPersonCamera_execCreateCameraMode_Parms CreateCameraMode_Parms;
+	CreateCameraMode_Parms.ModeClass = ModeClass;
 
-	this->ProcessEvent ( pFnCreateCameraMode, &CreateCameraMode_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCreateCameraMode, &CreateCameraMode_Parms, NULL );
+
+	return CreateCameraMode_Parms.ReturnValue;
 };
 
 // Function GameFramework.GamePlayerCamera.AdjustFOVForViewport
 // [0x00080401] ( FUNC_Final | FUNC_Native )
 // Parameters infos:
+// float                          ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// float                          inHorizFOV                     ( CPF_Parm )
+// class APawn*                   CameraTargetPawn               ( CPF_Parm )
 
-void AGamePlayerCamera::AdjustFOVForViewport ( )
+float AGamePlayerCamera::AdjustFOVForViewport ( float inHorizFOV, class APawn* CameraTargetPawn )
 {
 	static UFunction* pFnAdjustFOVForViewport = NULL;
 
 	if ( ! pFnAdjustFOVForViewport )
-		pFnAdjustFOVForViewport = (UFunction*) UObject::GObjObjects()->Data[ 38466 ];
+		pFnAdjustFOVForViewport = (UFunction*) UObject::GObjObjects()->Data[ 38473 ];
 
 	AGamePlayerCamera_execAdjustFOVForViewport_Parms AdjustFOVForViewport_Parms;
+	AdjustFOVForViewport_Parms.inHorizFOV = inHorizFOV;
+	AdjustFOVForViewport_Parms.CameraTargetPawn = CameraTargetPawn;
 
 	pFnAdjustFOVForViewport->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnAdjustFOVForViewport, &AdjustFOVForViewport_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAdjustFOVForViewport, &AdjustFOVForViewport_Parms, NULL );
 
 	pFnAdjustFOVForViewport->FunctionFlags |= 0x400;
+
+	return AdjustFOVForViewport_Parms.ReturnValue;
 };
 
 // Function GameFramework.GamePlayerCamera.ProcessViewRotation
 // [0x00420002] 
 // Parameters infos:
+// float                          DeltaTime                      ( CPF_Parm )
+// struct FRotator                out_ViewRotation               ( CPF_Parm | CPF_OutParm )
+// struct FRotator                out_DeltaRot                   ( CPF_Parm | CPF_OutParm )
 
-void AGamePlayerCamera::ProcessViewRotation ( )
+void AGamePlayerCamera::ProcessViewRotation ( float DeltaTime, struct FRotator* out_ViewRotation, struct FRotator* out_DeltaRot )
 {
 	static UFunction* pFnProcessViewRotation = NULL;
 
 	if ( ! pFnProcessViewRotation )
-		pFnProcessViewRotation = (UFunction*) UObject::GObjObjects()->Data[ 38478 ];
+		pFnProcessViewRotation = (UFunction*) UObject::GObjObjects()->Data[ 38485 ];
 
 	AGamePlayerCamera_execProcessViewRotation_Parms ProcessViewRotation_Parms;
+	ProcessViewRotation_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnProcessViewRotation, &ProcessViewRotation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnProcessViewRotation, &ProcessViewRotation_Parms, NULL );
+
+	if ( out_ViewRotation )
+		memcpy ( out_ViewRotation, &ProcessViewRotation_Parms.out_ViewRotation, 0xC );
+
+	if ( out_DeltaRot )
+		memcpy ( out_DeltaRot, &ProcessViewRotation_Parms.out_DeltaRot, 0xC );
 };
 
 // Function GameFramework.GamePlayerCamera.ResetInterpolation
@@ -6614,107 +7998,137 @@ void AGamePlayerCamera::ResetInterpolation ( )
 	static UFunction* pFnResetInterpolation = NULL;
 
 	if ( ! pFnResetInterpolation )
-		pFnResetInterpolation = (UFunction*) UObject::GObjObjects()->Data[ 38477 ];
+		pFnResetInterpolation = (UFunction*) UObject::GObjObjects()->Data[ 38484 ];
 
 	AGamePlayerCamera_execResetInterpolation_Parms ResetInterpolation_Parms;
 
-	this->ProcessEvent ( pFnResetInterpolation, &ResetInterpolation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnResetInterpolation, &ResetInterpolation_Parms, NULL );
 };
 
 // Function GameFramework.GamePlayerCamera.SetColorScale
 // [0x00020102] 
 // Parameters infos:
+// struct FVector                 NewColorScale                  ( CPF_Parm )
 
-void AGamePlayerCamera::SetColorScale ( )
+void AGamePlayerCamera::SetColorScale ( struct FVector NewColorScale )
 {
 	static UFunction* pFnSetColorScale = NULL;
 
 	if ( ! pFnSetColorScale )
-		pFnSetColorScale = (UFunction*) UObject::GObjObjects()->Data[ 38475 ];
+		pFnSetColorScale = (UFunction*) UObject::GObjObjects()->Data[ 38482 ];
 
 	AGamePlayerCamera_execSetColorScale_Parms SetColorScale_Parms;
+	memcpy ( &SetColorScale_Parms.NewColorScale, &NewColorScale, 0xC );
 
-	this->ProcessEvent ( pFnSetColorScale, &SetColorScale_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetColorScale, &SetColorScale_Parms, NULL );
 };
 
 // Function GameFramework.GamePlayerCamera.DisplayDebug
 // [0x00420102] 
 // Parameters infos:
+// class AHUD*                    HUD                            ( CPF_Parm )
+// float                          out_YL                         ( CPF_Parm | CPF_OutParm )
+// float                          out_YPos                       ( CPF_Parm | CPF_OutParm )
 
-void AGamePlayerCamera::DisplayDebug ( )
+void AGamePlayerCamera::DisplayDebug ( class AHUD* HUD, float* out_YL, float* out_YPos )
 {
 	static UFunction* pFnDisplayDebug = NULL;
 
 	if ( ! pFnDisplayDebug )
-		pFnDisplayDebug = (UFunction*) UObject::GObjObjects()->Data[ 38470 ];
+		pFnDisplayDebug = (UFunction*) UObject::GObjObjects()->Data[ 38477 ];
 
 	AGamePlayerCamera_execDisplayDebug_Parms DisplayDebug_Parms;
+	DisplayDebug_Parms.HUD = HUD;
 
-	this->ProcessEvent ( pFnDisplayDebug, &DisplayDebug_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDisplayDebug, &DisplayDebug_Parms, NULL );
+
+	if ( out_YL )
+		*out_YL = DisplayDebug_Parms.out_YL;
+
+	if ( out_YPos )
+		*out_YPos = DisplayDebug_Parms.out_YPos;
 };
 
 // Function GameFramework.GamePlayerCamera.UpdateCameraLensEffects
 // [0x00420102] 
 // Parameters infos:
+// struct FTViewTarget            OutVT                          ( CPF_Const | CPF_Parm | CPF_OutParm )
 
-void AGamePlayerCamera::UpdateCameraLensEffects ( )
+void AGamePlayerCamera::UpdateCameraLensEffects ( struct FTViewTarget* OutVT )
 {
 	static UFunction* pFnUpdateCameraLensEffects = NULL;
 
 	if ( ! pFnUpdateCameraLensEffects )
-		pFnUpdateCameraLensEffects = (UFunction*) UObject::GObjObjects()->Data[ 38467 ];
+		pFnUpdateCameraLensEffects = (UFunction*) UObject::GObjObjects()->Data[ 38474 ];
 
 	AGamePlayerCamera_execUpdateCameraLensEffects_Parms UpdateCameraLensEffects_Parms;
 
-	this->ProcessEvent ( pFnUpdateCameraLensEffects, &UpdateCameraLensEffects_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnUpdateCameraLensEffects, &UpdateCameraLensEffects_Parms, NULL );
+
+	if ( OutVT )
+		memcpy ( OutVT, &UpdateCameraLensEffects_Parms.OutVT, 0x38 );
 };
 
 // Function GameFramework.GamePlayerCamera.UpdateViewTarget
 // [0x00420002] 
 // Parameters infos:
+// float                          DeltaTime                      ( CPF_Parm )
+// struct FTViewTarget            OutVT                          ( CPF_Parm | CPF_OutParm )
 
-void AGamePlayerCamera::UpdateViewTarget ( )
+void AGamePlayerCamera::UpdateViewTarget ( float DeltaTime, struct FTViewTarget* OutVT )
 {
 	static UFunction* pFnUpdateViewTarget = NULL;
 
 	if ( ! pFnUpdateViewTarget )
-		pFnUpdateViewTarget = (UFunction*) UObject::GObjObjects()->Data[ 38460 ];
+		pFnUpdateViewTarget = (UFunction*) UObject::GObjObjects()->Data[ 38467 ];
 
 	AGamePlayerCamera_execUpdateViewTarget_Parms UpdateViewTarget_Parms;
+	UpdateViewTarget_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnUpdateViewTarget, &UpdateViewTarget_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnUpdateViewTarget, &UpdateViewTarget_Parms, NULL );
+
+	if ( OutVT )
+		memcpy ( OutVT, &UpdateViewTarget_Parms.OutVT, 0x38 );
 };
 
 // Function GameFramework.GamePlayerCamera.ShouldConstrainAspectRatio
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void AGamePlayerCamera::ShouldConstrainAspectRatio ( )
+bool AGamePlayerCamera::ShouldConstrainAspectRatio ( )
 {
 	static UFunction* pFnShouldConstrainAspectRatio = NULL;
 
 	if ( ! pFnShouldConstrainAspectRatio )
-		pFnShouldConstrainAspectRatio = (UFunction*) UObject::GObjObjects()->Data[ 38458 ];
+		pFnShouldConstrainAspectRatio = (UFunction*) UObject::GObjObjects()->Data[ 38465 ];
 
 	AGamePlayerCamera_execShouldConstrainAspectRatio_Parms ShouldConstrainAspectRatio_Parms;
 
-	this->ProcessEvent ( pFnShouldConstrainAspectRatio, &ShouldConstrainAspectRatio_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnShouldConstrainAspectRatio, &ShouldConstrainAspectRatio_Parms, NULL );
+
+	return ShouldConstrainAspectRatio_Parms.ReturnValue;
 };
 
 // Function GameFramework.GamePlayerCamera.FindBestCameraType
 // [0x00080002] 
 // Parameters infos:
+// class UGameCameraBase*         ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AActor*                  CameraTarget                   ( CPF_Parm )
 
-void AGamePlayerCamera::FindBestCameraType ( )
+class UGameCameraBase* AGamePlayerCamera::FindBestCameraType ( class AActor* CameraTarget )
 {
 	static UFunction* pFnFindBestCameraType = NULL;
 
 	if ( ! pFnFindBestCameraType )
-		pFnFindBestCameraType = (UFunction*) UObject::GObjObjects()->Data[ 38454 ];
+		pFnFindBestCameraType = (UFunction*) UObject::GObjObjects()->Data[ 38461 ];
 
 	AGamePlayerCamera_execFindBestCameraType_Parms FindBestCameraType_Parms;
+	FindBestCameraType_Parms.CameraTarget = CameraTarget;
 
-	this->ProcessEvent ( pFnFindBestCameraType, &FindBestCameraType_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnFindBestCameraType, &FindBestCameraType_Parms, NULL );
+
+	return FindBestCameraType_Parms.ReturnValue;
 };
 
 // Function GameFramework.GamePlayerCamera.Reset
@@ -6726,11 +8140,11 @@ void AGamePlayerCamera::Reset ( )
 	static UFunction* pFnReset = NULL;
 
 	if ( ! pFnReset )
-		pFnReset = (UFunction*) UObject::GObjObjects()->Data[ 38453 ];
+		pFnReset = (UFunction*) UObject::GObjObjects()->Data[ 38460 ];
 
 	AGamePlayerCamera_execReset_Parms Reset_Parms;
 
-	this->ProcessEvent ( pFnReset, &Reset_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnReset, &Reset_Parms, NULL );
 };
 
 // Function GameFramework.GamePlayerCamera.PostBeginPlay
@@ -6742,29 +8156,31 @@ void AGamePlayerCamera::PostBeginPlay ( )
 	static UFunction* pFnPostBeginPlay = NULL;
 
 	if ( ! pFnPostBeginPlay )
-		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 38452 ];
+		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 38459 ];
 
 	AGamePlayerCamera_execPostBeginPlay_Parms PostBeginPlay_Parms;
 
-	this->ProcessEvent ( pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
 };
 
 // Function GameFramework.GamePlayerCamera.CacheLastTargetBaseInfo
 // [0x00080400] ( FUNC_Native )
 // Parameters infos:
+// class AActor*                  TargetBase                     ( CPF_Parm )
 
-void AGamePlayerCamera::CacheLastTargetBaseInfo ( )
+void AGamePlayerCamera::CacheLastTargetBaseInfo ( class AActor* TargetBase )
 {
 	static UFunction* pFnCacheLastTargetBaseInfo = NULL;
 
 	if ( ! pFnCacheLastTargetBaseInfo )
-		pFnCacheLastTargetBaseInfo = (UFunction*) UObject::GObjObjects()->Data[ 38450 ];
+		pFnCacheLastTargetBaseInfo = (UFunction*) UObject::GObjObjects()->Data[ 38457 ];
 
 	AGamePlayerCamera_execCacheLastTargetBaseInfo_Parms CacheLastTargetBaseInfo_Parms;
+	CacheLastTargetBaseInfo_Parms.TargetBase = TargetBase;
 
 	pFnCacheLastTargetBaseInfo->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnCacheLastTargetBaseInfo, &CacheLastTargetBaseInfo_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCacheLastTargetBaseInfo, &CacheLastTargetBaseInfo_Parms, NULL );
 
 	pFnCacheLastTargetBaseInfo->FunctionFlags |= 0x400;
 };
@@ -6772,213 +8188,294 @@ void AGamePlayerCamera::CacheLastTargetBaseInfo ( )
 // Function GameFramework.GamePlayerCamera.CreateCamera
 // [0x00080002] 
 // Parameters infos:
+// class UGameCameraBase*         ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UClass*                  CameraClass                    ( CPF_Parm )
 
-void AGamePlayerCamera::CreateCamera ( )
+class UGameCameraBase* AGamePlayerCamera::CreateCamera ( class UClass* CameraClass )
 {
 	static UFunction* pFnCreateCamera = NULL;
 
 	if ( ! pFnCreateCamera )
-		pFnCreateCamera = (UFunction*) UObject::GObjObjects()->Data[ 38446 ];
+		pFnCreateCamera = (UFunction*) UObject::GObjObjects()->Data[ 38453 ];
 
 	AGamePlayerCamera_execCreateCamera_Parms CreateCamera_Parms;
+	CreateCamera_Parms.CameraClass = CameraClass;
 
-	this->ProcessEvent ( pFnCreateCamera, &CreateCamera_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCreateCamera, &CreateCamera_Parms, NULL );
+
+	return CreateCamera_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameThirdPersonCameraMode.SetViewOffset
 // [0x00420401] ( FUNC_Final | FUNC_Native )
 // Parameters infos:
+// struct FViewOffsetData         NewViewOffset                  ( CPF_Const | CPF_Parm | CPF_OutParm )
 
-void UGameThirdPersonCameraMode::SetViewOffset ( )
+void UGameThirdPersonCameraMode::SetViewOffset ( struct FViewOffsetData* NewViewOffset )
 {
 	static UFunction* pFnSetViewOffset = NULL;
 
 	if ( ! pFnSetViewOffset )
-		pFnSetViewOffset = (UFunction*) UObject::GObjObjects()->Data[ 38937 ];
+		pFnSetViewOffset = (UFunction*) UObject::GObjObjects()->Data[ 38944 ];
 
 	UGameThirdPersonCameraMode_execSetViewOffset_Parms SetViewOffset_Parms;
 
 	pFnSetViewOffset->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnSetViewOffset, &SetViewOffset_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetViewOffset, &SetViewOffset_Parms, NULL );
 
 	pFnSetViewOffset->FunctionFlags |= 0x400;
+
+	if ( NewViewOffset )
+		memcpy ( NewViewOffset, &SetViewOffset_Parms.NewViewOffset, 0x24 );
 };
 
 // Function GameFramework.GameThirdPersonCameraMode.ModifyPostProcessSettings
 // [0x00420102] 
 // Parameters infos:
+// struct FPostProcessSettings    PP                             ( CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void UGameThirdPersonCameraMode::ModifyPostProcessSettings ( )
+void UGameThirdPersonCameraMode::ModifyPostProcessSettings ( struct FPostProcessSettings* PP )
 {
 	static UFunction* pFnModifyPostProcessSettings = NULL;
 
 	if ( ! pFnModifyPostProcessSettings )
-		pFnModifyPostProcessSettings = (UFunction*) UObject::GObjObjects()->Data[ 38935 ];
+		pFnModifyPostProcessSettings = (UFunction*) UObject::GObjObjects()->Data[ 38942 ];
 
 	UGameThirdPersonCameraMode_execModifyPostProcessSettings_Parms ModifyPostProcessSettings_Parms;
 
-	this->ProcessEvent ( pFnModifyPostProcessSettings, &ModifyPostProcessSettings_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnModifyPostProcessSettings, &ModifyPostProcessSettings_Parms, NULL );
+
+	if ( PP )
+		memcpy ( PP, &ModifyPostProcessSettings_Parms.PP, 0x164 );
 };
 
 // Function GameFramework.GameThirdPersonCameraMode.UpdatePostProcess
 // [0x00C20102] 
 // Parameters infos:
+// float                          DeltaTime                      ( CPF_Parm )
+// struct FTViewTarget            VT                             ( CPF_Const | CPF_Parm | CPF_OutParm )
 
-void UGameThirdPersonCameraMode::UpdatePostProcess ( )
+void UGameThirdPersonCameraMode::UpdatePostProcess ( float DeltaTime, struct FTViewTarget* VT )
 {
 	static UFunction* pFnUpdatePostProcess = NULL;
 
 	if ( ! pFnUpdatePostProcess )
-		pFnUpdatePostProcess = (UFunction*) UObject::GObjObjects()->Data[ 38925 ];
+		pFnUpdatePostProcess = (UFunction*) UObject::GObjObjects()->Data[ 38932 ];
 
 	UGameThirdPersonCameraMode_execUpdatePostProcess_Parms UpdatePostProcess_Parms;
+	UpdatePostProcess_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnUpdatePostProcess, &UpdatePostProcess_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnUpdatePostProcess, &UpdatePostProcess_Parms, NULL );
+
+	if ( VT )
+		memcpy ( VT, &UpdatePostProcess_Parms.VT, 0x38 );
 };
 
 // Function GameFramework.GameThirdPersonCameraMode.DOFTrace
 // [0x00880102] 
 // Parameters infos:
+// struct FVector                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AActor*                  TraceOwner                     ( CPF_Parm )
+// struct FVector                 StartTrace                     ( CPF_Parm )
+// struct FVector                 EndTrace                       ( CPF_Parm )
 
-void UGameThirdPersonCameraMode::DOFTrace ( )
+struct FVector UGameThirdPersonCameraMode::DOFTrace ( class AActor* TraceOwner, struct FVector StartTrace, struct FVector EndTrace )
 {
 	static UFunction* pFnDOFTrace = NULL;
 
 	if ( ! pFnDOFTrace )
-		pFnDOFTrace = (UFunction*) UObject::GObjObjects()->Data[ 38917 ];
+		pFnDOFTrace = (UFunction*) UObject::GObjObjects()->Data[ 38924 ];
 
 	UGameThirdPersonCameraMode_execDOFTrace_Parms DOFTrace_Parms;
+	DOFTrace_Parms.TraceOwner = TraceOwner;
+	memcpy ( &DOFTrace_Parms.StartTrace, &StartTrace, 0xC );
+	memcpy ( &DOFTrace_Parms.EndTrace, &EndTrace, 0xC );
 
-	this->ProcessEvent ( pFnDOFTrace, &DOFTrace_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDOFTrace, &DOFTrace_Parms, NULL );
+
+	return DOFTrace_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameThirdPersonCameraMode.GetDOFFocusLoc
 // [0x00080102] 
 // Parameters infos:
+// struct FVector                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AActor*                  TraceOwner                     ( CPF_Parm )
+// struct FVector                 StartTrace                     ( CPF_Parm )
+// struct FVector                 EndTrace                       ( CPF_Parm )
 
-void UGameThirdPersonCameraMode::GetDOFFocusLoc ( )
+struct FVector UGameThirdPersonCameraMode::GetDOFFocusLoc ( class AActor* TraceOwner, struct FVector StartTrace, struct FVector EndTrace )
 {
 	static UFunction* pFnGetDOFFocusLoc = NULL;
 
 	if ( ! pFnGetDOFFocusLoc )
-		pFnGetDOFFocusLoc = (UFunction*) UObject::GObjObjects()->Data[ 38912 ];
+		pFnGetDOFFocusLoc = (UFunction*) UObject::GObjObjects()->Data[ 38919 ];
 
 	UGameThirdPersonCameraMode_execGetDOFFocusLoc_Parms GetDOFFocusLoc_Parms;
+	GetDOFFocusLoc_Parms.TraceOwner = TraceOwner;
+	memcpy ( &GetDOFFocusLoc_Parms.StartTrace, &StartTrace, 0xC );
+	memcpy ( &GetDOFFocusLoc_Parms.EndTrace, &EndTrace, 0xC );
 
-	this->ProcessEvent ( pFnGetDOFFocusLoc, &GetDOFFocusLoc_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetDOFFocusLoc, &GetDOFFocusLoc_Parms, NULL );
+
+	return GetDOFFocusLoc_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameThirdPersonCameraMode.ProcessViewRotation
 // [0x00420100] 
 // Parameters infos:
+// float                          DeltaTime                      ( CPF_Parm )
+// class AActor*                  ViewTarget                     ( CPF_Parm )
+// struct FRotator                out_ViewRotation               ( CPF_Parm | CPF_OutParm )
+// struct FRotator                out_DeltaRot                   ( CPF_Parm | CPF_OutParm )
 
-void UGameThirdPersonCameraMode::ProcessViewRotation ( )
+void UGameThirdPersonCameraMode::ProcessViewRotation ( float DeltaTime, class AActor* ViewTarget, struct FRotator* out_ViewRotation, struct FRotator* out_DeltaRot )
 {
 	static UFunction* pFnProcessViewRotation = NULL;
 
 	if ( ! pFnProcessViewRotation )
-		pFnProcessViewRotation = (UFunction*) UObject::GObjObjects()->Data[ 38907 ];
+		pFnProcessViewRotation = (UFunction*) UObject::GObjObjects()->Data[ 38914 ];
 
 	UGameThirdPersonCameraMode_execProcessViewRotation_Parms ProcessViewRotation_Parms;
+	ProcessViewRotation_Parms.DeltaTime = DeltaTime;
+	ProcessViewRotation_Parms.ViewTarget = ViewTarget;
 
-	this->ProcessEvent ( pFnProcessViewRotation, &ProcessViewRotation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnProcessViewRotation, &ProcessViewRotation_Parms, NULL );
+
+	if ( out_ViewRotation )
+		memcpy ( out_ViewRotation, &ProcessViewRotation_Parms.out_ViewRotation, 0xC );
+
+	if ( out_DeltaRot )
+		memcpy ( out_DeltaRot, &ProcessViewRotation_Parms.out_DeltaRot, 0xC );
 };
 
 // Function GameFramework.GameThirdPersonCameraMode.SetFocusPoint
 // [0x00020102] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class APawn*                   ViewedPawn                     ( CPF_Parm )
 
-void UGameThirdPersonCameraMode::SetFocusPoint ( )
+bool UGameThirdPersonCameraMode::SetFocusPoint ( class APawn* ViewedPawn )
 {
 	static UFunction* pFnSetFocusPoint = NULL;
 
 	if ( ! pFnSetFocusPoint )
-		pFnSetFocusPoint = (UFunction*) UObject::GObjObjects()->Data[ 38806 ];
+		pFnSetFocusPoint = (UFunction*) UObject::GObjObjects()->Data[ 38813 ];
 
 	UGameThirdPersonCameraMode_execSetFocusPoint_Parms SetFocusPoint_Parms;
+	SetFocusPoint_Parms.ViewedPawn = ViewedPawn;
 
-	this->ProcessEvent ( pFnSetFocusPoint, &SetFocusPoint_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetFocusPoint, &SetFocusPoint_Parms, NULL );
+
+	return SetFocusPoint_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameThirdPersonCameraMode.GetCameraWorstCaseLoc
 // [0x00020902] ( FUNC_Event )
 // Parameters infos:
+// struct FVector                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class APawn*                   TargetPawn                     ( CPF_Parm )
+// struct FTViewTarget            CurrentViewTarget              ( CPF_Parm )
 
-void UGameThirdPersonCameraMode::eventGetCameraWorstCaseLoc ( )
+struct FVector UGameThirdPersonCameraMode::eventGetCameraWorstCaseLoc ( class APawn* TargetPawn, struct FTViewTarget CurrentViewTarget )
 {
 	static UFunction* pFnGetCameraWorstCaseLoc = NULL;
 
 	if ( ! pFnGetCameraWorstCaseLoc )
-		pFnGetCameraWorstCaseLoc = (UFunction*) UObject::GObjObjects()->Data[ 38902 ];
+		pFnGetCameraWorstCaseLoc = (UFunction*) UObject::GObjObjects()->Data[ 38909 ];
 
 	UGameThirdPersonCameraMode_eventGetCameraWorstCaseLoc_Parms GetCameraWorstCaseLoc_Parms;
+	GetCameraWorstCaseLoc_Parms.TargetPawn = TargetPawn;
+	memcpy ( &GetCameraWorstCaseLoc_Parms.CurrentViewTarget, &CurrentViewTarget, 0x38 );
 
-	this->ProcessEvent ( pFnGetCameraWorstCaseLoc, &GetCameraWorstCaseLoc_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetCameraWorstCaseLoc, &GetCameraWorstCaseLoc_Parms, NULL );
+
+	return GetCameraWorstCaseLoc_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameThirdPersonCameraMode.GetDesiredFOV
 // [0x00020002] 
 // Parameters infos:
+// float                          ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class APawn*                   ViewedPawn                     ( CPF_Parm )
 
-void UGameThirdPersonCameraMode::GetDesiredFOV ( )
+float UGameThirdPersonCameraMode::GetDesiredFOV ( class APawn* ViewedPawn )
 {
 	static UFunction* pFnGetDesiredFOV = NULL;
 
 	if ( ! pFnGetDesiredFOV )
-		pFnGetDesiredFOV = (UFunction*) UObject::GObjObjects()->Data[ 38759 ];
+		pFnGetDesiredFOV = (UFunction*) UObject::GObjObjects()->Data[ 38766 ];
 
 	UGameThirdPersonCameraMode_execGetDesiredFOV_Parms GetDesiredFOV_Parms;
+	GetDesiredFOV_Parms.ViewedPawn = ViewedPawn;
 
-	this->ProcessEvent ( pFnGetDesiredFOV, &GetDesiredFOV_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetDesiredFOV, &GetDesiredFOV_Parms, NULL );
+
+	return GetDesiredFOV_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameThirdPersonCameraMode.AdjustViewOffset
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// struct FVector                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class APawn*                   P                              ( CPF_Parm )
+// struct FVector                 Offset                         ( CPF_Parm )
 
-void UGameThirdPersonCameraMode::eventAdjustViewOffset ( )
+struct FVector UGameThirdPersonCameraMode::eventAdjustViewOffset ( class APawn* P, struct FVector Offset )
 {
 	static UFunction* pFnAdjustViewOffset = NULL;
 
 	if ( ! pFnAdjustViewOffset )
-		pFnAdjustViewOffset = (UFunction*) UObject::GObjObjects()->Data[ 38897 ];
+		pFnAdjustViewOffset = (UFunction*) UObject::GObjObjects()->Data[ 38904 ];
 
 	UGameThirdPersonCameraMode_eventAdjustViewOffset_Parms AdjustViewOffset_Parms;
+	AdjustViewOffset_Parms.P = P;
+	memcpy ( &AdjustViewOffset_Parms.Offset, &Offset, 0xC );
 
-	this->ProcessEvent ( pFnAdjustViewOffset, &AdjustViewOffset_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAdjustViewOffset, &AdjustViewOffset_Parms, NULL );
+
+	return AdjustViewOffset_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameThirdPersonCameraMode.OnBecomeInActive
 // [0x00020000] 
 // Parameters infos:
+// class APawn*                   TargetPawn                     ( CPF_Parm )
+// class UGameThirdPersonCameraMode* NewMode                        ( CPF_Parm )
 
-void UGameThirdPersonCameraMode::OnBecomeInActive ( )
+void UGameThirdPersonCameraMode::OnBecomeInActive ( class APawn* TargetPawn, class UGameThirdPersonCameraMode* NewMode )
 {
 	static UFunction* pFnOnBecomeInActive = NULL;
 
 	if ( ! pFnOnBecomeInActive )
-		pFnOnBecomeInActive = (UFunction*) UObject::GObjObjects()->Data[ 38894 ];
+		pFnOnBecomeInActive = (UFunction*) UObject::GObjObjects()->Data[ 38901 ];
 
 	UGameThirdPersonCameraMode_execOnBecomeInActive_Parms OnBecomeInActive_Parms;
+	OnBecomeInActive_Parms.TargetPawn = TargetPawn;
+	OnBecomeInActive_Parms.NewMode = NewMode;
 
-	this->ProcessEvent ( pFnOnBecomeInActive, &OnBecomeInActive_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnBecomeInActive, &OnBecomeInActive_Parms, NULL );
 };
 
 // Function GameFramework.GameThirdPersonCameraMode.OnBecomeActive
 // [0x00020002] 
 // Parameters infos:
+// class APawn*                   TargetPawn                     ( CPF_Parm )
+// class UGameThirdPersonCameraMode* PrevMode                       ( CPF_Parm )
 
-void UGameThirdPersonCameraMode::OnBecomeActive ( )
+void UGameThirdPersonCameraMode::OnBecomeActive ( class APawn* TargetPawn, class UGameThirdPersonCameraMode* PrevMode )
 {
 	static UFunction* pFnOnBecomeActive = NULL;
 
 	if ( ! pFnOnBecomeActive )
-		pFnOnBecomeActive = (UFunction*) UObject::GObjObjects()->Data[ 38891 ];
+		pFnOnBecomeActive = (UFunction*) UObject::GObjObjects()->Data[ 38898 ];
 
 	UGameThirdPersonCameraMode_execOnBecomeActive_Parms OnBecomeActive_Parms;
+	OnBecomeActive_Parms.TargetPawn = TargetPawn;
+	OnBecomeActive_Parms.PrevMode = PrevMode;
 
-	this->ProcessEvent ( pFnOnBecomeActive, &OnBecomeActive_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnBecomeActive, &OnBecomeActive_Parms, NULL );
 };
 
 // Function GameFramework.GameThirdPersonCameraMode.Init
@@ -6990,69 +8487,87 @@ void UGameThirdPersonCameraMode::Init ( )
 	static UFunction* pFnInit = NULL;
 
 	if ( ! pFnInit )
-		pFnInit = (UFunction*) UObject::GObjObjects()->Data[ 38890 ];
+		pFnInit = (UFunction*) UObject::GObjObjects()->Data[ 38897 ];
 
 	UGameThirdPersonCameraMode_execInit_Parms Init_Parms;
 
-	this->ProcessEvent ( pFnInit, &Init_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInit, &Init_Parms, NULL );
 };
 
 // Function GameFramework.GameSpecialMove.RelativeToWorldOffset
 // [0x00020401] ( FUNC_Final | FUNC_Native )
 // Parameters infos:
+// struct FVector                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// struct FRotator                InRotation                     ( CPF_Parm )
+// struct FVector                 RelativeSpaceOffset            ( CPF_Parm )
 
-void UGameSpecialMove::RelativeToWorldOffset ( )
+struct FVector UGameSpecialMove::RelativeToWorldOffset ( struct FRotator InRotation, struct FVector RelativeSpaceOffset )
 {
 	static UFunction* pFnRelativeToWorldOffset = NULL;
 
 	if ( ! pFnRelativeToWorldOffset )
-		pFnRelativeToWorldOffset = (UFunction*) UObject::GObjObjects()->Data[ 38575 ];
+		pFnRelativeToWorldOffset = (UFunction*) UObject::GObjObjects()->Data[ 38582 ];
 
 	UGameSpecialMove_execRelativeToWorldOffset_Parms RelativeToWorldOffset_Parms;
+	memcpy ( &RelativeToWorldOffset_Parms.InRotation, &InRotation, 0xC );
+	memcpy ( &RelativeToWorldOffset_Parms.RelativeSpaceOffset, &RelativeSpaceOffset, 0xC );
 
 	pFnRelativeToWorldOffset->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnRelativeToWorldOffset, &RelativeToWorldOffset_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRelativeToWorldOffset, &RelativeToWorldOffset_Parms, NULL );
 
 	pFnRelativeToWorldOffset->FunctionFlags |= 0x400;
+
+	return RelativeToWorldOffset_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameSpecialMove.WorldToRelativeOffset
 // [0x00020401] ( FUNC_Final | FUNC_Native )
 // Parameters infos:
+// struct FVector                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// struct FRotator                InRotation                     ( CPF_Parm )
+// struct FVector                 WorldSpaceOffset               ( CPF_Parm )
 
-void UGameSpecialMove::WorldToRelativeOffset ( )
+struct FVector UGameSpecialMove::WorldToRelativeOffset ( struct FRotator InRotation, struct FVector WorldSpaceOffset )
 {
 	static UFunction* pFnWorldToRelativeOffset = NULL;
 
 	if ( ! pFnWorldToRelativeOffset )
-		pFnWorldToRelativeOffset = (UFunction*) UObject::GObjObjects()->Data[ 38571 ];
+		pFnWorldToRelativeOffset = (UFunction*) UObject::GObjObjects()->Data[ 38578 ];
 
 	UGameSpecialMove_execWorldToRelativeOffset_Parms WorldToRelativeOffset_Parms;
+	memcpy ( &WorldToRelativeOffset_Parms.InRotation, &InRotation, 0xC );
+	memcpy ( &WorldToRelativeOffset_Parms.WorldSpaceOffset, &WorldSpaceOffset, 0xC );
 
 	pFnWorldToRelativeOffset->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnWorldToRelativeOffset, &WorldToRelativeOffset_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnWorldToRelativeOffset, &WorldToRelativeOffset_Parms, NULL );
 
 	pFnWorldToRelativeOffset->FunctionFlags |= 0x400;
+
+	return WorldToRelativeOffset_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameSpecialMove.ForcePawnRotation
 // [0x00020401] ( FUNC_Final | FUNC_Native )
 // Parameters infos:
+// class APawn*                   P                              ( CPF_Parm )
+// struct FRotator                NewRotation                    ( CPF_Parm )
 
-void UGameSpecialMove::ForcePawnRotation ( )
+void UGameSpecialMove::ForcePawnRotation ( class APawn* P, struct FRotator NewRotation )
 {
 	static UFunction* pFnForcePawnRotation = NULL;
 
 	if ( ! pFnForcePawnRotation )
-		pFnForcePawnRotation = (UFunction*) UObject::GObjObjects()->Data[ 38568 ];
+		pFnForcePawnRotation = (UFunction*) UObject::GObjObjects()->Data[ 38575 ];
 
 	UGameSpecialMove_execForcePawnRotation_Parms ForcePawnRotation_Parms;
+	ForcePawnRotation_Parms.P = P;
+	memcpy ( &ForcePawnRotation_Parms.NewRotation, &NewRotation, 0xC );
 
 	pFnForcePawnRotation->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnForcePawnRotation, &ForcePawnRotation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnForcePawnRotation, &ForcePawnRotation_Parms, NULL );
 
 	pFnForcePawnRotation->FunctionFlags |= 0x400;
 };
@@ -7060,17 +8575,24 @@ void UGameSpecialMove::ForcePawnRotation ( )
 // Function GameFramework.GameSpecialMove.MessageEvent
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// struct FName                   EventName                      ( CPF_Parm )
+// class UObject*                 Sender                         ( CPF_Parm )
 
-void UGameSpecialMove::MessageEvent ( )
+bool UGameSpecialMove::MessageEvent ( struct FName EventName, class UObject* Sender )
 {
 	static UFunction* pFnMessageEvent = NULL;
 
 	if ( ! pFnMessageEvent )
-		pFnMessageEvent = (UFunction*) UObject::GObjObjects()->Data[ 38564 ];
+		pFnMessageEvent = (UFunction*) UObject::GObjObjects()->Data[ 38571 ];
 
 	UGameSpecialMove_execMessageEvent_Parms MessageEvent_Parms;
+	memcpy ( &MessageEvent_Parms.EventName, &EventName, 0x8 );
+	MessageEvent_Parms.Sender = Sender;
 
-	this->ProcessEvent ( pFnMessageEvent, &MessageEvent_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnMessageEvent, &MessageEvent_Parms, NULL );
+
+	return MessageEvent_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameSpecialMove.ResetFacePreciseRotation
@@ -7082,13 +8604,13 @@ void UGameSpecialMove::ResetFacePreciseRotation ( )
 	static UFunction* pFnResetFacePreciseRotation = NULL;
 
 	if ( ! pFnResetFacePreciseRotation )
-		pFnResetFacePreciseRotation = (UFunction*) UObject::GObjObjects()->Data[ 38563 ];
+		pFnResetFacePreciseRotation = (UFunction*) UObject::GObjObjects()->Data[ 38570 ];
 
 	UGameSpecialMove_execResetFacePreciseRotation_Parms ResetFacePreciseRotation_Parms;
 
 	pFnResetFacePreciseRotation->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnResetFacePreciseRotation, &ResetFacePreciseRotation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnResetFacePreciseRotation, &ResetFacePreciseRotation_Parms, NULL );
 
 	pFnResetFacePreciseRotation->FunctionFlags |= 0x400;
 };
@@ -7102,29 +8624,33 @@ void UGameSpecialMove::eventReachedPrecisePosition ( )
 	static UFunction* pFnReachedPrecisePosition = NULL;
 
 	if ( ! pFnReachedPrecisePosition )
-		pFnReachedPrecisePosition = (UFunction*) UObject::GObjObjects()->Data[ 38562 ];
+		pFnReachedPrecisePosition = (UFunction*) UObject::GObjObjects()->Data[ 38569 ];
 
 	UGameSpecialMove_eventReachedPrecisePosition_Parms ReachedPrecisePosition_Parms;
 
-	this->ProcessEvent ( pFnReachedPrecisePosition, &ReachedPrecisePosition_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnReachedPrecisePosition, &ReachedPrecisePosition_Parms, NULL );
 };
 
 // Function GameFramework.GameSpecialMove.SetFacePreciseRotation
 // [0x00020401] ( FUNC_Final | FUNC_Native )
 // Parameters infos:
+// struct FRotator                RotationToFace                 ( CPF_Parm )
+// float                          InterpolationTime              ( CPF_Parm )
 
-void UGameSpecialMove::SetFacePreciseRotation ( )
+void UGameSpecialMove::SetFacePreciseRotation ( struct FRotator RotationToFace, float InterpolationTime )
 {
 	static UFunction* pFnSetFacePreciseRotation = NULL;
 
 	if ( ! pFnSetFacePreciseRotation )
-		pFnSetFacePreciseRotation = (UFunction*) UObject::GObjObjects()->Data[ 38559 ];
+		pFnSetFacePreciseRotation = (UFunction*) UObject::GObjObjects()->Data[ 38566 ];
 
 	UGameSpecialMove_execSetFacePreciseRotation_Parms SetFacePreciseRotation_Parms;
+	memcpy ( &SetFacePreciseRotation_Parms.RotationToFace, &RotationToFace, 0xC );
+	SetFacePreciseRotation_Parms.InterpolationTime = InterpolationTime;
 
 	pFnSetFacePreciseRotation->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnSetFacePreciseRotation, &SetFacePreciseRotation_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetFacePreciseRotation, &SetFacePreciseRotation_Parms, NULL );
 
 	pFnSetFacePreciseRotation->FunctionFlags |= 0x400;
 };
@@ -7132,19 +8658,23 @@ void UGameSpecialMove::SetFacePreciseRotation ( )
 // Function GameFramework.GameSpecialMove.SetReachPreciseDestination
 // [0x00024401] ( FUNC_Final | FUNC_Native )
 // Parameters infos:
+// struct FVector                 DestinationToReach             ( CPF_Parm )
+// unsigned long                  bCancel                        ( CPF_OptionalParm | CPF_Parm )
 
-void UGameSpecialMove::SetReachPreciseDestination ( )
+void UGameSpecialMove::SetReachPreciseDestination ( struct FVector DestinationToReach, unsigned long bCancel )
 {
 	static UFunction* pFnSetReachPreciseDestination = NULL;
 
 	if ( ! pFnSetReachPreciseDestination )
-		pFnSetReachPreciseDestination = (UFunction*) UObject::GObjObjects()->Data[ 38556 ];
+		pFnSetReachPreciseDestination = (UFunction*) UObject::GObjObjects()->Data[ 38563 ];
 
 	UGameSpecialMove_execSetReachPreciseDestination_Parms SetReachPreciseDestination_Parms;
+	memcpy ( &SetReachPreciseDestination_Parms.DestinationToReach, &DestinationToReach, 0xC );
+	SetReachPreciseDestination_Parms.bCancel = bCancel;
 
 	pFnSetReachPreciseDestination->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnSetReachPreciseDestination, &SetReachPreciseDestination_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetReachPreciseDestination, &SetReachPreciseDestination_Parms, NULL );
 
 	pFnSetReachPreciseDestination->FunctionFlags |= 0x400;
 };
@@ -7152,17 +8682,20 @@ void UGameSpecialMove::SetReachPreciseDestination ( )
 // Function GameFramework.GameSpecialMove.ShouldReplicate
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGameSpecialMove::ShouldReplicate ( )
+bool UGameSpecialMove::ShouldReplicate ( )
 {
 	static UFunction* pFnShouldReplicate = NULL;
 
 	if ( ! pFnShouldReplicate )
-		pFnShouldReplicate = (UFunction*) UObject::GObjObjects()->Data[ 38554 ];
+		pFnShouldReplicate = (UFunction*) UObject::GObjObjects()->Data[ 38561 ];
 
 	UGameSpecialMove_execShouldReplicate_Parms ShouldReplicate_Parms;
 
-	this->ProcessEvent ( pFnShouldReplicate, &ShouldReplicate_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnShouldReplicate, &ShouldReplicate_Parms, NULL );
+
+	return ShouldReplicate_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameSpecialMove.SpecialMoveFlagsUpdated
@@ -7174,187 +8707,230 @@ void UGameSpecialMove::SpecialMoveFlagsUpdated ( )
 	static UFunction* pFnSpecialMoveFlagsUpdated = NULL;
 
 	if ( ! pFnSpecialMoveFlagsUpdated )
-		pFnSpecialMoveFlagsUpdated = (UFunction*) UObject::GObjObjects()->Data[ 38553 ];
+		pFnSpecialMoveFlagsUpdated = (UFunction*) UObject::GObjObjects()->Data[ 38560 ];
 
 	UGameSpecialMove_execSpecialMoveFlagsUpdated_Parms SpecialMoveFlagsUpdated_Parms;
 
-	this->ProcessEvent ( pFnSpecialMoveFlagsUpdated, &SpecialMoveFlagsUpdated_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSpecialMoveFlagsUpdated, &SpecialMoveFlagsUpdated_Parms, NULL );
 };
 
 // Function GameFramework.GameSpecialMove.Tick
 // [0x00020000] 
 // Parameters infos:
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UGameSpecialMove::Tick ( )
+void UGameSpecialMove::Tick ( float DeltaTime )
 {
 	static UFunction* pFnTick = NULL;
 
 	if ( ! pFnTick )
-		pFnTick = (UFunction*) UObject::GObjObjects()->Data[ 38551 ];
+		pFnTick = (UFunction*) UObject::GObjObjects()->Data[ 38558 ];
 
 	UGameSpecialMove_execTick_Parms Tick_Parms;
+	Tick_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnTick, &Tick_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnTick, &Tick_Parms, NULL );
 };
 
 // Function GameFramework.GameSpecialMove.SpecialMoveEnded
 // [0x00020000] 
 // Parameters infos:
+// struct FName                   PrevMove                       ( CPF_Parm )
+// struct FName                   NextMove                       ( CPF_Parm )
 
-void UGameSpecialMove::SpecialMoveEnded ( )
+void UGameSpecialMove::SpecialMoveEnded ( struct FName PrevMove, struct FName NextMove )
 {
 	static UFunction* pFnSpecialMoveEnded = NULL;
 
 	if ( ! pFnSpecialMoveEnded )
-		pFnSpecialMoveEnded = (UFunction*) UObject::GObjObjects()->Data[ 38548 ];
+		pFnSpecialMoveEnded = (UFunction*) UObject::GObjObjects()->Data[ 38555 ];
 
 	UGameSpecialMove_execSpecialMoveEnded_Parms SpecialMoveEnded_Parms;
+	memcpy ( &SpecialMoveEnded_Parms.PrevMove, &PrevMove, 0x8 );
+	memcpy ( &SpecialMoveEnded_Parms.NextMove, &NextMove, 0x8 );
 
-	this->ProcessEvent ( pFnSpecialMoveEnded, &SpecialMoveEnded_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSpecialMoveEnded, &SpecialMoveEnded_Parms, NULL );
 };
 
 // Function GameFramework.GameSpecialMove.SpecialMoveStarted
 // [0x00020000] 
 // Parameters infos:
+// unsigned long                  bForced                        ( CPF_Parm )
+// struct FName                   PrevMove                       ( CPF_Parm )
 
-void UGameSpecialMove::SpecialMoveStarted ( )
+void UGameSpecialMove::SpecialMoveStarted ( unsigned long bForced, struct FName PrevMove )
 {
 	static UFunction* pFnSpecialMoveStarted = NULL;
 
 	if ( ! pFnSpecialMoveStarted )
-		pFnSpecialMoveStarted = (UFunction*) UObject::GObjObjects()->Data[ 38545 ];
+		pFnSpecialMoveStarted = (UFunction*) UObject::GObjObjects()->Data[ 38552 ];
 
 	UGameSpecialMove_execSpecialMoveStarted_Parms SpecialMoveStarted_Parms;
+	SpecialMoveStarted_Parms.bForced = bForced;
+	memcpy ( &SpecialMoveStarted_Parms.PrevMove, &PrevMove, 0x8 );
 
-	this->ProcessEvent ( pFnSpecialMoveStarted, &SpecialMoveStarted_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSpecialMoveStarted, &SpecialMoveStarted_Parms, NULL );
 };
 
 // Function GameFramework.GameSpecialMove.InternalCanDoSpecialMove
 // [0x00080002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGameSpecialMove::InternalCanDoSpecialMove ( )
+bool UGameSpecialMove::InternalCanDoSpecialMove ( )
 {
 	static UFunction* pFnInternalCanDoSpecialMove = NULL;
 
 	if ( ! pFnInternalCanDoSpecialMove )
-		pFnInternalCanDoSpecialMove = (UFunction*) UObject::GObjObjects()->Data[ 38543 ];
+		pFnInternalCanDoSpecialMove = (UFunction*) UObject::GObjObjects()->Data[ 38550 ];
 
 	UGameSpecialMove_execInternalCanDoSpecialMove_Parms InternalCanDoSpecialMove_Parms;
 
-	this->ProcessEvent ( pFnInternalCanDoSpecialMove, &InternalCanDoSpecialMove_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInternalCanDoSpecialMove, &InternalCanDoSpecialMove_Parms, NULL );
+
+	return InternalCanDoSpecialMove_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameSpecialMove.CanDoSpecialMove
 // [0x00024003] ( FUNC_Final )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// unsigned long                  bForceCheck                    ( CPF_OptionalParm | CPF_Parm )
 
-void UGameSpecialMove::CanDoSpecialMove ( )
+bool UGameSpecialMove::CanDoSpecialMove ( unsigned long bForceCheck )
 {
 	static UFunction* pFnCanDoSpecialMove = NULL;
 
 	if ( ! pFnCanDoSpecialMove )
-		pFnCanDoSpecialMove = (UFunction*) UObject::GObjObjects()->Data[ 38540 ];
+		pFnCanDoSpecialMove = (UFunction*) UObject::GObjObjects()->Data[ 38547 ];
 
 	UGameSpecialMove_execCanDoSpecialMove_Parms CanDoSpecialMove_Parms;
+	CanDoSpecialMove_Parms.bForceCheck = bForceCheck;
 
-	this->ProcessEvent ( pFnCanDoSpecialMove, &CanDoSpecialMove_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCanDoSpecialMove, &CanDoSpecialMove_Parms, NULL );
+
+	return CanDoSpecialMove_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameSpecialMove.CanOverrideSpecialMove
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// struct FName                   InMove                         ( CPF_Parm )
 
-void UGameSpecialMove::CanOverrideSpecialMove ( )
+bool UGameSpecialMove::CanOverrideSpecialMove ( struct FName InMove )
 {
 	static UFunction* pFnCanOverrideSpecialMove = NULL;
 
 	if ( ! pFnCanOverrideSpecialMove )
-		pFnCanOverrideSpecialMove = (UFunction*) UObject::GObjObjects()->Data[ 38537 ];
+		pFnCanOverrideSpecialMove = (UFunction*) UObject::GObjObjects()->Data[ 38544 ];
 
 	UGameSpecialMove_execCanOverrideSpecialMove_Parms CanOverrideSpecialMove_Parms;
+	memcpy ( &CanOverrideSpecialMove_Parms.InMove, &InMove, 0x8 );
 
-	this->ProcessEvent ( pFnCanOverrideSpecialMove, &CanOverrideSpecialMove_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCanOverrideSpecialMove, &CanOverrideSpecialMove_Parms, NULL );
+
+	return CanOverrideSpecialMove_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameSpecialMove.CanOverrideMoveWith
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// struct FName                   NewMove                        ( CPF_Parm )
 
-void UGameSpecialMove::CanOverrideMoveWith ( )
+bool UGameSpecialMove::CanOverrideMoveWith ( struct FName NewMove )
 {
 	static UFunction* pFnCanOverrideMoveWith = NULL;
 
 	if ( ! pFnCanOverrideMoveWith )
-		pFnCanOverrideMoveWith = (UFunction*) UObject::GObjObjects()->Data[ 38534 ];
+		pFnCanOverrideMoveWith = (UFunction*) UObject::GObjObjects()->Data[ 38541 ];
 
 	UGameSpecialMove_execCanOverrideMoveWith_Parms CanOverrideMoveWith_Parms;
+	memcpy ( &CanOverrideMoveWith_Parms.NewMove, &NewMove, 0x8 );
 
-	this->ProcessEvent ( pFnCanOverrideMoveWith, &CanOverrideMoveWith_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCanOverrideMoveWith, &CanOverrideMoveWith_Parms, NULL );
+
+	return CanOverrideMoveWith_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameSpecialMove.CanChainMove
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// struct FName                   NextMove                       ( CPF_Parm )
 
-void UGameSpecialMove::CanChainMove ( )
+bool UGameSpecialMove::CanChainMove ( struct FName NextMove )
 {
 	static UFunction* pFnCanChainMove = NULL;
 
 	if ( ! pFnCanChainMove )
-		pFnCanChainMove = (UFunction*) UObject::GObjObjects()->Data[ 38531 ];
+		pFnCanChainMove = (UFunction*) UObject::GObjObjects()->Data[ 38538 ];
 
 	UGameSpecialMove_execCanChainMove_Parms CanChainMove_Parms;
+	memcpy ( &CanChainMove_Parms.NextMove, &NextMove, 0x8 );
 
-	this->ProcessEvent ( pFnCanChainMove, &CanChainMove_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCanChainMove, &CanChainMove_Parms, NULL );
+
+	return CanChainMove_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameSpecialMove.ExtractSpecialMoveFlags
 // [0x00020000] 
 // Parameters infos:
+// int                            Flags                          ( CPF_Parm )
 
-void UGameSpecialMove::ExtractSpecialMoveFlags ( )
+void UGameSpecialMove::ExtractSpecialMoveFlags ( int Flags )
 {
 	static UFunction* pFnExtractSpecialMoveFlags = NULL;
 
 	if ( ! pFnExtractSpecialMoveFlags )
-		pFnExtractSpecialMoveFlags = (UFunction*) UObject::GObjObjects()->Data[ 38529 ];
+		pFnExtractSpecialMoveFlags = (UFunction*) UObject::GObjObjects()->Data[ 38536 ];
 
 	UGameSpecialMove_execExtractSpecialMoveFlags_Parms ExtractSpecialMoveFlags_Parms;
+	ExtractSpecialMoveFlags_Parms.Flags = Flags;
 
-	this->ProcessEvent ( pFnExtractSpecialMoveFlags, &ExtractSpecialMoveFlags_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnExtractSpecialMoveFlags, &ExtractSpecialMoveFlags_Parms, NULL );
 };
 
 // Function GameFramework.GameSpecialMove.InitSpecialMoveFlags
 // [0x00420000] 
 // Parameters infos:
+// int                            out_Flags                      ( CPF_Parm | CPF_OutParm )
 
-void UGameSpecialMove::InitSpecialMoveFlags ( )
+void UGameSpecialMove::InitSpecialMoveFlags ( int* out_Flags )
 {
 	static UFunction* pFnInitSpecialMoveFlags = NULL;
 
 	if ( ! pFnInitSpecialMoveFlags )
-		pFnInitSpecialMoveFlags = (UFunction*) UObject::GObjObjects()->Data[ 38527 ];
+		pFnInitSpecialMoveFlags = (UFunction*) UObject::GObjObjects()->Data[ 38534 ];
 
 	UGameSpecialMove_execInitSpecialMoveFlags_Parms InitSpecialMoveFlags_Parms;
 
-	this->ProcessEvent ( pFnInitSpecialMoveFlags, &InitSpecialMoveFlags_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitSpecialMoveFlags, &InitSpecialMoveFlags_Parms, NULL );
+
+	if ( out_Flags )
+		*out_Flags = InitSpecialMoveFlags_Parms.out_Flags;
 };
 
 // Function GameFramework.GameSpecialMove.InitSpecialMove
 // [0x00020002] 
 // Parameters infos:
+// class AGamePawn*               inPawn                         ( CPF_Parm )
+// struct FName                   InHandle                       ( CPF_Parm )
 
-void UGameSpecialMove::InitSpecialMove ( )
+void UGameSpecialMove::InitSpecialMove ( class AGamePawn* inPawn, struct FName InHandle )
 {
 	static UFunction* pFnInitSpecialMove = NULL;
 
 	if ( ! pFnInitSpecialMove )
-		pFnInitSpecialMove = (UFunction*) UObject::GObjObjects()->Data[ 38524 ];
+		pFnInitSpecialMove = (UFunction*) UObject::GObjObjects()->Data[ 38531 ];
 
 	UGameSpecialMove_execInitSpecialMove_Parms InitSpecialMove_Parms;
+	InitSpecialMove_Parms.inPawn = inPawn;
+	memcpy ( &InitSpecialMove_Parms.InHandle, &InHandle, 0x8 );
 
-	this->ProcessEvent ( pFnInitSpecialMove, &InitSpecialMove_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitSpecialMove, &InitSpecialMove_Parms, NULL );
 };
 
 // Function GameFramework.GameStateObject.Reset
@@ -7366,13 +8942,13 @@ void UGameStateObject::Reset ( )
 	static UFunction* pFnReset = NULL;
 
 	if ( ! pFnReset )
-		pFnReset = (UFunction*) UObject::GObjObjects()->Data[ 38597 ];
+		pFnReset = (UFunction*) UObject::GObjObjects()->Data[ 38604 ];
 
 	UGameStateObject_execReset_Parms Reset_Parms;
 
 	pFnReset->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnReset, &Reset_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnReset, &Reset_Parms, NULL );
 
 	pFnReset->FunctionFlags |= 0x400;
 };
@@ -7386,13 +8962,13 @@ void UGameStateObject::eventPreProcessStream ( )
 	static UFunction* pFnPreProcessStream = NULL;
 
 	if ( ! pFnPreProcessStream )
-		pFnPreProcessStream = (UFunction*) UObject::GObjObjects()->Data[ 38596 ];
+		pFnPreProcessStream = (UFunction*) UObject::GObjObjects()->Data[ 38603 ];
 
 	UGameStateObject_eventPreProcessStream_Parms PreProcessStream_Parms;
 
 	pFnPreProcessStream->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnPreProcessStream, &PreProcessStream_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPreProcessStream, &PreProcessStream_Parms, NULL );
 
 	pFnPreProcessStream->FunctionFlags |= 0x400;
 };
@@ -7400,21 +8976,34 @@ void UGameStateObject::eventPreProcessStream ( )
 // Function GameFramework.GameStatsAggregator.GetAggregateMappingIDs
 // [0x00420400] ( FUNC_Native )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// int                            EventID                        ( CPF_Parm )
+// int                            AggregateID                    ( CPF_Parm | CPF_OutParm )
+// int                            TargetAggregateID              ( CPF_Parm | CPF_OutParm )
 
-void UGameStatsAggregator::GetAggregateMappingIDs ( )
+bool UGameStatsAggregator::GetAggregateMappingIDs ( int EventID, int* AggregateID, int* TargetAggregateID )
 {
 	static UFunction* pFnGetAggregateMappingIDs = NULL;
 
 	if ( ! pFnGetAggregateMappingIDs )
-		pFnGetAggregateMappingIDs = (UFunction*) UObject::GObjObjects()->Data[ 38673 ];
+		pFnGetAggregateMappingIDs = (UFunction*) UObject::GObjObjects()->Data[ 38680 ];
 
 	UGameStatsAggregator_execGetAggregateMappingIDs_Parms GetAggregateMappingIDs_Parms;
+	GetAggregateMappingIDs_Parms.EventID = EventID;
 
 	pFnGetAggregateMappingIDs->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnGetAggregateMappingIDs, &GetAggregateMappingIDs_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetAggregateMappingIDs, &GetAggregateMappingIDs_Parms, NULL );
 
 	pFnGetAggregateMappingIDs->FunctionFlags |= 0x400;
+
+	if ( AggregateID )
+		*AggregateID = GetAggregateMappingIDs_Parms.AggregateID;
+
+	if ( TargetAggregateID )
+		*TargetAggregateID = GetAggregateMappingIDs_Parms.TargetAggregateID;
+
+	return GetAggregateMappingIDs_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameStatsAggregator.Reset
@@ -7426,13 +9015,13 @@ void UGameStatsAggregator::Reset ( )
 	static UFunction* pFnReset = NULL;
 
 	if ( ! pFnReset )
-		pFnReset = (UFunction*) UObject::GObjObjects()->Data[ 38672 ];
+		pFnReset = (UFunction*) UObject::GObjObjects()->Data[ 38679 ];
 
 	UGameStatsAggregator_execReset_Parms Reset_Parms;
 
 	pFnReset->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnReset, &Reset_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnReset, &Reset_Parms, NULL );
 
 	pFnReset->FunctionFlags |= 0x400;
 };
@@ -7446,13 +9035,13 @@ void UGameStatsAggregator::eventPostProcessStream ( )
 	static UFunction* pFnPostProcessStream = NULL;
 
 	if ( ! pFnPostProcessStream )
-		pFnPostProcessStream = (UFunction*) UObject::GObjObjects()->Data[ 38671 ];
+		pFnPostProcessStream = (UFunction*) UObject::GObjObjects()->Data[ 38678 ];
 
 	UGameStatsAggregator_eventPostProcessStream_Parms PostProcessStream_Parms;
 
 	pFnPostProcessStream->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnPostProcessStream, &PostProcessStream_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostProcessStream, &PostProcessStream_Parms, NULL );
 
 	pFnPostProcessStream->FunctionFlags |= 0x400;
 };
@@ -7466,13 +9055,13 @@ void UGameStatsAggregator::eventPreProcessStream ( )
 	static UFunction* pFnPreProcessStream = NULL;
 
 	if ( ! pFnPreProcessStream )
-		pFnPreProcessStream = (UFunction*) UObject::GObjObjects()->Data[ 38670 ];
+		pFnPreProcessStream = (UFunction*) UObject::GObjObjects()->Data[ 38677 ];
 
 	UGameStatsAggregator_eventPreProcessStream_Parms PreProcessStream_Parms;
 
 	pFnPreProcessStream->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnPreProcessStream, &PreProcessStream_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPreProcessStream, &PreProcessStream_Parms, NULL );
 
 	pFnPreProcessStream->FunctionFlags |= 0x400;
 };
@@ -7480,97 +9069,135 @@ void UGameStatsAggregator::eventPreProcessStream ( )
 // Function GameFramework.DebugCameraInput.InputKey
 // [0x00024002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// int                            ControllerId                   ( CPF_Parm )
+// struct FName                   Key                            ( CPF_Parm )
+// unsigned char                  Event                          ( CPF_Parm )
+// float                          AmountDepressed                ( CPF_OptionalParm | CPF_Parm )
+// unsigned long                  bGamepad                       ( CPF_OptionalParm | CPF_Parm )
 
-void UDebugCameraInput::InputKey ( )
+bool UDebugCameraInput::InputKey ( int ControllerId, struct FName Key, unsigned char Event, float AmountDepressed, unsigned long bGamepad )
 {
 	static UFunction* pFnInputKey = NULL;
 
 	if ( ! pFnInputKey )
-		pFnInputKey = (UFunction*) UObject::GObjObjects()->Data[ 36854 ];
+		pFnInputKey = (UFunction*) UObject::GObjObjects()->Data[ 36861 ];
 
 	UDebugCameraInput_execInputKey_Parms InputKey_Parms;
+	InputKey_Parms.ControllerId = ControllerId;
+	memcpy ( &InputKey_Parms.Key, &Key, 0x8 );
+	InputKey_Parms.Event = Event;
+	InputKey_Parms.AmountDepressed = AmountDepressed;
+	InputKey_Parms.bGamepad = bGamepad;
 
-	this->ProcessEvent ( pFnInputKey, &InputKey_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInputKey, &InputKey_Parms, NULL );
+
+	return InputKey_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdSpawnerInterface.GetMaxSpawnDist
 // [0x00020000] 
 // Parameters infos:
+// float                          ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGameCrowdSpawnerInterface::GetMaxSpawnDist ( )
+float UGameCrowdSpawnerInterface::GetMaxSpawnDist ( )
 {
 	static UFunction* pFnGetMaxSpawnDist = NULL;
 
 	if ( ! pFnGetMaxSpawnDist )
-		pFnGetMaxSpawnDist = (UFunction*) UObject::GObjObjects()->Data[ 37742 ];
+		pFnGetMaxSpawnDist = (UFunction*) UObject::GObjObjects()->Data[ 37749 ];
 
 	UGameCrowdSpawnerInterface_execGetMaxSpawnDist_Parms GetMaxSpawnDist_Parms;
 
-	this->ProcessEvent ( pFnGetMaxSpawnDist, &GetMaxSpawnDist_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetMaxSpawnDist, &GetMaxSpawnDist_Parms, NULL );
+
+	return GetMaxSpawnDist_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameCrowdSpawnerInterface.AgentDestroyed
 // [0x00020000] 
 // Parameters infos:
+// class AGameCrowdAgent*         Agent                          ( CPF_Parm )
 
-void UGameCrowdSpawnerInterface::AgentDestroyed ( )
+void UGameCrowdSpawnerInterface::AgentDestroyed ( class AGameCrowdAgent* Agent )
 {
 	static UFunction* pFnAgentDestroyed = NULL;
 
 	if ( ! pFnAgentDestroyed )
-		pFnAgentDestroyed = (UFunction*) UObject::GObjObjects()->Data[ 38204 ];
+		pFnAgentDestroyed = (UFunction*) UObject::GObjObjects()->Data[ 38211 ];
 
 	UGameCrowdSpawnerInterface_execAgentDestroyed_Parms AgentDestroyed_Parms;
+	AgentDestroyed_Parms.Agent = Agent;
 
-	this->ProcessEvent ( pFnAgentDestroyed, &AgentDestroyed_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAgentDestroyed, &AgentDestroyed_Parms, NULL );
 };
 
 // Function GameFramework.GameCrowdSpawnInterface.GetSpawnPosition
 // [0x00420000] 
 // Parameters infos:
+// class USeqAct_GameCrowdSpawner* Spawner                        ( CPF_Parm )
+// struct FVector                 SpawnPos                       ( CPF_Parm | CPF_OutParm )
+// struct FRotator                SpawnRot                       ( CPF_Parm | CPF_OutParm )
 
-void UGameCrowdSpawnInterface::GetSpawnPosition ( )
+void UGameCrowdSpawnInterface::GetSpawnPosition ( class USeqAct_GameCrowdSpawner* Spawner, struct FVector* SpawnPos, struct FRotator* SpawnRot )
 {
 	static UFunction* pFnGetSpawnPosition = NULL;
 
 	if ( ! pFnGetSpawnPosition )
-		pFnGetSpawnPosition = (UFunction*) UObject::GObjObjects()->Data[ 38207 ];
+		pFnGetSpawnPosition = (UFunction*) UObject::GObjObjects()->Data[ 38214 ];
 
 	UGameCrowdSpawnInterface_execGetSpawnPosition_Parms GetSpawnPosition_Parms;
+	GetSpawnPosition_Parms.Spawner = Spawner;
 
-	this->ProcessEvent ( pFnGetSpawnPosition, &GetSpawnPosition_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetSpawnPosition, &GetSpawnPosition_Parms, NULL );
+
+	if ( SpawnPos )
+		memcpy ( SpawnPos, &GetSpawnPosition_Parms.SpawnPos, 0xC );
+
+	if ( SpawnRot )
+		memcpy ( SpawnRot, &GetSpawnPosition_Parms.SpawnRot, 0xC );
 };
 
 // Function GameFramework.GameAICmd_Hover_MoveToGoal.IsEnemyBasedOnInterpActor
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AActor*                  InEnemy                        ( CPF_Parm )
 
-void UGameAICmd_Hover_MoveToGoal::IsEnemyBasedOnInterpActor ( )
+bool UGameAICmd_Hover_MoveToGoal::IsEnemyBasedOnInterpActor ( class AActor* InEnemy )
 {
 	static UFunction* pFnIsEnemyBasedOnInterpActor = NULL;
 
 	if ( ! pFnIsEnemyBasedOnInterpActor )
-		pFnIsEnemyBasedOnInterpActor = (UFunction*) UObject::GObjObjects()->Data[ 37368 ];
+		pFnIsEnemyBasedOnInterpActor = (UFunction*) UObject::GObjObjects()->Data[ 37375 ];
 
 	UGameAICmd_Hover_MoveToGoal_execIsEnemyBasedOnInterpActor_Parms IsEnemyBasedOnInterpActor_Parms;
+	IsEnemyBasedOnInterpActor_Parms.InEnemy = InEnemy;
 
-	this->ProcessEvent ( pFnIsEnemyBasedOnInterpActor, &IsEnemyBasedOnInterpActor_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnIsEnemyBasedOnInterpActor, &IsEnemyBasedOnInterpActor_Parms, NULL );
+
+	return IsEnemyBasedOnInterpActor_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAICmd_Hover_MoveToGoal.HandlePathObstruction
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AActor*                  BlockedBy                      ( CPF_Parm )
 
-void UGameAICmd_Hover_MoveToGoal::HandlePathObstruction ( )
+bool UGameAICmd_Hover_MoveToGoal::HandlePathObstruction ( class AActor* BlockedBy )
 {
 	static UFunction* pFnHandlePathObstruction = NULL;
 
 	if ( ! pFnHandlePathObstruction )
-		pFnHandlePathObstruction = (UFunction*) UObject::GObjObjects()->Data[ 37346 ];
+		pFnHandlePathObstruction = (UFunction*) UObject::GObjObjects()->Data[ 37353 ];
 
 	UGameAICmd_Hover_MoveToGoal_execHandlePathObstruction_Parms HandlePathObstruction_Parms;
+	HandlePathObstruction_Parms.BlockedBy = BlockedBy;
 
-	this->ProcessEvent ( pFnHandlePathObstruction, &HandlePathObstruction_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnHandlePathObstruction, &HandlePathObstruction_Parms, NULL );
+
+	return HandlePathObstruction_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAICmd_Hover_MoveToGoal.Pushed
@@ -7582,91 +9209,117 @@ void UGameAICmd_Hover_MoveToGoal::Pushed ( )
 	static UFunction* pFnPushed = NULL;
 
 	if ( ! pFnPushed )
-		pFnPushed = (UFunction*) UObject::GObjObjects()->Data[ 37345 ];
+		pFnPushed = (UFunction*) UObject::GObjObjects()->Data[ 37352 ];
 
 	UGameAICmd_Hover_MoveToGoal_execPushed_Parms Pushed_Parms;
 
-	this->ProcessEvent ( pFnPushed, &Pushed_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPushed, &Pushed_Parms, NULL );
 };
 
 // Function GameFramework.GameAICmd_Hover_MoveToGoal.MoveToGoal
 // [0x00022002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AGameAIController*       AI                             ( CPF_Parm )
+// class AActor*                  InGoal                         ( CPF_Parm )
+// float                          InGoalDistance                 ( CPF_Parm )
+// float                          InHoverHeight                  ( CPF_Parm )
 
-void UGameAICmd_Hover_MoveToGoal::MoveToGoal ( )
+bool UGameAICmd_Hover_MoveToGoal::MoveToGoal ( class AGameAIController* AI, class AActor* InGoal, float InGoalDistance, float InHoverHeight )
 {
 	static UFunction* pFnMoveToGoal = NULL;
 
 	if ( ! pFnMoveToGoal )
-		pFnMoveToGoal = (UFunction*) UObject::GObjObjects()->Data[ 37338 ];
+		pFnMoveToGoal = (UFunction*) UObject::GObjObjects()->Data[ 37345 ];
 
 	UGameAICmd_Hover_MoveToGoal_execMoveToGoal_Parms MoveToGoal_Parms;
+	MoveToGoal_Parms.AI = AI;
+	MoveToGoal_Parms.InGoal = InGoal;
+	MoveToGoal_Parms.InGoalDistance = InGoalDistance;
+	MoveToGoal_Parms.InHoverHeight = InHoverHeight;
 
-	this->ProcessEvent ( pFnMoveToGoal, &MoveToGoal_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnMoveToGoal, &MoveToGoal_Parms, NULL );
+
+	return MoveToGoal_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAICmd_Hover_MoveToGoal_Mesh.DrawDebug
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// class AHUD*                    H                              ( CPF_Parm )
+// struct FName                   Category                       ( CPF_Parm )
 
-void UGameAICmd_Hover_MoveToGoal_Mesh::eventDrawDebug ( )
+void UGameAICmd_Hover_MoveToGoal_Mesh::eventDrawDebug ( class AHUD* H, struct FName Category )
 {
 	static UFunction* pFnDrawDebug = NULL;
 
 	if ( ! pFnDrawDebug )
-		pFnDrawDebug = (UFunction*) UObject::GObjObjects()->Data[ 37460 ];
+		pFnDrawDebug = (UFunction*) UObject::GObjObjects()->Data[ 37467 ];
 
 	UGameAICmd_Hover_MoveToGoal_Mesh_eventDrawDebug_Parms DrawDebug_Parms;
+	DrawDebug_Parms.H = H;
+	memcpy ( &DrawDebug_Parms.Category, &Category, 0x8 );
 
-	this->ProcessEvent ( pFnDrawDebug, &DrawDebug_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDrawDebug, &DrawDebug_Parms, NULL );
 };
 
 // Function GameFramework.GameAICmd_Hover_MoveToGoal_Mesh.IsEnemyBasedOnInterpActor
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AActor*                  InEnemy                        ( CPF_Parm )
 
-void UGameAICmd_Hover_MoveToGoal_Mesh::IsEnemyBasedOnInterpActor ( )
+bool UGameAICmd_Hover_MoveToGoal_Mesh::IsEnemyBasedOnInterpActor ( class AActor* InEnemy )
 {
 	static UFunction* pFnIsEnemyBasedOnInterpActor = NULL;
 
 	if ( ! pFnIsEnemyBasedOnInterpActor )
-		pFnIsEnemyBasedOnInterpActor = (UFunction*) UObject::GObjObjects()->Data[ 37457 ];
+		pFnIsEnemyBasedOnInterpActor = (UFunction*) UObject::GObjObjects()->Data[ 37464 ];
 
 	UGameAICmd_Hover_MoveToGoal_Mesh_execIsEnemyBasedOnInterpActor_Parms IsEnemyBasedOnInterpActor_Parms;
+	IsEnemyBasedOnInterpActor_Parms.InEnemy = InEnemy;
 
-	this->ProcessEvent ( pFnIsEnemyBasedOnInterpActor, &IsEnemyBasedOnInterpActor_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnIsEnemyBasedOnInterpActor, &IsEnemyBasedOnInterpActor_Parms, NULL );
+
+	return IsEnemyBasedOnInterpActor_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAICmd_Hover_MoveToGoal_Mesh.ShouldUpdateBreadCrumbs
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGameAICmd_Hover_MoveToGoal_Mesh::ShouldUpdateBreadCrumbs ( )
+bool UGameAICmd_Hover_MoveToGoal_Mesh::ShouldUpdateBreadCrumbs ( )
 {
 	static UFunction* pFnShouldUpdateBreadCrumbs = NULL;
 
 	if ( ! pFnShouldUpdateBreadCrumbs )
-		pFnShouldUpdateBreadCrumbs = (UFunction*) UObject::GObjObjects()->Data[ 37429 ];
+		pFnShouldUpdateBreadCrumbs = (UFunction*) UObject::GObjObjects()->Data[ 37436 ];
 
 	UGameAICmd_Hover_MoveToGoal_Mesh_execShouldUpdateBreadCrumbs_Parms ShouldUpdateBreadCrumbs_Parms;
 
-	this->ProcessEvent ( pFnShouldUpdateBreadCrumbs, &ShouldUpdateBreadCrumbs_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnShouldUpdateBreadCrumbs, &ShouldUpdateBreadCrumbs_Parms, NULL );
+
+	return ShouldUpdateBreadCrumbs_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAICmd_Hover_MoveToGoal_Mesh.HasReachedGoal
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGameAICmd_Hover_MoveToGoal_Mesh::HasReachedGoal ( )
+bool UGameAICmd_Hover_MoveToGoal_Mesh::HasReachedGoal ( )
 {
 	static UFunction* pFnHasReachedGoal = NULL;
 
 	if ( ! pFnHasReachedGoal )
-		pFnHasReachedGoal = (UFunction*) UObject::GObjObjects()->Data[ 37427 ];
+		pFnHasReachedGoal = (UFunction*) UObject::GObjObjects()->Data[ 37434 ];
 
 	UGameAICmd_Hover_MoveToGoal_Mesh_execHasReachedGoal_Parms HasReachedGoal_Parms;
 
-	this->ProcessEvent ( pFnHasReachedGoal, &HasReachedGoal_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnHasReachedGoal, &HasReachedGoal_Parms, NULL );
+
+	return HasReachedGoal_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAICmd_Hover_MoveToGoal_Mesh.ReEvaluatePath
@@ -7678,43 +9331,50 @@ void UGameAICmd_Hover_MoveToGoal_Mesh::ReEvaluatePath ( )
 	static UFunction* pFnReEvaluatePath = NULL;
 
 	if ( ! pFnReEvaluatePath )
-		pFnReEvaluatePath = (UFunction*) UObject::GObjObjects()->Data[ 37426 ];
+		pFnReEvaluatePath = (UFunction*) UObject::GObjObjects()->Data[ 37433 ];
 
 	UGameAICmd_Hover_MoveToGoal_Mesh_execReEvaluatePath_Parms ReEvaluatePath_Parms;
 
-	this->ProcessEvent ( pFnReEvaluatePath, &ReEvaluatePath_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnReEvaluatePath, &ReEvaluatePath_Parms, NULL );
 };
 
 // Function GameFramework.GameAICmd_Hover_MoveToGoal_Mesh.HandlePathObstruction
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AActor*                  BlockedBy                      ( CPF_Parm )
 
-void UGameAICmd_Hover_MoveToGoal_Mesh::HandlePathObstruction ( )
+bool UGameAICmd_Hover_MoveToGoal_Mesh::HandlePathObstruction ( class AActor* BlockedBy )
 {
 	static UFunction* pFnHandlePathObstruction = NULL;
 
 	if ( ! pFnHandlePathObstruction )
-		pFnHandlePathObstruction = (UFunction*) UObject::GObjObjects()->Data[ 37412 ];
+		pFnHandlePathObstruction = (UFunction*) UObject::GObjObjects()->Data[ 37419 ];
 
 	UGameAICmd_Hover_MoveToGoal_Mesh_execHandlePathObstruction_Parms HandlePathObstruction_Parms;
+	HandlePathObstruction_Parms.BlockedBy = BlockedBy;
 
-	this->ProcessEvent ( pFnHandlePathObstruction, &HandlePathObstruction_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnHandlePathObstruction, &HandlePathObstruction_Parms, NULL );
+
+	return HandlePathObstruction_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAICmd_Hover_MoveToGoal_Mesh.Tick
 // [0x00020002] 
 // Parameters infos:
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UGameAICmd_Hover_MoveToGoal_Mesh::Tick ( )
+void UGameAICmd_Hover_MoveToGoal_Mesh::Tick ( float DeltaTime )
 {
 	static UFunction* pFnTick = NULL;
 
 	if ( ! pFnTick )
-		pFnTick = (UFunction*) UObject::GObjObjects()->Data[ 37410 ];
+		pFnTick = (UFunction*) UObject::GObjObjects()->Data[ 37417 ];
 
 	UGameAICmd_Hover_MoveToGoal_Mesh_execTick_Parms Tick_Parms;
+	Tick_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnTick, &Tick_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnTick, &Tick_Parms, NULL );
 };
 
 // Function GameFramework.GameAICmd_Hover_MoveToGoal_Mesh.Popped
@@ -7726,11 +9386,11 @@ void UGameAICmd_Hover_MoveToGoal_Mesh::Popped ( )
 	static UFunction* pFnPopped = NULL;
 
 	if ( ! pFnPopped )
-		pFnPopped = (UFunction*) UObject::GObjObjects()->Data[ 37409 ];
+		pFnPopped = (UFunction*) UObject::GObjObjects()->Data[ 37416 ];
 
 	UGameAICmd_Hover_MoveToGoal_Mesh_execPopped_Parms Popped_Parms;
 
-	this->ProcessEvent ( pFnPopped, &Popped_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPopped, &Popped_Parms, NULL );
 };
 
 // Function GameFramework.GameAICmd_Hover_MoveToGoal_Mesh.Pushed
@@ -7742,91 +9402,130 @@ void UGameAICmd_Hover_MoveToGoal_Mesh::Pushed ( )
 	static UFunction* pFnPushed = NULL;
 
 	if ( ! pFnPushed )
-		pFnPushed = (UFunction*) UObject::GObjObjects()->Data[ 37408 ];
+		pFnPushed = (UFunction*) UObject::GObjObjects()->Data[ 37415 ];
 
 	UGameAICmd_Hover_MoveToGoal_Mesh_execPushed_Parms Pushed_Parms;
 
-	this->ProcessEvent ( pFnPushed, &Pushed_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPushed, &Pushed_Parms, NULL );
 };
 
 // Function GameFramework.GameAICmd_Hover_MoveToGoal_Mesh.HoverBackToMesh
 // [0x00022002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AGameAIController*       AI                             ( CPF_Parm )
 
-void UGameAICmd_Hover_MoveToGoal_Mesh::HoverBackToMesh ( )
+bool UGameAICmd_Hover_MoveToGoal_Mesh::HoverBackToMesh ( class AGameAIController* AI )
 {
 	static UFunction* pFnHoverBackToMesh = NULL;
 
 	if ( ! pFnHoverBackToMesh )
-		pFnHoverBackToMesh = (UFunction*) UObject::GObjObjects()->Data[ 37404 ];
+		pFnHoverBackToMesh = (UFunction*) UObject::GObjObjects()->Data[ 37411 ];
 
 	UGameAICmd_Hover_MoveToGoal_Mesh_execHoverBackToMesh_Parms HoverBackToMesh_Parms;
+	HoverBackToMesh_Parms.AI = AI;
 
-	this->ProcessEvent ( pFnHoverBackToMesh, &HoverBackToMesh_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnHoverBackToMesh, &HoverBackToMesh_Parms, NULL );
+
+	return HoverBackToMesh_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAICmd_Hover_MoveToGoal_Mesh.HoverToPoint
 // [0x00022002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AGameAIController*       AI                             ( CPF_Parm )
+// struct FVector                 InPoint                        ( CPF_Parm )
+// float                          InGoalDistance                 ( CPF_Parm )
+// float                          InHoverHeight                  ( CPF_Parm )
 
-void UGameAICmd_Hover_MoveToGoal_Mesh::HoverToPoint ( )
+bool UGameAICmd_Hover_MoveToGoal_Mesh::HoverToPoint ( class AGameAIController* AI, struct FVector InPoint, float InGoalDistance, float InHoverHeight )
 {
 	static UFunction* pFnHoverToPoint = NULL;
 
 	if ( ! pFnHoverToPoint )
-		pFnHoverToPoint = (UFunction*) UObject::GObjObjects()->Data[ 37397 ];
+		pFnHoverToPoint = (UFunction*) UObject::GObjObjects()->Data[ 37404 ];
 
 	UGameAICmd_Hover_MoveToGoal_Mesh_execHoverToPoint_Parms HoverToPoint_Parms;
+	HoverToPoint_Parms.AI = AI;
+	memcpy ( &HoverToPoint_Parms.InPoint, &InPoint, 0xC );
+	HoverToPoint_Parms.InGoalDistance = InGoalDistance;
+	HoverToPoint_Parms.InHoverHeight = InHoverHeight;
 
-	this->ProcessEvent ( pFnHoverToPoint, &HoverToPoint_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnHoverToPoint, &HoverToPoint_Parms, NULL );
+
+	return HoverToPoint_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameAICmd_Hover_MoveToGoal_Mesh.HoverToGoal
 // [0x00022002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class AGameAIController*       AI                             ( CPF_Parm )
+// class AActor*                  InGoal                         ( CPF_Parm )
+// float                          InGoalDistance                 ( CPF_Parm )
+// float                          InHoverHeight                  ( CPF_Parm )
 
-void UGameAICmd_Hover_MoveToGoal_Mesh::HoverToGoal ( )
+bool UGameAICmd_Hover_MoveToGoal_Mesh::HoverToGoal ( class AGameAIController* AI, class AActor* InGoal, float InGoalDistance, float InHoverHeight )
 {
 	static UFunction* pFnHoverToGoal = NULL;
 
 	if ( ! pFnHoverToGoal )
-		pFnHoverToGoal = (UFunction*) UObject::GObjObjects()->Data[ 37390 ];
+		pFnHoverToGoal = (UFunction*) UObject::GObjObjects()->Data[ 37397 ];
 
 	UGameAICmd_Hover_MoveToGoal_Mesh_execHoverToGoal_Parms HoverToGoal_Parms;
+	HoverToGoal_Parms.AI = AI;
+	HoverToGoal_Parms.InGoal = InGoal;
+	HoverToGoal_Parms.InGoalDistance = InGoalDistance;
+	HoverToGoal_Parms.InHoverHeight = InHoverHeight;
 
-	this->ProcessEvent ( pFnHoverToGoal, &HoverToGoal_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnHoverToGoal, &HoverToGoal_Parms, NULL );
+
+	return HoverToGoal_Parms.ReturnValue;
 };
 
 // Function GameFramework.GameFixedCamera.OnBecomeActive
 // [0x00020002] 
 // Parameters infos:
+// class UGameCameraBase*         OldCamera                      ( CPF_Parm )
 
-void UGameFixedCamera::OnBecomeActive ( )
+void UGameFixedCamera::OnBecomeActive ( class UGameCameraBase* OldCamera )
 {
 	static UFunction* pFnOnBecomeActive = NULL;
 
 	if ( ! pFnOnBecomeActive )
-		pFnOnBecomeActive = (UFunction*) UObject::GObjObjects()->Data[ 38410 ];
+		pFnOnBecomeActive = (UFunction*) UObject::GObjObjects()->Data[ 38417 ];
 
 	UGameFixedCamera_execOnBecomeActive_Parms OnBecomeActive_Parms;
+	OnBecomeActive_Parms.OldCamera = OldCamera;
 
-	this->ProcessEvent ( pFnOnBecomeActive, &OnBecomeActive_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnBecomeActive, &OnBecomeActive_Parms, NULL );
 };
 
 // Function GameFramework.GameFixedCamera.UpdateCamera
 // [0x00420102] 
 // Parameters infos:
+// class APawn*                   P                              ( CPF_Parm )
+// class AGamePlayerCamera*       CameraActor                    ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
+// struct FTViewTarget            OutVT                          ( CPF_Parm | CPF_OutParm )
 
-void UGameFixedCamera::UpdateCamera ( )
+void UGameFixedCamera::UpdateCamera ( class APawn* P, class AGamePlayerCamera* CameraActor, float DeltaTime, struct FTViewTarget* OutVT )
 {
 	static UFunction* pFnUpdateCamera = NULL;
 
 	if ( ! pFnUpdateCamera )
-		pFnUpdateCamera = (UFunction*) UObject::GObjObjects()->Data[ 38404 ];
+		pFnUpdateCamera = (UFunction*) UObject::GObjObjects()->Data[ 38411 ];
 
 	UGameFixedCamera_execUpdateCamera_Parms UpdateCamera_Parms;
+	UpdateCamera_Parms.P = P;
+	UpdateCamera_Parms.CameraActor = CameraActor;
+	UpdateCamera_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnUpdateCamera, &UpdateCamera_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnUpdateCamera, &UpdateCamera_Parms, NULL );
+
+	if ( OutVT )
+		memcpy ( OutVT, &UpdateCamera_Parms.OutVT, 0x38 );
 };
 
 // Function GameFramework.GameKActorSpawnableEffect.StartScalingDown
@@ -7838,27 +9537,29 @@ void AGameKActorSpawnableEffect::StartScalingDown ( )
 	static UFunction* pFnStartScalingDown = NULL;
 
 	if ( ! pFnStartScalingDown )
-		pFnStartScalingDown = (UFunction*) UObject::GObjObjects()->Data[ 38417 ];
+		pFnStartScalingDown = (UFunction*) UObject::GObjObjects()->Data[ 38424 ];
 
 	AGameKActorSpawnableEffect_execStartScalingDown_Parms StartScalingDown_Parms;
 
-	this->ProcessEvent ( pFnStartScalingDown, &StartScalingDown_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnStartScalingDown, &StartScalingDown_Parms, NULL );
 };
 
 // Function GameFramework.GameKActorSpawnableEffect.FellOutOfWorld
 // [0x00020902] ( FUNC_Event )
 // Parameters infos:
+// class UClass*                  dmgType                        ( CPF_Parm )
 
-void AGameKActorSpawnableEffect::eventFellOutOfWorld ( )
+void AGameKActorSpawnableEffect::eventFellOutOfWorld ( class UClass* dmgType )
 {
 	static UFunction* pFnFellOutOfWorld = NULL;
 
 	if ( ! pFnFellOutOfWorld )
-		pFnFellOutOfWorld = (UFunction*) UObject::GObjObjects()->Data[ 38415 ];
+		pFnFellOutOfWorld = (UFunction*) UObject::GObjObjects()->Data[ 38422 ];
 
 	AGameKActorSpawnableEffect_eventFellOutOfWorld_Parms FellOutOfWorld_Parms;
+	FellOutOfWorld_Parms.dmgType = dmgType;
 
-	this->ProcessEvent ( pFnFellOutOfWorld, &FellOutOfWorld_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnFellOutOfWorld, &FellOutOfWorld_Parms, NULL );
 };
 
 // Function GameFramework.GameKActorSpawnableEffect.PostBeginPlay
@@ -7870,11 +9571,11 @@ void AGameKActorSpawnableEffect::eventPostBeginPlay ( )
 	static UFunction* pFnPostBeginPlay = NULL;
 
 	if ( ! pFnPostBeginPlay )
-		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 38414 ];
+		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 38421 ];
 
 	AGameKActorSpawnableEffect_eventPostBeginPlay_Parms PostBeginPlay_Parms;
 
-	this->ProcessEvent ( pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
 };
 
 // Function GameFramework.MobileDebugCameraController.SetupDebugZones
@@ -7886,11 +9587,11 @@ void AMobileDebugCameraController::SetupDebugZones ( )
 	static UFunction* pFnSetupDebugZones = NULL;
 
 	if ( ! pFnSetupDebugZones )
-		pFnSetupDebugZones = (UFunction*) UObject::GObjObjects()->Data[ 38963 ];
+		pFnSetupDebugZones = (UFunction*) UObject::GObjObjects()->Data[ 38970 ];
 
 	AMobileDebugCameraController_execSetupDebugZones_Parms SetupDebugZones_Parms;
 
-	this->ProcessEvent ( pFnSetupDebugZones, &SetupDebugZones_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetupDebugZones, &SetupDebugZones_Parms, NULL );
 };
 
 // Function GameFramework.MobileDebugCameraController.InitInputSystem
@@ -7902,27 +9603,29 @@ void AMobileDebugCameraController::eventInitInputSystem ( )
 	static UFunction* pFnInitInputSystem = NULL;
 
 	if ( ! pFnInitInputSystem )
-		pFnInitInputSystem = (UFunction*) UObject::GObjObjects()->Data[ 38962 ];
+		pFnInitInputSystem = (UFunction*) UObject::GObjObjects()->Data[ 38969 ];
 
 	AMobileDebugCameraController_eventInitInputSystem_Parms InitInputSystem_Parms;
 
-	this->ProcessEvent ( pFnInitInputSystem, &InitInputSystem_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitInputSystem, &InitInputSystem_Parms, NULL );
 };
 
 // Function GameFramework.MobileDebugCameraController.OnDeactivate
 // [0x00020002] 
 // Parameters infos:
+// class APlayerController*       PC                             ( CPF_Parm )
 
-void AMobileDebugCameraController::OnDeactivate ( )
+void AMobileDebugCameraController::OnDeactivate ( class APlayerController* PC )
 {
 	static UFunction* pFnOnDeactivate = NULL;
 
 	if ( ! pFnOnDeactivate )
-		pFnOnDeactivate = (UFunction*) UObject::GObjObjects()->Data[ 38959 ];
+		pFnOnDeactivate = (UFunction*) UObject::GObjObjects()->Data[ 38966 ];
 
 	AMobileDebugCameraController_execOnDeactivate_Parms OnDeactivate_Parms;
+	OnDeactivate_Parms.PC = PC;
 
-	this->ProcessEvent ( pFnOnDeactivate, &OnDeactivate_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnDeactivate, &OnDeactivate_Parms, NULL );
 };
 
 // Function GameFramework.MobileDebugCameraController.InitDebugInputSystem
@@ -7934,43 +9637,58 @@ void AMobileDebugCameraController::InitDebugInputSystem ( )
 	static UFunction* pFnInitDebugInputSystem = NULL;
 
 	if ( ! pFnInitDebugInputSystem )
-		pFnInitDebugInputSystem = (UFunction*) UObject::GObjObjects()->Data[ 38956 ];
+		pFnInitDebugInputSystem = (UFunction*) UObject::GObjObjects()->Data[ 38963 ];
 
 	AMobileDebugCameraController_execInitDebugInputSystem_Parms InitDebugInputSystem_Parms;
 
-	this->ProcessEvent ( pFnInitDebugInputSystem, &InitDebugInputSystem_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitDebugInputSystem, &InitDebugInputSystem_Parms, NULL );
 };
 
 // Function GameFramework.MobileDebugCameraController.OnActivate
 // [0x00020002] 
 // Parameters infos:
+// class APlayerController*       PC                             ( CPF_Parm )
 
-void AMobileDebugCameraController::OnActivate ( )
+void AMobileDebugCameraController::OnActivate ( class APlayerController* PC )
 {
 	static UFunction* pFnOnActivate = NULL;
 
 	if ( ! pFnOnActivate )
-		pFnOnActivate = (UFunction*) UObject::GObjObjects()->Data[ 38950 ];
+		pFnOnActivate = (UFunction*) UObject::GObjObjects()->Data[ 38957 ];
 
 	AMobileDebugCameraController_execOnActivate_Parms OnActivate_Parms;
+	OnActivate_Parms.PC = PC;
 
-	this->ProcessEvent ( pFnOnActivate, &OnActivate_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnActivate, &OnActivate_Parms, NULL );
 };
 
 // Function GameFramework.MobileDebugCameraInput.InputKey
 // [0x00024002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// int                            ControllerId                   ( CPF_Parm )
+// struct FName                   Key                            ( CPF_Parm )
+// unsigned char                  Event                          ( CPF_Parm )
+// float                          AmountDepressed                ( CPF_OptionalParm | CPF_Parm )
+// unsigned long                  bGamepad                       ( CPF_OptionalParm | CPF_Parm )
 
-void UMobileDebugCameraInput::InputKey ( )
+bool UMobileDebugCameraInput::InputKey ( int ControllerId, struct FName Key, unsigned char Event, float AmountDepressed, unsigned long bGamepad )
 {
 	static UFunction* pFnInputKey = NULL;
 
 	if ( ! pFnInputKey )
-		pFnInputKey = (UFunction*) UObject::GObjObjects()->Data[ 39323 ];
+		pFnInputKey = (UFunction*) UObject::GObjObjects()->Data[ 39330 ];
 
 	UMobileDebugCameraInput_execInputKey_Parms InputKey_Parms;
+	InputKey_Parms.ControllerId = ControllerId;
+	memcpy ( &InputKey_Parms.Key, &Key, 0x8 );
+	InputKey_Parms.Event = Event;
+	InputKey_Parms.AmountDepressed = AmountDepressed;
+	InputKey_Parms.bGamepad = bGamepad;
 
-	this->ProcessEvent ( pFnInputKey, &InputKey_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInputKey, &InputKey_Parms, NULL );
+
+	return InputKey_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileDebugCameraHUD.PostRender
@@ -7982,27 +9700,40 @@ void AMobileDebugCameraHUD::eventPostRender ( )
 	static UFunction* pFnPostRender = NULL;
 
 	if ( ! pFnPostRender )
-		pFnPostRender = (UFunction*) UObject::GObjObjects()->Data[ 39138 ];
+		pFnPostRender = (UFunction*) UObject::GObjObjects()->Data[ 39145 ];
 
 	AMobileDebugCameraHUD_eventPostRender_Parms PostRender_Parms;
 
-	this->ProcessEvent ( pFnPostRender, &PostRender_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostRender, &PostRender_Parms, NULL );
 };
 
 // Function GameFramework.MobileDebugCameraHUD.DisplayMaterials
 // [0x00420002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// float                          X                              ( CPF_Parm )
+// float                          DY                             ( CPF_Parm )
+// class UMeshComponent*          MeshComp                       ( CPF_Parm | CPF_EditInline )
+// float                          Y                              ( CPF_Parm | CPF_OutParm )
 
-void AMobileDebugCameraHUD::DisplayMaterials ( )
+bool AMobileDebugCameraHUD::DisplayMaterials ( float X, float DY, class UMeshComponent* MeshComp, float* Y )
 {
 	static UFunction* pFnDisplayMaterials = NULL;
 
 	if ( ! pFnDisplayMaterials )
-		pFnDisplayMaterials = (UFunction*) UObject::GObjObjects()->Data[ 39129 ];
+		pFnDisplayMaterials = (UFunction*) UObject::GObjObjects()->Data[ 39136 ];
 
 	AMobileDebugCameraHUD_execDisplayMaterials_Parms DisplayMaterials_Parms;
+	DisplayMaterials_Parms.X = X;
+	DisplayMaterials_Parms.DY = DY;
+	DisplayMaterials_Parms.MeshComp = MeshComp;
 
-	this->ProcessEvent ( pFnDisplayMaterials, &DisplayMaterials_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDisplayMaterials, &DisplayMaterials_Parms, NULL );
+
+	if ( Y )
+		*Y = DisplayMaterials_Parms.Y;
+
+	return DisplayMaterials_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileDebugCameraHUD.PostBeginPlay
@@ -8014,11 +9745,11 @@ void AMobileDebugCameraHUD::eventPostBeginPlay ( )
 	static UFunction* pFnPostBeginPlay = NULL;
 
 	if ( ! pFnPostBeginPlay )
-		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 39128 ];
+		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 39135 ];
 
 	AMobileDebugCameraHUD_eventPostBeginPlay_Parms PostBeginPlay_Parms;
 
-	this->ProcessEvent ( pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuBar.UpdateItemViewports
@@ -8030,251 +9761,339 @@ void UMobileMenuBar::UpdateItemViewports ( )
 	static UFunction* pFnUpdateItemViewports = NULL;
 
 	if ( ! pFnUpdateItemViewports )
-		pFnUpdateItemViewports = (UFunction*) UObject::GObjObjects()->Data[ 39549 ];
+		pFnUpdateItemViewports = (UFunction*) UObject::GObjObjects()->Data[ 39556 ];
 
 	UMobileMenuBar_execUpdateItemViewports_Parms UpdateItemViewports_Parms;
 
-	this->ProcessEvent ( pFnUpdateItemViewports, &UpdateItemViewports_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnUpdateItemViewports, &UpdateItemViewports_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuBar.SetFirstItem
 // [0x00020002] 
 // Parameters infos:
+// int                            first                          ( CPF_Parm )
 
-void UMobileMenuBar::SetFirstItem ( )
+void UMobileMenuBar::SetFirstItem ( int first )
 {
 	static UFunction* pFnSetFirstItem = NULL;
 
 	if ( ! pFnSetFirstItem )
-		pFnSetFirstItem = (UFunction*) UObject::GObjObjects()->Data[ 39547 ];
+		pFnSetFirstItem = (UFunction*) UObject::GObjObjects()->Data[ 39554 ];
 
 	UMobileMenuBar_execSetFirstItem_Parms SetFirstItem_Parms;
+	SetFirstItem_Parms.first = first;
 
-	this->ProcessEvent ( pFnSetFirstItem, &SetFirstItem_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetFirstItem, &SetFirstItem_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuBar.RenderItem
 // [0x00020002] 
 // Parameters infos:
+// class UCanvas*                 Canvas                         ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
+// int                            ItemIndex                      ( CPF_Parm )
 
-void UMobileMenuBar::RenderItem ( )
+void UMobileMenuBar::RenderItem ( class UCanvas* Canvas, float DeltaTime, int ItemIndex )
 {
 	static UFunction* pFnRenderItem = NULL;
 
 	if ( ! pFnRenderItem )
-		pFnRenderItem = (UFunction*) UObject::GObjObjects()->Data[ 39543 ];
+		pFnRenderItem = (UFunction*) UObject::GObjObjects()->Data[ 39550 ];
 
 	UMobileMenuBar_execRenderItem_Parms RenderItem_Parms;
+	RenderItem_Parms.Canvas = Canvas;
+	RenderItem_Parms.DeltaTime = DeltaTime;
+	RenderItem_Parms.ItemIndex = ItemIndex;
 
-	this->ProcessEvent ( pFnRenderItem, &RenderItem_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRenderItem, &RenderItem_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuBar.RenderObject
 // [0x00020002] 
 // Parameters infos:
+// class UCanvas*                 Canvas                         ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobileMenuBar::RenderObject ( )
+void UMobileMenuBar::RenderObject ( class UCanvas* Canvas, float DeltaTime )
 {
 	static UFunction* pFnRenderObject = NULL;
 
 	if ( ! pFnRenderObject )
-		pFnRenderObject = (UFunction*) UObject::GObjObjects()->Data[ 39537 ];
+		pFnRenderObject = (UFunction*) UObject::GObjObjects()->Data[ 39544 ];
 
 	UMobileMenuBar_execRenderObject_Parms RenderObject_Parms;
+	RenderObject_Parms.Canvas = Canvas;
+	RenderObject_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnRenderObject, &RenderObject_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRenderObject, &RenderObject_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuBar.OnTouch
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// unsigned char                  EventType                      ( CPF_Parm )
+// float                          TouchX                         ( CPF_Parm )
+// float                          TouchY                         ( CPF_Parm )
+// class UMobileMenuObject*       ObjectOver                     ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobileMenuBar::eventOnTouch ( )
+bool UMobileMenuBar::eventOnTouch ( unsigned char EventType, float TouchX, float TouchY, class UMobileMenuObject* ObjectOver, float DeltaTime )
 {
 	static UFunction* pFnOnTouch = NULL;
 
 	if ( ! pFnOnTouch )
-		pFnOnTouch = (UFunction*) UObject::GObjObjects()->Data[ 39528 ];
+		pFnOnTouch = (UFunction*) UObject::GObjObjects()->Data[ 39535 ];
 
 	UMobileMenuBar_eventOnTouch_Parms OnTouch_Parms;
+	OnTouch_Parms.EventType = EventType;
+	OnTouch_Parms.TouchX = TouchX;
+	OnTouch_Parms.TouchY = TouchY;
+	OnTouch_Parms.ObjectOver = ObjectOver;
+	OnTouch_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnOnTouch, &OnTouch_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnTouch, &OnTouch_Parms, NULL );
+
+	return OnTouch_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuBar.GetSelected
 // [0x00020002] 
 // Parameters infos:
+// class UMobileMenuBarItem*      ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UMobileMenuBar::GetSelected ( )
+class UMobileMenuBarItem* UMobileMenuBar::GetSelected ( )
 {
 	static UFunction* pFnGetSelected = NULL;
 
 	if ( ! pFnGetSelected )
-		pFnGetSelected = (UFunction*) UObject::GObjObjects()->Data[ 39526 ];
+		pFnGetSelected = (UFunction*) UObject::GObjObjects()->Data[ 39533 ];
 
 	UMobileMenuBar_execGetSelected_Parms GetSelected_Parms;
 
-	this->ProcessEvent ( pFnGetSelected, &GetSelected_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetSelected, &GetSelected_Parms, NULL );
+
+	return GetSelected_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuBar.Num
 // [0x00020002] 
 // Parameters infos:
+// int                            ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UMobileMenuBar::Num ( )
+int UMobileMenuBar::Num ( )
 {
 	static UFunction* pFnNum = NULL;
 
 	if ( ! pFnNum )
-		pFnNum = (UFunction*) UObject::GObjObjects()->Data[ 39524 ];
+		pFnNum = (UFunction*) UObject::GObjObjects()->Data[ 39531 ];
 
 	UMobileMenuBar_execNum_Parms Num_Parms;
 
-	this->ProcessEvent ( pFnNum, &Num_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnNum, &Num_Parms, NULL );
+
+	return Num_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuBar.AddItem
 // [0x00024002] 
 // Parameters infos:
+// class UMobileMenuBarItem*      Item                           ( CPF_Parm )
+// int                            Index                          ( CPF_OptionalParm | CPF_Parm )
 
-void UMobileMenuBar::AddItem ( )
+void UMobileMenuBar::AddItem ( class UMobileMenuBarItem* Item, int Index )
 {
 	static UFunction* pFnAddItem = NULL;
 
 	if ( ! pFnAddItem )
-		pFnAddItem = (UFunction*) UObject::GObjObjects()->Data[ 39521 ];
+		pFnAddItem = (UFunction*) UObject::GObjObjects()->Data[ 39528 ];
 
 	UMobileMenuBar_execAddItem_Parms AddItem_Parms;
+	AddItem_Parms.Item = Item;
+	AddItem_Parms.Index = Index;
 
-	this->ProcessEvent ( pFnAddItem, &AddItem_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAddItem, &AddItem_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuBar.InitMenuObject
 // [0x00020002] 
 // Parameters infos:
+// class UMobilePlayerInput*      PlayerInput                    ( CPF_Parm )
+// class UMobileMenuScene*        Scene                          ( CPF_Parm )
+// int                            ScreenWidth                    ( CPF_Parm )
+// int                            ScreenHeight                   ( CPF_Parm )
+// unsigned long                  bIsFirstInitialization         ( CPF_Parm )
 
-void UMobileMenuBar::InitMenuObject ( )
+void UMobileMenuBar::InitMenuObject ( class UMobilePlayerInput* PlayerInput, class UMobileMenuScene* Scene, int ScreenWidth, int ScreenHeight, unsigned long bIsFirstInitialization )
 {
 	static UFunction* pFnInitMenuObject = NULL;
 
 	if ( ! pFnInitMenuObject )
-		pFnInitMenuObject = (UFunction*) UObject::GObjObjects()->Data[ 39515 ];
+		pFnInitMenuObject = (UFunction*) UObject::GObjObjects()->Data[ 39522 ];
 
 	UMobileMenuBar_execInitMenuObject_Parms InitMenuObject_Parms;
+	InitMenuObject_Parms.PlayerInput = PlayerInput;
+	InitMenuObject_Parms.Scene = Scene;
+	InitMenuObject_Parms.ScreenWidth = ScreenWidth;
+	InitMenuObject_Parms.ScreenHeight = ScreenHeight;
+	InitMenuObject_Parms.bIsFirstInitialization = bIsFirstInitialization;
 
-	this->ProcessEvent ( pFnInitMenuObject, &InitMenuObject_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitMenuObject, &InitMenuObject_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuBarItem.RenderItem
 // [0x00020000] 
 // Parameters infos:
+// class UMobileMenuBar*          Bar                            ( CPF_Parm )
+// class UCanvas*                 Canvas                         ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobileMenuBarItem::RenderItem ( )
+void UMobileMenuBarItem::RenderItem ( class UMobileMenuBar* Bar, class UCanvas* Canvas, float DeltaTime )
 {
 	static UFunction* pFnRenderItem = NULL;
 
 	if ( ! pFnRenderItem )
-		pFnRenderItem = (UFunction*) UObject::GObjObjects()->Data[ 39555 ];
+		pFnRenderItem = (UFunction*) UObject::GObjObjects()->Data[ 39562 ];
 
 	UMobileMenuBarItem_execRenderItem_Parms RenderItem_Parms;
+	RenderItem_Parms.Bar = Bar;
+	RenderItem_Parms.Canvas = Canvas;
+	RenderItem_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnRenderItem, &RenderItem_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRenderItem, &RenderItem_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuButton.RenderCaption
 // [0x00020002] 
 // Parameters infos:
+// class UCanvas*                 Canvas                         ( CPF_Parm )
 
-void UMobileMenuButton::RenderCaption ( )
+void UMobileMenuButton::RenderCaption ( class UCanvas* Canvas )
 {
 	static UFunction* pFnRenderCaption = NULL;
 
 	if ( ! pFnRenderCaption )
-		pFnRenderCaption = (UFunction*) UObject::GObjObjects()->Data[ 39579 ];
+		pFnRenderCaption = (UFunction*) UObject::GObjObjects()->Data[ 39586 ];
 
 	UMobileMenuButton_execRenderCaption_Parms RenderCaption_Parms;
+	RenderCaption_Parms.Canvas = Canvas;
 
-	this->ProcessEvent ( pFnRenderCaption, &RenderCaption_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRenderCaption, &RenderCaption_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuButton.RenderObject
 // [0x00820002] 
 // Parameters infos:
+// class UCanvas*                 Canvas                         ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobileMenuButton::RenderObject ( )
+void UMobileMenuButton::RenderObject ( class UCanvas* Canvas, float DeltaTime )
 {
 	static UFunction* pFnRenderObject = NULL;
 
 	if ( ! pFnRenderObject )
-		pFnRenderObject = (UFunction*) UObject::GObjObjects()->Data[ 39573 ];
+		pFnRenderObject = (UFunction*) UObject::GObjObjects()->Data[ 39580 ];
 
 	UMobileMenuButton_execRenderObject_Parms RenderObject_Parms;
+	RenderObject_Parms.Canvas = Canvas;
+	RenderObject_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnRenderObject, &RenderObject_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRenderObject, &RenderObject_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuButton.InitMenuObject
 // [0x00020002] 
 // Parameters infos:
+// class UMobilePlayerInput*      PlayerInput                    ( CPF_Parm )
+// class UMobileMenuScene*        Scene                          ( CPF_Parm )
+// int                            ScreenWidth                    ( CPF_Parm )
+// int                            ScreenHeight                   ( CPF_Parm )
+// unsigned long                  bIsFirstInitialization         ( CPF_Parm )
 
-void UMobileMenuButton::InitMenuObject ( )
+void UMobileMenuButton::InitMenuObject ( class UMobilePlayerInput* PlayerInput, class UMobileMenuScene* Scene, int ScreenWidth, int ScreenHeight, unsigned long bIsFirstInitialization )
 {
 	static UFunction* pFnInitMenuObject = NULL;
 
 	if ( ! pFnInitMenuObject )
-		pFnInitMenuObject = (UFunction*) UObject::GObjObjects()->Data[ 39566 ];
+		pFnInitMenuObject = (UFunction*) UObject::GObjObjects()->Data[ 39573 ];
 
 	UMobileMenuButton_execInitMenuObject_Parms InitMenuObject_Parms;
+	InitMenuObject_Parms.PlayerInput = PlayerInput;
+	InitMenuObject_Parms.Scene = Scene;
+	InitMenuObject_Parms.ScreenWidth = ScreenWidth;
+	InitMenuObject_Parms.ScreenHeight = ScreenHeight;
+	InitMenuObject_Parms.bIsFirstInitialization = bIsFirstInitialization;
 
-	this->ProcessEvent ( pFnInitMenuObject, &InitMenuObject_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitMenuObject, &InitMenuObject_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuElement.RenderElement
 // [0x00020000] 
 // Parameters infos:
+// class UMobileMenuObject*       Owner                          ( CPF_Parm )
+// class UCanvas*                 Canvas                         ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
+// float                          Opacity                        ( CPF_Parm )
 
-void UMobileMenuElement::RenderElement ( )
+void UMobileMenuElement::RenderElement ( class UMobileMenuObject* Owner, class UCanvas* Canvas, float DeltaTime, float Opacity )
 {
 	static UFunction* pFnRenderElement = NULL;
 
 	if ( ! pFnRenderElement )
-		pFnRenderElement = (UFunction*) UObject::GObjObjects()->Data[ 39596 ];
+		pFnRenderElement = (UFunction*) UObject::GObjObjects()->Data[ 39603 ];
 
 	UMobileMenuElement_execRenderElement_Parms RenderElement_Parms;
+	RenderElement_Parms.Owner = Owner;
+	RenderElement_Parms.Canvas = Canvas;
+	RenderElement_Parms.DeltaTime = DeltaTime;
+	RenderElement_Parms.Opacity = Opacity;
 
-	this->ProcessEvent ( pFnRenderElement, &RenderElement_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRenderElement, &RenderElement_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuElement.OnTouch
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// unsigned char                  EventType                      ( CPF_Parm )
+// float                          TouchX                         ( CPF_Parm )
+// float                          TouchY                         ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobileMenuElement::OnTouch ( )
+bool UMobileMenuElement::OnTouch ( unsigned char EventType, float TouchX, float TouchY, float DeltaTime )
 {
 	static UFunction* pFnOnTouch = NULL;
 
 	if ( ! pFnOnTouch )
-		pFnOnTouch = (UFunction*) UObject::GObjObjects()->Data[ 39590 ];
+		pFnOnTouch = (UFunction*) UObject::GObjObjects()->Data[ 39597 ];
 
 	UMobileMenuElement_execOnTouch_Parms OnTouch_Parms;
+	OnTouch_Parms.EventType = EventType;
+	OnTouch_Parms.TouchX = TouchX;
+	OnTouch_Parms.TouchY = TouchY;
+	OnTouch_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnOnTouch, &OnTouch_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnTouch, &OnTouch_Parms, NULL );
+
+	return OnTouch_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuGame.RestartPlayer
 // [0x00020000] 
 // Parameters infos:
+// class AController*             NewPlayer                      ( CPF_Parm )
 
-void AMobileMenuGame::RestartPlayer ( )
+void AMobileMenuGame::RestartPlayer ( class AController* NewPlayer )
 {
 	static UFunction* pFnRestartPlayer = NULL;
 
 	if ( ! pFnRestartPlayer )
-		pFnRestartPlayer = (UFunction*) UObject::GObjObjects()->Data[ 39608 ];
+		pFnRestartPlayer = (UFunction*) UObject::GObjObjects()->Data[ 39615 ];
 
 	AMobileMenuGame_execRestartPlayer_Parms RestartPlayer_Parms;
+	RestartPlayer_Parms.NewPlayer = NewPlayer;
 
-	this->ProcessEvent ( pFnRestartPlayer, &RestartPlayer_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRestartPlayer, &RestartPlayer_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuGame.StartMatch
@@ -8286,619 +10105,864 @@ void AMobileMenuGame::StartMatch ( )
 	static UFunction* pFnStartMatch = NULL;
 
 	if ( ! pFnStartMatch )
-		pFnStartMatch = (UFunction*) UObject::GObjObjects()->Data[ 39607 ];
+		pFnStartMatch = (UFunction*) UObject::GObjObjects()->Data[ 39614 ];
 
 	AMobileMenuGame_execStartMatch_Parms StartMatch_Parms;
 
-	this->ProcessEvent ( pFnStartMatch, &StartMatch_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnStartMatch, &StartMatch_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuGame.PostLogin
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// class APlayerController*       NewPlayer                      ( CPF_Parm )
 
-void AMobileMenuGame::eventPostLogin ( )
+void AMobileMenuGame::eventPostLogin ( class APlayerController* NewPlayer )
 {
 	static UFunction* pFnPostLogin = NULL;
 
 	if ( ! pFnPostLogin )
-		pFnPostLogin = (UFunction*) UObject::GObjObjects()->Data[ 39604 ];
+		pFnPostLogin = (UFunction*) UObject::GObjObjects()->Data[ 39611 ];
 
 	AMobileMenuGame_eventPostLogin_Parms PostLogin_Parms;
+	PostLogin_Parms.NewPlayer = NewPlayer;
 
-	this->ProcessEvent ( pFnPostLogin, &PostLogin_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostLogin, &PostLogin_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuInventory.RenderDragItem
 // [0x00020002] 
 // Parameters infos:
+// class UCanvas*                 Canvas                         ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobileMenuInventory::RenderDragItem ( )
+void UMobileMenuInventory::RenderDragItem ( class UCanvas* Canvas, float DeltaTime )
 {
 	static UFunction* pFnRenderDragItem = NULL;
 
 	if ( ! pFnRenderDragItem )
-		pFnRenderDragItem = (UFunction*) UObject::GObjObjects()->Data[ 39726 ];
+		pFnRenderDragItem = (UFunction*) UObject::GObjObjects()->Data[ 39733 ];
 
 	UMobileMenuInventory_execRenderDragItem_Parms RenderDragItem_Parms;
+	RenderDragItem_Parms.Canvas = Canvas;
+	RenderDragItem_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnRenderDragItem, &RenderDragItem_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRenderDragItem, &RenderDragItem_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuInventory.RenderObject
 // [0x00020002] 
 // Parameters infos:
+// class UCanvas*                 Canvas                         ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobileMenuInventory::RenderObject ( )
+void UMobileMenuInventory::RenderObject ( class UCanvas* Canvas, float DeltaTime )
 {
 	static UFunction* pFnRenderObject = NULL;
 
 	if ( ! pFnRenderObject )
-		pFnRenderObject = (UFunction*) UObject::GObjObjects()->Data[ 39720 ];
+		pFnRenderObject = (UFunction*) UObject::GObjObjects()->Data[ 39727 ];
 
 	UMobileMenuInventory_execRenderObject_Parms RenderObject_Parms;
+	RenderObject_Parms.Canvas = Canvas;
+	RenderObject_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnRenderObject, &RenderObject_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRenderObject, &RenderObject_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuInventory.GetIndexOfItem
 // [0x00020002] 
 // Parameters infos:
+// int                            ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UMobileMenuElement*      Item                           ( CPF_Parm )
 
-void UMobileMenuInventory::GetIndexOfItem ( )
+int UMobileMenuInventory::GetIndexOfItem ( class UMobileMenuElement* Item )
 {
 	static UFunction* pFnGetIndexOfItem = NULL;
 
 	if ( ! pFnGetIndexOfItem )
-		pFnGetIndexOfItem = (UFunction*) UObject::GObjObjects()->Data[ 39717 ];
+		pFnGetIndexOfItem = (UFunction*) UObject::GObjObjects()->Data[ 39724 ];
 
 	UMobileMenuInventory_execGetIndexOfItem_Parms GetIndexOfItem_Parms;
+	GetIndexOfItem_Parms.Item = Item;
 
-	this->ProcessEvent ( pFnGetIndexOfItem, &GetIndexOfItem_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetIndexOfItem, &GetIndexOfItem_Parms, NULL );
+
+	return GetIndexOfItem_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuInventory.FindSlotIndexAt
 // [0x00020002] 
 // Parameters infos:
+// int                            ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// float                          X                              ( CPF_Parm )
+// float                          Y                              ( CPF_Parm )
 
-void UMobileMenuInventory::FindSlotIndexAt ( )
+int UMobileMenuInventory::FindSlotIndexAt ( float X, float Y )
 {
 	static UFunction* pFnFindSlotIndexAt = NULL;
 
 	if ( ! pFnFindSlotIndexAt )
-		pFnFindSlotIndexAt = (UFunction*) UObject::GObjObjects()->Data[ 39709 ];
+		pFnFindSlotIndexAt = (UFunction*) UObject::GObjObjects()->Data[ 39716 ];
 
 	UMobileMenuInventory_execFindSlotIndexAt_Parms FindSlotIndexAt_Parms;
+	FindSlotIndexAt_Parms.X = X;
+	FindSlotIndexAt_Parms.Y = Y;
 
-	this->ProcessEvent ( pFnFindSlotIndexAt, &FindSlotIndexAt_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnFindSlotIndexAt, &FindSlotIndexAt_Parms, NULL );
+
+	return FindSlotIndexAt_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuInventory.InitDragAt
 // [0x00020002] 
 // Parameters infos:
+// int                            TouchX                         ( CPF_Parm )
+// int                            TouchY                         ( CPF_Parm )
 
-void UMobileMenuInventory::InitDragAt ( )
+void UMobileMenuInventory::InitDragAt ( int TouchX, int TouchY )
 {
 	static UFunction* pFnInitDragAt = NULL;
 
 	if ( ! pFnInitDragAt )
-		pFnInitDragAt = (UFunction*) UObject::GObjObjects()->Data[ 39706 ];
+		pFnInitDragAt = (UFunction*) UObject::GObjObjects()->Data[ 39713 ];
 
 	UMobileMenuInventory_execInitDragAt_Parms InitDragAt_Parms;
+	InitDragAt_Parms.TouchX = TouchX;
+	InitDragAt_Parms.TouchY = TouchY;
 
-	this->ProcessEvent ( pFnInitDragAt, &InitDragAt_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitDragAt, &InitDragAt_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuInventory.UpdateItemInSlot
 // [0x00080002] 
 // Parameters infos:
+// int                            InSlot                         ( CPF_Parm )
 
-void UMobileMenuInventory::UpdateItemInSlot ( )
+void UMobileMenuInventory::UpdateItemInSlot ( int InSlot )
 {
 	static UFunction* pFnUpdateItemInSlot = NULL;
 
 	if ( ! pFnUpdateItemInSlot )
-		pFnUpdateItemInSlot = (UFunction*) UObject::GObjObjects()->Data[ 39702 ];
+		pFnUpdateItemInSlot = (UFunction*) UObject::GObjObjects()->Data[ 39709 ];
 
 	UMobileMenuInventory_execUpdateItemInSlot_Parms UpdateItemInSlot_Parms;
+	UpdateItemInSlot_Parms.InSlot = InSlot;
 
-	this->ProcessEvent ( pFnUpdateItemInSlot, &UpdateItemInSlot_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnUpdateItemInSlot, &UpdateItemInSlot_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuInventory.AddItemToSlot
 // [0x00020002] 
 // Parameters infos:
+// class UMobileMenuElement*      ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UMobileMenuElement*      Element                        ( CPF_Parm )
+// int                            ToSlot                         ( CPF_Parm )
 
-void UMobileMenuInventory::AddItemToSlot ( )
+class UMobileMenuElement* UMobileMenuInventory::AddItemToSlot ( class UMobileMenuElement* Element, int ToSlot )
 {
 	static UFunction* pFnAddItemToSlot = NULL;
 
 	if ( ! pFnAddItemToSlot )
-		pFnAddItemToSlot = (UFunction*) UObject::GObjObjects()->Data[ 39697 ];
+		pFnAddItemToSlot = (UFunction*) UObject::GObjObjects()->Data[ 39704 ];
 
 	UMobileMenuInventory_execAddItemToSlot_Parms AddItemToSlot_Parms;
+	AddItemToSlot_Parms.Element = Element;
+	AddItemToSlot_Parms.ToSlot = ToSlot;
 
-	this->ProcessEvent ( pFnAddItemToSlot, &AddItemToSlot_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAddItemToSlot, &AddItemToSlot_Parms, NULL );
+
+	return AddItemToSlot_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuInventory.SwapItemsInSlots
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// int                            Slot0                          ( CPF_Parm )
+// int                            Slot1                          ( CPF_Parm )
 
-void UMobileMenuInventory::SwapItemsInSlots ( )
+bool UMobileMenuInventory::SwapItemsInSlots ( int Slot0, int Slot1 )
 {
 	static UFunction* pFnSwapItemsInSlots = NULL;
 
 	if ( ! pFnSwapItemsInSlots )
-		pFnSwapItemsInSlots = (UFunction*) UObject::GObjObjects()->Data[ 39691 ];
+		pFnSwapItemsInSlots = (UFunction*) UObject::GObjObjects()->Data[ 39698 ];
 
 	UMobileMenuInventory_execSwapItemsInSlots_Parms SwapItemsInSlots_Parms;
+	SwapItemsInSlots_Parms.Slot0 = Slot0;
+	SwapItemsInSlots_Parms.Slot1 = Slot1;
 
-	this->ProcessEvent ( pFnSwapItemsInSlots, &SwapItemsInSlots_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSwapItemsInSlots, &SwapItemsInSlots_Parms, NULL );
+
+	return SwapItemsInSlots_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuInventory.OnTouch
 // [0x00820802] ( FUNC_Event )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// unsigned char                  EventType                      ( CPF_Parm )
+// float                          TouchX                         ( CPF_Parm )
+// float                          TouchY                         ( CPF_Parm )
+// class UMobileMenuObject*       ObjectOver                     ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobileMenuInventory::eventOnTouch ( )
+bool UMobileMenuInventory::eventOnTouch ( unsigned char EventType, float TouchX, float TouchY, class UMobileMenuObject* ObjectOver, float DeltaTime )
 {
 	static UFunction* pFnOnTouch = NULL;
 
 	if ( ! pFnOnTouch )
-		pFnOnTouch = (UFunction*) UObject::GObjObjects()->Data[ 39683 ];
+		pFnOnTouch = (UFunction*) UObject::GObjObjects()->Data[ 39690 ];
 
 	UMobileMenuInventory_eventOnTouch_Parms OnTouch_Parms;
+	OnTouch_Parms.EventType = EventType;
+	OnTouch_Parms.TouchX = TouchX;
+	OnTouch_Parms.TouchY = TouchY;
+	OnTouch_Parms.ObjectOver = ObjectOver;
+	OnTouch_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnOnTouch, &OnTouch_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnTouch, &OnTouch_Parms, NULL );
+
+	return OnTouch_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuInventory.CanPutItemInSlot
 // [0x00024002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UMobileMenuElement*      Item                           ( CPF_Parm )
+// class UMobileMenuElement*      ToSlot                         ( CPF_Parm )
+// int                            ToIdx                          ( CPF_Parm )
+// int                            FromIdx                        ( CPF_OptionalParm | CPF_Parm )
 
-void UMobileMenuInventory::CanPutItemInSlot ( )
+bool UMobileMenuInventory::CanPutItemInSlot ( class UMobileMenuElement* Item, class UMobileMenuElement* ToSlot, int ToIdx, int FromIdx )
 {
 	static UFunction* pFnCanPutItemInSlot = NULL;
 
 	if ( ! pFnCanPutItemInSlot )
-		pFnCanPutItemInSlot = (UFunction*) UObject::GObjObjects()->Data[ 39677 ];
+		pFnCanPutItemInSlot = (UFunction*) UObject::GObjObjects()->Data[ 39684 ];
 
 	UMobileMenuInventory_execCanPutItemInSlot_Parms CanPutItemInSlot_Parms;
+	CanPutItemInSlot_Parms.Item = Item;
+	CanPutItemInSlot_Parms.ToSlot = ToSlot;
+	CanPutItemInSlot_Parms.ToIdx = ToIdx;
+	CanPutItemInSlot_Parms.FromIdx = FromIdx;
 
-	this->ProcessEvent ( pFnCanPutItemInSlot, &CanPutItemInSlot_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCanPutItemInSlot, &CanPutItemInSlot_Parms, NULL );
+
+	return CanPutItemInSlot_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuInventory.ScaleSlot
 // [0x00040003] ( FUNC_Final )
 // Parameters infos:
+// class UMobileMenuElement*      Slot                           ( CPF_Parm )
 
-void UMobileMenuInventory::ScaleSlot ( )
+void UMobileMenuInventory::ScaleSlot ( class UMobileMenuElement* Slot )
 {
 	static UFunction* pFnScaleSlot = NULL;
 
 	if ( ! pFnScaleSlot )
-		pFnScaleSlot = (UFunction*) UObject::GObjObjects()->Data[ 39672 ];
+		pFnScaleSlot = (UFunction*) UObject::GObjObjects()->Data[ 39679 ];
 
 	UMobileMenuInventory_execScaleSlot_Parms ScaleSlot_Parms;
+	ScaleSlot_Parms.Slot = Slot;
 
-	this->ProcessEvent ( pFnScaleSlot, &ScaleSlot_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnScaleSlot, &ScaleSlot_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuInventory.AddSlot
 // [0x00020002] 
 // Parameters infos:
+// int                            ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UMobileMenuElement*      Slot                           ( CPF_Parm )
 
-void UMobileMenuInventory::AddSlot ( )
+int UMobileMenuInventory::AddSlot ( class UMobileMenuElement* Slot )
 {
 	static UFunction* pFnAddSlot = NULL;
 
 	if ( ! pFnAddSlot )
-		pFnAddSlot = (UFunction*) UObject::GObjObjects()->Data[ 39673 ];
+		pFnAddSlot = (UFunction*) UObject::GObjObjects()->Data[ 39680 ];
 
 	UMobileMenuInventory_execAddSlot_Parms AddSlot_Parms;
+	AddSlot_Parms.Slot = Slot;
 
-	this->ProcessEvent ( pFnAddSlot, &AddSlot_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAddSlot, &AddSlot_Parms, NULL );
+
+	return AddSlot_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuInventory.InitMenuObject
 // [0x00020002] 
 // Parameters infos:
+// class UMobilePlayerInput*      PlayerInput                    ( CPF_Parm )
+// class UMobileMenuScene*        Scene                          ( CPF_Parm )
+// int                            ScreenWidth                    ( CPF_Parm )
+// int                            ScreenHeight                   ( CPF_Parm )
+// unsigned long                  bIsFirstInitialization         ( CPF_Parm )
 
-void UMobileMenuInventory::InitMenuObject ( )
+void UMobileMenuInventory::InitMenuObject ( class UMobilePlayerInput* PlayerInput, class UMobileMenuScene* Scene, int ScreenWidth, int ScreenHeight, unsigned long bIsFirstInitialization )
 {
 	static UFunction* pFnInitMenuObject = NULL;
 
 	if ( ! pFnInitMenuObject )
-		pFnInitMenuObject = (UFunction*) UObject::GObjObjects()->Data[ 39665 ];
+		pFnInitMenuObject = (UFunction*) UObject::GObjObjects()->Data[ 39672 ];
 
 	UMobileMenuInventory_execInitMenuObject_Parms InitMenuObject_Parms;
+	InitMenuObject_Parms.PlayerInput = PlayerInput;
+	InitMenuObject_Parms.Scene = Scene;
+	InitMenuObject_Parms.ScreenWidth = ScreenWidth;
+	InitMenuObject_Parms.ScreenHeight = ScreenHeight;
+	InitMenuObject_Parms.bIsFirstInitialization = bIsFirstInitialization;
 
-	this->ProcessEvent ( pFnInitMenuObject, &InitMenuObject_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitMenuObject, &InitMenuObject_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuInventory.OnUpdateDrag
 // [0x00520000] 
 // Parameters infos:
+// struct FDragElementInfo        Before                         ( CPF_Const | CPF_Parm | CPF_OutParm )
+// struct FDragElementInfo        After                          ( CPF_Const | CPF_Parm | CPF_OutParm )
 
-void UMobileMenuInventory::OnUpdateDrag ( )
+void UMobileMenuInventory::OnUpdateDrag ( struct FDragElementInfo* Before, struct FDragElementInfo* After )
 {
 	static UFunction* pFnOnUpdateDrag = NULL;
 
 	if ( ! pFnOnUpdateDrag )
-		pFnOnUpdateDrag = (UFunction*) UObject::GObjObjects()->Data[ 39645 ];
+		pFnOnUpdateDrag = (UFunction*) UObject::GObjObjects()->Data[ 39652 ];
 
 	UMobileMenuInventory_execOnUpdateDrag_Parms OnUpdateDrag_Parms;
 
-	this->ProcessEvent ( pFnOnUpdateDrag, &OnUpdateDrag_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnUpdateDrag, &OnUpdateDrag_Parms, NULL );
+
+	if ( Before )
+		memcpy ( Before, &OnUpdateDrag_Parms.Before, 0x28 );
+
+	if ( After )
+		memcpy ( After, &OnUpdateDrag_Parms.After, 0x28 );
 };
 
 // Function GameFramework.MobileMenuInventory.DoCanPutItemInSlot
 // [0x00120000] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UMobileMenuInventory*    FromInv                        ( CPF_Parm )
+// class UMobileMenuElement*      Item                           ( CPF_Parm )
+// class UMobileMenuElement*      ToSlot                         ( CPF_Parm )
+// int                            ToIdx                          ( CPF_Parm )
+// int                            FromIdx                        ( CPF_Parm )
 
-void UMobileMenuInventory::DoCanPutItemInSlot ( )
+bool UMobileMenuInventory::DoCanPutItemInSlot ( class UMobileMenuInventory* FromInv, class UMobileMenuElement* Item, class UMobileMenuElement* ToSlot, int ToIdx, int FromIdx )
 {
 	static UFunction* pFnDoCanPutItemInSlot = NULL;
 
 	if ( ! pFnDoCanPutItemInSlot )
-		pFnDoCanPutItemInSlot = (UFunction*) UObject::GObjObjects()->Data[ 39647 ];
+		pFnDoCanPutItemInSlot = (UFunction*) UObject::GObjObjects()->Data[ 39654 ];
 
 	UMobileMenuInventory_execDoCanPutItemInSlot_Parms DoCanPutItemInSlot_Parms;
+	DoCanPutItemInSlot_Parms.FromInv = FromInv;
+	DoCanPutItemInSlot_Parms.Item = Item;
+	DoCanPutItemInSlot_Parms.ToSlot = ToSlot;
+	DoCanPutItemInSlot_Parms.ToIdx = ToIdx;
+	DoCanPutItemInSlot_Parms.FromIdx = FromIdx;
 
-	this->ProcessEvent ( pFnDoCanPutItemInSlot, &DoCanPutItemInSlot_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDoCanPutItemInSlot, &DoCanPutItemInSlot_Parms, NULL );
+
+	return DoCanPutItemInSlot_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuInventory.OnUpdateItemInSlot
 // [0x00120000] 
 // Parameters infos:
+// class UMobileMenuInventory*    FromInv                        ( CPF_Parm )
+// int                            SlotIndex                      ( CPF_Parm )
 
-void UMobileMenuInventory::OnUpdateItemInSlot ( )
+void UMobileMenuInventory::OnUpdateItemInSlot ( class UMobileMenuInventory* FromInv, int SlotIndex )
 {
 	static UFunction* pFnOnUpdateItemInSlot = NULL;
 
 	if ( ! pFnOnUpdateItemInSlot )
-		pFnOnUpdateItemInSlot = (UFunction*) UObject::GObjObjects()->Data[ 39649 ];
+		pFnOnUpdateItemInSlot = (UFunction*) UObject::GObjObjects()->Data[ 39656 ];
 
 	UMobileMenuInventory_execOnUpdateItemInSlot_Parms OnUpdateItemInSlot_Parms;
+	OnUpdateItemInSlot_Parms.FromInv = FromInv;
+	OnUpdateItemInSlot_Parms.SlotIndex = SlotIndex;
 
-	this->ProcessEvent ( pFnOnUpdateItemInSlot, &OnUpdateItemInSlot_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnUpdateItemInSlot, &OnUpdateItemInSlot_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuLabel.RenderObject
 // [0x00020002] 
 // Parameters infos:
+// class UCanvas*                 Canvas                         ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobileMenuLabel::RenderObject ( )
+void UMobileMenuLabel::RenderObject ( class UCanvas* Canvas, float DeltaTime )
 {
 	static UFunction* pFnRenderObject = NULL;
 
 	if ( ! pFnRenderObject )
-		pFnRenderObject = (UFunction*) UObject::GObjObjects()->Data[ 39741 ];
+		pFnRenderObject = (UFunction*) UObject::GObjObjects()->Data[ 39748 ];
 
 	UMobileMenuLabel_execRenderObject_Parms RenderObject_Parms;
+	RenderObject_Parms.Canvas = Canvas;
+	RenderObject_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnRenderObject, &RenderObject_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRenderObject, &RenderObject_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuList.ItemScrollSize
 // [0x00020002] 
 // Parameters infos:
+// int                            ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UMobileMenuListItem*     Item                           ( CPF_Parm )
 
-void UMobileMenuList::ItemScrollSize ( )
+int UMobileMenuList::ItemScrollSize ( class UMobileMenuListItem* Item )
 {
 	static UFunction* pFnItemScrollSize = NULL;
 
 	if ( ! pFnItemScrollSize )
-		pFnItemScrollSize = (UFunction*) UObject::GObjObjects()->Data[ 39883 ];
+		pFnItemScrollSize = (UFunction*) UObject::GObjObjects()->Data[ 39890 ];
 
 	UMobileMenuList_execItemScrollSize_Parms ItemScrollSize_Parms;
+	ItemScrollSize_Parms.Item = Item;
 
-	this->ProcessEvent ( pFnItemScrollSize, &ItemScrollSize_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnItemScrollSize, &ItemScrollSize_Parms, NULL );
+
+	return ItemScrollSize_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuList.RenderObject
 // [0x00820002] 
 // Parameters infos:
+// class UCanvas*                 Canvas                         ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobileMenuList::RenderObject ( )
+void UMobileMenuList::RenderObject ( class UCanvas* Canvas, float DeltaTime )
 {
 	static UFunction* pFnRenderObject = NULL;
 
 	if ( ! pFnRenderObject )
-		pFnRenderObject = (UFunction*) UObject::GObjObjects()->Data[ 39868 ];
+		pFnRenderObject = (UFunction*) UObject::GObjObjects()->Data[ 39875 ];
 
 	UMobileMenuList_execRenderObject_Parms RenderObject_Parms;
+	RenderObject_Parms.Canvas = Canvas;
+	RenderObject_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnRenderObject, &RenderObject_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRenderObject, &RenderObject_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuList.UpdateScroll
 // [0x00020002] 
 // Parameters infos:
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobileMenuList::UpdateScroll ( )
+void UMobileMenuList::UpdateScroll ( float DeltaTime )
 {
 	static UFunction* pFnUpdateScroll = NULL;
 
 	if ( ! pFnUpdateScroll )
-		pFnUpdateScroll = (UFunction*) UObject::GObjObjects()->Data[ 39865 ];
+		pFnUpdateScroll = (UFunction*) UObject::GObjObjects()->Data[ 39872 ];
 
 	UMobileMenuList_execUpdateScroll_Parms UpdateScroll_Parms;
+	UpdateScroll_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnUpdateScroll, &UpdateScroll_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnUpdateScroll, &UpdateScroll_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuList.CalculateSelectedItem
 // [0x00420002] 
 // Parameters infos:
+// float                          ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// float                          ScrollAmount                   ( CPF_Parm )
+// unsigned long                  bForceZeroAdjustment           ( CPF_Parm )
+// struct FSelectedMenuItem       Selected                       ( CPF_Parm | CPF_OutParm )
 
-void UMobileMenuList::CalculateSelectedItem ( )
+float UMobileMenuList::CalculateSelectedItem ( float ScrollAmount, unsigned long bForceZeroAdjustment, struct FSelectedMenuItem* Selected )
 {
 	static UFunction* pFnCalculateSelectedItem = NULL;
 
 	if ( ! pFnCalculateSelectedItem )
-		pFnCalculateSelectedItem = (UFunction*) UObject::GObjObjects()->Data[ 39854 ];
+		pFnCalculateSelectedItem = (UFunction*) UObject::GObjObjects()->Data[ 39861 ];
 
 	UMobileMenuList_execCalculateSelectedItem_Parms CalculateSelectedItem_Parms;
+	CalculateSelectedItem_Parms.ScrollAmount = ScrollAmount;
+	CalculateSelectedItem_Parms.bForceZeroAdjustment = bForceZeroAdjustment;
 
-	this->ProcessEvent ( pFnCalculateSelectedItem, &CalculateSelectedItem_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCalculateSelectedItem, &CalculateSelectedItem_Parms, NULL );
+
+	if ( Selected )
+		memcpy ( Selected, &CalculateSelectedItem_Parms.Selected, 0xC );
+
+	return CalculateSelectedItem_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuList.GetItemClickPosition
 // [0x00420002] 
 // Parameters infos:
+// class UMobileMenuListItem*     ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// float                          MouseX                         ( CPF_Parm | CPF_OutParm )
+// float                          MouseY                         ( CPF_Parm | CPF_OutParm )
 
-void UMobileMenuList::GetItemClickPosition ( )
+class UMobileMenuListItem* UMobileMenuList::GetItemClickPosition ( float* MouseX, float* MouseY )
 {
 	static UFunction* pFnGetItemClickPosition = NULL;
 
 	if ( ! pFnGetItemClickPosition )
-		pFnGetItemClickPosition = (UFunction*) UObject::GObjObjects()->Data[ 39846 ];
+		pFnGetItemClickPosition = (UFunction*) UObject::GObjObjects()->Data[ 39853 ];
 
 	UMobileMenuList_execGetItemClickPosition_Parms GetItemClickPosition_Parms;
 
-	this->ProcessEvent ( pFnGetItemClickPosition, &GetItemClickPosition_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetItemClickPosition, &GetItemClickPosition_Parms, NULL );
+
+	if ( MouseX )
+		*MouseX = GetItemClickPosition_Parms.MouseX;
+
+	if ( MouseY )
+		*MouseY = GetItemClickPosition_Parms.MouseY;
+
+	return GetItemClickPosition_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuList.OnTouch
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// unsigned char                  EventType                      ( CPF_Parm )
+// float                          TouchX                         ( CPF_Parm )
+// float                          TouchY                         ( CPF_Parm )
+// class UMobileMenuObject*       ObjectOver                     ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobileMenuList::eventOnTouch ( )
+bool UMobileMenuList::eventOnTouch ( unsigned char EventType, float TouchX, float TouchY, class UMobileMenuObject* ObjectOver, float DeltaTime )
 {
 	static UFunction* pFnOnTouch = NULL;
 
 	if ( ! pFnOnTouch )
-		pFnOnTouch = (UFunction*) UObject::GObjObjects()->Data[ 39830 ];
+		pFnOnTouch = (UFunction*) UObject::GObjObjects()->Data[ 39837 ];
 
 	UMobileMenuList_eventOnTouch_Parms OnTouch_Parms;
+	OnTouch_Parms.EventType = EventType;
+	OnTouch_Parms.TouchX = TouchX;
+	OnTouch_Parms.TouchY = TouchY;
+	OnTouch_Parms.ObjectOver = ObjectOver;
+	OnTouch_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnOnTouch, &OnTouch_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnTouch, &OnTouch_Parms, NULL );
+
+	return OnTouch_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuList.SetSelectedItem
 // [0x00024002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// int                            ItemIndex                      ( CPF_Parm )
+// unsigned long                  bForceAll                      ( CPF_OptionalParm | CPF_Parm )
 
-void UMobileMenuList::SetSelectedItem ( )
+bool UMobileMenuList::SetSelectedItem ( int ItemIndex, unsigned long bForceAll )
 {
 	static UFunction* pFnSetSelectedItem = NULL;
 
 	if ( ! pFnSetSelectedItem )
-		pFnSetSelectedItem = (UFunction*) UObject::GObjObjects()->Data[ 39826 ];
+		pFnSetSelectedItem = (UFunction*) UObject::GObjObjects()->Data[ 39833 ];
 
 	UMobileMenuList_execSetSelectedItem_Parms SetSelectedItem_Parms;
+	SetSelectedItem_Parms.ItemIndex = ItemIndex;
+	SetSelectedItem_Parms.bForceAll = bForceAll;
 
-	this->ProcessEvent ( pFnSetSelectedItem, &SetSelectedItem_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetSelectedItem, &SetSelectedItem_Parms, NULL );
+
+	return SetSelectedItem_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuList.GetNumVisible
 // [0x00020002] 
 // Parameters infos:
+// int                            ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UMobileMenuList::GetNumVisible ( )
+int UMobileMenuList::GetNumVisible ( )
 {
 	static UFunction* pFnGetNumVisible = NULL;
 
 	if ( ! pFnGetNumVisible )
-		pFnGetNumVisible = (UFunction*) UObject::GObjObjects()->Data[ 39822 ];
+		pFnGetNumVisible = (UFunction*) UObject::GObjObjects()->Data[ 39829 ];
 
 	UMobileMenuList_execGetNumVisible_Parms GetNumVisible_Parms;
 
-	this->ProcessEvent ( pFnGetNumVisible, &GetNumVisible_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetNumVisible, &GetNumVisible_Parms, NULL );
+
+	return GetNumVisible_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuList.SetSelectedToVisibleIndex
 // [0x00020002] 
 // Parameters infos:
+// int                            ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// int                            VisibleIndex                   ( CPF_Parm )
 
-void UMobileMenuList::SetSelectedToVisibleIndex ( )
+int UMobileMenuList::SetSelectedToVisibleIndex ( int VisibleIndex )
 {
 	static UFunction* pFnSetSelectedToVisibleIndex = NULL;
 
 	if ( ! pFnSetSelectedToVisibleIndex )
-		pFnSetSelectedToVisibleIndex = (UFunction*) UObject::GObjObjects()->Data[ 39818 ];
+		pFnSetSelectedToVisibleIndex = (UFunction*) UObject::GObjObjects()->Data[ 39825 ];
 
 	UMobileMenuList_execSetSelectedToVisibleIndex_Parms SetSelectedToVisibleIndex_Parms;
+	SetSelectedToVisibleIndex_Parms.VisibleIndex = VisibleIndex;
 
-	this->ProcessEvent ( pFnSetSelectedToVisibleIndex, &SetSelectedToVisibleIndex_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetSelectedToVisibleIndex, &SetSelectedToVisibleIndex_Parms, NULL );
+
+	return SetSelectedToVisibleIndex_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuList.GetVisibleIndexOfSelected
 // [0x00020002] 
 // Parameters infos:
+// int                            ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UMobileMenuList::GetVisibleIndexOfSelected ( )
+int UMobileMenuList::GetVisibleIndexOfSelected ( )
 {
 	static UFunction* pFnGetVisibleIndexOfSelected = NULL;
 
 	if ( ! pFnGetVisibleIndexOfSelected )
-		pFnGetVisibleIndexOfSelected = (UFunction*) UObject::GObjObjects()->Data[ 39813 ];
+		pFnGetVisibleIndexOfSelected = (UFunction*) UObject::GObjObjects()->Data[ 39820 ];
 
 	UMobileMenuList_execGetVisibleIndexOfSelected_Parms GetVisibleIndexOfSelected_Parms;
 
-	this->ProcessEvent ( pFnGetVisibleIndexOfSelected, &GetVisibleIndexOfSelected_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetVisibleIndexOfSelected, &GetVisibleIndexOfSelected_Parms, NULL );
+
+	return GetVisibleIndexOfSelected_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuList.GetAmountSelected
 // [0x00020002] 
 // Parameters infos:
+// float                          ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UMobileMenuListItem*     Item                           ( CPF_Parm )
 
-void UMobileMenuList::GetAmountSelected ( )
+float UMobileMenuList::GetAmountSelected ( class UMobileMenuListItem* Item )
 {
 	static UFunction* pFnGetAmountSelected = NULL;
 
 	if ( ! pFnGetAmountSelected )
-		pFnGetAmountSelected = (UFunction*) UObject::GObjObjects()->Data[ 39806 ];
+		pFnGetAmountSelected = (UFunction*) UObject::GObjObjects()->Data[ 39813 ];
 
 	UMobileMenuList_execGetAmountSelected_Parms GetAmountSelected_Parms;
+	GetAmountSelected_Parms.Item = Item;
 
-	this->ProcessEvent ( pFnGetAmountSelected, &GetAmountSelected_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetAmountSelected, &GetAmountSelected_Parms, NULL );
+
+	return GetAmountSelected_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuList.GetSelected
 // [0x00020002] 
 // Parameters infos:
+// class UMobileMenuListItem*     ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UMobileMenuList::GetSelected ( )
+class UMobileMenuListItem* UMobileMenuList::GetSelected ( )
 {
 	static UFunction* pFnGetSelected = NULL;
 
 	if ( ! pFnGetSelected )
-		pFnGetSelected = (UFunction*) UObject::GObjObjects()->Data[ 39803 ];
+		pFnGetSelected = (UFunction*) UObject::GObjObjects()->Data[ 39810 ];
 
 	UMobileMenuList_execGetSelected_Parms GetSelected_Parms;
 
-	this->ProcessEvent ( pFnGetSelected, &GetSelected_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetSelected, &GetSelected_Parms, NULL );
+
+	return GetSelected_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuList.Num
 // [0x00020002] 
 // Parameters infos:
+// int                            ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UMobileMenuList::Num ( )
+int UMobileMenuList::Num ( )
 {
 	static UFunction* pFnNum = NULL;
 
 	if ( ! pFnNum )
-		pFnNum = (UFunction*) UObject::GObjObjects()->Data[ 39801 ];
+		pFnNum = (UFunction*) UObject::GObjObjects()->Data[ 39808 ];
 
 	UMobileMenuList_execNum_Parms Num_Parms;
 
-	this->ProcessEvent ( pFnNum, &Num_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnNum, &Num_Parms, NULL );
+
+	return Num_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuList.AddItem
 // [0x00024002] 
 // Parameters infos:
+// class UMobileMenuListItem*     Item                           ( CPF_Parm )
+// int                            Index                          ( CPF_OptionalParm | CPF_Parm )
 
-void UMobileMenuList::AddItem ( )
+void UMobileMenuList::AddItem ( class UMobileMenuListItem* Item, int Index )
 {
 	static UFunction* pFnAddItem = NULL;
 
 	if ( ! pFnAddItem )
-		pFnAddItem = (UFunction*) UObject::GObjObjects()->Data[ 39798 ];
+		pFnAddItem = (UFunction*) UObject::GObjObjects()->Data[ 39805 ];
 
 	UMobileMenuList_execAddItem_Parms AddItem_Parms;
+	AddItem_Parms.Item = Item;
+	AddItem_Parms.Index = Index;
 
-	this->ProcessEvent ( pFnAddItem, &AddItem_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnAddItem, &AddItem_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuList.InitMenuObject
 // [0x00020002] 
 // Parameters infos:
+// class UMobilePlayerInput*      PlayerInput                    ( CPF_Parm )
+// class UMobileMenuScene*        Scene                          ( CPF_Parm )
+// int                            ScreenWidth                    ( CPF_Parm )
+// int                            ScreenHeight                   ( CPF_Parm )
+// unsigned long                  bIsFirstInitialization         ( CPF_Parm )
 
-void UMobileMenuList::InitMenuObject ( )
+void UMobileMenuList::InitMenuObject ( class UMobilePlayerInput* PlayerInput, class UMobileMenuScene* Scene, int ScreenWidth, int ScreenHeight, unsigned long bIsFirstInitialization )
 {
 	static UFunction* pFnInitMenuObject = NULL;
 
 	if ( ! pFnInitMenuObject )
-		pFnInitMenuObject = (UFunction*) UObject::GObjObjects()->Data[ 39792 ];
+		pFnInitMenuObject = (UFunction*) UObject::GObjObjects()->Data[ 39799 ];
 
 	UMobileMenuList_execInitMenuObject_Parms InitMenuObject_Parms;
+	InitMenuObject_Parms.PlayerInput = PlayerInput;
+	InitMenuObject_Parms.Scene = Scene;
+	InitMenuObject_Parms.ScreenWidth = ScreenWidth;
+	InitMenuObject_Parms.ScreenHeight = ScreenHeight;
+	InitMenuObject_Parms.bIsFirstInitialization = bIsFirstInitialization;
 
-	this->ProcessEvent ( pFnInitMenuObject, &InitMenuObject_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitMenuObject, &InitMenuObject_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuListItem.RenderItem
 // [0x00020000] 
 // Parameters infos:
+// class UMobileMenuList*         List                           ( CPF_Parm )
+// class UCanvas*                 Canvas                         ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobileMenuListItem::RenderItem ( )
+void UMobileMenuListItem::RenderItem ( class UMobileMenuList* List, class UCanvas* Canvas, float DeltaTime )
 {
 	static UFunction* pFnRenderItem = NULL;
 
 	if ( ! pFnRenderItem )
-		pFnRenderItem = (UFunction*) UObject::GObjObjects()->Data[ 39887 ];
+		pFnRenderItem = (UFunction*) UObject::GObjObjects()->Data[ 39894 ];
 
 	UMobileMenuListItem_execRenderItem_Parms RenderItem_Parms;
+	RenderItem_Parms.List = List;
+	RenderItem_Parms.Canvas = Canvas;
+	RenderItem_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnRenderItem, &RenderItem_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRenderItem, &RenderItem_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuObjectProxy.RenderObject
 // [0x00020002] 
 // Parameters infos:
+// class UCanvas*                 Canvas                         ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobileMenuObjectProxy::RenderObject ( )
+void UMobileMenuObjectProxy::RenderObject ( class UCanvas* Canvas, float DeltaTime )
 {
 	static UFunction* pFnRenderObject = NULL;
 
 	if ( ! pFnRenderObject )
-		pFnRenderObject = (UFunction*) UObject::GObjObjects()->Data[ 39914 ];
+		pFnRenderObject = (UFunction*) UObject::GObjObjects()->Data[ 39921 ];
 
 	UMobileMenuObjectProxy_execRenderObject_Parms RenderObject_Parms;
+	RenderObject_Parms.Canvas = Canvas;
+	RenderObject_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnRenderObject, &RenderObject_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRenderObject, &RenderObject_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuObjectProxy.OnTouch
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// unsigned char                  EventType                      ( CPF_Parm )
+// float                          TouchX                         ( CPF_Parm )
+// float                          TouchY                         ( CPF_Parm )
+// class UMobileMenuObject*       ObjectOver                     ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobileMenuObjectProxy::eventOnTouch ( )
+bool UMobileMenuObjectProxy::eventOnTouch ( unsigned char EventType, float TouchX, float TouchY, class UMobileMenuObject* ObjectOver, float DeltaTime )
 {
 	static UFunction* pFnOnTouch = NULL;
 
 	if ( ! pFnOnTouch )
-		pFnOnTouch = (UFunction*) UObject::GObjObjects()->Data[ 39907 ];
+		pFnOnTouch = (UFunction*) UObject::GObjObjects()->Data[ 39914 ];
 
 	UMobileMenuObjectProxy_eventOnTouch_Parms OnTouch_Parms;
+	OnTouch_Parms.EventType = EventType;
+	OnTouch_Parms.TouchX = TouchX;
+	OnTouch_Parms.TouchY = TouchY;
+	OnTouch_Parms.ObjectOver = ObjectOver;
+	OnTouch_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnOnTouch, &OnTouch_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnTouch, &OnTouch_Parms, NULL );
+
+	return OnTouch_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileMenuObjectProxy.OnRenderObject
 // [0x00120000] 
 // Parameters infos:
+// class UMobileMenuObjectProxy*  Proxy                          ( CPF_Parm )
+// class UCanvas*                 Canvas                         ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobileMenuObjectProxy::OnRenderObject ( )
+void UMobileMenuObjectProxy::OnRenderObject ( class UMobileMenuObjectProxy* Proxy, class UCanvas* Canvas, float DeltaTime )
 {
 	static UFunction* pFnOnRenderObject = NULL;
 
 	if ( ! pFnOnRenderObject )
-		pFnOnRenderObject = (UFunction*) UObject::GObjObjects()->Data[ 39902 ];
+		pFnOnRenderObject = (UFunction*) UObject::GObjObjects()->Data[ 39909 ];
 
 	UMobileMenuObjectProxy_execOnRenderObject_Parms OnRenderObject_Parms;
+	OnRenderObject_Parms.Proxy = Proxy;
+	OnRenderObject_Parms.Canvas = Canvas;
+	OnRenderObject_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnOnRenderObject, &OnRenderObject_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnRenderObject, &OnRenderObject_Parms, NULL );
 };
 
 // Function GameFramework.MobileMenuObjectProxy.OnTouchEvent
 // [0x00120000] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UMobileMenuObjectProxy*  Proxy                          ( CPF_Parm )
+// unsigned char                  EventType                      ( CPF_Parm )
+// float                          TouchX                         ( CPF_Parm )
+// float                          TouchY                         ( CPF_Parm )
+// class UMobileMenuObject*       ObjectOver                     ( CPF_Parm )
+// float                          DeltaTime                      ( CPF_Parm )
 
-void UMobileMenuObjectProxy::OnTouchEvent ( )
+bool UMobileMenuObjectProxy::OnTouchEvent ( class UMobileMenuObjectProxy* Proxy, unsigned char EventType, float TouchX, float TouchY, class UMobileMenuObject* ObjectOver, float DeltaTime )
 {
 	static UFunction* pFnOnTouchEvent = NULL;
 
 	if ( ! pFnOnTouchEvent )
-		pFnOnTouchEvent = (UFunction*) UObject::GObjObjects()->Data[ 39893 ];
+		pFnOnTouchEvent = (UFunction*) UObject::GObjObjects()->Data[ 39900 ];
 
 	UMobileMenuObjectProxy_execOnTouchEvent_Parms OnTouchEvent_Parms;
+	OnTouchEvent_Parms.Proxy = Proxy;
+	OnTouchEvent_Parms.EventType = EventType;
+	OnTouchEvent_Parms.TouchX = TouchX;
+	OnTouchEvent_Parms.TouchY = TouchY;
+	OnTouchEvent_Parms.ObjectOver = ObjectOver;
+	OnTouchEvent_Parms.DeltaTime = DeltaTime;
 
-	this->ProcessEvent ( pFnOnTouchEvent, &OnTouchEvent_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnTouchEvent, &OnTouchEvent_Parms, NULL );
+
+	return OnTouchEvent_Parms.ReturnValue;
 };
 
 // Function GameFramework.MobileTouchInputVolume.HandleDragOver
@@ -8910,11 +10974,11 @@ void AMobileTouchInputVolume::HandleDragOver ( )
 	static UFunction* pFnHandleDragOver = NULL;
 
 	if ( ! pFnHandleDragOver )
-		pFnHandleDragOver = (UFunction*) UObject::GObjObjects()->Data[ 39993 ];
+		pFnHandleDragOver = (UFunction*) UObject::GObjObjects()->Data[ 40000 ];
 
 	AMobileTouchInputVolume_execHandleDragOver_Parms HandleDragOver_Parms;
 
-	this->ProcessEvent ( pFnHandleDragOver, &HandleDragOver_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnHandleDragOver, &HandleDragOver_Parms, NULL );
 };
 
 // Function GameFramework.MobileTouchInputVolume.HandleDoubleClick
@@ -8926,11 +10990,11 @@ void AMobileTouchInputVolume::HandleDoubleClick ( )
 	static UFunction* pFnHandleDoubleClick = NULL;
 
 	if ( ! pFnHandleDoubleClick )
-		pFnHandleDoubleClick = (UFunction*) UObject::GObjObjects()->Data[ 39992 ];
+		pFnHandleDoubleClick = (UFunction*) UObject::GObjObjects()->Data[ 39999 ];
 
 	AMobileTouchInputVolume_execHandleDoubleClick_Parms HandleDoubleClick_Parms;
 
-	this->ProcessEvent ( pFnHandleDoubleClick, &HandleDoubleClick_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnHandleDoubleClick, &HandleDoubleClick_Parms, NULL );
 };
 
 // Function GameFramework.MobileTouchInputVolume.HandleClick
@@ -8942,27 +11006,29 @@ void AMobileTouchInputVolume::HandleClick ( )
 	static UFunction* pFnHandleClick = NULL;
 
 	if ( ! pFnHandleClick )
-		pFnHandleClick = (UFunction*) UObject::GObjObjects()->Data[ 39990 ];
+		pFnHandleClick = (UFunction*) UObject::GObjObjects()->Data[ 39997 ];
 
 	AMobileTouchInputVolume_execHandleClick_Parms HandleClick_Parms;
 
-	this->ProcessEvent ( pFnHandleClick, &HandleClick_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnHandleClick, &HandleClick_Parms, NULL );
 };
 
 // Function GameFramework.MobileTouchInputVolume.OnToggle
 // [0x00020102] 
 // Parameters infos:
+// class USeqAct_Toggle*          inAction                       ( CPF_Parm )
 
-void AMobileTouchInputVolume::OnToggle ( )
+void AMobileTouchInputVolume::OnToggle ( class USeqAct_Toggle* inAction )
 {
 	static UFunction* pFnOnToggle = NULL;
 
 	if ( ! pFnOnToggle )
-		pFnOnToggle = (UFunction*) UObject::GObjObjects()->Data[ 39988 ];
+		pFnOnToggle = (UFunction*) UObject::GObjObjects()->Data[ 39995 ];
 
 	AMobileTouchInputVolume_execOnToggle_Parms OnToggle_Parms;
+	OnToggle_Parms.inAction = inAction;
 
-	this->ProcessEvent ( pFnOnToggle, &OnToggle_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnOnToggle, &OnToggle_Parms, NULL );
 };
 
 // Function GameFramework.TouchableElement3D.HandleDragOver
@@ -8974,11 +11040,11 @@ void UTouchableElement3D::HandleDragOver ( )
 	static UFunction* pFnHandleDragOver = NULL;
 
 	if ( ! pFnHandleDragOver )
-		pFnHandleDragOver = (UFunction*) UObject::GObjObjects()->Data[ 40216 ];
+		pFnHandleDragOver = (UFunction*) UObject::GObjObjects()->Data[ 40223 ];
 
 	UTouchableElement3D_execHandleDragOver_Parms HandleDragOver_Parms;
 
-	this->ProcessEvent ( pFnHandleDragOver, &HandleDragOver_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnHandleDragOver, &HandleDragOver_Parms, NULL );
 };
 
 // Function GameFramework.TouchableElement3D.HandleDoubleClick
@@ -8990,11 +11056,11 @@ void UTouchableElement3D::HandleDoubleClick ( )
 	static UFunction* pFnHandleDoubleClick = NULL;
 
 	if ( ! pFnHandleDoubleClick )
-		pFnHandleDoubleClick = (UFunction*) UObject::GObjObjects()->Data[ 40215 ];
+		pFnHandleDoubleClick = (UFunction*) UObject::GObjObjects()->Data[ 40222 ];
 
 	UTouchableElement3D_execHandleDoubleClick_Parms HandleDoubleClick_Parms;
 
-	this->ProcessEvent ( pFnHandleDoubleClick, &HandleDoubleClick_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnHandleDoubleClick, &HandleDoubleClick_Parms, NULL );
 };
 
 // Function GameFramework.TouchableElement3D.HandleClick
@@ -9006,91 +11072,121 @@ void UTouchableElement3D::HandleClick ( )
 	static UFunction* pFnHandleClick = NULL;
 
 	if ( ! pFnHandleClick )
-		pFnHandleClick = (UFunction*) UObject::GObjObjects()->Data[ 40214 ];
+		pFnHandleClick = (UFunction*) UObject::GObjObjects()->Data[ 40221 ];
 
 	UTouchableElement3D_execHandleClick_Parms HandleClick_Parms;
 
-	this->ProcessEvent ( pFnHandleClick, &HandleClick_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnHandleClick, &HandleClick_Parms, NULL );
 };
 
 // Function GameFramework.PlayerCollectorGame.GetSeamlessTravelActorList
 // [0x00420800] ( FUNC_Event )
 // Parameters infos:
+// unsigned long                  bToEntry                       ( CPF_Parm )
+// TArray< class AActor* >        ActorList                      ( CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void APlayerCollectorGame::eventGetSeamlessTravelActorList ( )
+void APlayerCollectorGame::eventGetSeamlessTravelActorList ( unsigned long bToEntry, TArray< class AActor* >* ActorList )
 {
 	static UFunction* pFnGetSeamlessTravelActorList = NULL;
 
 	if ( ! pFnGetSeamlessTravelActorList )
-		pFnGetSeamlessTravelActorList = (UFunction*) UObject::GObjObjects()->Data[ 40032 ];
+		pFnGetSeamlessTravelActorList = (UFunction*) UObject::GObjObjects()->Data[ 40039 ];
 
 	APlayerCollectorGame_eventGetSeamlessTravelActorList_Parms GetSeamlessTravelActorList_Parms;
+	GetSeamlessTravelActorList_Parms.bToEntry = bToEntry;
 
-	this->ProcessEvent ( pFnGetSeamlessTravelActorList, &GetSeamlessTravelActorList_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetSeamlessTravelActorList, &GetSeamlessTravelActorList_Parms, NULL );
+
+	if ( ActorList )
+		memcpy ( ActorList, &GetSeamlessTravelActorList_Parms.ActorList, 0x10 );
 };
 
 // Function GameFramework.PlayerCollectorGame.Login
 // [0x00420802] ( FUNC_Event )
 // Parameters infos:
+// class APlayerController*       ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// struct FString                 Portal                         ( CPF_Parm | CPF_NeedCtorLink )
+// struct FString                 Options                        ( CPF_Parm | CPF_NeedCtorLink )
+// struct FUniqueNetId            UniqueId                       ( CPF_Const | CPF_Parm )
+// struct FString                 ErrorMessage                   ( CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 
-void APlayerCollectorGame::eventLogin ( )
+class APlayerController* APlayerCollectorGame::eventLogin ( struct FString Portal, struct FString Options, struct FUniqueNetId UniqueId, struct FString* ErrorMessage )
 {
 	static UFunction* pFnLogin = NULL;
 
 	if ( ! pFnLogin )
-		pFnLogin = (UFunction*) UObject::GObjObjects()->Data[ 40025 ];
+		pFnLogin = (UFunction*) UObject::GObjObjects()->Data[ 40032 ];
 
 	APlayerCollectorGame_eventLogin_Parms Login_Parms;
+	memcpy ( &Login_Parms.Portal, &Portal, 0x10 );
+	memcpy ( &Login_Parms.Options, &Options, 0x10 );
+	memcpy ( &Login_Parms.UniqueId, &UniqueId, 0x8 );
 
-	this->ProcessEvent ( pFnLogin, &Login_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnLogin, &Login_Parms, NULL );
+
+	if ( ErrorMessage )
+		memcpy ( ErrorMessage, &Login_Parms.ErrorMessage, 0x10 );
+
+	return Login_Parms.ReturnValue;
 };
 
 // Function GameFramework.SeqEvent_HudRenderImage.Render
 // [0x00020002] 
 // Parameters infos:
+// class UCanvas*                 TargetCanvas                   ( CPF_Parm )
+// class AHUD*                    TargetHud                      ( CPF_Parm )
 
-void USeqEvent_HudRenderImage::Render ( )
+void USeqEvent_HudRenderImage::Render ( class UCanvas* TargetCanvas, class AHUD* TargetHud )
 {
 	static UFunction* pFnRender = NULL;
 
 	if ( ! pFnRender )
-		pFnRender = (UFunction*) UObject::GObjObjects()->Data[ 40130 ];
+		pFnRender = (UFunction*) UObject::GObjObjects()->Data[ 40137 ];
 
 	USeqEvent_HudRenderImage_execRender_Parms Render_Parms;
+	Render_Parms.TargetCanvas = TargetCanvas;
+	Render_Parms.TargetHud = TargetHud;
 
-	this->ProcessEvent ( pFnRender, &Render_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRender, &Render_Parms, NULL );
 };
 
 // Function GameFramework.SeqEvent_HudRenderText.GetObjClassVersion
 // [0x00022802] ( FUNC_Event )
 // Parameters infos:
+// int                            ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void USeqEvent_HudRenderText::eventGetObjClassVersion ( )
+int USeqEvent_HudRenderText::eventGetObjClassVersion ( )
 {
 	static UFunction* pFnGetObjClassVersion = NULL;
 
 	if ( ! pFnGetObjClassVersion )
-		pFnGetObjClassVersion = (UFunction*) UObject::GObjObjects()->Data[ 40158 ];
+		pFnGetObjClassVersion = (UFunction*) UObject::GObjObjects()->Data[ 40165 ];
 
 	USeqEvent_HudRenderText_eventGetObjClassVersion_Parms GetObjClassVersion_Parms;
 
-	this->ProcessEvent ( pFnGetObjClassVersion, &GetObjClassVersion_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetObjClassVersion, &GetObjClassVersion_Parms, NULL );
+
+	return GetObjClassVersion_Parms.ReturnValue;
 };
 
 // Function GameFramework.SeqEvent_HudRenderText.Render
 // [0x00020002] 
 // Parameters infos:
+// class UCanvas*                 TargetCanvas                   ( CPF_Parm )
+// class AHUD*                    TargetHud                      ( CPF_Parm )
 
-void USeqEvent_HudRenderText::Render ( )
+void USeqEvent_HudRenderText::Render ( class UCanvas* TargetCanvas, class AHUD* TargetHud )
 {
 	static UFunction* pFnRender = NULL;
 
 	if ( ! pFnRender )
-		pFnRender = (UFunction*) UObject::GObjObjects()->Data[ 40147 ];
+		pFnRender = (UFunction*) UObject::GObjObjects()->Data[ 40154 ];
 
 	USeqEvent_HudRenderText_execRender_Parms Render_Parms;
+	Render_Parms.TargetCanvas = TargetCanvas;
+	Render_Parms.TargetHud = TargetHud;
 
-	this->ProcessEvent ( pFnRender, &Render_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnRender, &Render_Parms, NULL );
 };
 
 

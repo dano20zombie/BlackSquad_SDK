@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Black Squad (11.01.2019) SDK
+# Black Squad (01.02.2019) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: combatgamecontent_classes.h
@@ -48,7 +48,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 102177 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 102179 ];
 
 		return pClassPointer;
 	};
@@ -70,7 +70,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 102207 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 102209 ];
 
 		return pClassPointer;
 	};
@@ -92,7 +92,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125113 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125422 ];
 
 		return pClassPointer;
 	};
@@ -114,7 +114,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125118 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125427 ];
 
 		return pClassPointer;
 	};
@@ -124,7 +124,7 @@ public:
 UClass* ACombatWeapon_BASR_M107A1_Att::pClassPointer = NULL;
 
 // Class combatgamecontent.CombatWeaponRIS_Scope_M107A1
-// 0x0000 (0x0E94 - 0x0E94)
+// 0x0000 (0x0D54 - 0x0D54)
 class UCombatWeaponRIS_Scope_M107A1 : public UCombatWeaponRISBase_Scope
 {
 public:
@@ -136,7 +136,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125121 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125430 ];
 
 		return pClassPointer;
 	};
@@ -158,7 +158,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125131 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125440 ];
 
 		return pClassPointer;
 	};
@@ -180,7 +180,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125136 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125445 ];
 
 		return pClassPointer;
 	};
@@ -190,7 +190,7 @@ public:
 UClass* ACombatWeapon_DMR_SCARH_Att::pClassPointer = NULL;
 
 // Class combatgamecontent.CombatWeaponRIS_IronSight_SCARH
-// 0x0000 (0x0E48 - 0x0E48)
+// 0x0000 (0x0D08 - 0x0D08)
 class UCombatWeaponRIS_IronSight_SCARH : public UCombatWeaponRISBase_IronSight
 {
 public:
@@ -202,7 +202,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125139 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125448 ];
 
 		return pClassPointer;
 	};
@@ -212,7 +212,7 @@ public:
 UClass* UCombatWeaponRIS_IronSight_SCARH::pClassPointer = NULL;
 
 // Class combatgamecontent.CombatWeaponRIS_LaserPoint
-// 0x0000 (0x0DF4 - 0x0DF4)
+// 0x0000 (0x0CB4 - 0x0CB4)
 class UCombatWeaponRIS_LaserPoint : public UCombatWeaponRISBase_LaserPoint
 {
 public:
@@ -224,7 +224,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125140 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125449 ];
 
 		return pClassPointer;
 	};
@@ -246,7 +246,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125150 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125459 ];
 
 		return pClassPointer;
 	};
@@ -268,7 +268,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125159 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125468 ];
 
 		return pClassPointer;
 	};
@@ -278,7 +278,7 @@ public:
 UClass* ACombatWeapon_FSW_GL_M32_Att::pClassPointer = NULL;
 
 // Class combatgamecontent.CombatWeaponRIS_IronSight_M32
-// 0x0000 (0x0E48 - 0x0E48)
+// 0x0000 (0x0D08 - 0x0D08)
 class UCombatWeaponRIS_IronSight_M32 : public UCombatWeaponRISBase_IronSight
 {
 public:
@@ -290,7 +290,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125162 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125471 ];
 
 		return pClassPointer;
 	};
@@ -312,7 +312,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125171 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125480 ];
 
 		return pClassPointer;
 	};
@@ -334,7 +334,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125176 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125485 ];
 
 		return pClassPointer;
 	};
@@ -344,7 +344,7 @@ public:
 UClass* ACombatWeapon_FSW_RL_AT4_Att::pClassPointer = NULL;
 
 // Class combatgamecontent.CombatWeaponRIS_IronSight_AT4
-// 0x0000 (0x0E48 - 0x0E48)
+// 0x0000 (0x0D08 - 0x0D08)
 class UCombatWeaponRIS_IronSight_AT4 : public UCombatWeaponRISBase_IronSight
 {
 public:
@@ -356,7 +356,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125179 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 125488 ];
 
 		return pClassPointer;
 	};
@@ -378,7 +378,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 127802 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 128126 ];
 
 		return pClassPointer;
 	};
@@ -400,7 +400,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 127804 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 128128 ];
 
 		return pClassPointer;
 	};
@@ -422,7 +422,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 127806 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 128130 ];
 
 		return pClassPointer;
 	};

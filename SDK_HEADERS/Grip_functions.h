@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Black Squad (11.01.2019) SDK
+# Black Squad (01.02.2019) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: Grip_functions.h
@@ -24,41 +24,51 @@
 // Function Grip.GripActionFramework.GetStatus
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UGripAFActionHandle*     Handle                         ( CPF_Parm )
 
-void UGripActionFramework::GetStatus ( )
+unsigned char UGripActionFramework::GetStatus ( class UGripAFActionHandle* Handle )
 {
 	static UFunction* pFnGetStatus = NULL;
 
 	if ( ! pFnGetStatus )
-		pFnGetStatus = (UFunction*) UObject::GObjObjects()->Data[ 40861 ];
+		pFnGetStatus = (UFunction*) UObject::GObjObjects()->Data[ 40868 ];
 
 	UGripActionFramework_execGetStatus_Parms GetStatus_Parms;
+	GetStatus_Parms.Handle = Handle;
 
 	pFnGetStatus->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnGetStatus, &GetStatus_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetStatus, &GetStatus_Parms, NULL );
 
 	pFnGetStatus->FunctionFlags |= 0x400;
+
+	return GetStatus_Parms.ReturnValue;
 };
 
 // Function Grip.GripActionFramework.Execute
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UGripAFActionHandle*     Action                         ( CPF_Parm )
 
-void UGripActionFramework::Execute ( )
+bool UGripActionFramework::Execute ( class UGripAFActionHandle* Action )
 {
 	static UFunction* pFnExecute = NULL;
 
 	if ( ! pFnExecute )
-		pFnExecute = (UFunction*) UObject::GObjObjects()->Data[ 40858 ];
+		pFnExecute = (UFunction*) UObject::GObjObjects()->Data[ 40865 ];
 
 	UGripActionFramework_execExecute_Parms Execute_Parms;
+	Execute_Parms.Action = Action;
 
 	pFnExecute->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnExecute, &Execute_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnExecute, &Execute_Parms, NULL );
 
 	pFnExecute->FunctionFlags |= 0x400;
+
+	return Execute_Parms.ReturnValue;
 };
 
 // Function Grip.GripBlackboard.FlagStatesAsUsed
@@ -70,13 +80,13 @@ void UGripBlackboard::FlagStatesAsUsed ( )
 	static UFunction* pFnFlagStatesAsUsed = NULL;
 
 	if ( ! pFnFlagStatesAsUsed )
-		pFnFlagStatesAsUsed = (UFunction*) UObject::GObjObjects()->Data[ 40869 ];
+		pFnFlagStatesAsUsed = (UFunction*) UObject::GObjObjects()->Data[ 40876 ];
 
 	UGripBlackboard_execFlagStatesAsUsed_Parms FlagStatesAsUsed_Parms;
 
 	pFnFlagStatesAsUsed->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnFlagStatesAsUsed, &FlagStatesAsUsed_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnFlagStatesAsUsed, &FlagStatesAsUsed_Parms, NULL );
 
 	pFnFlagStatesAsUsed->FunctionFlags |= 0x400;
 };
@@ -84,373 +94,449 @@ void UGripBlackboard::FlagStatesAsUsed ( )
 // Function Grip.GripBlackboard.ContainState
 // [0x00020400] ( FUNC_Native )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// struct FString                 StateName                      ( CPF_Parm | CPF_NeedCtorLink )
 
-void UGripBlackboard::ContainState ( )
+bool UGripBlackboard::ContainState ( struct FString StateName )
 {
 	static UFunction* pFnContainState = NULL;
 
 	if ( ! pFnContainState )
-		pFnContainState = (UFunction*) UObject::GObjObjects()->Data[ 40866 ];
+		pFnContainState = (UFunction*) UObject::GObjObjects()->Data[ 40873 ];
 
 	UGripBlackboard_execContainState_Parms ContainState_Parms;
+	memcpy ( &ContainState_Parms.StateName, &StateName, 0x10 );
 
 	pFnContainState->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnContainState, &ContainState_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnContainState, &ContainState_Parms, NULL );
 
 	pFnContainState->FunctionFlags |= 0x400;
+
+	return ContainState_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTNode.GetFamily
 // [0x00020002] 
 // Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGripBTNode::GetFamily ( )
+unsigned char UGripBTNode::GetFamily ( )
 {
 	static UFunction* pFnGetFamily = NULL;
 
 	if ( ! pFnGetFamily )
-		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40894 ];
+		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40901 ];
 
 	UGripBTNode_execGetFamily_Parms GetFamily_Parms;
 
-	this->ProcessEvent ( pFnGetFamily, &GetFamily_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetFamily, &GetFamily_Parms, NULL );
+
+	return GetFamily_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTAnd.GetFamily
 // [0x00020002] 
 // Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGripBTAnd::GetFamily ( )
+unsigned char UGripBTAnd::GetFamily ( )
 {
 	static UFunction* pFnGetFamily = NULL;
 
 	if ( ! pFnGetFamily )
-		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40896 ];
+		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40903 ];
 
 	UGripBTAnd_execGetFamily_Parms GetFamily_Parms;
 
-	this->ProcessEvent ( pFnGetFamily, &GetFamily_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetFamily, &GetFamily_Parms, NULL );
+
+	return GetFamily_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTBooleanCondition.GetFamily
 // [0x00020002] 
 // Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGripBTBooleanCondition::GetFamily ( )
+unsigned char UGripBTBooleanCondition::GetFamily ( )
 {
 	static UFunction* pFnGetFamily = NULL;
 
 	if ( ! pFnGetFamily )
-		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40899 ];
+		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40906 ];
 
 	UGripBTBooleanCondition_execGetFamily_Parms GetFamily_Parms;
 
-	this->ProcessEvent ( pFnGetFamily, &GetFamily_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetFamily, &GetFamily_Parms, NULL );
+
+	return GetFamily_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTComment.GetFamily
 // [0x00020002] 
 // Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGripBTComment::GetFamily ( )
+unsigned char UGripBTComment::GetFamily ( )
 {
 	static UFunction* pFnGetFamily = NULL;
 
 	if ( ! pFnGetFamily )
-		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40912 ];
+		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40919 ];
 
 	UGripBTComment_execGetFamily_Parms GetFamily_Parms;
 
-	this->ProcessEvent ( pFnGetFamily, &GetFamily_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetFamily, &GetFamily_Parms, NULL );
+
+	return GetFamily_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTCooldown.GetFamily
 // [0x00020002] 
 // Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGripBTCooldown::GetFamily ( )
+unsigned char UGripBTCooldown::GetFamily ( )
 {
 	static UFunction* pFnGetFamily = NULL;
 
 	if ( ! pFnGetFamily )
-		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40916 ];
+		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40923 ];
 
 	UGripBTCooldown_execGetFamily_Parms GetFamily_Parms;
 
-	this->ProcessEvent ( pFnGetFamily, &GetFamily_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetFamily, &GetFamily_Parms, NULL );
+
+	return GetFamily_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTDynamicPriority.GetFamily
 // [0x00020002] 
 // Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGripBTDynamicPriority::GetFamily ( )
+unsigned char UGripBTDynamicPriority::GetFamily ( )
+{
+	static UFunction* pFnGetFamily = NULL;
+
+	if ( ! pFnGetFamily )
+		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40940 ];
+
+	UGripBTDynamicPriority_execGetFamily_Parms GetFamily_Parms;
+
+	ProcessEvent ((UObject*)this, pFnGetFamily, &GetFamily_Parms, NULL );
+
+	return GetFamily_Parms.ReturnValue;
+};
+
+// Function Grip.GripBTFloatCondition.GetFamily
+// [0x00020002] 
+// Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+
+unsigned char UGripBTFloatCondition::GetFamily ( )
+{
+	static UFunction* pFnGetFamily = NULL;
+
+	if ( ! pFnGetFamily )
+		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40948 ];
+
+	UGripBTFloatCondition_execGetFamily_Parms GetFamily_Parms;
+
+	ProcessEvent ((UObject*)this, pFnGetFamily, &GetFamily_Parms, NULL );
+
+	return GetFamily_Parms.ReturnValue;
+};
+
+// Function Grip.GripBTLoop.GetFamily
+// [0x00020002] 
+// Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+
+unsigned char UGripBTLoop::GetFamily ( )
+{
+	static UFunction* pFnGetFamily = NULL;
+
+	if ( ! pFnGetFamily )
+		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40958 ];
+
+	UGripBTLoop_execGetFamily_Parms GetFamily_Parms;
+
+	ProcessEvent ((UObject*)this, pFnGetFamily, &GetFamily_Parms, NULL );
+
+	return GetFamily_Parms.ReturnValue;
+};
+
+// Function Grip.GripBTLoop.SetIteration
+// [0x00020002] 
+// Parameters infos:
+// int                            iter                           ( CPF_Parm )
+
+void UGripBTLoop::SetIteration ( int iter )
+{
+	static UFunction* pFnSetIteration = NULL;
+
+	if ( ! pFnSetIteration )
+		pFnSetIteration = (UFunction*) UObject::GObjObjects()->Data[ 40956 ];
+
+	UGripBTLoop_execSetIteration_Parms SetIteration_Parms;
+	SetIteration_Parms.iter = iter;
+
+	ProcessEvent ((UObject*)this, pFnSetIteration, &SetIteration_Parms, NULL );
+};
+
+// Function Grip.GripBTNonInterruptibleSequence.GetFamily
+// [0x00020002] 
+// Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+
+unsigned char UGripBTNonInterruptibleSequence::GetFamily ( )
+{
+	static UFunction* pFnGetFamily = NULL;
+
+	if ( ! pFnGetFamily )
+		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40960 ];
+
+	UGripBTNonInterruptibleSequence_execGetFamily_Parms GetFamily_Parms;
+
+	ProcessEvent ((UObject*)this, pFnGetFamily, &GetFamily_Parms, NULL );
+
+	return GetFamily_Parms.ReturnValue;
+};
+
+// Function Grip.GripBTNumericCondition.GetFamily
+// [0x00020002] 
+// Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+
+unsigned char UGripBTNumericCondition::GetFamily ( )
+{
+	static UFunction* pFnGetFamily = NULL;
+
+	if ( ! pFnGetFamily )
+		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40928 ];
+
+	UGripBTNumericCondition_execGetFamily_Parms GetFamily_Parms;
+
+	ProcessEvent ((UObject*)this, pFnGetFamily, &GetFamily_Parms, NULL );
+
+	return GetFamily_Parms.ReturnValue;
+};
+
+// Function Grip.GripBTCutoff.GetFamily
+// [0x00020002] 
+// Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+
+unsigned char UGripBTCutoff::GetFamily ( )
 {
 	static UFunction* pFnGetFamily = NULL;
 
 	if ( ! pFnGetFamily )
 		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40933 ];
 
-	UGripBTDynamicPriority_execGetFamily_Parms GetFamily_Parms;
-
-	this->ProcessEvent ( pFnGetFamily, &GetFamily_Parms, NULL );
-};
-
-// Function Grip.GripBTFloatCondition.GetFamily
-// [0x00020002] 
-// Parameters infos:
-
-void UGripBTFloatCondition::GetFamily ( )
-{
-	static UFunction* pFnGetFamily = NULL;
-
-	if ( ! pFnGetFamily )
-		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40941 ];
-
-	UGripBTFloatCondition_execGetFamily_Parms GetFamily_Parms;
-
-	this->ProcessEvent ( pFnGetFamily, &GetFamily_Parms, NULL );
-};
-
-// Function Grip.GripBTLoop.GetFamily
-// [0x00020002] 
-// Parameters infos:
-
-void UGripBTLoop::GetFamily ( )
-{
-	static UFunction* pFnGetFamily = NULL;
-
-	if ( ! pFnGetFamily )
-		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40951 ];
-
-	UGripBTLoop_execGetFamily_Parms GetFamily_Parms;
-
-	this->ProcessEvent ( pFnGetFamily, &GetFamily_Parms, NULL );
-};
-
-// Function Grip.GripBTLoop.SetIteration
-// [0x00020002] 
-// Parameters infos:
-
-void UGripBTLoop::SetIteration ( )
-{
-	static UFunction* pFnSetIteration = NULL;
-
-	if ( ! pFnSetIteration )
-		pFnSetIteration = (UFunction*) UObject::GObjObjects()->Data[ 40949 ];
-
-	UGripBTLoop_execSetIteration_Parms SetIteration_Parms;
-
-	this->ProcessEvent ( pFnSetIteration, &SetIteration_Parms, NULL );
-};
-
-// Function Grip.GripBTNonInterruptibleSequence.GetFamily
-// [0x00020002] 
-// Parameters infos:
-
-void UGripBTNonInterruptibleSequence::GetFamily ( )
-{
-	static UFunction* pFnGetFamily = NULL;
-
-	if ( ! pFnGetFamily )
-		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40953 ];
-
-	UGripBTNonInterruptibleSequence_execGetFamily_Parms GetFamily_Parms;
-
-	this->ProcessEvent ( pFnGetFamily, &GetFamily_Parms, NULL );
-};
-
-// Function Grip.GripBTNumericCondition.GetFamily
-// [0x00020002] 
-// Parameters infos:
-
-void UGripBTNumericCondition::GetFamily ( )
-{
-	static UFunction* pFnGetFamily = NULL;
-
-	if ( ! pFnGetFamily )
-		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40921 ];
-
-	UGripBTNumericCondition_execGetFamily_Parms GetFamily_Parms;
-
-	this->ProcessEvent ( pFnGetFamily, &GetFamily_Parms, NULL );
-};
-
-// Function Grip.GripBTCutoff.GetFamily
-// [0x00020002] 
-// Parameters infos:
-
-void UGripBTCutoff::GetFamily ( )
-{
-	static UFunction* pFnGetFamily = NULL;
-
-	if ( ! pFnGetFamily )
-		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40926 ];
-
 	UGripBTCutoff_execGetFamily_Parms GetFamily_Parms;
 
-	this->ProcessEvent ( pFnGetFamily, &GetFamily_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetFamily, &GetFamily_Parms, NULL );
+
+	return GetFamily_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTCutoff.SetCutoff
 // [0x00020002] 
 // Parameters infos:
+// int                            newCutoff                      ( CPF_Parm )
 
-void UGripBTCutoff::SetCutoff ( )
+void UGripBTCutoff::SetCutoff ( int newCutoff )
 {
 	static UFunction* pFnSetCutoff = NULL;
 
 	if ( ! pFnSetCutoff )
-		pFnSetCutoff = (UFunction*) UObject::GObjObjects()->Data[ 40924 ];
+		pFnSetCutoff = (UFunction*) UObject::GObjObjects()->Data[ 40931 ];
 
 	UGripBTCutoff_execSetCutoff_Parms SetCutoff_Parms;
+	SetCutoff_Parms.newCutoff = newCutoff;
 
-	this->ProcessEvent ( pFnSetCutoff, &SetCutoff_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSetCutoff, &SetCutoff_Parms, NULL );
 };
 
 // Function Grip.GripBTOr.GetFamily
 // [0x00020002] 
 // Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGripBTOr::GetFamily ( )
+unsigned char UGripBTOr::GetFamily ( )
 {
 	static UFunction* pFnGetFamily = NULL;
 
 	if ( ! pFnGetFamily )
-		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40955 ];
+		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40962 ];
 
 	UGripBTOr_execGetFamily_Parms GetFamily_Parms;
 
-	this->ProcessEvent ( pFnGetFamily, &GetFamily_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetFamily, &GetFamily_Parms, NULL );
+
+	return GetFamily_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTParallel.GetFamily
 // [0x00020002] 
 // Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGripBTParallel::GetFamily ( )
+unsigned char UGripBTParallel::GetFamily ( )
 {
 	static UFunction* pFnGetFamily = NULL;
 
 	if ( ! pFnGetFamily )
-		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40957 ];
+		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40964 ];
 
 	UGripBTParallel_execGetFamily_Parms GetFamily_Parms;
 
-	this->ProcessEvent ( pFnGetFamily, &GetFamily_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetFamily, &GetFamily_Parms, NULL );
+
+	return GetFamily_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTPriority.GetFamily
 // [0x00020002] 
 // Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGripBTPriority::GetFamily ( )
+unsigned char UGripBTPriority::GetFamily ( )
 {
 	static UFunction* pFnGetFamily = NULL;
 
 	if ( ! pFnGetFamily )
-		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40959 ];
+		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40966 ];
 
 	UGripBTPriority_execGetFamily_Parms GetFamily_Parms;
 
-	this->ProcessEvent ( pFnGetFamily, &GetFamily_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetFamily, &GetFamily_Parms, NULL );
+
+	return GetFamily_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTPushForFinishOverride.GetFamily
 // [0x00020002] 
 // Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGripBTPushForFinishOverride::GetFamily ( )
+unsigned char UGripBTPushForFinishOverride::GetFamily ( )
 {
 	static UFunction* pFnGetFamily = NULL;
 
 	if ( ! pFnGetFamily )
-		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40961 ];
+		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40968 ];
 
 	UGripBTPushForFinishOverride_execGetFamily_Parms GetFamily_Parms;
 
-	this->ProcessEvent ( pFnGetFamily, &GetFamily_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetFamily, &GetFamily_Parms, NULL );
+
+	return GetFamily_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTRandom.GetFamily
 // [0x00020002] 
 // Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGripBTRandom::GetFamily ( )
+unsigned char UGripBTRandom::GetFamily ( )
 {
 	static UFunction* pFnGetFamily = NULL;
 
 	if ( ! pFnGetFamily )
-		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40965 ];
+		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 40972 ];
 
 	UGripBTRandom_execGetFamily_Parms GetFamily_Parms;
 
-	this->ProcessEvent ( pFnGetFamily, &GetFamily_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetFamily, &GetFamily_Parms, NULL );
+
+	return GetFamily_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTScriptNode.ExecutePass
 // [0x00020800] ( FUNC_Event )
 // Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UGripBTInterface*        BTInterface                    ( CPF_Parm )
+// unsigned long                  FirstExecution                 ( CPF_Parm )
+// unsigned long                  PushToFinish                   ( CPF_Parm )
 
-void UGripBTScriptNode::eventExecutePass ( )
+unsigned char UGripBTScriptNode::eventExecutePass ( class UGripBTInterface* BTInterface, unsigned long FirstExecution, unsigned long PushToFinish )
 {
 	static UFunction* pFnExecutePass = NULL;
 
 	if ( ! pFnExecutePass )
-		pFnExecutePass = (UFunction*) UObject::GObjObjects()->Data[ 40978 ];
+		pFnExecutePass = (UFunction*) UObject::GObjObjects()->Data[ 40985 ];
 
 	UGripBTScriptNode_eventExecutePass_Parms ExecutePass_Parms;
+	ExecutePass_Parms.BTInterface = BTInterface;
+	ExecutePass_Parms.FirstExecution = FirstExecution;
+	ExecutePass_Parms.PushToFinish = PushToFinish;
 
-	this->ProcessEvent ( pFnExecutePass, &ExecutePass_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnExecutePass, &ExecutePass_Parms, NULL );
+
+	return ExecutePass_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTScriptNode.GetNodeTitle
 // [0x00020800] ( FUNC_Event )
 // Parameters infos:
+// struct FString                 ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
 
-void UGripBTScriptNode::eventGetNodeTitle ( )
+struct FString UGripBTScriptNode::eventGetNodeTitle ( )
 {
 	static UFunction* pFnGetNodeTitle = NULL;
 
 	if ( ! pFnGetNodeTitle )
-		pFnGetNodeTitle = (UFunction*) UObject::GObjObjects()->Data[ 40976 ];
+		pFnGetNodeTitle = (UFunction*) UObject::GObjObjects()->Data[ 40983 ];
 
 	UGripBTScriptNode_eventGetNodeTitle_Parms GetNodeTitle_Parms;
 
-	this->ProcessEvent ( pFnGetNodeTitle, &GetNodeTitle_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetNodeTitle, &GetNodeTitle_Parms, NULL );
+
+	return GetNodeTitle_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTScriptNode.ComputeCondition
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UGripBTInterface*        BTInterface                    ( CPF_Parm )
 
-void UGripBTScriptNode::ComputeCondition ( )
+bool UGripBTScriptNode::ComputeCondition ( class UGripBTInterface* BTInterface )
 {
 	static UFunction* pFnComputeCondition = NULL;
 
 	if ( ! pFnComputeCondition )
-		pFnComputeCondition = (UFunction*) UObject::GObjObjects()->Data[ 40973 ];
+		pFnComputeCondition = (UFunction*) UObject::GObjObjects()->Data[ 40980 ];
 
 	UGripBTScriptNode_execComputeCondition_Parms ComputeCondition_Parms;
+	ComputeCondition_Parms.BTInterface = BTInterface;
 
-	this->ProcessEvent ( pFnComputeCondition, &ComputeCondition_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnComputeCondition, &ComputeCondition_Parms, NULL );
+
+	return ComputeCondition_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTScriptNode.FlagUsedBBMembers
 // [0x00020000] 
 // Parameters infos:
+// class UGripBlackboard*         Blackboard                     ( CPF_Parm )
 
-void UGripBTScriptNode::FlagUsedBBMembers ( )
+void UGripBTScriptNode::FlagUsedBBMembers ( class UGripBlackboard* Blackboard )
 {
 	static UFunction* pFnFlagUsedBBMembers = NULL;
 
 	if ( ! pFnFlagUsedBBMembers )
-		pFnFlagUsedBBMembers = (UFunction*) UObject::GObjObjects()->Data[ 40971 ];
+		pFnFlagUsedBBMembers = (UFunction*) UObject::GObjObjects()->Data[ 40978 ];
 
 	UGripBTScriptNode_execFlagUsedBBMembers_Parms FlagUsedBBMembers_Parms;
+	FlagUsedBBMembers_Parms.Blackboard = Blackboard;
 
-	this->ProcessEvent ( pFnFlagUsedBBMembers, &FlagUsedBBMembers_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnFlagUsedBBMembers, &FlagUsedBBMembers_Parms, NULL );
 };
 
 // Function Grip.GripBTScriptNode.Initialize
@@ -462,203 +548,252 @@ void UGripBTScriptNode::Initialize ( )
 	static UFunction* pFnInitialize = NULL;
 
 	if ( ! pFnInitialize )
-		pFnInitialize = (UFunction*) UObject::GObjObjects()->Data[ 40970 ];
+		pFnInitialize = (UFunction*) UObject::GObjObjects()->Data[ 40977 ];
 
 	UGripBTScriptNode_execInitialize_Parms Initialize_Parms;
 
-	this->ProcessEvent ( pFnInitialize, &Initialize_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitialize, &Initialize_Parms, NULL );
 };
 
 // Function Grip.GripBTScriptBehavior.ExecutePass
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UGripBTInterface*        BTInterface                    ( CPF_Parm )
+// unsigned long                  FirstExecution                 ( CPF_Parm )
+// unsigned long                  PushToFinish                   ( CPF_Parm )
 
-void UGripBTScriptBehavior::eventExecutePass ( )
+unsigned char UGripBTScriptBehavior::eventExecutePass ( class UGripBTInterface* BTInterface, unsigned long FirstExecution, unsigned long PushToFinish )
 {
 	static UFunction* pFnExecutePass = NULL;
 
 	if ( ! pFnExecutePass )
-		pFnExecutePass = (UFunction*) UObject::GObjObjects()->Data[ 40995 ];
+		pFnExecutePass = (UFunction*) UObject::GObjObjects()->Data[ 41002 ];
 
 	UGripBTScriptBehavior_eventExecutePass_Parms ExecutePass_Parms;
+	ExecutePass_Parms.BTInterface = BTInterface;
+	ExecutePass_Parms.FirstExecution = FirstExecution;
+	ExecutePass_Parms.PushToFinish = PushToFinish;
 
-	this->ProcessEvent ( pFnExecutePass, &ExecutePass_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnExecutePass, &ExecutePass_Parms, NULL );
+
+	return ExecutePass_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTScriptBehavior.ExecutePost
 // [0x00020000] 
 // Parameters infos:
+// class UGripBTInterface*        BTInterface                    ( CPF_Parm )
 
-void UGripBTScriptBehavior::ExecutePost ( )
+void UGripBTScriptBehavior::ExecutePost ( class UGripBTInterface* BTInterface )
 {
 	static UFunction* pFnExecutePost = NULL;
 
 	if ( ! pFnExecutePost )
-		pFnExecutePost = (UFunction*) UObject::GObjObjects()->Data[ 40993 ];
+		pFnExecutePost = (UFunction*) UObject::GObjObjects()->Data[ 41000 ];
 
 	UGripBTScriptBehavior_execExecutePost_Parms ExecutePost_Parms;
+	ExecutePost_Parms.BTInterface = BTInterface;
 
-	this->ProcessEvent ( pFnExecutePost, &ExecutePost_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnExecutePost, &ExecutePost_Parms, NULL );
 };
 
 // Function Grip.GripBTScriptBehavior.Execute
 // [0x00020000] 
 // Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UGripBTInterface*        BTInterface                    ( CPF_Parm )
+// unsigned long                  PushToFinish                   ( CPF_Parm )
 
-void UGripBTScriptBehavior::Execute ( )
+unsigned char UGripBTScriptBehavior::Execute ( class UGripBTInterface* BTInterface, unsigned long PushToFinish )
 {
 	static UFunction* pFnExecute = NULL;
 
 	if ( ! pFnExecute )
-		pFnExecute = (UFunction*) UObject::GObjObjects()->Data[ 40989 ];
+		pFnExecute = (UFunction*) UObject::GObjObjects()->Data[ 40996 ];
 
 	UGripBTScriptBehavior_execExecute_Parms Execute_Parms;
+	Execute_Parms.BTInterface = BTInterface;
+	Execute_Parms.PushToFinish = PushToFinish;
 
-	this->ProcessEvent ( pFnExecute, &Execute_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnExecute, &Execute_Parms, NULL );
+
+	return Execute_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTScriptBehavior.ExecutePre
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UGripBTInterface*        BTInterface                    ( CPF_Parm )
 
-void UGripBTScriptBehavior::ExecutePre ( )
+bool UGripBTScriptBehavior::ExecutePre ( class UGripBTInterface* BTInterface )
 {
 	static UFunction* pFnExecutePre = NULL;
 
 	if ( ! pFnExecutePre )
-		pFnExecutePre = (UFunction*) UObject::GObjObjects()->Data[ 40986 ];
+		pFnExecutePre = (UFunction*) UObject::GObjObjects()->Data[ 40993 ];
 
 	UGripBTScriptBehavior_execExecutePre_Parms ExecutePre_Parms;
+	ExecutePre_Parms.BTInterface = BTInterface;
 
-	this->ProcessEvent ( pFnExecutePre, &ExecutePre_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnExecutePre, &ExecutePre_Parms, NULL );
+
+	return ExecutePre_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTScriptBehavior.ComputeCondition
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UGripBTInterface*        BTInterface                    ( CPF_Parm )
 
-void UGripBTScriptBehavior::ComputeCondition ( )
+bool UGripBTScriptBehavior::ComputeCondition ( class UGripBTInterface* BTInterface )
 {
 	static UFunction* pFnComputeCondition = NULL;
 
 	if ( ! pFnComputeCondition )
-		pFnComputeCondition = (UFunction*) UObject::GObjObjects()->Data[ 40983 ];
+		pFnComputeCondition = (UFunction*) UObject::GObjObjects()->Data[ 40990 ];
 
 	UGripBTScriptBehavior_execComputeCondition_Parms ComputeCondition_Parms;
+	ComputeCondition_Parms.BTInterface = BTInterface;
 
-	this->ProcessEvent ( pFnComputeCondition, &ComputeCondition_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnComputeCondition, &ComputeCondition_Parms, NULL );
+
+	return ComputeCondition_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTScriptCondition.GetFamily
 // [0x00020002] 
 // Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGripBTScriptCondition::GetFamily ( )
+unsigned char UGripBTScriptCondition::GetFamily ( )
 {
 	static UFunction* pFnGetFamily = NULL;
 
 	if ( ! pFnGetFamily )
-		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 41005 ];
+		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 41012 ];
 
 	UGripBTScriptCondition_execGetFamily_Parms GetFamily_Parms;
 
-	this->ProcessEvent ( pFnGetFamily, &GetFamily_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetFamily, &GetFamily_Parms, NULL );
+
+	return GetFamily_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTScriptCondition.ComputeCondition
 // [0x00020002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class UGripBTInterface*        BTInterface                    ( CPF_Parm )
 
-void UGripBTScriptCondition::ComputeCondition ( )
+bool UGripBTScriptCondition::ComputeCondition ( class UGripBTInterface* BTInterface )
 {
 	static UFunction* pFnComputeCondition = NULL;
 
 	if ( ! pFnComputeCondition )
-		pFnComputeCondition = (UFunction*) UObject::GObjObjects()->Data[ 41002 ];
+		pFnComputeCondition = (UFunction*) UObject::GObjObjects()->Data[ 41009 ];
 
 	UGripBTScriptCondition_execComputeCondition_Parms ComputeCondition_Parms;
+	ComputeCondition_Parms.BTInterface = BTInterface;
 
-	this->ProcessEvent ( pFnComputeCondition, &ComputeCondition_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnComputeCondition, &ComputeCondition_Parms, NULL );
+
+	return ComputeCondition_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTSequence.GetFamily
 // [0x00020002] 
 // Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGripBTSequence::GetFamily ( )
+unsigned char UGripBTSequence::GetFamily ( )
 {
 	static UFunction* pFnGetFamily = NULL;
 
 	if ( ! pFnGetFamily )
-		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 41017 ];
+		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 41024 ];
 
 	UGripBTSequence_execGetFamily_Parms GetFamily_Parms;
 
-	this->ProcessEvent ( pFnGetFamily, &GetFamily_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetFamily, &GetFamily_Parms, NULL );
+
+	return GetFamily_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTSequenceOr.GetFamily
 // [0x00020002] 
 // Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGripBTSequenceOr::GetFamily ( )
+unsigned char UGripBTSequenceOr::GetFamily ( )
 {
 	static UFunction* pFnGetFamily = NULL;
 
 	if ( ! pFnGetFamily )
-		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 41019 ];
+		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 41026 ];
 
 	UGripBTSequenceOr_execGetFamily_Parms GetFamily_Parms;
 
-	this->ProcessEvent ( pFnGetFamily, &GetFamily_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetFamily, &GetFamily_Parms, NULL );
+
+	return GetFamily_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTTimer.GetFamily
 // [0x00020002] 
 // Parameters infos:
+// unsigned char                  ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGripBTTimer::GetFamily ( )
+unsigned char UGripBTTimer::GetFamily ( )
 {
 	static UFunction* pFnGetFamily = NULL;
 
 	if ( ! pFnGetFamily )
-		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 41025 ];
+		pFnGetFamily = (UFunction*) UObject::GObjObjects()->Data[ 41032 ];
 
 	UGripBTTimer_execGetFamily_Parms GetFamily_Parms;
 
-	this->ProcessEvent ( pFnGetFamily, &GetFamily_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetFamily, &GetFamily_Parms, NULL );
+
+	return GetFamily_Parms.ReturnValue;
 };
 
 // Function Grip.GripBTScriptNodeCache.CacheAllConditions
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// class UGripBTInterface*        BTInterface                    ( CPF_Parm )
 
-void UGripBTScriptNodeCache::eventCacheAllConditions ( )
+void UGripBTScriptNodeCache::eventCacheAllConditions ( class UGripBTInterface* BTInterface )
 {
 	static UFunction* pFnCacheAllConditions = NULL;
 
 	if ( ! pFnCacheAllConditions )
-		pFnCacheAllConditions = (UFunction*) UObject::GObjObjects()->Data[ 41014 ];
+		pFnCacheAllConditions = (UFunction*) UObject::GObjObjects()->Data[ 41021 ];
 
 	UGripBTScriptNodeCache_eventCacheAllConditions_Parms CacheAllConditions_Parms;
+	CacheAllConditions_Parms.BTInterface = BTInterface;
 
-	this->ProcessEvent ( pFnCacheAllConditions, &CacheAllConditions_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCacheAllConditions, &CacheAllConditions_Parms, NULL );
 };
 
 // Function Grip.GripBTScriptNodeCache.SurveyUsedBBMembers
 // [0x00020802] ( FUNC_Event )
 // Parameters infos:
+// class UGripBlackboard*         Blackboard                     ( CPF_Parm )
 
-void UGripBTScriptNodeCache::eventSurveyUsedBBMembers ( )
+void UGripBTScriptNodeCache::eventSurveyUsedBBMembers ( class UGripBlackboard* Blackboard )
 {
 	static UFunction* pFnSurveyUsedBBMembers = NULL;
 
 	if ( ! pFnSurveyUsedBBMembers )
-		pFnSurveyUsedBBMembers = (UFunction*) UObject::GObjObjects()->Data[ 41011 ];
+		pFnSurveyUsedBBMembers = (UFunction*) UObject::GObjObjects()->Data[ 41018 ];
 
 	UGripBTScriptNodeCache_eventSurveyUsedBBMembers_Parms SurveyUsedBBMembers_Parms;
+	SurveyUsedBBMembers_Parms.Blackboard = Blackboard;
 
-	this->ProcessEvent ( pFnSurveyUsedBBMembers, &SurveyUsedBBMembers_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSurveyUsedBBMembers, &SurveyUsedBBMembers_Parms, NULL );
 };
 
 // Function Grip.GripBTScriptNodeCache.InitializeAllNodes
@@ -670,27 +805,29 @@ void UGripBTScriptNodeCache::eventInitializeAllNodes ( )
 	static UFunction* pFnInitializeAllNodes = NULL;
 
 	if ( ! pFnInitializeAllNodes )
-		pFnInitializeAllNodes = (UFunction*) UObject::GObjObjects()->Data[ 41009 ];
+		pFnInitializeAllNodes = (UFunction*) UObject::GObjObjects()->Data[ 41016 ];
 
 	UGripBTScriptNodeCache_eventInitializeAllNodes_Parms InitializeAllNodes_Parms;
 
-	this->ProcessEvent ( pFnInitializeAllNodes, &InitializeAllNodes_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInitializeAllNodes, &InitializeAllNodes_Parms, NULL );
 };
 
 // Function Grip.GripCheatManager.GripDebugViewNPCFromBrainID
 // [0x00020202] ( FUNC_Exec )
 // Parameters infos:
+// int                            BrainID                        ( CPF_Parm )
 
-void AGripCheatManager::GripDebugViewNPCFromBrainID ( )
+void AGripCheatManager::GripDebugViewNPCFromBrainID ( int BrainID )
 {
 	static UFunction* pFnGripDebugViewNPCFromBrainID = NULL;
 
 	if ( ! pFnGripDebugViewNPCFromBrainID )
-		pFnGripDebugViewNPCFromBrainID = (UFunction*) UObject::GObjObjects()->Data[ 41040 ];
+		pFnGripDebugViewNPCFromBrainID = (UFunction*) UObject::GObjObjects()->Data[ 41047 ];
 
 	AGripCheatManager_execGripDebugViewNPCFromBrainID_Parms GripDebugViewNPCFromBrainID_Parms;
+	GripDebugViewNPCFromBrainID_Parms.BrainID = BrainID;
 
-	this->ProcessEvent ( pFnGripDebugViewNPCFromBrainID, &GripDebugViewNPCFromBrainID_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGripDebugViewNPCFromBrainID, &GripDebugViewNPCFromBrainID_Parms, NULL );
 };
 
 // Function Grip.GripCheatManager.StopGripLogging
@@ -702,11 +839,11 @@ void AGripCheatManager::StopGripLogging ( )
 	static UFunction* pFnStopGripLogging = NULL;
 
 	if ( ! pFnStopGripLogging )
-		pFnStopGripLogging = (UFunction*) UObject::GObjObjects()->Data[ 41039 ];
+		pFnStopGripLogging = (UFunction*) UObject::GObjObjects()->Data[ 41046 ];
 
 	AGripCheatManager_execStopGripLogging_Parms StopGripLogging_Parms;
 
-	this->ProcessEvent ( pFnStopGripLogging, &StopGripLogging_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnStopGripLogging, &StopGripLogging_Parms, NULL );
 };
 
 // Function Grip.GripCheatManager.StartGripLogging
@@ -718,11 +855,11 @@ void AGripCheatManager::StartGripLogging ( )
 	static UFunction* pFnStartGripLogging = NULL;
 
 	if ( ! pFnStartGripLogging )
-		pFnStartGripLogging = (UFunction*) UObject::GObjObjects()->Data[ 41038 ];
+		pFnStartGripLogging = (UFunction*) UObject::GObjObjects()->Data[ 41045 ];
 
 	AGripCheatManager_execStartGripLogging_Parms StartGripLogging_Parms;
 
-	this->ProcessEvent ( pFnStartGripLogging, &StartGripLogging_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnStartGripLogging, &StartGripLogging_Parms, NULL );
 };
 
 // Function Grip.GripCheatManager.StopGripDebug
@@ -734,11 +871,11 @@ void AGripCheatManager::StopGripDebug ( )
 	static UFunction* pFnStopGripDebug = NULL;
 
 	if ( ! pFnStopGripDebug )
-		pFnStopGripDebug = (UFunction*) UObject::GObjObjects()->Data[ 41037 ];
+		pFnStopGripDebug = (UFunction*) UObject::GObjObjects()->Data[ 41044 ];
 
 	AGripCheatManager_execStopGripDebug_Parms StopGripDebug_Parms;
 
-	this->ProcessEvent ( pFnStopGripDebug, &StopGripDebug_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnStopGripDebug, &StopGripDebug_Parms, NULL );
 };
 
 // Function Grip.GripCheatManager.StartGripDebug
@@ -750,95 +887,116 @@ void AGripCheatManager::StartGripDebug ( )
 	static UFunction* pFnStartGripDebug = NULL;
 
 	if ( ! pFnStartGripDebug )
-		pFnStartGripDebug = (UFunction*) UObject::GObjObjects()->Data[ 41036 ];
+		pFnStartGripDebug = (UFunction*) UObject::GObjObjects()->Data[ 41043 ];
 
 	AGripCheatManager_execStartGripDebug_Parms StartGripDebug_Parms;
 
-	this->ProcessEvent ( pFnStartGripDebug, &StartGripDebug_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnStartGripDebug, &StartGripDebug_Parms, NULL );
 };
 
 // Function Grip.GripCheatManager.CCSDebugOptions
 // [0x00024202] ( FUNC_Exec )
 // Parameters infos:
+// struct FString                 infoType                       ( CPF_OptionalParm | CPF_Parm | CPF_NeedCtorLink )
 
-void AGripCheatManager::CCSDebugOptions ( )
+void AGripCheatManager::CCSDebugOptions ( struct FString infoType )
 {
 	static UFunction* pFnCCSDebugOptions = NULL;
 
 	if ( ! pFnCCSDebugOptions )
-		pFnCCSDebugOptions = (UFunction*) UObject::GObjObjects()->Data[ 41034 ];
+		pFnCCSDebugOptions = (UFunction*) UObject::GObjObjects()->Data[ 41041 ];
 
 	AGripCheatManager_execCCSDebugOptions_Parms CCSDebugOptions_Parms;
+	memcpy ( &CCSDebugOptions_Parms.infoType, &infoType, 0x10 );
 
-	this->ProcessEvent ( pFnCCSDebugOptions, &CCSDebugOptions_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCCSDebugOptions, &CCSDebugOptions_Parms, NULL );
 };
 
 // Function Grip.GripCheatManager.DESDebugOptions
 // [0x00024202] ( FUNC_Exec )
 // Parameters infos:
+// struct FString                 infoType                       ( CPF_OptionalParm | CPF_Parm | CPF_NeedCtorLink )
 
-void AGripCheatManager::DESDebugOptions ( )
+void AGripCheatManager::DESDebugOptions ( struct FString infoType )
 {
 	static UFunction* pFnDESDebugOptions = NULL;
 
 	if ( ! pFnDESDebugOptions )
-		pFnDESDebugOptions = (UFunction*) UObject::GObjObjects()->Data[ 41032 ];
+		pFnDESDebugOptions = (UFunction*) UObject::GObjObjects()->Data[ 41039 ];
 
 	AGripCheatManager_execDESDebugOptions_Parms DESDebugOptions_Parms;
+	memcpy ( &DESDebugOptions_Parms.infoType, &infoType, 0x10 );
 
-	this->ProcessEvent ( pFnDESDebugOptions, &DESDebugOptions_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDESDebugOptions, &DESDebugOptions_Parms, NULL );
 };
 
 // Function Grip.GripCheatManager.ShowDESInfo
 // [0x00024202] ( FUNC_Exec )
 // Parameters infos:
+// struct FString                 infoType                       ( CPF_OptionalParm | CPF_Parm | CPF_NeedCtorLink )
 
-void AGripCheatManager::ShowDESInfo ( )
+void AGripCheatManager::ShowDESInfo ( struct FString infoType )
 {
 	static UFunction* pFnShowDESInfo = NULL;
 
 	if ( ! pFnShowDESInfo )
-		pFnShowDESInfo = (UFunction*) UObject::GObjObjects()->Data[ 41030 ];
+		pFnShowDESInfo = (UFunction*) UObject::GObjObjects()->Data[ 41037 ];
 
 	AGripCheatManager_execShowDESInfo_Parms ShowDESInfo_Parms;
+	memcpy ( &ShowDESInfo_Parms.infoType, &infoType, 0x10 );
 
-	this->ProcessEvent ( pFnShowDESInfo, &ShowDESInfo_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnShowDESInfo, &ShowDESInfo_Parms, NULL );
 };
 
 // Function Grip.GripDebug.GripDebugViewNPCFromBrainID
 // [0x00822002] 
 // Parameters infos:
+// int                            BrainID                        ( CPF_Parm )
 
-void UGripDebug::GripDebugViewNPCFromBrainID ( )
+void UGripDebug::GripDebugViewNPCFromBrainID ( int BrainID )
 {
 	static UFunction* pFnGripDebugViewNPCFromBrainID = NULL;
 
 	if ( ! pFnGripDebugViewNPCFromBrainID )
-		pFnGripDebugViewNPCFromBrainID = (UFunction*) UObject::GObjObjects()->Data[ 41064 ];
+		pFnGripDebugViewNPCFromBrainID = (UFunction*) UObject::GObjObjects()->Data[ 41071 ];
 
 	UGripDebug_execGripDebugViewNPCFromBrainID_Parms GripDebugViewNPCFromBrainID_Parms;
+	GripDebugViewNPCFromBrainID_Parms.BrainID = BrainID;
 
-	this->ProcessEvent ( pFnGripDebugViewNPCFromBrainID, &GripDebugViewNPCFromBrainID_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGripDebugViewNPCFromBrainID, &GripDebugViewNPCFromBrainID_Parms, NULL );
 };
 
 // Function Grip.GripDebug.GetLocationAndRotationFromBrainID
 // [0x00422400] ( FUNC_Native )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// int                            BrainID                        ( CPF_Parm )
+// struct FVector                 ActorLocation                  ( CPF_Parm | CPF_OutParm )
+// struct FVector                 ActorRotation                  ( CPF_Parm | CPF_OutParm )
 
-void UGripDebug::GetLocationAndRotationFromBrainID ( )
+bool UGripDebug::GetLocationAndRotationFromBrainID ( int BrainID, struct FVector* ActorLocation, struct FVector* ActorRotation )
 {
 	static UFunction* pFnGetLocationAndRotationFromBrainID = NULL;
 
 	if ( ! pFnGetLocationAndRotationFromBrainID )
-		pFnGetLocationAndRotationFromBrainID = (UFunction*) UObject::GObjObjects()->Data[ 41059 ];
+		pFnGetLocationAndRotationFromBrainID = (UFunction*) UObject::GObjObjects()->Data[ 41066 ];
 
 	UGripDebug_execGetLocationAndRotationFromBrainID_Parms GetLocationAndRotationFromBrainID_Parms;
+	GetLocationAndRotationFromBrainID_Parms.BrainID = BrainID;
 
 	pFnGetLocationAndRotationFromBrainID->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnGetLocationAndRotationFromBrainID, &GetLocationAndRotationFromBrainID_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGetLocationAndRotationFromBrainID, &GetLocationAndRotationFromBrainID_Parms, NULL );
 
 	pFnGetLocationAndRotationFromBrainID->FunctionFlags |= 0x400;
+
+	if ( ActorLocation )
+		memcpy ( ActorLocation, &GetLocationAndRotationFromBrainID_Parms.ActorLocation, 0xC );
+
+	if ( ActorRotation )
+		memcpy ( ActorRotation, &GetLocationAndRotationFromBrainID_Parms.ActorRotation, 0xC );
+
+	return GetLocationAndRotationFromBrainID_Parms.ReturnValue;
 };
 
 // Function Grip.GripDebug.NextBrainDebugRenderType
@@ -850,13 +1008,13 @@ void UGripDebug::NextBrainDebugRenderType ( )
 	static UFunction* pFnNextBrainDebugRenderType = NULL;
 
 	if ( ! pFnNextBrainDebugRenderType )
-		pFnNextBrainDebugRenderType = (UFunction*) UObject::GObjObjects()->Data[ 41058 ];
+		pFnNextBrainDebugRenderType = (UFunction*) UObject::GObjObjects()->Data[ 41065 ];
 
 	UGripDebug_execNextBrainDebugRenderType_Parms NextBrainDebugRenderType_Parms;
 
 	pFnNextBrainDebugRenderType->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnNextBrainDebugRenderType, &NextBrainDebugRenderType_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnNextBrainDebugRenderType, &NextBrainDebugRenderType_Parms, NULL );
 
 	pFnNextBrainDebugRenderType->FunctionFlags |= 0x400;
 };
@@ -870,13 +1028,13 @@ void UGripDebug::ToggleDisableNPC ( )
 	static UFunction* pFnToggleDisableNPC = NULL;
 
 	if ( ! pFnToggleDisableNPC )
-		pFnToggleDisableNPC = (UFunction*) UObject::GObjObjects()->Data[ 41057 ];
+		pFnToggleDisableNPC = (UFunction*) UObject::GObjObjects()->Data[ 41064 ];
 
 	UGripDebug_execToggleDisableNPC_Parms ToggleDisableNPC_Parms;
 
 	pFnToggleDisableNPC->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnToggleDisableNPC, &ToggleDisableNPC_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnToggleDisableNPC, &ToggleDisableNPC_Parms, NULL );
 
 	pFnToggleDisableNPC->FunctionFlags |= 0x400;
 };
@@ -890,13 +1048,13 @@ void UGripDebug::SelectDebugPawn ( )
 	static UFunction* pFnSelectDebugPawn = NULL;
 
 	if ( ! pFnSelectDebugPawn )
-		pFnSelectDebugPawn = (UFunction*) UObject::GObjObjects()->Data[ 41056 ];
+		pFnSelectDebugPawn = (UFunction*) UObject::GObjObjects()->Data[ 41063 ];
 
 	UGripDebug_execSelectDebugPawn_Parms SelectDebugPawn_Parms;
 
 	pFnSelectDebugPawn->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnSelectDebugPawn, &SelectDebugPawn_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnSelectDebugPawn, &SelectDebugPawn_Parms, NULL );
 
 	pFnSelectDebugPawn->FunctionFlags |= 0x400;
 };
@@ -910,13 +1068,13 @@ void UGripDebug::GripStopAdvanceSim ( )
 	static UFunction* pFnGripStopAdvanceSim = NULL;
 
 	if ( ! pFnGripStopAdvanceSim )
-		pFnGripStopAdvanceSim = (UFunction*) UObject::GObjObjects()->Data[ 41055 ];
+		pFnGripStopAdvanceSim = (UFunction*) UObject::GObjObjects()->Data[ 41062 ];
 
 	UGripDebug_execGripStopAdvanceSim_Parms GripStopAdvanceSim_Parms;
 
 	pFnGripStopAdvanceSim->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnGripStopAdvanceSim, &GripStopAdvanceSim_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGripStopAdvanceSim, &GripStopAdvanceSim_Parms, NULL );
 
 	pFnGripStopAdvanceSim->FunctionFlags |= 0x400;
 };
@@ -930,13 +1088,13 @@ void UGripDebug::GripAdvanceSim ( )
 	static UFunction* pFnGripAdvanceSim = NULL;
 
 	if ( ! pFnGripAdvanceSim )
-		pFnGripAdvanceSim = (UFunction*) UObject::GObjObjects()->Data[ 41054 ];
+		pFnGripAdvanceSim = (UFunction*) UObject::GObjObjects()->Data[ 41061 ];
 
 	UGripDebug_execGripAdvanceSim_Parms GripAdvanceSim_Parms;
 
 	pFnGripAdvanceSim->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnGripAdvanceSim, &GripAdvanceSim_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGripAdvanceSim, &GripAdvanceSim_Parms, NULL );
 
 	pFnGripAdvanceSim->FunctionFlags |= 0x400;
 };
@@ -950,13 +1108,13 @@ void UGripDebug::StopGripLogging ( )
 	static UFunction* pFnStopGripLogging = NULL;
 
 	if ( ! pFnStopGripLogging )
-		pFnStopGripLogging = (UFunction*) UObject::GObjObjects()->Data[ 41053 ];
+		pFnStopGripLogging = (UFunction*) UObject::GObjObjects()->Data[ 41060 ];
 
 	UGripDebug_execStopGripLogging_Parms StopGripLogging_Parms;
 
 	pFnStopGripLogging->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnStopGripLogging, &StopGripLogging_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnStopGripLogging, &StopGripLogging_Parms, NULL );
 
 	pFnStopGripLogging->FunctionFlags |= 0x400;
 };
@@ -970,13 +1128,13 @@ void UGripDebug::StartGripLogging ( )
 	static UFunction* pFnStartGripLogging = NULL;
 
 	if ( ! pFnStartGripLogging )
-		pFnStartGripLogging = (UFunction*) UObject::GObjObjects()->Data[ 41052 ];
+		pFnStartGripLogging = (UFunction*) UObject::GObjObjects()->Data[ 41059 ];
 
 	UGripDebug_execStartGripLogging_Parms StartGripLogging_Parms;
 
 	pFnStartGripLogging->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnStartGripLogging, &StartGripLogging_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnStartGripLogging, &StartGripLogging_Parms, NULL );
 
 	pFnStartGripLogging->FunctionFlags |= 0x400;
 };
@@ -990,13 +1148,13 @@ void UGripDebug::StopGripDebug ( )
 	static UFunction* pFnStopGripDebug = NULL;
 
 	if ( ! pFnStopGripDebug )
-		pFnStopGripDebug = (UFunction*) UObject::GObjObjects()->Data[ 41051 ];
+		pFnStopGripDebug = (UFunction*) UObject::GObjObjects()->Data[ 41058 ];
 
 	UGripDebug_execStopGripDebug_Parms StopGripDebug_Parms;
 
 	pFnStopGripDebug->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnStopGripDebug, &StopGripDebug_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnStopGripDebug, &StopGripDebug_Parms, NULL );
 
 	pFnStopGripDebug->FunctionFlags |= 0x400;
 };
@@ -1010,13 +1168,13 @@ void UGripDebug::StartGripDebug ( )
 	static UFunction* pFnStartGripDebug = NULL;
 
 	if ( ! pFnStartGripDebug )
-		pFnStartGripDebug = (UFunction*) UObject::GObjObjects()->Data[ 41050 ];
+		pFnStartGripDebug = (UFunction*) UObject::GObjObjects()->Data[ 41057 ];
 
 	UGripDebug_execStartGripDebug_Parms StartGripDebug_Parms;
 
 	pFnStartGripDebug->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnStartGripDebug, &StartGripDebug_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnStartGripDebug, &StartGripDebug_Parms, NULL );
 
 	pFnStartGripDebug->FunctionFlags |= 0x400;
 };
@@ -1024,39 +1182,44 @@ void UGripDebug::StartGripDebug ( )
 // Function Grip.GripDebug.IsDebugEnabled
 // [0x00022400] ( FUNC_Native )
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 
-void UGripDebug::IsDebugEnabled ( )
+bool UGripDebug::IsDebugEnabled ( )
 {
 	static UFunction* pFnIsDebugEnabled = NULL;
 
 	if ( ! pFnIsDebugEnabled )
-		pFnIsDebugEnabled = (UFunction*) UObject::GObjObjects()->Data[ 41048 ];
+		pFnIsDebugEnabled = (UFunction*) UObject::GObjObjects()->Data[ 41055 ];
 
 	UGripDebug_execIsDebugEnabled_Parms IsDebugEnabled_Parms;
 
 	pFnIsDebugEnabled->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnIsDebugEnabled, &IsDebugEnabled_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnIsDebugEnabled, &IsDebugEnabled_Parms, NULL );
 
 	pFnIsDebugEnabled->FunctionFlags |= 0x400;
+
+	return IsDebugEnabled_Parms.ReturnValue;
 };
 
 // Function Grip.GripDebug.CCSDebugOptions
 // [0x00026400] ( FUNC_Native )
 // Parameters infos:
+// struct FString                 Options                        ( CPF_OptionalParm | CPF_Parm | CPF_NeedCtorLink )
 
-void UGripDebug::CCSDebugOptions ( )
+void UGripDebug::CCSDebugOptions ( struct FString Options )
 {
 	static UFunction* pFnCCSDebugOptions = NULL;
 
 	if ( ! pFnCCSDebugOptions )
-		pFnCCSDebugOptions = (UFunction*) UObject::GObjObjects()->Data[ 41046 ];
+		pFnCCSDebugOptions = (UFunction*) UObject::GObjObjects()->Data[ 41053 ];
 
 	UGripDebug_execCCSDebugOptions_Parms CCSDebugOptions_Parms;
+	memcpy ( &CCSDebugOptions_Parms.Options, &Options, 0x10 );
 
 	pFnCCSDebugOptions->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnCCSDebugOptions, &CCSDebugOptions_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnCCSDebugOptions, &CCSDebugOptions_Parms, NULL );
 
 	pFnCCSDebugOptions->FunctionFlags |= 0x400;
 };
@@ -1064,19 +1227,21 @@ void UGripDebug::CCSDebugOptions ( )
 // Function Grip.GripDebug.DESDebugOptions
 // [0x00026400] ( FUNC_Native )
 // Parameters infos:
+// struct FString                 Options                        ( CPF_OptionalParm | CPF_Parm | CPF_NeedCtorLink )
 
-void UGripDebug::DESDebugOptions ( )
+void UGripDebug::DESDebugOptions ( struct FString Options )
 {
 	static UFunction* pFnDESDebugOptions = NULL;
 
 	if ( ! pFnDESDebugOptions )
-		pFnDESDebugOptions = (UFunction*) UObject::GObjObjects()->Data[ 41044 ];
+		pFnDESDebugOptions = (UFunction*) UObject::GObjObjects()->Data[ 41051 ];
 
 	UGripDebug_execDESDebugOptions_Parms DESDebugOptions_Parms;
+	memcpy ( &DESDebugOptions_Parms.Options, &Options, 0x10 );
 
 	pFnDESDebugOptions->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnDESDebugOptions, &DESDebugOptions_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDESDebugOptions, &DESDebugOptions_Parms, NULL );
 
 	pFnDESDebugOptions->FunctionFlags |= 0x400;
 };
@@ -1084,19 +1249,21 @@ void UGripDebug::DESDebugOptions ( )
 // Function Grip.GripDebug.ShowDESInfo
 // [0x00026400] ( FUNC_Native )
 // Parameters infos:
+// struct FString                 infoType                       ( CPF_OptionalParm | CPF_Parm | CPF_NeedCtorLink )
 
-void UGripDebug::ShowDESInfo ( )
+void UGripDebug::ShowDESInfo ( struct FString infoType )
 {
 	static UFunction* pFnShowDESInfo = NULL;
 
 	if ( ! pFnShowDESInfo )
-		pFnShowDESInfo = (UFunction*) UObject::GObjObjects()->Data[ 41042 ];
+		pFnShowDESInfo = (UFunction*) UObject::GObjObjects()->Data[ 41049 ];
 
 	UGripDebug_execShowDESInfo_Parms ShowDESInfo_Parms;
+	memcpy ( &ShowDESInfo_Parms.infoType, &infoType, 0x10 );
 
 	pFnShowDESInfo->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnShowDESInfo, &ShowDESInfo_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnShowDESInfo, &ShowDESInfo_Parms, NULL );
 
 	pFnShowDESInfo->FunctionFlags |= 0x400;
 };
@@ -1104,19 +1271,21 @@ void UGripDebug::ShowDESInfo ( )
 // Function Grip.GripDrawHUD.DrawHUD
 // [0x00022400] ( FUNC_Native )
 // Parameters infos:
+// class UCanvas*                 CanvasObject                   ( CPF_Parm )
 
-void UGripDrawHUD::DrawHUD ( )
+void UGripDrawHUD::DrawHUD ( class UCanvas* CanvasObject )
 {
 	static UFunction* pFnDrawHUD = NULL;
 
 	if ( ! pFnDrawHUD )
-		pFnDrawHUD = (UFunction*) UObject::GObjObjects()->Data[ 41095 ];
+		pFnDrawHUD = (UFunction*) UObject::GObjObjects()->Data[ 41102 ];
 
 	UGripDrawHUD_execDrawHUD_Parms DrawHUD_Parms;
+	DrawHUD_Parms.CanvasObject = CanvasObject;
 
 	pFnDrawHUD->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnDrawHUD, &DrawHUD_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnDrawHUD, &DrawHUD_Parms, NULL );
 
 	pFnDrawHUD->FunctionFlags |= 0x400;
 };
@@ -1124,17 +1293,19 @@ void UGripDrawHUD::DrawHUD ( )
 // Function Grip.GripDebugCameraController.GripDebugViewNPCFromBrainID
 // [0x00020202] ( FUNC_Exec )
 // Parameters infos:
+// int                            BrainID                        ( CPF_Parm )
 
-void AGripDebugCameraController::GripDebugViewNPCFromBrainID ( )
+void AGripDebugCameraController::GripDebugViewNPCFromBrainID ( int BrainID )
 {
 	static UFunction* pFnGripDebugViewNPCFromBrainID = NULL;
 
 	if ( ! pFnGripDebugViewNPCFromBrainID )
-		pFnGripDebugViewNPCFromBrainID = (UFunction*) UObject::GObjObjects()->Data[ 41079 ];
+		pFnGripDebugViewNPCFromBrainID = (UFunction*) UObject::GObjObjects()->Data[ 41086 ];
 
 	AGripDebugCameraController_execGripDebugViewNPCFromBrainID_Parms GripDebugViewNPCFromBrainID_Parms;
+	GripDebugViewNPCFromBrainID_Parms.BrainID = BrainID;
 
-	this->ProcessEvent ( pFnGripDebugViewNPCFromBrainID, &GripDebugViewNPCFromBrainID_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnGripDebugViewNPCFromBrainID, &GripDebugViewNPCFromBrainID_Parms, NULL );
 };
 
 // Function Grip.GripDebugCameraController.PostBeginPlay
@@ -1146,11 +1317,11 @@ void AGripDebugCameraController::eventPostBeginPlay ( )
 	static UFunction* pFnPostBeginPlay = NULL;
 
 	if ( ! pFnPostBeginPlay )
-		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 41077 ];
+		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 41084 ];
 
 	AGripDebugCameraController_eventPostBeginPlay_Parms PostBeginPlay_Parms;
 
-	this->ProcessEvent ( pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostBeginPlay, &PostBeginPlay_Parms, NULL );
 };
 
 // Function Grip.GripDebugCameraHUD.PostRender
@@ -1162,59 +1333,94 @@ void AGripDebugCameraHUD::eventPostRender ( )
 	static UFunction* pFnPostRender = NULL;
 
 	if ( ! pFnPostRender )
-		pFnPostRender = (UFunction*) UObject::GObjObjects()->Data[ 41084 ];
+		pFnPostRender = (UFunction*) UObject::GObjObjects()->Data[ 41091 ];
 
 	AGripDebugCameraHUD_eventPostRender_Parms PostRender_Parms;
 
-	this->ProcessEvent ( pFnPostRender, &PostRender_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnPostRender, &PostRender_Parms, NULL );
 };
 
 // Function Grip.GripDebugCameraInput.InputKey
 // [0x00024002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// int                            ControllerId                   ( CPF_Parm )
+// struct FName                   Key                            ( CPF_Parm )
+// unsigned char                  Event                          ( CPF_Parm )
+// float                          AmountDepressed                ( CPF_OptionalParm | CPF_Parm )
+// unsigned long                  bGamepad                       ( CPF_OptionalParm | CPF_Parm )
 
-void UGripDebugCameraInput::InputKey ( )
+bool UGripDebugCameraInput::InputKey ( int ControllerId, struct FName Key, unsigned char Event, float AmountDepressed, unsigned long bGamepad )
 {
 	static UFunction* pFnInputKey = NULL;
 
 	if ( ! pFnInputKey )
-		pFnInputKey = (UFunction*) UObject::GObjObjects()->Data[ 41087 ];
+		pFnInputKey = (UFunction*) UObject::GObjObjects()->Data[ 41094 ];
 
 	UGripDebugCameraInput_execInputKey_Parms InputKey_Parms;
+	InputKey_Parms.ControllerId = ControllerId;
+	memcpy ( &InputKey_Parms.Key, &Key, 0x8 );
+	InputKey_Parms.Event = Event;
+	InputKey_Parms.AmountDepressed = AmountDepressed;
+	InputKey_Parms.bGamepad = bGamepad;
 
-	this->ProcessEvent ( pFnInputKey, &InputKey_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInputKey, &InputKey_Parms, NULL );
+
+	return InputKey_Parms.ReturnValue;
 };
 
 // Function Grip.GripPlayerInput.ProcessKey
 // [0x00022002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// class APlayerController*       OwnerCtrl                      ( CPF_Parm )
+// struct FName                   Key                            ( CPF_Parm )
+// unsigned char                  Event                          ( CPF_Parm )
 
-void UGripPlayerInput::ProcessKey ( )
+bool UGripPlayerInput::ProcessKey ( class APlayerController* OwnerCtrl, struct FName Key, unsigned char Event )
 {
 	static UFunction* pFnProcessKey = NULL;
 
 	if ( ! pFnProcessKey )
-		pFnProcessKey = (UFunction*) UObject::GObjObjects()->Data[ 41105 ];
+		pFnProcessKey = (UFunction*) UObject::GObjObjects()->Data[ 41112 ];
 
 	UGripPlayerInput_execProcessKey_Parms ProcessKey_Parms;
+	ProcessKey_Parms.OwnerCtrl = OwnerCtrl;
+	memcpy ( &ProcessKey_Parms.Key, &Key, 0x8 );
+	ProcessKey_Parms.Event = Event;
 
-	this->ProcessEvent ( pFnProcessKey, &ProcessKey_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnProcessKey, &ProcessKey_Parms, NULL );
+
+	return ProcessKey_Parms.ReturnValue;
 };
 
 // Function Grip.GripPlayerInput.InputKey
 // [0x00024002] 
 // Parameters infos:
+// bool                           ReturnValue                    ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+// int                            ControllerId                   ( CPF_Parm )
+// struct FName                   Key                            ( CPF_Parm )
+// unsigned char                  Event                          ( CPF_Parm )
+// float                          AmountDepressed                ( CPF_OptionalParm | CPF_Parm )
+// unsigned long                  bGamepad                       ( CPF_OptionalParm | CPF_Parm )
 
-void UGripPlayerInput::InputKey ( )
+bool UGripPlayerInput::InputKey ( int ControllerId, struct FName Key, unsigned char Event, float AmountDepressed, unsigned long bGamepad )
 {
 	static UFunction* pFnInputKey = NULL;
 
 	if ( ! pFnInputKey )
-		pFnInputKey = (UFunction*) UObject::GObjObjects()->Data[ 41098 ];
+		pFnInputKey = (UFunction*) UObject::GObjObjects()->Data[ 41105 ];
 
 	UGripPlayerInput_execInputKey_Parms InputKey_Parms;
+	InputKey_Parms.ControllerId = ControllerId;
+	memcpy ( &InputKey_Parms.Key, &Key, 0x8 );
+	InputKey_Parms.Event = Event;
+	InputKey_Parms.AmountDepressed = AmountDepressed;
+	InputKey_Parms.bGamepad = bGamepad;
 
-	this->ProcessEvent ( pFnInputKey, &InputKey_Parms, NULL );
+	ProcessEvent ((UObject*)this, pFnInputKey, &InputKey_Parms, NULL );
+
+	return InputKey_Parms.ReturnValue;
 };
 
 
